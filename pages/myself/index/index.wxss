@@ -1,0 +1,105 @@
+.container {
+    background: #F9F9F9;
+}
+.container .user {
+    background: #FFDE4E;
+    padding: 82rpx 40rpx 148rpx 24rpx;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.container .user .avatar {
+    width: 98rpx;
+    height: 98rpx;
+    border-radius: 50%;
+    background: #DADADA;
+}
+
+.container .user .info {
+    flex: 1;
+    padding-left: 30rpx;
+    box-sizing: border-box;
+}
+
+.container .user .info .txt {
+    font-size: 32rpx;
+}
+
+.container .orders {
+    background: #fff;
+    margin: 232rpx 22rpx 0 22rpx;
+    position: relative;
+    z-index: 2;
+    border-radius: 10rpx;
+    box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
+    padding: 32rpx 22rpx 50rpx 24rpx;
+}
+
+.container .orders .title {
+    display: flex;
+    align-items: center;
+}
+
+.container .orders .title .txt {
+    color: #000;
+    font-size: 28rpx;
+    font-weight: 600;
+    flex: 1;
+}
+.container .orders .title .all {
+    display: flex;
+    align-items: center;
+}
+.container .orders .title .all .txt {
+    font-size: 20rpx;
+    color: #999999;
+    font-weight: 400;
+}
+.container .orders .title .all .right {
+    width: 22rpx;
+    height: 22rpx;
+}
+.container .orders .list {
+    display: flex;
+    align-items: center;
+    padding-top: 50rpx;
+}
+.container .orders .list .item {
+    flex: 1;
+    text-align: center;
+    font-size: 0;
+}
+.container .orders .list .item .icon {
+    width: 52rpx;
+    height: 52rpx;
+}
+.container .orders .list .item .txt {
+    color: #333333;
+    font-size: 24rpx;
+    padding-top: 25rpx;
+}
+.container .myconis {
+    margin: 36rpx 22rpx 0 22rpx;
+    border-radius: 10rpx;
+    background: #fff;
+    height: 88rpx;
+    display: flex;
+    padding: 0 26rpx;
+    align-items: center;
+}
+.container .myconis .txt {
+    flex: 1;
+    font-size: 28rpx;
+    font-weight: 600;
+}
+.container .myconis .sub .subtxt {
+    font-size: 20rpx;
+    color: #999999;
+}
+.container .myconis .sub .icon {
+    width: 18rpx;
+    height: 18rpx;
+}

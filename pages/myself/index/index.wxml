@@ -1,0 +1,42 @@
+<view class='container'>
+    <view class='user'>
+        <image src='' class='avatar'></image>
+        <view class='info'>
+            <text class='txt'>未登录</text>
+        </view>
+    </view>
+    <view class='orders'>
+        <view class='title'>
+            <text class='txt'>我的订单</text>
+            <view class='all'>
+                <text class='txt'>全部订单</text>
+                <image class='right' src='../../../static/img/right.png'></image>
+            </view>
+        </view>
+        <view class='list'>
+            <view class='item'>
+                <image src='../../../static/img/me_obligation.png' class='icon'></image>
+                <view class='txt'>待付款</view>
+            </view>
+            <view class='item'>
+                <image src='../../../static/img/me_pickup.png' class='icon'></image>
+                <view class='txt'>待使用</view>
+            </view>
+            <view class='item'>
+                <image src='../../../static/img/me_stocks.png' class='icon'></image>
+                <view class='txt'>待收货</view>
+            </view>
+            <view class='item'>
+                <image src='../../../static/img/me_estimate.png' class='icon'></image>
+                <view class='txt'>待评价</view>
+            </view>
+        </view>
+    </view>
+    <view class='myconis'>
+        <view class='txt'>我的余额</view>
+        <view class='sub'>
+            <text class='subtxt'>现金余额、电子卡等</text>
+            <image class='icon' src='../../../static/img/right.png'></image>
+        </view>
+    </view>
+</view>
