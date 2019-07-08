@@ -1,2 +1,63 @@
-<!--pages/index/index/index.wxml-->
-<text>pages/index/index/index.wxml</text>
+<view class='container'>
+    <view class='banner'>
+        <swiper class='list' autoplay circular current='{{bannerCurrent}}' bindchange='bannerChange'>
+            <swiper-item class='item' wx:for='{{swiperList}}' wx:key='{{item.id}}'>
+                <image src='{{item.imgUrl}}' class='banner-img'></image>
+            </swiper-item>
+        </swiper>
+        <view class='nums'>
+            <view class='{{item.index == index ? "active item" : "item"}}' wx:for='{{swiperList}}' wx:key='{{item.id}}'></view>
+        </view>
+    </view>
+    <view class='nav'>
+        <view class='list'>
+            <view class='item' wx:for='{{navList.list0}}'>
+                <image src='{{item.imgUrl}}' class='icon'></image>
+                <view class='txt'>{{item.txt}}</view>
+            </view>
+        </view>
+        <view class='list'>
+            <view class='item' wx:for='{{navList.list1}}'>
+                <image src='{{item.imgUrl}}' class='img'></image>
+                <view class='txt'>{{item.txt}}</view>
+            </view>
+        </view>
+    </view>
+    <view class='favorable'>
+        <view class='top'>
+            <text class='txt'>特惠</text>
+            <text class='more'>查看更多</text>
+        </view>
+        <scroll-view class='scroll' scroll-x>
+            <view class='list'>
+                <view class='item' wx:for='{{favorableList}}'>
+                    <image src='{{item.imgUrl}}' class='img'></image>
+                    <view class='title'>{{item.title}}</view>
+                    <view class='subtitle'>{{item.subtitle}}</view>
+                    <view class='price'>
+                        <text class='newprice'><text class='f'>￥</text>{{item.newprice}}</text>
+                        <text class='oldprice'>￥{{item.oldprice}}</text>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <view class='recommend'>
+        <view class='title'>推荐商家</view>
+        <view class='item' wx:for='{{recommendList}}'>
+            <image src='{{item.img}}' class='img'></image>
+            <view class='desc'>
+                <view class='top'>
+                    <text class='seller'>{{item.name}}</text>
+                </view>
+                <view class='sub'>
+                    <text class='txt0'>{{item.leixing}}</text>|<text class='txt1'>人气{{item.rq}}</text>
+                </view>
+                <view class='tab'>
+                    <text  wx:for='{{item.tab}}' class='tabli'>{{item}}</text>
+                </view>
+            </view>
+            <view class='addr'>{{item.addr}}</view>
+        </view>
+    </view>
+</view>

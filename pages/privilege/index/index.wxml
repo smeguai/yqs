@@ -1,2 +1,15 @@
-<!--pages/privilege/index/index.wxml-->
-<text>pages/privilege/index/index.wxml</text>
+<view class='container'>
+    <view class='banner'>
+        <swiper class='swipper'>
+            <swiper-item class='item'>
+                <image src='' class='img'></image>
+            </swiper-item>
+        </swiper>
+        <view class='nums'></view>
+    </view>
+    <view class='nearbywelfare'>
+        <view class='top'>
+            <view class='heartxt'>附近好券</view>
+        </view>
+    </view>
+</view>

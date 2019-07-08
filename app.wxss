@@ -1,4 +1,5 @@
 .container {
   height: 100vh;
   color: #333;
+  background: #F8F8F8;
 } 
