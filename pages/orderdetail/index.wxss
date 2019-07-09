@@ -1,0 +1,181 @@
+.container {
+    position: relative;
+}
+.container .tips {
+    height: 268rpx;
+    padding: 40rpx 48rpx;
+    box-sizing: border-box;
+    background: #FFDE4E;
+}
+.container .tips .content {
+    font-weight: 500;
+    font-size: 36rpx;
+}
+.container .tips .subtxt {
+    color: #666666;
+    font-size: 28rpx;
+}
+.container .main {
+    position: absolute;
+    top: 160rpx;
+    left: 0;
+    right: 0;
+    padding: 0 24rpx 98rpx 24rpx;
+    box-sizing: border-box;
+}
+.container .main .section {
+    background: #fff;
+    border-radius: 10rpx;
+    box-shadow: 0 0 10rpx 0 rgba(0,0,0,.2);
+    padding: 26rpx 24rpx 34rpx 24rpx;
+    box-sizing: border-box;
+    margin-bottom: 20rpx;
+}
+.container .main .userinfo .top {
+    display: flex;
+    align-items: center;
+}
+.container .main .userinfo .top .avatar {
+    width: 36rpx;
+    height: 36rpx;
+    border-radius: 50%;
+    background: red;
+}
+.container .main .userinfo .top .name {
+    font-size: 24rpx;
+    padding-left: 18rpx;
+}
+.container .main .userinfo .info {
+    display: flex;
+    align-items: center;
+}
+.container .main .userinfo .info .lf {
+    font-size: 28rpx;
+    display: flex;
+    padding-top: 34rpx;
+    flex: 1;
+}
+.container .main .userinfo .info .lf .usertel {
+    padding-left: 24rpx;
+    flex: 1;
+}
+.container .main .userinfo .info .rt .shu {
+    margin: 0 32rpx;
+    width: 2rpx;
+    height: 24rpx;
+    background: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+}
+.container .main .userinfo .info .rt .telicon {
+    width: 20rpx;
+    height: 20rpx;
+    background: red;
+}
+.container .main .userinfo .info .rt .addrsicon {
+    width: 20rpx;
+    height: 20rpx;
+    background: red;
+}
+.container .main .userinfo .addrs {
+    color: #666666;
+    font-size: 24rpx;
+    padding-top: 14rpx;
+}
+
+.container .main .list .item {
+    display: flex;
+    padding-bottom: 20rpx;
+}
+.container .main .list .item .img {
+    width: 158rpx;
+    height: 158rpx;
+    border-radius: 6rpx;
+}
+.container .main .list .item .info {
+    padding-left: 20rpx;
+    box-sizing: border-box;
+    flex: 1;
+    width: 0;
+}
+.container .main .list .item .info .name {
+    font-size: 28rpx;
+    font-weight: 500;
+}
+.container .main .list .item .info .subname {
+    font-size: 24rpx;
+    color: #666;
+}
+.container .main .list .item .info .block {
+    display: flex;
+}
+.container .main .list .item .info .block .price {
+    flex: 1;
+    font-size: 32rpx;
+}
+.container .main .list .item .info .block .price .oldprice {
+    font-size: 20rpx;
+    color: #999;
+    padding-left: 10rpx;
+}
+.container .main .list .item .info .block .count {
+    font-size: 24rpx;
+    color: #999;
+}
+.container .main .list .total {
+    border-top: 1rpx solid #F5F5F5;
+    padding-top: 28rpx;
+    display: flex;
+}
+.container .main .list .total .txt {
+    font-size: 24rpx;
+    flex: 1;
+}
+.container .main .list .total .price {
+    font-size: 28rpx;
+    color: #FF6600;
+    font-weight: 500;
+}
+
+.container .orderinfo .title {
+    font-size: 28rpx;
+    border-bottom: 1rpx solid #F5F5F5;
+    padding-bottom: 26rpx;
+}
+.container .orderinfo .qa {
+    padding-top: 30rpx;
+    font-size: 24rpx;
+}
+.container .orderinfo .qa .txt {
+    color: #999;
+    padding-left: 30rpx;
+}
+.container .btns {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 98rpx;
+    display: flex;
+    padding: 0 24rpx;
+    box-sizing: border-box;
+    background: #fff;
+    align-items: center;
+}
+.container .btns .btn {
+    text-align: center;
+    font-size: 32rpx;
+    flex: 1;
+    height: 74rpx;
+    box-sizing: border-box;
+    line-height: 74rpx;
+}
+.container .btns .btn0 {
+    border: 1rpx solid #bfbfbf;
+    border-radius: 38rpx 0 0 38rpx;
+    color: #bfbfbf;
+}
+.container .btns .btn1 {
+    background: #FFDE4E;
+    border-radius: 0 38rpx 38rpx 0;
+}

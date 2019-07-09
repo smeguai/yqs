@@ -8,27 +8,15 @@
     <view class='orders'>
         <view class='title'>
             <text class='txt'>我的订单</text>
-            <view class='all'>
+            <view class='all' data-cate='0' bindtap='handleClickOrder'>
                 <text class='txt'>全部订单</text>
                 <image class='right' src='../../../static/img/right.png'></image>
             </view>
         </view>
         <view class='list'>
-            <view class='item'>
-                <image src='../../../static/img/me_obligation.png' class='icon'></image>
-                <view class='txt'>待付款</view>
-            </view>
-            <view class='item'>
-                <image src='../../../static/img/me_pickup.png' class='icon'></image>
-                <view class='txt'>待使用</view>
-            </view>
-            <view class='item'>
-                <image src='../../../static/img/me_stocks.png' class='icon'></image>
-                <view class='txt'>待收货</view>
-            </view>
-            <view class='item'>
-                <image src='../../../static/img/me_estimate.png' class='icon'></image>
-                <view class='txt'>待评价</view>
+            <view class='item' wx:for='{{OrderCate}}' bindtap='handleClickOrder'>
+                <image src='{{item.icon}}' class='icon'></image>
+                <view class='txt'>{{item.txt}}</view>
             </view>
         </view>
     </view>

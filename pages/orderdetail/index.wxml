@@ -1,0 +1,58 @@
+<view class='container'>
+    <view class='tips'>
+        <view class='content'>等待买家付款</view>
+        <view class='subtxt'>订单24小时后将自动关闭</view>
+    </view>
+    <view class='main'>
+        <view class='userinfo section'>
+            <view class='top'>
+                <image class='avatar' src='{{orderDesc.avatar}}'></image>
+                <text class='name'>{{orderDesc.seller}}</text>
+            </view>
+            <view class='info'>
+                <view class='lf'>
+                    <view class='username'>{{orderDesc.sellers}}</view>
+                    <view class='usertel'>{{orderDesc.sellerTel}}</view>
+                </view>
+                <view class='rt'>
+                    <image class='telicon' src=''></image>
+                    <text class='shu'></text>
+                    <image class='addrsicon' src=''></image>
+                </view>
+            </view>
+            <text class='addrs'>{{orderDesc.sellerAddrs}}</text>
+        </view>
+        <view class='list section'>
+            <view class='item' wx:for='{{orderDesc.list}}'>
+                <image class='img' src='{{item.imgUrl}}'></image>
+                <view class='info'>
+                    <view class='name str'>{{item.title}}</view>
+                    <view class='subname str'>{{item.subtitle}}</view>
+                    <view class='block'>
+                        <view class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.oldprice}}</text></view>
+                        <view class='count'>X{{item.count}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class='total'>
+                <text class='txt'>需付</text>
+                <text class='price'>￥{{listTotal}}</text>
+            </view>
+        </view>
+        <view class='section orderinfo'>
+            <view class='title'>订单信息</view>
+            <view class='qa'>交易单号<text class='txt'>20190706156246</text></view>
+            <view class='qa'>创建时间<text class='txt'>2019-07-04 15:48:36</text></view>
+        </view>
+        <view class='section orderinfo'>
+            <view class='title'>用户信息</view>
+            <view class='qa'>联系姓名<text class='txt'>李小生</text></view>
+            <view class='qa'>联系电话<text class='txt'>15264865565</text></view>
+            <view class='qa'>留言备注<text class='txt'>先打包，晚点过去拿</text></view>
+        </view>
+    </view>
+    <view class='btns'>
+        <view class='btn0 btn'>取消订单</view>
+        <view class='btn1 btn'>继续付款</view>
+    </view>
+</view>

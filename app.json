@@ -1,8 +1,10 @@
 {
     "pages": [
         "pages/privilege/index/index",
-        "pages/index/index/index",
-        "pages/myself/index/index"
+        "pages/myself/index/index",
+        "pages/orders/index",
+        "pages/orderdetail/index",
+        "pages/index/index/index"
     ],
     "window": {
         "backgroundTextStyle": "light",

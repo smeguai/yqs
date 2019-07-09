@@ -1,0 +1,58 @@
+<view class='container'>
+    <view class='nav'>
+        <view class='item' wx:for='{{navList}}' data-id='{{item.id}}' wx:key='{{item.id}}' bindtap='navItemClick'>
+            <text class='{{navIdx == item.id ? "active txt" : "txt"}}'>{{item.txt}}</text>
+        </view>
+    </view>
+    <view class='list'>
+        <view class='item' wx:for='{{list}}' wx:key='{{index}}' bindtap='checkOrderDesc'>
+            <view class='top'>
+                <image class='avatar' src='{{item.avatar}}'></image>
+                <text class='name str'>{{item.name}}</text>
+                <text class='cate'>{{navMode[item.cate]}}</text>
+            </view>
+            <view class='desc'>
+                <image class='img' src='{{item.imgUrl}}'></image>
+                <view class='info'>
+                    <view class='title strmore'>{{item.title}}</view>
+                    <view class='subtitle'>{{item.subtitle}}</view>
+                    <view class='bot'>
+                        <view class='price'>￥{{item.price}}
+                            <text class='oldprice del'>￥{{item.oldprice}}</text>
+                        </view>
+                        <text class='count'>×{{item.count}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class='handle'>
+                <view class='txt'>实付：
+                    <text class='price'>￥{{item.pay}}</text>
+                </view>
+                <view class='btns' wx:if='{{item.cate == 0}}'>
+                    <text class='btnitem0 btn' catchtap='cancelOrder'>取消订单</text>
+                    <text class='btnitem0 btn'>查看详情</text>
+                    <text class='btnitem1 btn'>继续付款</text>
+                </view>
+                <view class='btns' wx:if='{{item.cate == 1}}'>
+                    <text class='btnitem0 btn'>查看详情</text>
+                    <text class='btnitem1 btn'>电子凭证</text>
+                </view>
+                <view class='btns' wx:if='{{item.cate == 2}}'>
+                    <text class='btnitem0 btn'>查看详情</text>
+                    <text class='btnitem1 btn'>评价</text>
+                </view>
+                <view class='btns' wx:if='{{item.cate == 3 || item.cate == 4}}'>
+                    <text class='btnitem0 btn'  catchtap='cancelOrder'>删除订单</text>
+                    <text class='btnitem0 btn'>查看详情</text>
+                </view>
+                <view class='btns' wx:if='{{item.cate == 5}}'>
+                    <text class='btnitem0 btn' catchtap='cancelOrder'>删除订单</text>
+                    <text class='btnitem0 btn'>再次购买</text>
+                </view>
+                <view class='btns' wx:if='{{item.cate == 6}}'>
+                    <text class='btnitem1 btn'>确认收货</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

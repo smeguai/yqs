@@ -1,1 +1,35 @@
-/* pages/privilege/index/index.wxss */
+.container {
+    background: #fff;
+}
+.container .section {
+}
+.container .section .top {
+    display: flex;
+    padding: 20rpx 24rpx;
+}
+.container .section .top .heartxt {
+    flex: 1;
+    font-size: 32rpx;
+}
+.container .section .top .tabnav {
+    border: 1rpx solid #FDE223;
+    display: flex;
+    align-items: center;
+    border-radius: 20rpx;
+    height: 48rpx;
+    padding: 0 1rpx;
+    box-sizing: border-box;
+}
+.container .section .top .tabnav .btn {
+    font-size: 24rpx;
+    padding: 0 20rpx;
+    height: 44rpx;
+    line-height: 44rpx;
+}
+.container .section .top .tabnav .hotsale {
+    border-radius: 0 20rpx 20rpx 0;
+}
+.container .section .top .tabnav .recommend {
+    border-radius: 20rpx 0 0 20rpx;
+    background: #FDE223;
+}

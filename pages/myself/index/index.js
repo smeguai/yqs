@@ -1,3 +1,4 @@
+const app = getApp()
 // pages/myself/index/index.js
 Page({
 
@@ -5,14 +6,23 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        OrderCate: [{ icon: '../../../static/img/me_obligation.png', txt: '待付款' }, { icon: '../../../static/img/me_pickup.png', txt: '待使用' }, { icon: '../../../static/img/me_stocks.png', txt: '待收货' }, { icon: '../../../static/img/me_estimate.png', txt: '待评价' }]
     },
-
+    handleClickOrder(e) {
+        if (app.globalData.onLine) {
+            wx.showToast({
+                title: '还未登录账号',
+                icon: 'none'
+            })
+        }
+        wx.navigateTo({
+            url: '../../orders/index'
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
     },
 
     /**

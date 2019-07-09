@@ -1,0 +1,122 @@
+.container .nav {
+    height: 80rpx;
+    line-height: 80rpx;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #F6F6F6;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    display: flex;
+}
+.container .nav .item {
+    flex: 1;
+    display: inline-block;
+    font-size: 24rpx;
+    text-align: center;
+}
+.container .nav .item .txt {
+    transition:  all .6s;
+    padding-bottom: 18rpx;
+    border-bottom: 4rpx solid #fff;
+}
+.container .nav .item .active {
+    font-weight: 600;
+    border-bottom: 4rpx solid #FFCC33;
+}
+.container .list .item {
+    background: #fff;
+    margin-bottom: 20rpx;
+    padding: 30rpx 24rpx;
+}
+.container .list .item .top {
+    display: flex;
+    font-size: 24rpx;
+    align-items: center;
+    justify-content: center;
+}
+.container .list .item .top .avatar {
+    width: 28rpx;
+    height: 28rpx;
+    border-radius: 100%;
+    background: #ccc;
+}
+.container .list .item .top .name {
+    padding: 0 20rpx;
+    flex: 1;
+    box-sizing: border-box;
+    width: 0;
+}
+.container .list .item .top .cate {
+    color: #FF6600;
+}
+.container .list .item .desc {
+    display: flex;
+    align-items: center;
+    padding: 28rpx 0;
+    box-sizing: border-box;
+    border-bottom: 1rpx solid #F6F6F6;
+}
+.container .list .item .desc .img {
+    border-radius: 6rpx;
+    width: 158rpx;
+    height: 158rpx;
+}
+.container .list .item .desc .info {
+    padding-left: 24rpx;
+    box-sizing: border-box;
+    flex: 1;
+}
+.container .list .item .desc .info .title {
+    font-size: 28rpx;
+}
+.container .list .item .desc .info .subtitle {
+    font-size: 20rpx;
+    color: #999;
+}
+.container .list .item .desc .info .bot {
+    display: flex;
+    align-items: center;
+}
+.container .list .item .desc .info .bot .price {
+    flex: 1;
+    font-size: 32rpx;
+}
+.container .list .item .desc .info .bot .price .oldprice {
+    font-size: 24rpx;
+    color: #999;
+    padding-left: 10rpx;
+}
+.container .list .item .desc .info .bot .count {
+    font-size: 24rpx;
+    color: #999;
+}
+.container .list .item .handle {
+    display: flex;
+    padding-top: 20rpx;
+}
+.container .list .item .handle .txt {
+    font-size: 28rpx;
+    flex: 1;
+}
+.container .list .item .handle .txt .price {
+    color: #FF6600;
+}
+.container .list .item .handle .btns .btn {
+    font-size: 24rpx;
+    border-radius: 24rpx;
+    height: 48rpx;
+    line-height: 48rpx;
+    width: 128rpx;
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 20rpx;
+}
+.container .list .item .handle .btns .btnitem0 {
+    border: 1rpx solid #999;
+    color: #999;
+}
+.container .list .item .handle .btns .btnitem1 {
+    background: #FFDE4E;
+    color: #000;
+}
