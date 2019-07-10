@@ -1,10 +1,13 @@
 {
     "pages": [
-        "pages/privilege/index/index",
-        "pages/myself/index/index",
+        "pages/index/index",
+        "pages/privilege/index",
+        "pages/seckill/index",
+        "pages/fooddrink/index",
+        "pages/coupon/index",
+        "pages/myself/index",
         "pages/orders/index",
-        "pages/orderdetail/index",
-        "pages/index/index/index"
+        "pages/orderdetail/index"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -20,19 +23,19 @@
         "backgroundColor": "#fff",
         "list": [
             {
-                "pagePath": "pages/index/index/index",
+                "pagePath": "pages/index/index",
                 "text": "首页",
                 "iconPath": "static/img/index.png",
                 "selectedIconPath": "static/img/index_active.png"
             },
             {
-                "pagePath": "pages/privilege/index/index",
+                "pagePath": "pages/privilege/index",
                 "text": "优惠",
                 "iconPath": "static/img/privilege.png",
                 "selectedIconPath": "static/img/privilege_active.png"
             },
             {
-                "pagePath": "pages/myself/index/index",
+                "pagePath": "pages/myself/index",
                 "text": "我的",
                 "iconPath": "static/img/me.png",
                 "selectedIconPath": "static/img/me_active.png"

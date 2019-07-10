@@ -1,0 +1,42 @@
+.container {
+    padding: 0 24rpx;
+    background: #fff;
+}
+
+.container .search {
+    background: #f4f4f4;
+    border-radius: 24rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 30rpx;
+    margin: 28rpx 0;
+}
+
+.container .search .icon {
+    width: 24rpx;
+    height: 24rpx;
+}
+
+.container .search .ipt {
+    flex: 1;
+    font-size: 24rpx;
+    padding-left: 24rpx;
+}
+
+.container .nav {
+    display: flex;
+    height: 60rpx;
+    line-height: 60rpx;
+}
+
+.container .nav .nav-item {
+    flex: 1;
+    font-size: 32rpx;
+    font-weight: 500;
+    text-align: center;
+}
+
+.container .nav .nav-item.active .txt {
+    border-bottom: 4rpx solid #ffde4e;
+    display: inline-block;
+}

@@ -1,0 +1,287 @@
+.container {
+    background: #fff;
+}
+
+.container .banner .swipper {
+    padding: 0 24rpx;
+    height: 200rpx;
+}
+
+.container .banner .nums {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14rpx 0;
+}
+
+.container .banner .nums .num-item {
+    width: 10rpx;
+    height: 10rpx;
+    background: #e9e9e9;
+    border-radius: 10rpx;
+    margin: 0 6rpx;
+}
+
+.container .banner .nums .num-item.active {
+    background: #ffde4e;
+    width: 20rpx;
+}
+
+.container .banner .swipper .item .img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10rpx;
+}
+
+.container .section .top {
+    display: flex;
+    padding: 20rpx 24rpx;
+}
+
+.container .section .top .heartxt {
+    flex: 1;
+    font-size: 32rpx;
+    font-weight: bold;
+}
+
+.container .section .top .tabnav {
+    border: 1rpx solid #fde223;
+    display: flex;
+    align-items: center;
+    border-radius: 20rpx;
+    height: 48rpx;
+    padding: 0 1rpx;
+    box-sizing: border-box;
+}
+
+.container .section .top .tabnav .btn {
+    font-size: 24rpx;
+    padding: 0 20rpx;
+    height: 44rpx;
+    line-height: 44rpx;
+}
+
+.container .section .top .tabnav .hotsale {
+    border-radius: 0 20rpx 20rpx 0;
+}
+
+.container .section .top .tabnav .recommend {
+    border-radius: 20rpx 0 0 20rpx;
+    background: #fde223;
+}
+
+.container .section .list-wrapper .list {
+    padding: 10rpx 0 10rpx 24rpx;
+}
+
+.container .section .list-wrapper .list .item .avatar {
+    width: 110rpx;
+    height: 110rpx;
+    border-radius: 6rpx;
+}
+.container .section .list-wrapper .list .item .main {
+    display: flex;
+    flex-wrap: wrap;
+}
+.container .section .list-wrapper .list .item .main .info {
+    padding-left: 28rpx;
+    flex: 1;
+}
+
+.container .section .list-wrapper .list .item .main .info .top {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.container .section .list-wrapper .list .item .main .info .top .name {
+    font-size: 28rpx;
+    font-weight: bold;
+}
+
+.container .section .list-wrapper .list .item .main .info .top .ckbox {
+    padding: 4rpx 8rpx;
+    border-radius: 4rpx;
+    font-size: 20rpx;
+    margin-left: 14rpx;
+    font-weight: bold;
+}
+
+.container .section .list-wrapper .list .item .main .info .top .ckbox.lm {
+    background: #ffcd06;
+    color: #442113;
+}
+
+.container .section .list-wrapper .list .item .main .info .top .ckbox.pp {
+    background: #1d72b4;
+    color: #fff;
+}
+
+.container .section .list-wrapper .list .item .main .info .tag {
+    display: flex;
+    padding-top: 10rpx;
+}
+
+.container .section .list-wrapper .list .item .main .info .tag .tagitem {
+    font-size: 20rpx;
+    padding: 6rpx 12rpx;
+    border-radius: 6rpx;
+    border: 1rpx solid red;
+    margin-right: 16rpx;
+}
+
+.container .section .list-wrapper .list .item .main .info .middel {
+    display: flex;
+    align-items: center;
+    font-size: 20rpx;
+    color: #666;
+    padding: 4rpx 0;
+}
+
+.container .section .list-wrapper .list .item .main .info .middel text {
+    padding: 0 16rpx;
+}
+
+.container .section .list-wrapper .list .item .main .info .middel .dis {
+    text-align: right;
+    flex: 1;
+}
+
+.container .section .list-wrapper .list .item .ticket {
+    padding-top: 20rpx;
+    padding-left: 140rpx;
+    box-sizing: border-box;
+}
+.container .section .list-wrapper .list .item .ticket .block {
+    display: flex;
+}
+.container .section .list-wrapper .list .item .ticket .block .ticketitem {
+    flex: 0 0 240rpx;
+    height: 234rpx;
+    box-sizing: border-box;
+    margin-right: 24rpx;
+    text-align: center;
+    border: 1rpx solid #ffe574;
+    border-radius: 4rpx;
+    display: block;
+    position: relative;
+}
+.container .section .list-wrapper .list .item .ticket .block .ticketitem::before {
+    position: absolute;
+    left: -15rpx;
+    top: 40rpx;
+    content: '';
+    width: 40rpx;
+    height: 40rpx;
+    border-right: 1rpx solid #FFE574;
+    border-bottom: 1rpx solid #FFE574;
+    border-radius: 50%;
+    background: #fff;
+    transform: rotate(-45deg);
+}
+.container .section .list-wrapper .list .item .ticket .block .ticketitem::after {
+    position: absolute;
+    right: -15rpx;
+    top: 40rpx;
+    content: '';
+    width: 40rpx;
+    height: 40rpx;
+    border-left: 1rpx solid #FFE574;
+    border-bottom: 1rpx solid #FFE574;
+    border-radius: 50%;
+    background: #fff;
+    transform: rotate(45deg);
+}
+.container .section .list-wrapper .list .item .ticket .ticketitem .title {
+    font-size: 24rpx;
+    font-weight: bold;
+    padding: 20rpx 0 14rpx 0;
+    border-bottom: 2rpx dashed #eaac06;
+    box-sizing: border-box;
+}
+.container .section .list-wrapper .list .item .ticket .ticketitem .price {
+    color: #FF6600;
+    font-size: 48rpx;
+    font-weight: bold;
+}
+.container .section .list-wrapper .list .item .ticket .ticketitem .txt {
+    color: #666666;
+    font-size: 20rpx;
+}
+.container .section .list-wrapper .list .item .ticket .ticketitem .btn {
+    background: #FFDE4E;
+    border-radius: 20rpx;
+    width: 120rpx;
+    height: 38rpx;
+    line-height: 38rpx;
+    text-align: center;
+    font-size: 20rpx;
+    margin: 16rpx auto 0 auto;
+}
+.container .section .lists {
+    padding: 0 24rpx;
+}
+.container .section .lists .item {
+    padding: 24rpx 0; 
+}
+.container .section .lists .item .lists-img {
+    height: 310rpx;
+    width: 100%;
+}
+.container .section .lists .item .opera {
+    display: flex;
+    align-items: center;
+}
+.container .section .lists .item .opera .lf {
+    flex: 1;
+    width: 0;
+}
+.container .section .lists .item .opera .lf .title {
+    font-size: 28rpx;
+}
+.container .section .lists .item .opera .lf .subtitle {
+    font-size: 24rpx;
+    color: #999;
+}
+.container .section .lists .item .opera .btn {
+    background: #FFDE4E;
+    width: 162rpx;
+    height: 52rpx;
+    line-height: 52rpx;
+    text-align: center;
+    border-radius: 26rpx;
+    font-size: 28rpx;
+    font-weight: bold;
+}
+.container .section .lists .item .info {
+    display: flex;
+    align-items: center;
+}
+.container .section .lists .item .info .tag {
+    color: #FF6600;
+    font-size: 20rpx;
+    width: 88rpx;
+    height: 36rpx;
+    line-height: 36rpx;
+    text-align: center;
+    border: 1rpx solid #FF6600;
+    border-radius: 18rpx;
+}
+.container .section .lists .item .info .txt {
+    font-size: 24rpx;
+    color: #FF6600;
+    flex: 1;
+    padding: 0 30rpx;
+}
+.container .section .lists .item .info .txt .price {
+    font-size: 48rpx;
+    font-weight: bold;
+}
+.container .section .lists .item .info .txt .oldprice {
+    color: #999999;
+    padding-left: 34rpx;
+}
+.container .section .lists .item .info .desc {
+    font-size: 20rpx;
+    color: #999999;
+}

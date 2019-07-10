@@ -1,3 +1,45 @@
+.container .addrs {
+    display: flex;
+    background: #fff;
+    padding: 30rpx 24rpx 36rpx 24rpx;
+}
+.container .addrs .lf {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.container .addrs .lf .addricon {
+    width: 24rpx;
+    height: 32rpx;
+}
+.container .addrs .lf .txt {
+    font-size: 32rpx;
+    color: #000;
+    padding: 0 8rpx 0 16rpx;
+}
+.container .addrs .lf .righticon {
+    width: 24rpx;
+    height: 24rpx;
+}
+.container .addrs .search {
+    display: flex;
+    width: 168rpx;
+    height: 48rpx;
+    align-items: center;
+    background: #F0F0F0;
+    border-radius: 24rpx;
+    border: 1rpx solid #E8E8E8;
+}
+.container .addrs .search .icon {
+    width: 30rpx;
+    height: 30rpx;
+    padding-left: 24rpx;
+}
+.container .addrs .search .txt {
+    color: #999;
+    font-size: 24rpx;
+    padding-left: 36rpx;
+}
 .container .banner {
     background: #fff;
 }
@@ -112,6 +154,7 @@
     color: #999999;
     position: relative;
     text-decoration:line-through;
+    padding-left: 12rpx;
 }
 .container .recommend {
     margin-top: 20rpx;

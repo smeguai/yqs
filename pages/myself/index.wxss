@@ -54,7 +54,7 @@
     align-items: center;
 }
 .container .orders .title .all .txt {
-    font-size: 20rpx;
+    font-size: 24rpx;
     color: #999999;
     font-weight: 400;
 }
@@ -96,7 +96,7 @@
     font-weight: 600;
 }
 .container .myconis .sub .subtxt {
-    font-size: 20rpx;
+    font-size: 24rpx;
     color: #999999;
 }
 .container .myconis .sub .icon {

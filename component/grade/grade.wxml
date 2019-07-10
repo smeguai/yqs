@@ -1,0 +1,3 @@
+<view class='grade'>
+    <image src='../../static/img/grade0.png' class='{{itemClass}}' wx:for='{{itemNum}}'></image>
+</view>

@@ -6,7 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        OrderCate: [{ icon: '../../../static/img/me_obligation.png', txt: '待付款' }, { icon: '../../../static/img/me_pickup.png', txt: '待使用' }, { icon: '../../../static/img/me_stocks.png', txt: '待收货' }, { icon: '../../../static/img/me_estimate.png', txt: '待评价' }]
+        OrderCate: [{ icon: '../../static/img/me_obligation.png', txt: '待付款' }, { icon: '../../static/img/me_pickup.png', txt: '待使用' }, { icon: '../../static/img/me_stocks.png', txt: '待收货' }, { icon: '../../static/img/me_estimate.png', txt: '待评价' }]
     },
     handleClickOrder(e) {
         if (app.globalData.onLine) {
@@ -16,7 +16,7 @@ Page({
             })
         }
         wx.navigateTo({
-            url: '../../orders/index'
+            url: '../orders/index'
         })
     },
     /**

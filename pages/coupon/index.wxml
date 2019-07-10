@@ -1,0 +1,37 @@
+<view class='container'>
+    <view class='search'>
+        <image src='../../static/img/search.png' class='icon'></image>
+        <input class='ipt' placeholder='搜索附近商家'></input>
+    </view>
+    <view class='list'>
+        <view class='item' wx:for='{{list}}'>
+            <image src='{{item.avatar}}' class='avatar'></image>
+            <view class='info'>
+                <view class='top'>
+                    <view class='name'>{{item.name}}</view>
+                    <view class='lm ckbox'>联盟</view>
+                    <view class='pp ckbox'>品牌</view>
+                </view>
+                <view class='middel'>
+                    <grade />
+                    <text>{{item.genre}}</text>|
+                    <text>{{item.moods}}</text>
+                    <text class='dis'>500米</text>
+                </view>
+                <view class='tag'>
+                    <view class='tagitem' wx:for='{{item.tag}}'>{{item}}</view>
+                </view>
+                <view class='activity' wx:for='{{item.activity}}'>
+                    <text class='cate tuan'>{{item.id}}</text>
+                    <text class='txt'>{{item.txt}}</text>
+                </view>
+                <view class='goods'>
+                    <view class='goodsitem' wx:for='{{item.goods}}'>
+                        <image src='{{item.imgUrl}}' class='imgurl'></image>
+                        <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.oldprice}}</text></text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

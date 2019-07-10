@@ -1,4 +1,15 @@
 <view class='container'>
+    <view class='addrs'>
+        <view class='lf'>
+            <image class='addricon' src='../../static/img/addrsicon.png'></image>
+            <text class='txt'>麓枫和苑</text>
+            <image class='righticon' src='../../static/img/righticon.png'></image>
+        </view>
+        <view class='search'>
+            <image class='icon' src='../../static/img/search.png'></image>
+            <view class='txt'>搜索</view>
+        </view>
+    </view>
     <view class='banner'>
         <swiper class='list' autoplay circular current='{{bannerCurrent}}' bindchange='bannerChange'>
             <swiper-item class='item' wx:for='{{swiperList}}' wx:key='{{item.id}}'>
@@ -17,7 +28,7 @@
             </view>
         </view>
         <view class='list'>
-            <view class='item' wx:for='{{navList.list1}}'>
+            <view class='item' wx:for='{{navList.list1}}' bindtap='navNavigate' data-id='{{item.id}}'>
                 <image src='{{item.imgUrl}}' class='img'></image>
                 <view class='txt'>{{item.txt}}</view>
             </view>
@@ -51,10 +62,11 @@
                     <text class='seller'>{{item.name}}</text>
                 </view>
                 <view class='sub'>
-                    <text class='txt0'>{{item.leixing}}</text>|<text class='txt1'>人气{{item.rq}}</text>
+                    <text class='txt0'>{{item.leixing}}</text>|
+                    <text class='txt1'>人气{{item.rq}}</text>
                 </view>
                 <view class='tab'>
-                    <text  wx:for='{{item.tab}}' class='tabli'>{{item}}</text>
+                    <text wx:for='{{item.tab}}' class='tabli'>{{item}}</text>
                 </view>
             </view>
             <view class='addr'>{{item.addr}}</view>

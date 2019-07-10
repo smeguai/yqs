@@ -1,0 +1,15 @@
+.grade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.grade .itembig {
+    width: 56rpx;
+    height: 56rpx;
+    padding: 0 20rpx;
+}
+.grade .itemmid{
+    width: 20rpx;
+    height: 20rpx;
+    padding-right: 2rpx;
+}
