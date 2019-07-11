@@ -1,5 +1,6 @@
 {
   "usingComponents": {
       "grade": "../../../component/grade/grade"
-  }
+  },
+    "navigationBarTitleText": "优惠"
 }

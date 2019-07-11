@@ -1,18 +1,13 @@
-// pages/seckill/index.js
+// pages/indexnavs/groupbuying/index.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        navCurrent: 0,
-        navList: [{id: 0, txt: '正在进行中'}, {id: 1, txt: '即将开始'}]
+
     },
-    navClick(e) {
-        this.setData({
-            navCurrent: e.currentTarget.dataset.id
-        })
-    },
+
     /**
      * 生命周期函数--监听页面加载
      */

@@ -1,6 +1,6 @@
 <view class='container'>
     <view class='search'>
-        <image src='../../static/img/search.png' class='icon'></image>
+        <image src='../../../static/img/search.png' class='icon'></image>
         <input class='ipt' placeholder='搜索附近商家'></input>
     </view>
     <view class='list'>

@@ -1,9 +1,12 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/goodsdetail/index",
+        "pages/indexnavs/askedprice/index",
+        "pages/indexnavs/seckill/index",
+        "pages/indexnavs/fooddrink/index",
+        "pages/indexnavs/groupbuying/index",
         "pages/privilege/index",
-        "pages/seckill/index",
-        "pages/fooddrink/index",
         "pages/coupon/index",
         "pages/myself/index",
         "pages/orders/index",

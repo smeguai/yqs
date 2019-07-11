@@ -15,40 +15,45 @@ Page({
         navList: {
             list0: [{
                 imgUrl: '../../static/img/index_sys.png',
-                txt: '扫一扫'
+                txt: '扫一扫',
+                id: 0
             }, {
                 imgUrl: '../../static/img/index_yhtg.png',
-                txt: '优惠团购'
+                    txt: '优惠团购',
+                    id: 1
             }, {
                 imgUrl: '../../static/img/index_fjhq.png',
-                txt: '附近好券'
+                    txt: '附近好券',
+                    id: 2
             }, {
                 imgUrl: '../../static/img/index_ms.png',
-                txt: '秒杀'
+                txt: '秒杀',
+                id: 3
             }, {
                 imgUrl: '../../static/img/index_kj.png',
-                txt: '砍价'
+                    txt: '砍价',
+                    id: 4
             }],
             list1: [{
                 imgUrl: '../../static/img/index_yyt.png',
                 txt: '电信营业厅',
-                id: 0
+                id: 5
             }, {
                 imgUrl: '../../static/img/index_xxyl.png',
                 txt: '休闲娱乐',
-                id: 0
+                id: 6
             }, {
                 imgUrl: '../../static/img/index_sc.png',
                 txt: '商超便利店',
-                id: 0
+                id: 7
             }, {
                 imgUrl: '../../static/img/index_msyp.png',
                 txt: '美食饮品',
-                id: 0
+                id: 8
             }, {
                 imgUrl: '../../static/img/index_shfw.png',
                 txt: '生活服务',
-                id: 0
+                id: 9
             }]
         },
         favorableList: [{
@@ -112,11 +117,38 @@ Page({
         let i = e.currentTarget.dataset.id
         switch(i) {
             case 0:
+                wx.scanCode({
+                    onlyFromCamera: true,
+                    scanType: 'qrCode',
+                    success: () => {
+                        console.log('done')
+                    },
+                    fail: () => {
+                        console.log('err')
+                    }
+                })
+            break;
+            case 3:
                 wx.navigateTo({
-                    url: '../fooddrink/index'
+                    url: '../indexnavs/seckill/index'
+                })
+            break;
+            case 4:
+                wx.navigateTo({
+                    url: '../indexnavs/askedprice/index'
+                })
+            break;
+            case 8:
+                wx.navigateTo({
+                    url: '../indexnavs/fooddrink/index'
                 })
             break;
         }
+    },
+    goodsItemClick() {
+        wx.navigateTo({
+            url: '../goodsdetail/index',
+        })
     },
     /**
      * 生命周期函数--监听页面加载

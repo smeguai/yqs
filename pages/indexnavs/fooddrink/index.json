@@ -1,6 +1,6 @@
 {
     "usingComponents": {
-        "grade": "../../component/grade/grade"
+        "grade": "../../../component/grade/grade"
     },
     "navigationBarTitleText": "美食饮品"
 }

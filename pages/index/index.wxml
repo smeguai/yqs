@@ -5,7 +5,7 @@
             <text class='txt'>麓枫和苑</text>
             <image class='righticon' src='../../static/img/righticon.png'></image>
         </view>
-        <view class='search'>
+        <view class='search-wrapper'>
             <image class='icon' src='../../static/img/search.png'></image>
             <view class='txt'>搜索</view>
         </view>
@@ -22,7 +22,7 @@
     </view>
     <view class='nav'>
         <view class='list'>
-            <view class='item' wx:for='{{navList.list0}}'>
+            <view class='item' wx:for='{{navList.list0}}' bindtap='navNavigate' data-id='{{item.id}}'>
                 <image src='{{item.imgUrl}}' class='icon'></image>
                 <view class='txt'>{{item.txt}}</view>
             </view>
@@ -41,7 +41,7 @@
         </view>
         <scroll-view class='scroll' scroll-x>
             <view class='list'>
-                <view class='item' wx:for='{{favorableList}}'>
+                <view class='item' wx:for='{{favorableList}}' bindtap='goodsItemClick'>
                     <image src='{{item.imgUrl}}' class='img'></image>
                     <view class='title'>{{item.title}}</view>
                     <view class='subtitle'>{{item.subtitle}}</view>

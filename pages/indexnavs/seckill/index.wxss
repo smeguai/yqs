@@ -1,0 +1,109 @@
+.container {
+    padding: 0 24rpx;
+    background: #fff;
+}
+
+.container .nav {
+    display: flex;
+    height: 60rpx;
+    line-height: 60rpx;
+}
+
+.container .nav .nav-item {
+    flex: 1;
+    font-size: 32rpx;
+    font-weight: 500;
+    text-align: center;
+}
+
+.container .nav .nav-item.active .txt {
+    border-bottom: 4rpx solid #ffde4e;
+    display: inline-block;
+}
+.container .list .list-item {
+    border-bottom: 1rpx solid #F6F6F6;
+    padding: 18rpx 0 30rpx 0;
+}
+.container .list .list-item .top {
+    display: flex;
+}
+.container .list .list-item .top .icon {
+    width: 24rpx;
+    height: 22rpx;
+}
+.container .list .list-item .top .sellername {
+    font-size: 24rpx;
+    padding-left: 20rpx;
+    flex: 1;
+}
+.container .list .list-item .top .dis {
+    font-size: 22rpx;
+}
+.container .list .list-item .tags {
+    display: flex;
+    padding-top: 14rpx;
+}
+.container .list .list-item .tags .tag-item {
+    padding: 4rpx 8rpx;
+    border-radius: 6rpx;
+    font-size: 22rpx;
+    color: #999999;
+    border: 1rpx solid #999999;
+    margin-right: 16rpx;
+}
+.container .list .list-item .info {
+    display: flex;
+    padding-top: 24rpx;
+}
+.container .list .list-item .info .avart {
+    width: 188rpx;
+    height: 188rpx;
+    border-radius: 6rpx;
+}
+.container .list .list-item .info .desc {
+    flex: 1;
+    padding-left: 28rpx;
+    box-sizing: border-box;
+}
+.container .list .list-item .info .desc .goodsname {
+    font-size: 32rpx;
+    font-weight: 500;
+}
+.container .list .list-item .info .desc .date {
+    font-size: 24rpx;
+    color: #999;
+}
+.container .list .list-item .info .desc .bot {
+    display: flex;
+}
+.container .list .list-item .info .desc .bot .price {
+    font-size: 24rpx;
+    color: #FF6600;
+    flex: 1;
+}
+.container .list .list-item .info .desc .bot .price .conis {
+    font-size: 48rpx;
+    font-weight: bold;
+}
+.container .list .list-item .info .desc .bot .price .oldprice {
+    color: #999;
+    padding-left: 18rpx;
+}
+.container .list .list-item .info .desc .bot .btn {
+    width: 128rpx;
+    height: 48rpx;
+    line-height: 48rpx;
+    text-align: center;
+    background: #FFDE4E;
+    border-radius: 24rpx;
+    font-size: 24rpx;
+}
+.container .list .list-item .info .desc .counttime {
+    display: flex;
+    align-items: center;
+    padding-top: 10rpx;
+}
+.container .list .list-item .info .desc .counttime .txt {
+    font-size: 24rpx;
+    padding-left: 10rpx;
+}

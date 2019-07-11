@@ -19,3 +19,25 @@
 .del {
     text-decoration:line-through;
 }
+
+
+.container .search {
+    background: #f4f4f4;
+    border-radius: 24rpx;
+    display: flex;
+    align-items: center;
+    padding: 4rpx 30rpx;
+    margin: 28rpx 0;
+    height: 48rpx;
+}
+
+.container .search .icon {
+    width: 24rpx;
+    height: 24rpx;
+}
+
+.container .search .ipt {
+    flex: 1;
+    font-size: 26rpx;
+    padding-left: 20rpx;
+}

@@ -1,0 +1,41 @@
+<view class='container'>
+    <view class='search'>
+        <image src='../../../static/img/search.png' class='icon'></image>
+        <input class='ipt' placeholder='搜索附近商家'></input>
+    </view>
+    <view class='nav'>
+        <view class='{{navCurrent == item.id ? "nav-item active" : "nav-item"}}' wx:for='{{navList}}' bindtap='navClick' data-id='{{item.id}}'>
+            <text class='txt'>{{item.txt}}</text>
+        </view>
+    </view>
+    <view class='list'>
+        <view class='list-item' wx:for='{{list}}'>
+            <view class='top'>
+                <image src='' class='icon'></image>
+                <text class='sellername'>{{item.sellerName}}</text>
+                <text class='dis'>{{item.dis}}</text>
+            </view>
+            <view class='tags'>
+                <view class='tag-item' wx:for='{{item.tags}}'>{{item}}</view>
+            </view>
+            <view class='info'>
+                <image class='avart' src='{{item.avatar}}'></image>
+                <view class='desc'>
+                    <view class='goodsname str'>{{item.goodsname}}</view>
+                    <view class='date'>{{item.subtitle}}</view>
+                    <view class='counttime'>
+                        <countdown strTime='{{item.activityTime}}'></countdown>
+                        <view class='txt'>后结束</view>
+                    </view>
+                    <view class='bot'>
+                        <view class='price'>￥
+                            <text class='conis'>{{item.price}}</text>
+                            <text class='oldprice del'>￥{{item.oldprice}}</text>
+                        </view>
+                        <view class='btn'>马上抢</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
