@@ -1,23 +1,86 @@
+.container {
+    padding-bottom: 98rpx;
+}
 .container .banner-wrapper {
     position: relative;
 }
+
 .container .banner-wrapper .swiper .item {
     height: 480rpx;
 }
+
 .container .banner-wrapper .swiper .item .img {
     height: 100%;
     width: 100%;
 }
+
 .container .banner-wrapper .swiper .item .txt {
     position: absolute;
     bottom: 20rpx;
     right: 0;
     border-radius: 25rpx 0 0 25rpx;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, 0.4);
     font-size: 20rpx;
     color: #fff;
     padding: 8rpx 14rpx 8rpx 32rpx;
 }
+
+.container .banner-wrapper .swiper .item .anit {
+    position: absolute;
+    top: 0;
+    left: 20rpx;
+    border-radius: 24rpx;
+    background: #ffde4e;
+    font-size: 20rpx;
+    color: #fff;
+    padding: 4rpx 12rpx;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    animation: paysanition 4s ease infinite;
+}
+
+@keyframes paysanition {
+    0% {top: 90rpx;opacity: 0;}
+    30% {top: 120rpx;opacity: 1;}
+    60% {top: 120rpx;opacity: 1;}
+    100% {top: 110rpx;opacity: 0;}
+}
+
+.container .banner-wrapper .swiper .item .anit .avatar {
+    width: 44rpx;
+    height: 44rpx;
+    border-radius: 100%;
+}
+
+.container .banner-wrapper .swiper .item .anit .name {
+    padding-left: 14rpx;
+}
+
+.container .banner-wrapper .genre {
+    position: absolute;
+    left: 46rpx;
+    top: 0;
+    width: 100rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;    
+}
+.container .banner-wrapper .genre .icon {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left:0;
+    top: 0;
+    background: red;
+}
+.container .banner-wrapper .genre .txt {
+    font-size: 36rpx;
+    z-index: 2;
+    position: relative;
+    color: #fff;
+}
+
 .container .banner-wrapper .nums {
     position: absolute;
     bottom: 20rpx;
@@ -27,6 +90,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .container .banner-wrapper .nums .item {
     background: #fff;
     width: 10rpx;
@@ -34,57 +98,69 @@
     border-radius: 10rpx;
     margin: 0 4rpx;
 }
+
 .container .banner-wrapper .nums .item.active {
     width: 20rpx;
-    background: #FFDE4E;
+    background: #ffde4e;
 }
+
 .container .section {
     padding: 0 24rpx 48rpx 24rpx;
     background: #fff;
 }
+
 .container .section .name {
     font-size: 32rpx;
     font-weight: 500;
     padding-top: 32rpx;
 }
+
 .container .section .subtxt {
     font-size: 24rpx;
     padding-top: 20rpx;
 }
+
 .container .section .price {
     font-size: 52rpx;
-    color: #FF6600;
+    color: #f60;
     font-weight: bold;
     padding-top: 16rpx;
 }
+
 .container .section .price .oldprice {
     font-size: 28rpx;
     color: #999;
-    padding-left: 30rpx;
+    padding-left: 10rpx;
     font-weight: 400;
 }
+
 .container .section .invite {
-    background: #FFFBEB;
+    background: #fffbeb;
     border-radius: 10rpx;
     padding: 26rpx 30rpx 34rpx 30rpx;
     margin-top: 20rpx;
 }
+
 .container .section .invite .txt {
     font-size: 28rpx;
 }
+
 .container .section .invite .bot {
     display: flex;
     align-items: center;
 }
+
 .container .section .invite .bot .lf {
     flex: 1;
     display: flex;
 }
+
 .container .section .invite .bot .lf .blo {
     position: relative;
     width: 42rpx;
     height: 52rpx;
 }
+
 .container .section .invite .bot .lf .blo .friend {
     border-radius: 100%;
     width: 52rpx;
@@ -92,78 +168,95 @@
     border: 2rpx solid #fff;
     box-sizing: border-box;
 }
+
 .container .section .invite .bot .btn {
     padding: 14rpx 18rpx;
     font-size: 24rpx;
-    background: #FFDE4E;
+    background: #ffde4e;
     border-radius: 26rpx;
 }
+
 .container .info {
     background: #fff;
     margin-top: 20rpx;
     padding: 50rpx 24rpx;
 }
+
 .container .info .top .avatar {
     width: 98rpx;
     height: 98rpx;
     border-radius: 10rpx;
 }
+
 .container .info .top {
     padding-left: 22rpx;
     display: flex;
 }
+
 .container .info .top .mid {
     flex: 1;
     padding: 0 22rpx;
     width: 0;
 }
+
 .container .info .top .mid .name {
     font-size: 32rpx;
     font-weight: 500;
 }
-.container .info .top .mid .addrs  {
+
+.container .info .top .mid .addrs {
     font-size: 24rpx;
     color: #666;
 }
+
 .container .info .top .rt {
     display: flex;
     align-items: center;
 }
+
 .container .info .top .rt .txt {
     font-size: 24rpx;
 }
+
 .container .info .top .rt .icon {
     width: 18rpx;
     height: 18rpx;
     margin-left: 12rpx;
 }
+
 .container .info .main {
-    border-top: 1rpx solid #F8F8F8;
+    border-top: 1rpx solid #f8f8f8;
     margin-top: 30rpx;
 }
+
 .container .info .main .header {
     display: flex;
     padding: 26rpx 0;
 }
+
 .container .info .main .header .text {
     font-size: 28rpx;
-}
-.container .info .main .icon {
-    display: flex;
     flex: 1;
 }
+
+.container .info .main .icon {
+    display: flex;
+}
+
 .container .info .main .icon .addrs, .container .info .main .phone {
     width: 38rpx;
     height: 38rpx;
     margin: 0 12rpx;
 }
-.item {
+
+.container .info .main .item {
     font-size: 24rpx;
     color: #666;
     position: relative;
     padding: 4rpx 0 4rpx 16rpx;
 }
-.item::before {
+
+.container .info .main .item::before {
     position: absolute;
     left: 0;
     top: 50%;
@@ -173,4 +266,59 @@
     background: #666;
     border-radius: 100%;
     content: '';
+}
+.container .goodsdetail {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    margin-top: 20rpx;
+    padding: 24rpx 0 30rpx 0;
+    flex-wrap: wrap;
+}
+.container .goodsdetail .icon {
+    width: 228rpx;
+    height: 72rpx;
+}
+.container .goodsdetail .desc {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.container .goodsdetail .desc .img {
+    width: 100%;
+    height: 400rpx;
+}
+.container .aslid {
+    display: flex;
+    align-items: center;
+    padding: 0 24rpx;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 98rpx;
+    background: #fff;
+}
+.container .aslid .btn {
+    text-align: center;
+    padding: 0 18rpx;
+    font-size: 0;
+}
+.container .aslid .btn .icon {
+    width: 44rpx;
+    height: 44rpx;
+}
+.container .aslid .btn .txt {
+    font-size: 24rpx;
+    color: #666;
+    padding-top: 8rpx;
+}
+.container .aslid .btn1 {
+    background: #FFDE4E;
+    border-radius: 38rpx;
+    height: 74rpx;
+    line-height: 74rpx;
+    font-size: 32rpx;
+    flex: 1;
+    text-align: center;
 }

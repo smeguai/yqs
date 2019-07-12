@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+    "usingComponents": {
+        "countdown": "../../../component/countdown/index"
+    },
+    "navigationBarTitleText": "优惠团购"
 }

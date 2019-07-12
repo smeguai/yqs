@@ -28,6 +28,13 @@ App({
                 }
             }
         })
+
+        //  获取当前地理位置
+        wx.getLocation({
+            success: (res) => {
+                console.log(res.latitude, res.longitude)
+            }
+        })
     },
     globalData: {
         userInfo: null,

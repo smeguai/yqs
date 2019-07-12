@@ -128,6 +128,16 @@ Page({
                     }
                 })
             break;
+            case 1:
+                wx.navigateTo({
+                    url: '../indexnavs/groupbuying/index',
+                })
+            break;
+            case 2:
+                wx.navigateTo({
+                    url: '../indexnavs/ticket/index',
+                })
+            break;
             case 3:
                 wx.navigateTo({
                     url: '../indexnavs/seckill/index'

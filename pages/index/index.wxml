@@ -42,6 +42,7 @@
         <scroll-view class='scroll' scroll-x>
             <view class='list'>
                 <view class='item' wx:for='{{favorableList}}' bindtap='goodsItemClick'>
+                    <image class='icon' src='../../static/img/tag{{index}}.png'></image>
                     <image src='{{item.imgUrl}}' class='img'></image>
                     <view class='title'>{{item.title}}</view>
                     <view class='subtitle'>{{item.subtitle}}</view>
@@ -49,6 +50,7 @@
                         <text class='newprice'><text class='f'>￥</text>{{item.newprice}}</text>
                         <text class='oldprice'>￥{{item.oldprice}}</text>
                     </view>
+                    <view><countdown class='countdown' strTime='2019/7/14' /></view>
                 </view>
             </view>
         </scroll-view>
@@ -71,5 +73,9 @@
             </view>
             <view class='addr'>{{item.addr}}</view>
         </view>
+    </view>
+    <view class='aslid'>
+        <image src='../../static/img/share.png' class='icon'></image>
+        <view class='txt'>分享</view>
     </view>
 </view>

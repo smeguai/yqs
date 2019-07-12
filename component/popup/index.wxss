@@ -1,0 +1,110 @@
+.popup {
+    position: fixed;
+    top: 90%;
+    bottom: 98rpx;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.popup .main {
+    background: #fff;
+    min-height: 400rpx;
+}
+.popup .main .back {
+    width: 30rpx;
+    height: 30rpx;
+}
+.popup .main {
+    text-align: center;
+}
+.popup .main .header {
+    position: relative;
+}
+.popup .main .header .txt {
+    font-size: 32rpx;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+.popup .main .header .bot_color {
+    background: #FFDE4E;
+    width: 368rpx;
+    height: 22rpx;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.popup .main .list {
+    padding-top: 44rpx;
+    padding: 0 24rpx;
+}
+.popup .main .list .item {
+    padding: 32rpx 0;
+}
+.popup .main .list .item .img {
+    width: 100%;
+    height: 310rpx;
+    border-radius: 10rpx;
+}
+.popup .main .list .item .info {
+    display: flex;
+    text-align: left;
+}
+
+.popup .main .list .item .info .desc {
+    flex: 1;
+}
+.popup .main .list .item .info .desc .name {
+    font-size: 28rpx;
+}
+.popup .main .list .item .info .desc .subname {
+    color: #999999;
+    font-size: 24rpx;
+}
+.popup .main .list .item .info .btn {
+    width: 162rpx;
+    height: 52rpx;
+    border-radius: 26rpx;
+    background: #FFDE4E;
+    font-size: 28rpx;
+    font-weight: bold;
+    text-align: center;
+    line-height: 52rpx;
+}
+.popup .main .item .section {
+    display: flex;
+    align-items: center;
+}
+.popup .main .item .section .tag {
+    color: #FF6600;
+    border: 1rpx solid #FF6600;
+    border-radius: 18rpx;
+    width: 88rpx;
+    height: 36rpx;
+    text-align: center;
+    line-height: 36rpx;
+    font-size: 20rpx;
+}
+.popup .main .item .section .text {
+    color: #FF6600;
+    font-size: 24rpx;
+    flex: 1;
+    padding-left: 30rpx;
+    text-align: left;
+}
+.popup .main .item .section .text .price {
+    font-size: 48rpx;
+    font-weight: bold;
+}
+.popup .main .item .section .text .oldprice {
+    color: #999;
+    padding-left: 30rpx;
+}
+.popup .main .item .section .count {
+    font-size: 20rpx;
+    color: #999;
+}

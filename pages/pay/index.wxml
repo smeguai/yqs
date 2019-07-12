@@ -1,0 +1,41 @@
+<view class='container'>
+    <view class='bgcolor'></view>
+    <view class='main'>
+        <view class='sell section'>
+            <view class='blo'>
+                <view class='header'>商家信息</view>
+                <view class='nate'>李三 15896456256</view>
+                <view class='addrs'>长沙市岳麓区麓枫和苑8栋136号</view>
+            </view>
+            <view class='btns'>
+                <view class='btn'>
+                    <image class='icon' src=''></image>
+                    <text class='txt'>联系商家</text>
+                </view>
+                <view class='btn'>
+                    <image class='icon' src=''></image>
+                    <text class='txt'>查看定位</text>
+                </view>
+            </view>
+        </view>
+        <view class='shoping section'>
+            <view class='bloc'>
+                <image class='img' src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3973605131,2074415988&fm=27&gp=0.jpg'></image>
+                <view class='info'>
+                    <view class='name'>HO’K美味成真 | 超精致美味的蛋糕...</view>
+                    <view class='subtxt'>红丝绒</view>
+                    <view class='bott'>
+                        <view class='lf'>
+                            <text class='price'>￥18</text>
+                            <text class='oldprice'>￥38</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class='ad'>
+                <view class='txt'>实付</view>
+                <view class='price'>￥18</view>
+            </view>
+        </view>
+    </view>
+</view>

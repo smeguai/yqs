@@ -1,0 +1,40 @@
+<view class='container'>
+    <view class='search'>
+        <image src='../../../static/img/search.png' class='icon'></image>
+        <input class='ipt' placeholder='搜索附近商家'></input>
+    </view>
+
+    <view class='list'>
+        <view class='item' wx:for='{{list}}'>
+            <view class='main'>
+                <image src='{{item.avatar}}' class='avatar'></image>
+                <view class='info'>
+                    <view class='top'>
+                        <view class='name'>{{item.name}}</view>
+                        <view class='lm ckbox'>联盟</view>
+                        <view class='pp ckbox'>品牌</view>
+                    </view>
+                    <view class='middel'>
+                        <grade />
+                        <text>{{item.genre}}</text>|
+                        <text>{{item.moods}}</text>
+                        <text class='dis'>500米</text>
+                    </view>
+                    <view class='tag'>
+                        <view class='tagitem' wx:for='{{item.tag}}'>{{item}}</view>
+                    </view>
+                </view>
+            </view>
+            <scroll-view scroll-x class='ticket'>
+                <view class='block'>
+                    <view class='ticketitem' wx:for='{{item.ticket}}'>
+                        <view class='title'>{{item.title}}</view>
+                        <view class='price'>￥{{item.price}}</view>
+                        <view class='txt'>{{item.txt}}</view>
+                        <view class='btn'>点击领取</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

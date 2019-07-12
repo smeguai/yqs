@@ -1,11 +1,20 @@
 <view class='container'>
+    <popup />
     <view class='banner-wrapper'>
         <swiper class='swiper'>
             <swiper-item class='item' wx:for='{{data.banner}}'>
                 <image class='img' src='{{item.img}}'></image>
                 <view class='txt'>{{item.count}}人感兴趣</view>
+                <view class='anit'>
+                    <image class='avatar' src='{{pays[paysCurrent].img}}'></image>
+                    <view class='name'>{{pays[paysCurrent].name}}购买了{{data.sell.name}}</view>
+                </view>
             </swiper-item>
         </swiper>
+        <view class='genre'>
+            <image src='' class='icon'></image>
+            <text class='txt'>秒杀</text>
+        </view>
         <view class='nums'>
             <view class='{{bannerCurrent == index ? "item active" : "item"}}' wx:for='{{data.banner.length}}'></view>
         </view>
@@ -44,8 +53,8 @@
             <view class='header'>
                 <view class='text'>基本信息</view>
                 <view class='icon'>
-                    <image class='phone' src='../../staitc/img/addrsicon.png'></image>
-                    <image class='addrs' src='../../staitc/img/addrsicon.png'></image>
+                    <image class='phone' src='../../static/img/phone.png'></image>
+                    <image class='addrs' src='../../static/img/addrs.png'></image>
                 </view>
             </view>
             <view class='item'>营业时间:{{data.sell.time}}</view>
@@ -55,5 +64,18 @@
             </view>
             <view class='item' wx:for='{{data.sell.qa}}'>{{item}}</view>
         </view>
+    </view>
+    <view class='goodsdetail'>
+        <image class='icon' src='../../static/img/goodsdetail.png'></image>
+        <view class='desc'>
+            <image src='{{item}}' class='img' wx:for='{{data.goodsdesc}}'></image>
+        </view>
+    </view>
+    <view class='aslid'>
+        <view class='btn' wx:for='{{aslid_btn}}'>
+            <image class='icon' src='{{item.img}}'></image>
+            <view class='txt'>{{item.txt}}</view>
+        </view>
+        <view class='btn1'>立即抢购</view>
     </view>
 </view>

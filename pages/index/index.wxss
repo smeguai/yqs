@@ -124,10 +124,24 @@
 }
 .container .favorable .scroll .list .item {
     width: 240rpx;
-    padding-left: 30rpx;
+    margin-left: 30rpx;
+    position: relative;
 }
 .container .favorable .scroll .list .item:nth-child(1) {
     padding: 0;
+}
+.container .favorable .scroll .list .item .icon {
+    width: 42rpx;
+    height: 42rpx;
+    position: absolute;
+    left: 14rpx;
+    top: 0;
+}
+.countdown {
+    position: absolute;
+    top: 138rpx;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .container .favorable .scroll .list .item .img {
     width: 240rpx;
@@ -223,4 +237,23 @@
 .container .recommend .item .addr {
     font-size: 20rpx;
     padding-top: 40rpx;
+}
+.container .aslid {
+    position: fixed;
+    top: 50%;
+    width: 84rpx;
+    height: 84rpx;
+    transform: translateY(-50%);
+    right: 24rpx;
+    border-radius: 100%;
+    background: rgba(0, 0, 0, .4);
+    text-align: center;
+}
+.container .aslid .icon {
+    width: 30rpx;
+    height: 30rpx;
+}
+.container .aslid .txt {
+    font-size: 20rpx;
+    color: #fff;
 }

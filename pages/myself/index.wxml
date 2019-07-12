@@ -10,7 +10,7 @@
             <text class='txt'>我的订单</text>
             <view class='all' data-cate='0' bindtap='handleClickOrder'>
                 <text class='txt'>全部订单</text>
-                <image class='right' src='../../../static/img/right.png'></image>
+                <image class='right' src='../../static/img/right.png'></image>
             </view>
         </view>
         <view class='list'>
@@ -24,7 +24,7 @@
         <view class='txt'>我的余额</view>
         <view class='sub'>
             <text class='subtxt'>现金余额、电子卡等</text>
-            <image class='icon' src='../../../static/img/right.png'></image>
+            <image class='icon' src='../../static/img/right.png'></image>
         </view>
     </view>
 </view>

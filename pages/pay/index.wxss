@@ -1,0 +1,105 @@
+.container .bgcolor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 190rpx;
+    background: #ffde4e;
+}
+
+.container .main {
+    position: relative;
+    z-index: 99;
+    padding: 64rpx 24rpx 0 24rpx;
+}
+
+.container .main .section {
+    border-radius: 10rpx;
+    background: #fff;
+    margin-top: 26rpx;
+}
+
+.container .main .sell .blo {
+    padding: 38rpx 24rpx 34rpx 24rpx;
+    border-bottom: 1rpx solid #f5f5f5;
+}
+
+.container .main .sell .blo .header {
+    font-size: 28rpx;
+    font-weight: 500;
+}
+
+.container .main .sell .blo .nate {
+    font-size: 28rpx;
+    font-weight: 500;
+    padding-top: 30rpx;
+}
+
+.container .main .sell .blo .addrs {
+    font-size: 24rpx;
+    padding-top: 14rpx;
+}
+
+.container .main .sell .btns {
+    display: flex;
+    height: 66rpx;
+    align-items: center;
+}
+
+.container .main .sell .btns .btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .main .sell .btns .btn:last-child {
+    border-left: 1rpx solid #f5f5f5;    
+}
+
+.container .main .sell .btns .btn .icon {
+    width: 20rpx;
+    height: 20rpx;
+}
+
+.container .main .sell .btns .btn .txt {
+    font-size: 24rpx;
+    color: #666;
+}
+
+.container .main .shoping .bloc {
+    padding: 18rpx 14rpx 30rpx 24rpx;
+    display: flex;
+}
+.container .main .shoping .bloc .img {
+    width: 158rpx;
+    height: 158rpx;
+}
+.container .main .shoping .bloc .info {
+    padding-left: 20rpx;
+    flex: 1;
+    width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.container .main .shoping .bloc .info .name {
+    font-size: 28rpx;
+    font-weight: 500;
+}
+.container .main .shoping .bloc .info .subtxt {
+    font-size: 24rpx;
+    color: #666666;
+}
+.container .main .shoping .bloc .info .bott {
+    display: flex;
+    align-items: center;
+}
+.container .main .shoping .bloc .info .bott .lf .price {
+    font-size: 32rpx;
+    font-weight: bold;
+}
+.container .main .shoping .bloc .info .bott .lf .oldprice {
+    padding-left: 24rpx;
+    font-size: 20rpx;
+    color: #999;
+}
