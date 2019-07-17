@@ -11,5 +11,5 @@
 .grade .itemmid{
     width: 20rpx;
     height: 20rpx;
-    padding-right: 2rpx;
+    padding-right: 4rpx;
 }

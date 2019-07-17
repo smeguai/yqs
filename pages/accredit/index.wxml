@@ -1,0 +1,10 @@
+<view class='container'>
+    <image class='image' src=''></image>
+    <view class='name'>翼省钱</view>
+    <view class='txt'>该程序申请获得以下权限：</view>
+    <view class='subtxt'>获得你的公开信息（昵称、头像、地区及性别等）</view>
+    <view class='btns'>
+        <view class='btn b0' bindtap='handleClickToIndex'>回到首页</view>
+        <button class='btn b1' open-type='getUserInfo' bindgetuserinfo='onGotUserInfo'>确认授权</button>
+    </view>
+</view>

@@ -1,4 +1,11 @@
-// pages/privilege/index/index.js
+const app = getApp()
+import {
+    discount
+} from '../../utils/api.js'
+import {
+    promiseRequest
+} from '../../utils/util.js'
+
 Page({
 
     /**
@@ -6,6 +13,8 @@ Page({
      */
     data: {
         bannerCurrent: 0,
+        StationId: 0,
+        pageSize: 3,
         bannerList: [{
             img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=115048785,2693865241&fm=27&gp=0.jpg',
             id: 0
@@ -19,7 +28,7 @@ Page({
         list: [{
             avatar: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3393805308,1492477291&fm=27&gp=0.jpg',
             name: '张三疯欧式奶茶铺',
-            grade: 5,
+            score: 5,
             genre: '甜品饮品',
             moods: 566,
             tag: ['长沙市连锁', '第一奶茶店'],
@@ -44,18 +53,41 @@ Page({
                     txt: '周六至周日可用|可叠加',
                     title: '100元代金券'
                 }]
-        }]
+        }],
+        groupdata: null,
+        limitdata: null,
+        cutdata: null
     },
     bannerItemChange(e) {
         this.setData({
             bannerCurrent: e.detail.current
         })
     },
+
+    Getdiscount() {
+        let pageSize = 2,
+            StationId = 1
+        let data = {
+            StationId,
+            pageSize
+        }
+        promiseRequest(discount, 'get', data).then(res => {
+            let r = res.data
+            if (r.code == 0) {
+                this.setData({
+                    groupdata:r.groupdata,
+                    limitdata:r.limitdata,
+                    cutdata:r.cutdata
+                })
+                console.log(this.data.cutdata)
+            }
+        })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-
+        this.Getdiscount()
     },
 
     /**

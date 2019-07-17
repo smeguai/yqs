@@ -1,0 +1,68 @@
+.password-title {
+    color: #333333;
+    font-size: 32rpx;
+    padding: 113rpx 0 74rpx;
+    text-align: center;
+}
+.password-text {
+    color: #333333;
+    font-size: 24rpx;
+    text-align: center;
+}
+.password-input-box {
+    padding: 0 55rpx;
+    margin-top: 77rpx;
+}
+
+.input-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input{
+    height: 86rpx;
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 16rpx;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.input>view:nth-child(6){
+    border-right: none;
+}
+
+.input>view{
+    height: 100%;
+    flex: 1;
+    border-right: 1px solid #CCCCCC;
+}
+
+.password-input{  
+    width: 0;  
+    height: 0;  
+}  
+
+.password_btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.password_btn>view {
+    width: 422rpx;
+    height: 74rpx;
+    line-height: 74rpx;
+    border-radius: 50rpx;
+    background: #FFDE4E;
+    text-align: center;
+    color: #333333;
+    font-size: 28rpx;
+}
+.password_none {
+    color: #FF6600;
+    font-size: 24rpx;
+    margin-top: 14rpx;
+    text-align: center;
+}

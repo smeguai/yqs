@@ -29,7 +29,7 @@
                                 <view class='pp ckbox'>品牌</view>
                             </view>
                             <view class='middel'>
-                                <grade />
+                                <grade score='{{item.score}}' />
                                 <text>{{item.genre}}</text>|
                                 <text>{{item.moods}}</text>
                                 <text class='dis'>500米</text>
@@ -63,40 +63,52 @@
             </view>
         </view>
         <view class='lists'>
-            <view class='item'>
+            <view class='item' wx:for='{{groupdata}}'>
                 <image class='lists-img' src='http://img3.imgtn.bdimg.com/it/u=1609196093,165570490&fm=26&gp=0.jpg'></image>
                 <view class='opera'>
                     <view class='lf'>
-                        <view class='title str'>木瓜水奶茶+巧克力珍珠奶茶超值双人...</view>
-                        <view class='subtitle str'>WOOBEE奶茶铺</view>
+                        <view class='title str'>{{item.productName}}</view>
+                        <view class='subtitle str'>{{item.productShoreDesc}}</view>
                     </view>
                     <view class='btn'>立即拼团</view>
                 </view>
                 <view class='info'>
                     <view class='tag'>拼团价</view>
                     <view class='txt'>￥
-                        <text class='price'>9.9</text>
-                        <text class='del oldprice'>￥39</text>
+                        <text class='price'>{{item.price}}</text>
+                        <text class='del oldprice'>￥{{item.tagPrice}}</text>
                     </view>
-                    <view class='desc'>已售189份/剩余89份</view>
+                    <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
                 </view>
             </view>
-            <view class='item'>
+        </view>
+
+
+        
+        <view class='top'>
+            <view class='heartxt'>秒杀</view>
+            <view class='tabnav'>
+                <view class='recommend btn'>推荐</view>
+                <view class='hotsale btn'>热卖</view>
+            </view>
+        </view>
+        <view class='lists'>
+            <view class='item' wx:for='{{groupdata}}'>
                 <image class='lists-img' src='http://img3.imgtn.bdimg.com/it/u=1609196093,165570490&fm=26&gp=0.jpg'></image>
                 <view class='opera'>
                     <view class='lf'>
-                        <view class='title str'>木瓜水奶茶+巧克力珍珠奶茶超值双人...</view>
-                        <view class='subtitle str'>WOOBEE奶茶铺</view>
+                        <view class='title str'>{{item.productName}}</view>
+                        <view class='subtitle str'>{{item.productShoreDesc}}</view>
                     </view>
                     <view class='btn'>立即拼团</view>
                 </view>
                 <view class='info'>
                     <view class='tag'>拼团价</view>
                     <view class='txt'>￥
-                        <text class='price'>9.9</text>
-                        <text class='del oldprice'>￥39</text>
+                        <text class='price'>{{item.price}}</text>
+                        <text class='del oldprice'>￥{{item.tagPrice}}</text>
                     </view>
-                    <view class='desc'>已售189份/剩余89份</view>
+                    <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
                 </view>
             </view>
         </view>

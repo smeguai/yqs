@@ -1,0 +1,29 @@
+<view class="container page">
+    <icon class="logout_icon" type="warn" size="60" color="#FF6600"></icon>
+    <view class="logout_name">将韩丽丽的账号注销</view>
+    <view class="logout_hint">注意,注销账号后一下信息将被清空且无法找回</view>
+
+    <view class="logout_view">
+        <view class="logout_viewTop">
+            <view class="logout_viewTop_text">
+                <view class="logout_viewTopDot"></view>
+                <text>翼起省的产品/服务将无法使用此账号</text>
+            </view>
+            <view class="logout_viewTop_text" style="margin-top:25rpx;">
+                <view class="logout_viewTopDot"></view>
+                <text>身份、账户信息</text>
+            </view>
+        </view>
+        <view class="logout_viewText">请确保所有交易记录已完结且无纠纷，账户注销后的历史叫可能产生的资金退回权益等将视作自动放弃。</view>
+    </view>
+
+    <view class="logout_clause" bindtap="clauseClick">
+        <image wx:if="{{logoutShow}}" src="../../static/img/success.png"></image>
+        <image wx:else></image>
+        <text class="logout_clause_text">我已仔细阅读完并且完全同意以上条款，并希望继续注销</text>
+    </view>
+
+    <button class="logout_btn logout_confirm">确认注销</button>
+
+    <button class="logout_btn logout_cancel">暂不注销</button>
+</view>

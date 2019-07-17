@@ -1,8 +1,12 @@
 <view class='container'>
     <view class='user'>
-        <image src='' class='avatar'></image>
-        <view class='info'>
-            <text class='txt'>未登录</text>
+        <image src='{{userInfo.headimg}}' class='avatar'></image>
+        <view class='info' wx:if='{{onLine}}'>
+            <view class='nickName'>{{userInfo.nickname}}</view>
+            <view class='txt'>{{userInfo.uid}}</view>
+        </view>
+        <view class='info' wx:else bindtap='handleSign'>
+            <text class='nickName'>未登录</text>
         </view>
     </view>
     <view class='orders'>
@@ -14,17 +18,27 @@
             </view>
         </view>
         <view class='list'>
-            <view class='item' wx:for='{{OrderCate}}' bindtap='handleClickOrder'>
+            <view class='item' wx:for='{{OrderCate}}' wx:key='{{index}}' bindtap='handleClickOrder'>
                 <image src='{{item.icon}}' class='icon'></image>
                 <view class='txt'>{{item.txt}}</view>
+                <view class='num'>9</view>
             </view>
         </view>
     </view>
-    <view class='myconis'>
-        <view class='txt'>我的余额</view>
+    <view class='myconis' bindtap='handleToWallet'>
+        <view class='txt'>我的钱包</view>
         <view class='sub'>
             <text class='subtxt'>现金余额、电子卡等</text>
             <image class='icon' src='../../static/img/right.png'></image>
+        </view>
+    </view>
+    <view class='more'>
+        <view class='txt'>更多服务</view>
+        <view class='list'>
+            <view class='item' wx:for='{{more}}' bindtap='handleClickMore' data-id='{{item.id}}'>
+                <image src='{{item.icon}}' class='icon'></image>
+                <view class='content'>{{item.txt}}</view>
+            </view>
         </view>
     </view>
 </view>

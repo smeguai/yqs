@@ -1,0 +1,38 @@
+<view class='container'>
+    <view class='price-wrapper'>
+        <view class='item'>
+            <text class='txt'>现金余额</text>
+            <view class='price'>￥1420.00</view>
+        </view>
+        <view class='item'>
+            <text class='txt'>电子卡余额</text>
+            <view class='price'>￥1420.00</view>
+        </view>
+       <view class='btns'>
+         <view class='btn'>充值</view>
+       </view>
+    </view>
+    <view class='navs'>
+        <view class='{{currentIndex == 0 ? "item active": "item"}}' data-idx='0' bindtap='navClick'><text>现金收支明细</text></view>
+        <view class='{{currentIndex == 1 ? "item active": "item"}}' data-idx='1' bindtap='navClick'><text>电子卡收支明细</text></view>
+    </view>
+    <view class='list'>
+        <view class='item'>
+            <view class='info'>
+                <view class='txt'>余额支付<text class='sub'>备注内容</text></view>
+                <view class='date'>2019-07-12 10:29:35</view>
+            </view>
+            <view class='subtract'>-48.26</view>
+        </view>
+
+
+        <view class='item'>
+            <view class='info'>
+                <view class='txt'>余额支付<text class='sub'>备注内容</text></view>
+                <view class='date'>2019-07-12 10:29:35</view>
+            </view>
+            <view class='add'>+8.26</view>
+        </view>
+
+    </view>
+</view>

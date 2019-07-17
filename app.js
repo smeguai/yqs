@@ -1,4 +1,5 @@
-//app.js
+import { promiseRequest} from './utils/util.js'
+import { xcxloginfcode} from './utils/api.js'
 App({
     onLaunch: function() {
 
@@ -6,6 +7,12 @@ App({
         wx.login({
             success: res => {
                 // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                let data = {
+                    code: res.code
+                }
+                promiseRequest(xcxloginfcode, 'post', data).then(res => {
+                    this.globalData.session_key = res.data.session_key
+                })
             }
         })
         // 获取用户信息
@@ -38,6 +45,8 @@ App({
     },
     globalData: {
         userInfo: null,
-        onLine: false
+        onLine: false,
+        session_key: null,
+        openORunion: null
     }
 })

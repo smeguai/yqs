@@ -1,0 +1,41 @@
+.collect_title {
+    width: 100%;
+    padding: 20rpx 24rpx;
+    color: #666666;
+    font-size: 24rpx;
+    background: #F8F8F8;
+}
+.collect_box {
+    padding: 0 24rpx;
+}
+.collect_view {
+    display: flex;
+    align-items: center;
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid #F5F5F5;
+}
+.collect_viewImg {
+    width: 98rpx;
+    height: 98rpx;
+    border-radius: 50%;
+    margin-right: 32rpx;
+}
+.collect_right {
+    width: 22rpx;
+    height: 22rpx;
+}
+.collect_viewText {
+    color: #666666;
+    font-size: 24rpx;
+    flex: 1;
+}
+.collect_viewText_name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16rpx;
+}
+.collect_viewText_nameText {
+    color: #333333;
+    font-size: 28rpx;
+}

@@ -1,11 +1,11 @@
 <view class='container'>
     <view class='addrs'>
-        <view class='lf'>
+        <view class='lf' bindtap="locationClick">
             <image class='addricon' src='../../static/img/addrsicon.png'></image>
             <text class='txt'>麓枫和苑</text>
             <image class='righticon' src='../../static/img/righticon.png'></image>
         </view>
-        <view class='search-wrapper'>
+        <view class='search-wrapper' bindtap="selectClick">
             <image class='icon' src='../../static/img/search.png'></image>
             <view class='txt'>搜索</view>
         </view>
@@ -50,7 +50,9 @@
                         <text class='newprice'><text class='f'>￥</text>{{item.newprice}}</text>
                         <text class='oldprice'>￥{{item.oldprice}}</text>
                     </view>
-                    <view><countdown class='countdown' strTime='2019/7/14' /></view>
+                    <view>
+                        <countdown class='countdown' strTime='2019/7/14' />
+                    </view>
                 </view>
             </view>
         </scroll-view>
@@ -74,8 +76,10 @@
             <view class='addr'>{{item.addr}}</view>
         </view>
     </view>
-    <view class='aslid'>
-        <image src='../../static/img/share.png' class='icon'></image>
-        <view class='txt'>分享</view>
-    </view>
+    <movable-area class='aslid'>
+        <movable-view direction='vertical' class='item'>
+            <image src='../../static/img/share.png' class='icon'></image>
+            <view class='txt'>分享</view>
+        </movable-view>
+    </movable-area>
 </view>

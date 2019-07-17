@@ -1,0 +1,36 @@
+<view class='container'>
+    <view class='done'>
+        <image class='icon' src='../../static/img/success.png'></image>
+        <view class='txt'>￥18.00</view>
+        <view class='bloc'>
+            <view class='link'>查看订单详情</view>
+            <view class='link'>再继续逛逛</view>
+        </view>
+    </view>
+    <view class='recommend'>
+        <view class='header'>
+            <view class='txt'>精选推荐</view>
+            <view class='bgcolor'></view>
+        </view>
+        <view class='lists'>
+            <view class='item'>
+                <image class='lists-img' src='http://img3.imgtn.bdimg.com/it/u=1609196093,165570490&fm=26&gp=0.jpg'></image>
+                <view class='opera'>
+                    <view class='lf'>
+                        <view class='title str'>木瓜水奶茶+巧克力珍珠奶茶超值双人...</view>
+                        <view class='subtitle str'>WOOBEE奶茶铺</view>
+                    </view>
+                    <view class='btn'>立即拼团</view>
+                </view>
+                <view class='info'>
+                    <view class='tag'>拼团价</view>
+                    <view class='txt'>￥
+                        <text class='price'>9.9</text>
+                        <text class='del oldprice'>￥39</text>
+                    </view>
+                    <view class='desc'>已售189份/剩余89份</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

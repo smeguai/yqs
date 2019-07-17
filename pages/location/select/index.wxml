@@ -1,0 +1,31 @@
+<view class="page">
+    <view class="page_search">
+        <view class="page_search_inp">
+            <image src="../../../static/img/search.png"></image>
+            <input placeholder="请输入小区名称"></input>
+            <icon type="clear" size="14" color="#CCCCCC" class="clear_icon" />
+        </view>
+        <view class="page_search_btn">搜索</view>
+    </view>
+
+    <!-- 没有搜索到小区 -->
+    <block wx:if="{{searchItem}}">
+        <view class="page_searchNone">没有搜索到该小区</view>
+
+        <view class="page_searchText">附近小区</view>
+        <view class="xg_centerBot_text" wx:for="{{add}}" wx:for-index="index" wx:key="index">
+            <view class="xg_centerBot_text_name">
+                <text class="xg_centerBot_text_name_estate">{{item.name}}</text>
+                <text class="xg_centerBot_text_name_num">{{item.num}}</text>
+            </view>
+            <view class="xg_centerBot_text_add">{{item.add}}</view>
+        </view>
+    </block>
+
+    <block wx:else>
+        <view class="xg_bottom_text" wx:for="{{record}}" wx:for-index="index" wx:key="index">
+            <view class="xg_bottom_textName">{{item.name}}</view>
+            <view class="xg_bottom_textadd">{{item.record}}</view>
+        </view>
+    </block>
+</view>

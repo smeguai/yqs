@@ -1,0 +1,8 @@
+<view class='container'>
+        <view class='section' wx:for='{{list}}'>
+            <view class='item' wx:for='{{item}}'>
+                <text class='text'>{{item.txt}}</text>
+                <image class='img' src='../../static/img/right.png'></image>
+            </view>
+        </view>
+</view>

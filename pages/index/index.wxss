@@ -26,9 +26,9 @@
     width: 168rpx;
     height: 48rpx;
     align-items: center;
-    background: #F0F0F0;
-    border-radius: 24rpx;
-    border: 1rpx solid #E8E8E8;
+    background: #E8E8E8;
+    border-radius: 28rpx;
+    border: 1rpx solid #F0F0F0;
 }
 .container .addrs .search-wrapper .icon {
     width: 30rpx;
@@ -241,13 +241,20 @@
 .container .aslid {
     position: fixed;
     top: 50%;
-    width: 84rpx;
-    height: 84rpx;
+    width: 68rpx;
+    height: 400rpx;
     transform: translateY(-50%);
     right: 24rpx;
-    border-radius: 100%;
-    background: rgba(0, 0, 0, .4);
     text-align: center;
+}
+.container .aslid .item {
+    width: 68rpx;
+    height: 68rpx;
+    background: rgba(0,0,0,.4);
+    font-size: 0;
+    border-radius: 100%;
+    padding: 4rpx;
+    box-sizing: border-box;
 }
 .container .aslid .icon {
     width: 30rpx;

@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "countdown": "../../../component/countdown/index",
+        "grade": "../../../component/grade/grade"
+    },
+    "navigationBarTitleText": "店铺详情"
+}

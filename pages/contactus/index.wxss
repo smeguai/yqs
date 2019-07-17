@@ -1,0 +1,33 @@
+.container {
+    background: #fff;
+    text-align: center;
+}
+.container .txt {
+    font-size: 28rpx;
+    padding-top: 100rpx;
+}
+.container .qrcode {
+    padding: 28rpx 24rpx;
+    border: 2rpx solid #FFDE4E;
+    border-radius: 10rpx;
+    display: inline-block;
+    margin: 38rpx 0 36rpx 0;
+}
+.container .qrcode .img {
+    width: 286rpx;
+    height: 286rpx;
+    background: red;
+}
+.container .vx {
+    font-size: 32rpx;
+}
+.container .btn {
+    display: inline-block;
+    font-size: 20rpx;
+}
+.container .tips {
+    padding-top: 54rpx;
+    color: #666;
+    font-size: 24rpx;
+    font-weight: 500;
+}

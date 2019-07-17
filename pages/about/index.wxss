@@ -1,0 +1,46 @@
+.container {
+    position: relative;
+}
+.container .bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: -412rpx;
+    height: 800rpx;
+    border-radius: 340rpx;
+    background: #FFDE4E;
+}
+.container .main {
+    position: relative;
+    background: #fff;
+    margin: 136rpx 24rpx 0 24rpx;
+    padding: 0 22rpx;
+    border-radius: 10rpx;
+}
+.container .main .avatar {
+    width: 148rpx;
+    height: 148rpx;
+}
+.container .main .name {
+    font-size: 32rpx;
+    padding-top: 20rpx;
+    text-align: center;
+    font-weight: 500;
+}
+.container .main .info {
+    padding: 160rpx 0 200rpx 0;
+}
+.container .main .info .item {
+    border-bottom: 1rpx solid #F5F5F5;
+    padding: 26rpx 0;
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+}
+.container .main .info .item:last-child {
+    border: 0;
+}
+.container .main .info .item .txt {
+    text-align: right;
+    flex: 1;
+}

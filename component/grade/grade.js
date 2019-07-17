@@ -4,7 +4,10 @@ Component({
      * 组件的属性列表
      */
     properties: {
-
+        score: {
+            value: 0,
+            type: String
+        }
     },
 
     /**

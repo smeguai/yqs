@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+      "info": "../../../component/info/info"
+  },
+  "navigationBarTitleText": "我的收藏"
+}

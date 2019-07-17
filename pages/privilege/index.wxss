@@ -235,6 +235,7 @@
 .container .section .lists .item .opera .lf {
     flex: 1;
     width: 0;
+    padding-right: 10rpx;
 }
 .container .section .lists .item .opera .lf .title {
     font-size: 28rpx;

@@ -1,0 +1,38 @@
+<view class='container'>
+    <view class='top section'>
+        <view class='info'>
+            <image class='avatar' src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=400062461,2874561526&fm=27&gp=0.jpg'></image>
+            <view class='name'>张三疯欧式奶茶铺</view>
+        </view>
+        <view class='ipts'>
+            <text class='rmb'>￥</text>
+            <input class='ipt' type='number'></input>
+        </view>
+    </view>
+    <view class='privilege section'>
+        <view class='text'>优惠券</view>
+        <view class='bloc'>
+            <view class='txt'>店铺优惠券</view>
+            <view class='rt'>
+                <view class='rttxt'>无优惠券</view>
+                <image class='img' src='../../static/img/right.png'></image>
+            </view>
+        </view>
+    </view>
+    <view class='paystatus section'>
+        <view class='text'>支付方式</view>
+        <view class='item'>
+            <image class='icon' src='../../static/img/dzk.png'></image>
+            <text class='text'>电子卡</text>
+            <radio class='radio' color='#FFDE4E'></radio>
+        </view>
+        <view class='item'>
+            <image class='icon' src='../../static/img/wechat.png'></image>
+            <text class='text'>微信支付</text>
+            <radio class='radio' color='#FFDE4E'></radio>
+        </view>
+    </view>
+    <view class='btns'>
+        <view class='btn'>确认支付</view>
+    </view>
+</view>

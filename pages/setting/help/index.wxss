@@ -1,0 +1,29 @@
+.container {
+    background: #fff;
+    padding: 0 34rpx;
+}
+.container .item .top {
+    padding: 28rpx 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1rpx solid #F5F5F5;
+}
+.container .item .top .txt {
+    font-size: 32rpx;
+    flex: 1;
+}
+.container .item .top .icon {
+    width: 26rpx;
+    height: 24rpx;
+}
+.container .item .tags {
+    display: none;
+}
+.container .item.active .tags {
+    display: block;
+}
+.container .item .tags .txt {
+    font-size: 26rpx;
+    line-height: 36rpx;
+    padding: 14rpx 0;
+}

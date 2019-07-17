@@ -1,0 +1,13 @@
+<view class='container'>
+    <view class='txt'>在线咨询</view>
+    <view class='qrcode'>
+        <image class='img' src=''></image>
+    </view>
+    <view class='vx'>15678952546</view>
+    <button class='btn'>复制微信号</button>
+    <view class='tips'>
+        <view>长按保存二维码或者复制微信号</view>
+        <view> 添加客服微信</view>
+        <view>我们会最快时间回复您</view>
+    </view>
+</view>

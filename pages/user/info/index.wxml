@@ -1,0 +1,44 @@
+<form>
+    <view class="info_top">
+        <view></view>
+        <image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg"></image>
+        <text>昵称</text>
+    </view>
+
+    <view class="info_center">
+        <view class="info_center_view">
+            <view>姓名</view>
+            <input placeholder="填写姓名"></input>
+        </view>
+
+        <view class="info_center_view">
+            <view>地区</view>
+
+            <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+                <view class="picker">
+                    {{region[0]}}，{{region[1]}}，{{region[2]}}
+                </view>
+            </picker>
+            <image src="../../../static/img/right.png"></image>
+        </view>
+
+        <view class="info_center_view">
+            <view>性别</view>
+            <input placeholder="填写性别"></input>
+        </view>
+
+        <view class="info_center_view">
+            <view>年龄</view>
+            <input placeholder="填写年龄"></input>
+        </view>
+
+        <view class="info_center_view">
+            <view>职业</view>
+            <input placeholder="填写职业"></input>
+        </view>
+    </view>
+
+    <view class="info_btn">
+        <button>提交</button>
+    </view>
+</form>

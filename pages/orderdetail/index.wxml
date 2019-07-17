@@ -15,9 +15,9 @@
                     <view class='usertel'>{{orderDesc.sellerTel}}</view>
                 </view>
                 <view class='rt'>
-                    <image class='telicon' src=''></image>
+                    <image class='telicon' src='../../static/img/pay_tel.png'></image>
                     <text class='shu'></text>
-                    <image class='addrsicon' src=''></image>
+                    <image class='addrsicon' src='../../static/img/pay_addrs.png'></image>
                 </view>
             </view>
             <text class='addrs'>{{orderDesc.sellerAddrs}}</text>

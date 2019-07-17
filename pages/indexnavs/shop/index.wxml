@@ -1,0 +1,36 @@
+<view class='container'>
+    <view class='header'>
+        <image class='avatar' src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3361934473,3725527506&fm=27&gp=0.jpg'></image>
+        <view class='info'>
+            <view class='strong'>湖南师范大学营业厅</view>
+            <view class='score'>
+                <grade score='3' />
+                <text class='count'>5.0分</text>
+            </view>
+            <view class='midd'>
+                <view class='lf'>
+                    <image class='icon' src='../../../static/img/addrsicon.png'></image>
+                    <text class='txt str'>3.6公里 | 长沙市岳麓区潇湘中路122...</text>
+                </view>
+                <image class='tel' src='../../../static/img/shop_tel.png'></image>
+            </view>
+            <view class='tags'>
+                <view class='item'>师范大学</view>
+            </view>
+        </view>
+    </view>
+
+    <view class='welfare'>
+        
+    </view>
+
+
+
+
+
+
+
+
+
+
+</view>

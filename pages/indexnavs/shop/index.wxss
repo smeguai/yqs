@@ -1,0 +1,65 @@
+.container .header {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    border-bottom: 1rpx solid #F0F0F0;
+    padding: 50rpx 24rpx 30rpx 24rpx;
+}
+.container .header .avatar {
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 6rpx;
+}
+.container .header .info {
+    padding-left: 16rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.container .header .info .strong {
+    font-size: 32rpx;
+    font-weight: bold;
+}
+.container .header .info .score {
+    display: flex;
+    align-items: center;
+}
+.container .header .info .score .count {
+    font-size: 20rpx;
+    color: #FF634C;
+    padding-left: 10rpx;
+}
+.container .header .info .midd {
+    display: flex;
+    align-items: center;
+}
+.container .header .info .midd .lf {
+    display: flex;
+    align-items: center;
+    border-right: 1rpx solid #999999;
+    padding-right: 32rpx;
+}
+.container .header .info .midd .lf .icon {
+    width: 18rpx;
+    height: 24rpx;
+}
+.container .header .info .midd .lf .txt {
+    font-size: 24rpx;
+    padding-left: 4rpx;
+}
+.container .header .info .midd .tel {
+    width: 28rpx;
+    height: 28rpx;
+    padding: 10rpx 20rpx;
+}
+.container .header .info .tags {
+    display: flex;
+}
+.container .header .info .tags .item {
+    padding: 6rpx 12rpx;
+    border: 1rpx solid #C8C8C8;
+    border-radius: 4rpx;
+    color: #C8C8C8;
+    margin-right: 16rpx;
+    font-size: 20rpx;
+}

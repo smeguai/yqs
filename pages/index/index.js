@@ -1,9 +1,19 @@
+import {
+    shopget
+} from '../../utils/api.js'
+import {
+    promiseRequest
+} from '../../utils/util.js'
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        pageIndex: 1,
+        pageSize: 10,
+        stationId: 1,
         bannerCurrent: 0,
         swiperList: [{
                 imgUrl: 'http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg'
@@ -19,20 +29,20 @@ Page({
                 id: 0
             }, {
                 imgUrl: '../../static/img/index_yhtg.png',
-                    txt: '优惠团购',
-                    id: 1
+                txt: '优惠团购',
+                id: 1
             }, {
                 imgUrl: '../../static/img/index_fjhq.png',
-                    txt: '附近好券',
-                    id: 2
+                txt: '附近好券',
+                id: 2
             }, {
                 imgUrl: '../../static/img/index_ms.png',
                 txt: '秒杀',
                 id: 3
             }, {
                 imgUrl: '../../static/img/index_kj.png',
-                    txt: '砍价',
-                    id: 4
+                txt: '砍价',
+                id: 4
             }],
             list1: [{
                 imgUrl: '../../static/img/index_yyt.png',
@@ -107,15 +117,10 @@ Page({
             }
         ]
     },
-    bannerChange() {
-        console.log(this.data.bannerCurrent)
-        // this.setData({
-        //     bannerIndex: 
-        // })
-    },
+    bannerChange() {},
     navNavigate(e) {
         let i = e.currentTarget.dataset.id
-        switch(i) {
+        switch (i) {
             case 0:
                 wx.scanCode({
                     onlyFromCamera: true,
@@ -127,44 +132,72 @@ Page({
                         console.log('err')
                     }
                 })
-            break;
+                break;
             case 1:
                 wx.navigateTo({
                     url: '../indexnavs/groupbuying/index',
                 })
-            break;
+                break;
             case 2:
                 wx.navigateTo({
                     url: '../indexnavs/ticket/index',
                 })
-            break;
+                break;
             case 3:
                 wx.navigateTo({
                     url: '../indexnavs/seckill/index'
                 })
-            break;
+                break;
             case 4:
                 wx.navigateTo({
                     url: '../indexnavs/askedprice/index'
                 })
-            break;
+                break;
             case 8:
                 wx.navigateTo({
                     url: '../indexnavs/fooddrink/index'
                 })
-            break;
+                break;
         }
     },
+
     goodsItemClick() {
         wx.navigateTo({
             url: '../goodsdetail/index',
+        })
+    },
+
+    locationClick() {
+        wx.navigateTo({
+            url: '../location/index',
+        })
+    },
+
+    selectClick() {
+        wx.navigateTo({
+            url: '../index/select/index',
+        })
+    },
+
+    //  推荐商家
+    getShop() {
+        let pageSize = this.data.pageSize,
+            pageIndex = this.data.pageIndex,
+            stationId = this.data.pageIndex
+        let data = {
+            pageIndex,
+            pageSize,
+            stationId
+        }
+        promiseRequest(shopget, 'get', data).then(res => {
+            console.log(res)
         })
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-
+        this.getShop()
     },
 
     /**

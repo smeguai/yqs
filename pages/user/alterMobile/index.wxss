@@ -1,0 +1,60 @@
+.alterMobile_title {
+    text-align: center;
+    color: #666666;
+    font-size: 28rpx;
+    padding-top: 94rpx;
+}
+.alterMobile_num {
+    color: #333333;
+    font-size: 48rpx;
+    text-align: center;
+    padding: 53rpx 0 59rpx;
+}
+.alterMobile_view {
+    border-top: 20rpx solid #F8F8F8;
+    padding: 97rpx 87rpx;
+}
+.alterMobile_viewTop {
+    height: 78rpx;
+    line-height: 78rpx;
+    border: 1rpx solid #CCCCCC;
+    border-radius:12rpx;
+    color: #CCCCCC;
+    font-size: 28rpx;
+    padding: 0 26rpx;
+    margin-bottom: 44rpx;
+}
+.alterMobile_view>view {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.alterMobile_view>view>input {
+    width: 308rpx;
+    height: 78rpx;
+    line-height: 78rpx;
+    border: 1rpx solid #CCCCCC;
+    border-radius:12rpx;
+    color: #CCCCCC;
+    font-size: 28rpx;
+    padding: 0 26rpx;
+}
+.alterMobile_view>view>button {
+    width:186rpx;
+    height:78rpx;
+    line-height: 78rpx;
+    background:rgba(255,222,78,1);
+    border-radius:12rpx;
+    color: #333333;
+    font-size: 28rpx;
+    margin: 0;
+}
+.alterMobile_btn {
+    width:422rpx;
+    height:74rpx;
+    line-height: 74rpx;
+    background:rgba(255,222,78,1);
+    border-radius:37rpx;
+    color: #333333;
+    font-size: 32rpx;
+}

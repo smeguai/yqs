@@ -1,0 +1,5 @@
+<view>
+    <view class="collect_title">已收藏店铺</view>
+    
+    <info text="{{content}}" />
+</view>

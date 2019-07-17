@@ -1,0 +1,28 @@
+<view>
+    <view class="record_nav">
+        <view class="record_nav_view" wx:for="{{nav}}" wx:key="item" data-index="{{index}}" bindtap="navClick">
+            <text class="{{navIndex == index? 'active' : ''}}">{{item.name}}</text>
+        </view>
+    </view>
+
+    <block wx:if="{{navIndex===0}}">
+        <info text="{{content}}" />
+    </block>
+
+    <block wx:else>
+        <view class="record_goods">
+            <view class="record_goodsView" wx:for="{{goods}}" wx:key="item" >
+                <image class="" src="{{item.img}}"></image>
+                <view class="record_goodsText">
+                    <view>
+                        <view class="record_goodsText_name">{{item.name}}</view>
+                        <view class="record_goodsText_text">{{item.text}}</view>
+                    </view>
+                    <view class="record_goodsText_num">
+                        ￥<text class="record_goodsText_pay">{{item.pay}}</text><text class="record_goodsText_price">￥{{item.price}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>

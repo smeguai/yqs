@@ -1,0 +1,18 @@
+.city_title {
+    color: #666666;
+    font-size: 24rpx;
+    padding: 13rpx 24rpx;
+    background: #F8F8F8;
+}
+.city_name {
+    color: #333333;
+    font-size: 28rpx;
+    padding: 30rpx 24rpx;
+}
+.city_nameItem {
+    padding: 30rpx 0 20rpx;
+    margin: 0 24rpx;
+    border-bottom: 1rpx solid #F5F5F5;
+    color: #333333;
+    font-size: 28rpx;
+}

@@ -1,0 +1,25 @@
+
+.container {
+    padding: 30rpx 24rpx;
+}
+.container .section {
+    background: #fff;
+    border-radius: 10rpx;
+}
+.container .section .item {
+    display: flex;
+    border-bottom: 1rpx solid #F5F5F5;
+    padding: 26rpx 20rpx;
+    margin-bottom: 30rpx; 
+}
+.container .section .item:last-child {
+    border: 0;
+}
+.container .section .item .text {
+    font-size: 28rpx;
+    flex: 1;
+}
+.container .section .item .img {
+    width: 24rpx;
+    height: 24rpx;
+}

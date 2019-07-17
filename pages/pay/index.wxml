@@ -37,5 +37,44 @@
                 <view class='price'>￥18</view>
             </view>
         </view>
+        <view class='ticket section'>
+            <view class='header'>优惠券</view>
+            <view class='bloc'>
+                <view class='txt'>店铺优惠券</view>
+                <view class='rt'>
+                    <view class='txt'>无优惠券</view>
+                    <image src='../../static/img/right.png' class='icon'></image>
+                </view>
+            </view>
+        </view>
+        <view class='ipts section'>
+            <view class='item'>
+                <view class='txt'>姓名</view>
+                <input class='ipt' placeholder='请输入姓名'></input>
+            </view>
+            <view class='item'>
+                <view class='txt'>联系电话</view>
+                <input class='ipt' placeholder='请输入正确的联系号码'></input>
+            </view>
+            <view class='item'>
+                <textarea class='textarea' placeholder='留言备注'></textarea>
+            </view>
+        </view>
+        <view class='paymode section'>
+            <view class='header'>支付方式</view>
+            <view class='item'>
+                <image class='icon' src=''></image>
+                <view class='txt'>电子卡</view>
+                <radio class='radio'></radio>
+            </view>
+            <view class='item'>
+                <image class='icon' src=''></image>
+                <view class='txt'>微信支付</view>
+                <radio class='radio'></radio>
+            </view>
+        </view>
+    </view>
+    <view class='topay'>
+        <view class='btn'>立即付款</view>
     </view>
 </view>

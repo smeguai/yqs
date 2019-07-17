@@ -1,0 +1,11 @@
+<view class='container'>
+    <view class='{{index == currentIdx ? "item active" : "item"}}' wx:for='{{list}}' wx:key='{{index}}'>
+        <view class='top' data-idx='{{index}}' bindtap='itemClick'>
+            <text class='txt'>{{item.txt}}</text>
+            <image class='icon' src='../../../static/img/{{index == currentIdx ? "bott" : "top"}}.png' data-idx='{{index}}'></image>
+        </view>
+        <view class='tags'>
+            <view class='txt' wx:for='{{item.tag}}' wx:key='{{index}}'>{{item}}</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,6 @@
+<view>
+    <view class="city_title">当前定位城市</view>
+    <view class="city_name">长沙市</view>
+    <view class="city_title">已开通城市</view>
+    <view class="city_nameItem" wx:for="{{city}}" wx:for-index="index" wx:key="index">{{item.name}}</view>
+</view>

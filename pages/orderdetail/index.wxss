@@ -52,12 +52,16 @@
 .container .main .userinfo .info .lf {
     font-size: 28rpx;
     display: flex;
-    padding-top: 34rpx;
+    padding-top: 24rpx;
     flex: 1;
 }
 .container .main .userinfo .info .lf .usertel {
     padding-left: 24rpx;
     flex: 1;
+}
+.container .main .userinfo .info .rt {
+    display: flex;
+    align-items: center;
 }
 .container .main .userinfo .info .rt .shu {
     margin: 0 32rpx;
@@ -70,12 +74,12 @@
 .container .main .userinfo .info .rt .telicon {
     width: 20rpx;
     height: 20rpx;
-    background: red;
+    padding: 10rpx;
 }
 .container .main .userinfo .info .rt .addrsicon {
     width: 20rpx;
     height: 20rpx;
-    background: red;
+    padding: 10rpx;
 }
 .container .main .userinfo .addrs {
     color: #666666;

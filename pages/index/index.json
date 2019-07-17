@@ -1,5 +1,5 @@
 {
-  "usingComponents": {
-      "countdown": "../../component/countdown/index"
-  }
+    "usingComponents": {
+        "countdown": "../../component/countdown/index"
+    }
 }
