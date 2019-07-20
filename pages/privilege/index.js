@@ -1,10 +1,12 @@
-const app = getApp()
 import {
-    discount
+    groupbuy,
+    limit,
+    cut
 } from '../../utils/api.js'
 import {
     promiseRequest
 } from '../../utils/util.js'
+const app = getApp()
 
 Page({
 
@@ -12,9 +14,15 @@ Page({
      * 页面的初始数据
      */
     data: {
+        btnList: ['推荐', '热卖'],
+        groupCurrent: 0,
+        limitCurrent: 0,
+        cutCurrent: 0,
         bannerCurrent: 0,
-        StationId: 0,
+        stationId: 1,
         pageSize: 3,
+        pageIndex: 1,
+        merchantId: 0,
         bannerList: [{
             img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=115048785,2693865241&fm=27&gp=0.jpg',
             id: 0
@@ -40,46 +48,67 @@ Page({
                 price: 19,
                 txt: '满30元可用|可叠加',
                 title: '100元代金券'
-                }, {
-                    price: 19,
-                    txt: '周六至周日可用|可叠加',
-                    title: '100元代金券'
-                }, {
-                    price: 19,
-                    txt: '周六至周日可用|可叠加',
-                    title: '100元代金券'
-                }, {
-                    price: 19,
-                    txt: '周六至周日可用|可叠加',
-                    title: '100元代金券'
-                }]
+            }, {
+                price: 19,
+                txt: '周六至周日可用|可叠加',
+                title: '100元代金券'
+            }, {
+                price: 19,
+                txt: '周六至周日可用|可叠加',
+                title: '100元代金券'
+            }, {
+                price: 19,
+                txt: '周六至周日可用|可叠加',
+                title: '100元代金券'
+            }]
         }],
         groupdata: null,
         limitdata: null,
-        cutdata: null
+        cutdata: null,
+        stationId: null
     },
     bannerItemChange(e) {
         this.setData({
             bannerCurrent: e.detail.current
         })
     },
-
-    Getdiscount() {
-        let pageSize = 2,
-            StationId = 1
+    _initData() {
         let data = {
-            StationId,
-            pageSize
+            stationId: this.data.stationId,
+            pageSize: this.data.pageSize,
+            pageIndex: this.data.pageIndex,
+            merchantId: 0
         }
-        promiseRequest(discount, 'get', data).then(res => {
-            let r = res.data
-            if (r.code == 0) {
+        return data
+    },
+
+    getLimitdata() {
+        let data = this._initData()
+        promiseRequest(limit, 'get', data).then(res => {
+            if (res.data.code == 0) {
                 this.setData({
-                    groupdata:r.groupdata,
-                    limitdata:r.limitdata,
-                    cutdata:r.cutdata
+                    limitdata: res.data.data
                 })
-                console.log(this.data.cutdata)
+            }
+        })
+    },
+    getCutdata() {
+        let data = this._initData()
+        promiseRequest(cut, 'get', data).then(res => {
+            if (res.data.code == 0) {
+                this.setData({
+                    cutdata: res.data.data
+                })
+            }
+        })
+    },
+    getGroupdata() {
+        let data = this._initData()
+        promiseRequest(groupbuy, 'get', data).then(res => {
+            if (res.data.code == 0) {
+                this.setData({
+                    groupdata: res.data.data
+                })
             }
         })
     },
@@ -87,9 +116,34 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        this.Getdiscount()
+        this.setData({
+            stationId: app.globalData.station.stationId
+        })
+        this.getGroupdata()
+        this.getCutdata()
+        this.getLimitdata()
     },
-
+    handleTabItemClick(e) {
+        let d = e.currentTarget.dataset
+        console.log(d.t)
+        switch (d.t) {
+            case 'group':
+                this.setData({
+                    groupCurrent: d.idx
+                })
+                break;
+            case 'limit':
+                this.setData({
+                    limitCurrent: d.idx
+                })
+                break;
+            case 'cut':
+                this.setData({
+                    cutCurrent: d.idx
+                })
+                break;
+        }
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

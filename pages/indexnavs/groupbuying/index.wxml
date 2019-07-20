@@ -16,25 +16,25 @@
             </view>
             <view class='top'>
                 <image src='' class='icon'></image>
-                <text class='sellername'>{{item.sellerName}}</text>
+                <text class='sellername'>{{item.merchantName}}</text>
                 <text class='dis'>{{item.dis}}</text>
             </view>
             <view class='tags'>
                 <view class='tag-item' wx:for='{{item.tags}}'>{{item}}</view>
             </view>
             <view class='info'>
-                <image class='avart' src='{{item.avatar}}'></image>
+                <image class='avart' src='{{item.coverUrl}}'></image>
                 <view class='desc'>
-                    <view class='goodsname str'>{{item.goodsname}}</view>
-                    <view class='date'>{{item.subtitle}}</view>
-                    <view class='counttime' wx:if='{{item.activityTime}}'>
-                        <countdown strTime='{{item.activityTime}}'></countdown>
-                        <view class='txt'>还差2人</view>
+                    <view class='goodsname str'>{{item.productName}}</view>
+                    <view class='date'>{{item.startTime}}</view>
+                    <view class='counttime'>
+                        <countdown strTime='{{item.endTime}}'></countdown>
+                        <view class='txt'>还差{{item.personNum}}人</view>
                     </view>
                     <view class='bot'>
                         <view class='price'>￥
                             <text class='conis'>{{item.price}}</text>
-                            <text class='oldprice del'>￥{{item.oldprice}}</text>
+                            <text class='oldprice del'>￥{{item.tagPrice}}</text>
                         </view>
                         <view class='btn'>继续分享</view>
                         <!-- <view class='btn'>立即抢购</view>

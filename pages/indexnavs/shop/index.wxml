@@ -1,8 +1,8 @@
 <view class='container'>
     <view class='header'>
-        <image class='avatar' src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3361934473,3725527506&fm=27&gp=0.jpg'></image>
+        <image class='avatar' src='{{}}'></image>
         <view class='info'>
-            <view class='strong'>湖南师范大学营业厅</view>
+            <view class='strong'>{{data.merchantName}}</view>
             <view class='score'>
                 <grade score='3' />
                 <text class='count'>5.0分</text>
@@ -10,9 +10,9 @@
             <view class='midd'>
                 <view class='lf'>
                     <image class='icon' src='../../../static/img/addrsicon.png'></image>
-                    <text class='txt str'>3.6公里 | 长沙市岳麓区潇湘中路122...</text>
+                    <text class='txt str'>3.6公里 | {{data.addr}}</text>
                 </view>
-                <image class='tel' src='../../../static/img/shop_tel.png'></image>
+                <image class='tel' src='../../../static/img/shop_tel.png'>{{data.contactMobile}}</image>
             </view>
             <view class='tags'>
                 <view class='item'>师范大学</view>
@@ -21,10 +21,92 @@
     </view>
 
     <view class='welfare'>
-        
+        <view class='item-wrapper'>
+            <!-- 多个 -->
+            <block wx:if='{{data.couponList}}'>
+                <scroll-view scroll-x class='scroll'>
+                    <view class='list'>
+                        <view class='item0 item'>
+                            <view class='txt'>优惠券</view>
+                            <view class='info'>
+                                <view class='activedate'>有效期至{{item.validEndTime}}</view>
+                                <view class='btn b0'>领取</view>
+                            </view>
+                            <view class='price'>￥{{item.couponMoney}}
+                                <text class='tip'>满{{item.spendMoney}}可用</text>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </block>
+            <block wx:else>
+                <view class='item1 item'>
+                    <view class='txt'>优惠券</view>
+                    <view class='info'>
+                        <view class='activedate'>有效期至2019.08.18</view>
+                        <view class='btn b0'>领取</view>
+                    </view>
+                    <view class='price'>￥10
+                        <text class='tip'>满38可用</text>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <view class='item-wrapper'>
+            <!-- 多个 -->
+            <block wx:if='{{true}}'>
+                <scroll-view scroll-x class='scroll'>
+                    <view class='list'>
+                        <view class='item0 item' wx:for='{{4}}'>
+                            <view class='txt'>优惠券</view>
+                            <view class='info'>
+                                <view class='activedate'>有效期至2019.08.18</view>
+                                <view class='btn b2'>抢券</view>
+                            </view>
+                            <view class='price'>￥10
+                                <text class='tag'>4.8折</text>
+                                <text class='oldprice del'>￥100</text>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </block>
+            <block wx:else>
+                <scroll-view scroll-x class='scroll'>
+                    <view class='list'>
+                        <view class='item0 item' wx:for='{{4}}'>
+                            <view class='txt'>优惠券</view>
+                            <view class='info'>
+                                <view class='activedate'>有效期至2019.08.18</view>
+                                <view class='btn b2'>抢券</view>
+                            </view>
+                            <view class='price'>￥10
+                                <text class='tag'>4.8折</text>
+                                <text class='oldprice del'>￥100</text>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </block>
+        </view>
+        <view class='btn'>付款</view>
     </view>
 
-
+    <view class='discount'>
+        <view class='top'>
+            <text class='txt'>特惠区</text>
+            <text class='more'>查看更多</text>
+        </view>
+        <scroll-view scroll-x>
+            <view class='list'>
+                <view class='item' wx:for='{{4}}' wx:key='{{index}}'>
+                    <image src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3361934473,3725527506&fm=27&gp=0.jpg'></image>
+                    <view class='name str'>红豆焦糖珍爱【冷热红豆焦糖珍爱【冷热...</view>
+                    <view class='price'>￥<text class='txt'>9.9</text><text class='old del'>￥18.9</text></view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
 
 
 

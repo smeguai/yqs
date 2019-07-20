@@ -5,28 +5,28 @@
         </view>
     </view>
     <view class='list'>
-        <view class='item' wx:for='{{list}}' wx:key='{{index}}' bindtap='checkOrderDesc'>
+        <view class='item' wx:for='{{list}}' wx:key='{{item.merchantId}}' bindtap='checkOrderDesc'>
             <view class='top'>
-                <image class='avatar' src='{{item.avatar}}'></image>
-                <text class='name str'>{{item.name}}</text>
-                <text class='cate'>{{navMode[item.cate]}}</text>
+                <image class='avatar' src='{{item.headImgUrl}}'></image>
+                <text class='name str'>{{item.merchantName}}</text>
+                <text class='cate'>{{cateMode(item.status)}}</text>
             </view>
             <view class='desc'>
                 <image class='img' src='{{item.imgUrl}}'></image>
                 <view class='info'>
                     <view class='title strmore'>{{item.title}}</view>
-                    <view class='subtitle'>{{item.subtitle}}</view>
+                    <view class='subtitle'>{{item.productName}}</view>
                     <view class='bot'>
-                        <view class='price'>￥{{item.price}}
-                            <text class='oldprice del'>￥{{item.oldprice}}</text>
+                        <view class='price'>￥{{item.discountAmount}}
+                            <text class='oldprice del'>￥{{item.unitPrice}}</text>
                         </view>
-                        <text class='count'>×{{item.count}}</text>
+                        <text class='count'>×{{item.amount}}</text>
                     </view>
                 </view>
             </view>
             <view class='handle'>
                 <view class='txt'>实付：
-                    <text class='price'>￥{{item.pay}}</text>
+                    <text class='price'>￥{{item.payTotal}}</text>
                 </view>
                 <view class='btns' wx:if='{{item.cate == 0}}'>
                     <text class='btnitem0 btn' catchtap='cancelOrder'>取消订单</text>

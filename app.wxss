@@ -26,9 +26,10 @@
     border-radius: 24rpx;
     display: flex;
     align-items: center;
-    padding: 4rpx 30rpx;
+    padding: 4rpx 30rpx 0 30rpx;
+    box-sizing: border-box;
     margin: 28rpx 0;
-    height: 48rpx;
+    height: 60rpx;
 }
 
 .container .search .icon {

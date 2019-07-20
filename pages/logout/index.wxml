@@ -23,7 +23,8 @@
         <text class="logout_clause_text">我已仔细阅读完并且完全同意以上条款，并希望继续注销</text>
     </view>
 
-    <button class="logout_btn logout_confirm">确认注销</button>
+    <button wx:if="{{logoutShow}}" class="logout_btn logout_confirm" style="background:#FFDE4E;">确认注销</button>
+    <button wx:else class="logout_btn logout_confirm">确认注销</button>
 
-    <button class="logout_btn logout_cancel">暂不注销</button>
+    <button class="logout_btn logout_cancel" bindtap="backClick">暂不注销</button>
 </view>

@@ -1,5 +1,6 @@
 {
     "usingComponents": {
-        "countdown": "../../component/countdown/index"
+        "countdown": "../../component/countdown/index",
+        "grade": "../../component/grade/grade"
     }
 }

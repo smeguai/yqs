@@ -1,4 +1,6 @@
-// pages/location/select/index.js
+import { search} from '../../../utils/api.js'
+import { promiseRequest } from '../../../utils/util.js'
+const app = getApp()
 Page({
 
     /**
@@ -22,30 +24,37 @@ Page({
                 add: '长沙市岳麓区',
             }
         ],
-        record: [
-            {
-                name: '万顺家园小区',
-                record: '长沙市芙蓉区',
-            },
-            {
-                name: '金科佳苑小区',
-                record: '长沙市芙蓉区',
-            },
-            {
-                name: '万顺家园小区',
-                record: '长沙市岳麓区',
-            }
-        ],
+        record: [],
         searchItem: false,
+        searchContent: ''
     },
-
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
 
     },
-
+    clearIptValue() {
+        this.setData({
+            searchContent: ''
+        })
+        console.log(1)
+    },
+    getSearch() {
+        let data  = {
+            x: app.globalData.location[0],
+            y: app.globalData.location[1],
+            keys: this.data.searchContent
+        }
+        promiseRequest(search, 'post', data).then(res => {
+            if (res.data.code == 0 && res.data.keyData) {
+                this.setData({
+                    record: res.data.keyData,
+                    searchItem: true
+                })
+            }
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -93,5 +102,11 @@ Page({
      */
     onShareAppMessage: function () {
 
+    },
+
+    setsearchContent(e) {
+        this.setData({
+            searchContent: e.detail.value
+        })
     }
 })

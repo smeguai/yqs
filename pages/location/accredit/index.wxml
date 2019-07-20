@@ -1,0 +1,9 @@
+<view class='container'>
+    <view class='img'><image src='../../../static/img/logo.png'></image></view>
+    <view class='name'>翼省钱</view>
+    <view class='txt'>该程序申请获得以下权限：</view>
+    <view class='subtxt'>获得你的位置信息</view>
+    <view class='btns'>
+        <button class='btn' open-type='openSetting' bindopensetting='getOpenSetting'>确认授权</button>
+    </view>
+</view>

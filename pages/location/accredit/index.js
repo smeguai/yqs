@@ -1,48 +1,40 @@
-import { shopdetail} from '../../../utils/api.js'
-import { promiseRequest } from '../../../utils/util.js'
+const app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        merchantId: null,
-        data: null
+
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.getShopDetail()
+
     },
-    getShopDetail() {
-        let data = {
-            merchantId: 10000
-        }
-        promiseRequest(shopdetail, 'get', data).then(res => {
-            console.log(res)
-            if (res.data.code == 0) {
-                this.setData({
-                    data: res.data.data
-                })
-            } 
-        })
-    },
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
 
     },
-
+    getOpenSetting(e) {
+        app.getLocation()
+        if (e.detail.authSetting['scope.userLocation']) {
+            wx.navigateBack({
+                delta: -1
+            })
+        }
+    },
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
 
     },
-
     /**
      * 生命周期函数--监听页面隐藏
      */

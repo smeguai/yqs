@@ -14,22 +14,16 @@ const formatNumber = n => {
     return n[1] ? n : '0' + n
 }
 //  promise
-function promiseRequest(url, method = 'post', data = {}) {
+function promiseRequest(url, method = 'post', data = {}, header = {}) {
+    header = Object.assign({ 'Content-Type': 'application/json-patch+json' }, header)
     return new Promise((resolve, reject) => {
         wx.request({
             url: url,
             data,
             method,
-            header: {
-                'Content-Type': 'application/json-patch+json',
-            },
+            header,
             success: (res) => {
                 res.statusCode === 200 ? resolve(res) : reject(res.errMsg)
-                // if (res.statusCode == 200) {
-                //     resolve(res);
-                // } else {
-                //     reject(res.errMsg);
-                // }
             },
             fail: (err) => {
                 reject(err)

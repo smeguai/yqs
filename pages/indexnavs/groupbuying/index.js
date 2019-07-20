@@ -1,53 +1,40 @@
-// pages/indexnavs/askedprice/index.js
+import { getgrouplist} from '../../../utils/api.js'
+import { promiseRequest } from '../../../utils/util.js'
+const app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        list: [
-            {
-                sellerName: '张三疯欧式奶茶铺',
-                tags: ['长沙市连锁', '第一奶茶店'],
-                avatar: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=400062461,2874561526&fm=27&gp=0.jpg',
-                goodsname: '草莓+柠檬+百香果蜂蜜饮料超值...',
-                subtitle: '周一至周六',
-                activityTime: '2019/8/11',
-                price: 9.8,
-                oldprice: 19.8,
-                dis: '500米',
-                ask: true
-            },
-            {
-                sellerName: '张三疯欧式奶茶铺',
-                tags: ['长沙市连锁', '第一奶茶店'],
-                avatar: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=400062461,2874561526&fm=27&gp=0.jpg',
-                goodsname: '草莓+柠檬+百香果蜂蜜饮料超值...',
-                subtitle: '周一至周六',
-                price: 9.8,
-                oldprice: 19.8,
-                dis: '100米'
-            },
-            {
-                sellerName: '张三疯欧式奶茶铺',
-                tags: [],
-                avatar: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=400062461,2874561526&fm=27&gp=0.jpg',
-                goodsname: '草莓+柠檬+百香果蜂蜜饮料超值...',
-                subtitle: '周一至周六',
-                price: 19.8,
-                oldprice: 49.8,
-                dis: '20米'
-            }
-        ]
+        list: null,
+        pageIndex: 1,
+        pageSize: 10,
+        merchantId: 0
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        this.getGroupList()
     },
-
+    getGroupList() {
+        let data = {
+            pageIndex: this.data.pageIndex,
+            pageSize: this.data.pageSize,
+            merchantId: this.data.merchantId,
+            stationId: app.globalData.station.stationId
+        }
+        promiseRequest(getgrouplist, 'get', data).then(res => {
+            console.log(res)
+            if (res.data.code === 0) {
+                this.setData({
+                    list: res.data.data
+                })
+            }
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

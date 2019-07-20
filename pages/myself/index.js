@@ -79,7 +79,9 @@ Page({
         console.log(id)
         switch (id) {
             case 0:
-
+                wx.navigateTo({
+                    url: '../user/coupon/index',
+                })
                 break;
             case 1:
 
@@ -90,6 +92,9 @@ Page({
                 })
                 break;
             case 3:
+                wx.navigateTo({
+                    url: '../user/collect/index',
+                })
                 break;
             case 4:
                 wx.navigateTo({
@@ -107,7 +112,9 @@ Page({
                 })
                 break;
             case 7:
-
+                wx.navigateTo({
+                    url: '../user/record/index',
+                })
                 break;
         }
     },

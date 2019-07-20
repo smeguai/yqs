@@ -9,7 +9,9 @@ import {
 
 Page({
 
-    data: {},
+    data: {
+        tel: null,
+    },
     /**
      * 生命周期函数--监听页面加载
      */

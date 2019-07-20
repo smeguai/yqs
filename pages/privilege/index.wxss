@@ -32,7 +32,9 @@
     width: 100%;
     border-radius: 10rpx;
 }
-
+.container .nearbywelfare {
+    border-top: 20rpx solid #eee;
+}
 .container .section .top {
     display: flex;
     padding: 20rpx 24rpx;
@@ -50,8 +52,10 @@
     align-items: center;
     border-radius: 20rpx;
     height: 48rpx;
-    padding: 0 1rpx;
+    padding: 2rpx 0;
     box-sizing: border-box;
+    background: #fde223;
+    overflow: hidden;
 }
 
 .container .section .top .tabnav .btn {
@@ -59,19 +63,19 @@
     padding: 0 20rpx;
     height: 44rpx;
     line-height: 44rpx;
-}
-
-.container .section .top .tabnav .hotsale {
-    border-radius: 0 20rpx 20rpx 0;
-}
-
-.container .section .top .tabnav .recommend {
-    border-radius: 20rpx 0 0 20rpx;
     background: #fde223;
 }
 
+.container .section .top .tabnav .btn.notclick:nth-child(1) {
+    border-radius: 20rpx 0 0 20rpx;
+    background: #fff;
+}
+.container .section .top .tabnav .btn.notclick:nth-child(2) {
+    border-radius:  0 20rpx 20rpx 0;
+    background: #fff;
+}
 .container .section .list-wrapper .list {
-    padding: 10rpx 0 10rpx 24rpx;
+    padding: 10rpx 0 20rpx 24rpx;
 }
 
 .container .section .list-wrapper .list .item .avatar {
@@ -280,7 +284,7 @@
 }
 .container .section .lists .item .info .txt .oldprice {
     color: #999999;
-    padding-left: 34rpx;
+    padding-left: 14rpx;
 }
 .container .section .lists .item .info .desc {
     font-size: 20rpx;

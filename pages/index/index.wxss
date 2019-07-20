@@ -3,133 +3,165 @@
     background: #fff;
     padding: 30rpx 24rpx 36rpx 24rpx;
 }
+
 .container .addrs .lf {
     flex: 1;
     display: flex;
     align-items: center;
 }
+
 .container .addrs .lf .addricon {
     width: 24rpx;
     height: 32rpx;
 }
+
 .container .addrs .lf .txt {
     font-size: 32rpx;
     color: #000;
     padding: 0 8rpx 0 16rpx;
 }
+
 .container .addrs .lf .righticon {
     width: 24rpx;
     height: 24rpx;
 }
+
 .container .addrs .search-wrapper {
     display: flex;
     width: 168rpx;
     height: 48rpx;
     align-items: center;
-    background: #E8E8E8;
+    background: #e8e8e8;
     border-radius: 28rpx;
-    border: 1rpx solid #F0F0F0;
+    border: 1rpx solid #f0f0f0;
 }
+
 .container .addrs .search-wrapper .icon {
     width: 30rpx;
     height: 30rpx;
     padding-left: 24rpx;
 }
+
 .container .addrs .search-wrapper .txt {
     color: #999;
     font-size: 24rpx;
     padding-left: 36rpx;
 }
+
 .container .banner {
     background: #fff;
 }
+
 .container .banner .list {
     padding: 0 24rpx;
     height: 200rpx;
 }
+
 .container .banner .list .item .banner-img {
     width: 100%;
+    height: 100%;
+    border-radius: 10rpx;
 }
+
 .container .banner .nums {
-    padding-top: 14rpx;
     display: flex;
+    align-items: center;
     justify-content: center;
+    padding: 14rpx 0;
 }
+
 .container .banner .nums .item {
-    background: #E9E9E9;
-    width: 8rpx;
-    height: 8rpx;
-    border-radius: 4rpx;
-    margin: 0 13rpx;
+    width: 10rpx;
+    height: 10rpx;
+    background: #e9e9e9;
+    border-radius: 10rpx;
+    margin: 0 6rpx;
 }
-.container .banner .nums .active {
-    background: #FDE223;
+
+.container .banner .nums .item.active {
+    background: #ffde4e;
     width: 20rpx;
-    height: 8rpx;
-    border-radius: 4rpx;
 }
+
 .container .nav {
     padding: 24rpx 0 46rpx 0;
     background: #fff;
 }
+
 .container .nav .list {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.container .nav .list:nth-child(2) {
+
+.container .nav .list:last-child {
     padding-top: 45rpx;
+    height: 140rpx;
+    box-sizing: border-box;
 }
+
 .container .nav .list .item {
     flex: 1;
     font-size: 0;
     text-align: center;
 }
+
 .container .nav .list .item .icon {
     width: 82rpx;
     height: 82rpx;
 }
+
 .container .nav .list .item .img {
     width: 44rpx;
     height: 44rpx;
 }
+
 .container .nav .list .item .txt {
     font-size: 24rpx;
     padding-top: 20rpx;
 }
+
 .container .favorable {
     padding: 36rpx 24rpx 48rpx 24rpx;
     box-sizing: border-box;
     background: #fff;
     margin-top: 20rpx;
 }
+
 .container .favorable .top {
     display: flex;
 }
+
 .container .favorable .top .txt {
     font-weight: 500;
     font-size: 32rpx;
 }
+
 .container .favorable .top .more {
-    color: #FF7527;
+    color: #ff7527;
     font-size: 20rpx;
     flex: 1;
     text-align: right;
 }
-.container .favorable .scroll  {
+
+.container .favorable .scroll {
     padding-top: 28rpx;
 }
+
 .container .favorable .scroll .list {
     display: flex;
 }
+
 .container .favorable .scroll .list .item {
     width: 240rpx;
     margin-left: 30rpx;
     position: relative;
 }
+
 .container .favorable .scroll .list .item:nth-child(1) {
     padding: 0;
 }
+
 .container .favorable .scroll .list .item .icon {
     width: 42rpx;
     height: 42rpx;
@@ -137,107 +169,197 @@
     left: 14rpx;
     top: 0;
 }
+
 .countdown {
     position: absolute;
     top: 138rpx;
     left: 50%;
     transform: translateX(-50%);
 }
+
 .container .favorable .scroll .list .item .img {
     width: 240rpx;
     height: 188rpx;
     border-radius: 8rpx;
 }
+
 .container .favorable .scroll .list .item .title {
     font-size: 28rpx;
 }
+
 .container .favorable .scroll .list .item .subtitle {
     font-size: 20rpx;
     color: #999;
 }
+
 .container .favorable .scroll .list .item .newprice {
     font-size: 32rpx;
-    color: #FF6600;
-
+    color: #f60;
 }
+
 .container .favorable .scroll .list .item .newprice .f {
     font-size: 20rpx;
 }
+
 .container .favorable .scroll .list .item .oldprice {
     font-size: 20rpx;
-    color: #999999;
+    color: #999;
     position: relative;
-    text-decoration:line-through;
+    text-decoration: line-through;
     padding-left: 12rpx;
 }
+
 .container .recommend {
     margin-top: 20rpx;
     background: #fff;
     padding: 0 24rpx;
 }
+
 .container .recommend .title {
     font-size: 28rpx;
     padding-top: 30rpx;
 }
 .container .recommend .item {
+    border-top: 1rpx solid #f6f6f6;
     display: flex;
     padding: 30rpx 0;
-    border-bottom: 1rpx solid #F6F6F6;
+    flex-wrap: wrap;
 }
-.container .recommend .item:last-child {
-    border: 0;
-}
-.container .recommend .item .img {
+
+.container .recommend .item .avatar {
     width: 128rpx;
     height: 128rpx;
-    border-radius: 10rpx;
-}
-.container .recommend .item .desc {
-    flex: 1;
-    padding: 0 28rpx;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-.container .recommend .item .desc .top {
-    font-size: 0;
-}
-.container .recommend .item .desc .sub {
-    font-size: 16rpx;
-    color: #666666;
-    padding: 12rpx 0;
-}
-.container .recommend .item .desc .sub .txt0 {
-    font-size: 20rpx;
-    padding-right: 6rpx;
-    vertical-align: middle;
-}
-.container .recommend .item .desc .sub .txt1 {
-    font-size: 20rpx;
-    padding-left: 6rpx;
-    vertical-align: middle;
-}
-.container .recommend .item .desc .seller {
-    font-size: 28rpx;
-    font-weight: 600;
-}
-.container .recommend .item .desc .tab {
-    display: flex;
-}
-.container .recommend .item .desc .tabli {
-    font-size: 20rpx;
-    border: 1rpx solid #999;
-    padding: 8rpx 10rpx;
     border-radius: 6rpx;
-    margin-left: 16rpx;
 }
-.container .recommend .item .desc .tabli:nth-child(1) {
-    margin-left: 0;
+
+.container .recommend .item .info {
+    padding-left: 30rpx;
+    flex: 1;
 }
-.container .recommend .item .addr {
+
+.container .recommend .item .info .middel {
+    display: flex;
+    align-items: center;
     font-size: 20rpx;
-    padding-top: 40rpx;
+    color: #666;
+    padding: 4rpx 0;
 }
+
+.container .recommend .item .info .middel text {
+    padding: 0 16rpx;
+}
+
+.container .recommend .item .info .middel .dis {
+    text-align: right;
+    flex: 1;
+}
+
+.container .recommend .item .info .top {
+    display: flex;
+    align-items: center;
+}
+
+.container .recommend .item .info .top .name {
+    font-size: 28rpx;
+    font-weight: bold;
+}
+
+.container .recommend .item .info .top .ckbox {
+    padding: 4rpx 8rpx;
+    border-radius: 4rpx;
+    font-size: 20rpx;
+    margin-left: 14rpx;
+    font-weight: bold;
+}
+
+.container .recommend .item .info .top .lm {
+    background: #ffcd06;
+    color: #442113;
+}
+
+.container .recommend .item .info .top .pp {
+    background: #1d72b4;
+    color: #fff;
+}
+
+.container .recommend .item .info .tag {
+    display: flex;
+    padding-top: 10rpx;
+}
+
+.container .recommend .item .info .tag .tagitem {
+    font-size: 20rpx;
+    margin-right: 16rpx;
+}
+.container .recommend .item .info .tag .tagitem .txt0 {
+    color: #FF6633;
+    border: 1rpx solid #FF6633;
+    padding: 6rpx 12rpx;
+    border-radius: 6rpx;
+}
+.container .recommend .item .info .tag .tagitem .txt1 {
+    color: #999999;
+    border: 1rpx solid #999999;
+    padding: 6rpx 12rpx;
+    border-radius: 6rpx;
+}
+.container .recommend .item .info .activity {
+    display: flex;
+    align-items: center;
+    padding-top: 20rpx;
+}
+
+.container .recommend .item .info .activity .cate {
+    width: 24rpx;
+    height: 24rpx;
+    border-radius: 2rpx;
+    font-size: 20rpx;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 24rpx;
+}
+
+.container .recommend .item .info .activity .cate.tuan {
+    background: #3098ff;
+}
+
+.container .recommend .item .info .activity .cate.quan {
+    background: #f63;
+}
+
+.container .recommend .item .info .activity .txt {
+    font-size: 24rpx;
+    padding-left: 6rpx;
+}
+
+.container .recommend .item .info .goods {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 24rpx;
+}
+
+.container .recommend .item .info .goods .goodsitem {
+    flex: 1;
+}
+
+.container .recommend .item .info .goods .goodsitem .imgurl {
+    width: 178rpx;
+    height: 150rpx;
+    border-radius: 6rpx;
+}
+
+.container .recommend .item .info .goods .goodsitem .price {
+    font-size: 32rpx;
+    color: #f60;
+}
+
+.container .recommend .item .info .goods .goodsitem .price .oldprice {
+    font-size: 20rpx;
+    color: #999;
+    padding-left: 12rpx;
+}
+
 .container .aslid {
     position: fixed;
     top: 50%;
@@ -247,19 +369,22 @@
     right: 24rpx;
     text-align: center;
 }
+
 .container .aslid .item {
     width: 68rpx;
     height: 68rpx;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, 0.4);
     font-size: 0;
     border-radius: 100%;
     padding: 4rpx;
     box-sizing: border-box;
 }
+
 .container .aslid .icon {
     width: 30rpx;
     height: 30rpx;
 }
+
 .container .aslid .txt {
     font-size: 20rpx;
     color: #fff;

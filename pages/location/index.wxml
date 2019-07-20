@@ -28,7 +28,7 @@
                 <image src="../../static/img/addrsicon.png"></image>
                 <view>
                     <view class="xg_centerTop_leftTitle">目前位置</view>
-                    <view class="xg_centerTop_leftText">长沙市岳麓区麓枫后湖</view>
+                    <view class="xg_centerTop_leftText">{{data.stationName}}</view>
                 </view>
             </view>
             <view class="xg_centerTop_right">修改</view>
