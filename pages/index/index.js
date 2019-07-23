@@ -50,7 +50,7 @@ Page({
     //  推荐商品
     getDiscount() {
         let data = {
-            StationId: app.globalData.station.stationId
+            StationId: app.globalData.station && app.globalData.station.stationId || this.data.stationId
         }
         promiseRequest(indexdiscount, 'get', data).then(res => {
             console.log(res)
@@ -65,16 +65,15 @@ Page({
     },
     //  推荐商家
     getShop() {
-        let location = wx.getStorageSync('location'),
-            station = wx.getStorageSync('station')
-        //  测试
-        station.stationId = 1
-        //  end
+        console.log(app.globalData.station)
+        let location = app.globalData.location,
+            stationId = app.globalData.station ? app.globalData.station.stationId : 1
+            stationId = 1
         let data = {
             pageIndex: this.data.pageIndex,
             pageSize: this.data.pageSize,
             typeId: this.data.typeId,
-            stationId: station.stationId,
+            stationId,
             x: location[0],
             y: location[1]
         }
@@ -106,7 +105,6 @@ Page({
         this.getShop()
         this.getDiscount()
     },
-
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -118,13 +116,14 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        if (!this.data.station) {
+    },
+    getStation() {
+        if (!!app.globalData.station) {
             this.setData({
                 station: app.globalData.station
             })
         }
     },
-
     /**
      * 生命周期函数--监听页面隐藏
      */

@@ -108,7 +108,31 @@
         </scroll-view>
     </view>
 
-
+    <view class='section'>
+        <view class='top'>
+            <view class='txt'>用户评价</view>
+            <view class='more'>更多评论（132条）</view>
+        </view>
+        <view class='tags'>
+            <view class='item' wx:for='{{6}}' wx:key='{{index}}'>味道好 57</view>
+        </view>
+        <view class='list'>
+            <view class='item'>
+                <image class='avatar' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg'></image>
+                <view class='info'>
+                    <view class='name'>蝴蝶和猫i</view>
+                    <view class='midd'>
+                        <grade score='{{4}}' />
+                        <view class='time'>2019.05.28 </view>
+                    </view>
+                    <view class='content'>又来了，这家店离我比较近，所以一般都是经常去的，味道也是蛮好的，算是回头客了。</view>
+                    <view class='imglist'>
+                        <image class='img' wx:for='{{3}}' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg' wx:key='{{index}}'></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
 
 
 

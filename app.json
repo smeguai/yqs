@@ -1,43 +1,49 @@
 {
     "pages": [
+        "pages/goodsdetail/index",
+
+        "pages/index/select/index",
         "pages/index/index",
-        "pages/privilege/index",
-        "pages/myself/index",
-        "pages/wallet/index",
-        "pages/user/collect/index",
-        "pages/user/coupon/index",
-        "pages/user/record/index",
-        "pages/user/info/index",
-        "pages/user/alterMobile/index",
-        "pages/user/password/index",
+
         "pages/indexnavs/shop/index",
         "pages/indexnavs/ticket/index",
         "pages/indexnavs/groupbuying/index",
         "pages/indexnavs/askedprice/index",
         "pages/indexnavs/seckill/index",
         "pages/indexnavs/fooddrink/index",
-        "pages/payPassword/index",
-        "pages/coupon/index",
-        "pages/gathering/index",
-        "pages/contactus/index",
-        "pages/location/select/index",
+
         "pages/location/index",
+        "pages/location/city/index",
+        "pages/location/select/index",
+        "pages/location/accredit/index",
+
         "pages/setting/help/index",
         "pages/setting/policy/index",
         "pages/setting/protocol/index",
         "pages/setting/index",
+
+        "pages/user/collect/index",
+        "pages/user/coupon/index",
+        "pages/user/record/index",
+        "pages/user/info/index",
+        "pages/user/alterMobile/index",
+        "pages/user/password/index",
+
+        "pages/privilege/index",
+        "pages/myself/index",
+        "pages/wallet/index",
+        "pages/payPassword/index",
+        "pages/coupon/index",
+        "pages/gathering/index",
+        "pages/contactus/index",
         "pages/accredit/index",
-        "pages/index/select/index",
-        "pages/location/city/index",
         "pages/about/index",
         "pages/paydone/index",
         "pages/pay/index",
-        "pages/goodsdetail/index",
         "pages/orderdetail/index",
         "pages/login/index",
         "pages/logout/index",
-        "pages/orders/index",
-        "pages/location/accredit/index"
+        "pages/orders/index"
     ],
     "permission": {
         "scope.userLocation": {

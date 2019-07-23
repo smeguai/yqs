@@ -1,55 +1,88 @@
-// pages/goodsdetail/index.js
+import {
+    productdetail,
+    groupbuydetail,
+    cutdetail,
+    limitdetail
+} from '../../utils/api.js'
+import {
+    promiseRequest
+} from '../../utils/util.js'
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        aslid_btn: [{ img: '../../static/img/goods_index.png', txt: '首页' }, { img: '../../static/img/goods_collect.png', txt: '收藏' }, { img: '../../static/img/goods_service.png', txt: '联系客服' }],
+        status: null,
+        productId: null,
+        popupShow: false,
+        aslid_btn: [{
+            img: '../../static/img/goods_index.png',
+            txt: '首页'
+        }, {
+            img: '../../static/img/goods_collect.png',
+            txt: '分享'
+        }, {
+            img: '../../static/img/goods_service.png',
+            txt: '联系客服'
+        }],
         bannerCurrent: 0,
-        pays: [{ name: '张三', img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1290832790,1643168179&fm=27&gp=0.jpg' }, { name: '李四', img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2961748425,612527933&fm=27&gp=0.jpg' }, { name: '王五', img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1290832790,1643168179&fm=27&gp=0.jpg' }],
+        pays: [{
+            name: '张三',
+            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1290832790,1643168179&fm=27&gp=0.jpg'
+        }, {
+            name: '李四',
+            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2961748425,612527933&fm=27&gp=0.jpg'
+        }, {
+            name: '王五',
+            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1290832790,1643168179&fm=27&gp=0.jpg'
+        }],
         paysCurrent: 0,
-        data: {
-            sell: {
-                name: '安特鲁美味成真烘焙店',
-                addrs: '麓枫和苑小区8栋',
-                time: '7: 00 - 22: 30',
-                addrsdesc: '长沙市岳麓区麓枫和苑8栋',
-                qa: ['秒杀商品不可使用优惠券', '秒杀价仅限活动期间，秒杀结束后恢复日常价'],
-                avatar: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2147421056,2180514384&fm=27&gp=0.jpg'
-            },
-            banner: [{
-                    img: 'https://res.bestcake.com/images-2/classical-detail-new/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3-1.jpg?v=20170607',
-                    count: 1987
-                },
-                {
-                    img: 'https://res.bestcake.com/images-2/classical-detail-new/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3-2.jpg?v=20170607',
-                    count: 32987
-                },
-                {
-                    img: 'https://res.bestcake.com/images-2/classical-detail-new/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3-3.jpg?v=20170607',
-                    count: 21987
-                },
-                {
-                    img: 'https://res.bestcake.com/images-2/classical-detail-new/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B3-4.jpg?v=20170607',
-                    count: 14987
-                }
-            ],
-            price: 318.00,
-            oldprice: 518.00,
-            name: 'HO’K美味成真 | 超精致美味的蛋糕切件，三款任 选一，低至9.9元',
-            subtxt: '闪电泡芙/红丝绒/杨枝甘露',
-            friend: ['https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2147421056,2180514384&fm=27&gp=0.jpg', 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1290832790,1643168179&fm=27&gp=0.jpg', 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2961748425,612527933&fm=27&gp=0.jpg', 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4259300811,497831842&fm=27&gp=0.jpg'],
-            goodsdesc: ['https://res.bestcake.com/images-2/classical-detail-new/detail-img/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B31.jpg?v=20190128', 'https://res.bestcake.com/images-2/classical-detail-new/detail-img/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B32.jpg?v=20190128', 'https://res.bestcake.com/images-2/classical-detail-new/detail-img/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B33.jpg?v=20190128', 'https://res.bestcake.com/images-2/classical-detail-new/detail-img/%E6%9E%81%E5%9C%B0%E7%89%9B%E4%B9%B33.jpg?v=20190128']
-        }
+        detail: null
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        this.setData({
+            status: options.status,
+            productId: options.productId
+        })
+        this.getDetails()
     },
+    getDetails() {
+        let data = {
+            productId: this.data.productId
+        }
+        switch (this.data.status) {
+            case 'group':
+                promiseRequest(groupbuydetail, 'get', data).then(res => {
 
+                })
+                break;
+            case 'limit':
+                promiseRequest(limitdetail, 'get', data).then(res => {
+
+                })
+                break;
+            case 'cut':
+                promiseRequest(cutdetail, 'get', data).then(res => {
+
+                })
+                break;
+            default:
+                promiseRequest(productdetail, 'get', data).then(res => {
+                    console.log(res)
+                    if (res.data.code == 0) {
+                        this.setData({
+                            detail: res.data.data
+                        })
+                    }
+                })
+                break;
+        }
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -107,5 +140,20 @@ Page({
      */
     onShareAppMessage: function() {
 
+    },
+    handleAslidBtnClick(e) {
+        let i = e.currentTarget.dataset.index
+        switch (i) {
+            case 0:
+                wx.switchTab({
+                    url: '../index/index'
+                })
+                break;
+        }
+    },
+    handlePayClick() {
+        this.setData({
+            popupShow: !this.data.popupShow
+        })
     }
 })

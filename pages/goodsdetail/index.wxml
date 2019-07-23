@@ -1,35 +1,37 @@
 <view class='container'>
-    <popup />
+    <popup wx:if='{{popupShow}}' />
     <view class='banner-wrapper'>
         <swiper class='swiper'>
-            <swiper-item class='item' wx:for='{{data.banner}}'>
-                <image class='img' src='{{item.img}}'></image>
-                <view class='txt'>{{item.count}}人感兴趣</view>
+            <swiper-item class='item' wx:for='{{detail.imgList}}' wx:key='{{index}}'>
+                <image class='img' src='{{item.fileUrl}}'></image>
+                <view class='txt'>{{item.viewNum}}人感兴趣</view>
                 <view class='anit'>
                     <image class='avatar' src='{{pays[paysCurrent].img}}'></image>
                     <view class='name'>{{pays[paysCurrent].name}}购买了{{data.sell.name}}</view>
                 </view>
             </swiper-item>
-        </swiper>
-        <view class='genre'>
-            <image src='' class='icon'></image>
-            <text class='txt'>秒杀</text>
-        </view>
+        </swiper>{{status}}
+        <block wx:if='{{status!="product"}}'>
+            <image src='../../static/img/goodsdetail_{{status}}.png' class='genre'></image>
+        </block>
         <view class='nums'>
-            <view class='{{bannerCurrent == index ? "item active" : "item"}}' wx:for='{{data.banner.length}}'></view>
+            <view class='{{bannerCurrent == index ? "item active" : "item"}}' wx:for='{{data.banner.length}}' wx:key='{{index}}'></view>
         </view>
     </view>
     <view class='section'>
-        <view class='name'>{{data.name}}</view>
-        <view class='subtxt'>{{data.subtxt}}</view>
-        <view class='price'>￥{{data.price}}
-            <text class='oldprice del'>￥{{data.oldprice}}</text>
+        <view class='name'>{{detail.productName}}</view>
+        <view class='subtxt'>{{detail.productShoreDesc}}</view>
+        <view class='bott'>
+            <view class='price'>￥{{detail.price}}
+                <text class='oldprice del'>￥{{detail.tagPrice}}</text>
+            </view>
+            <view class='count'>已售{{detail.virtualSoldNum}} / 仅剩{{detail. stock}}</view>
         </view>
         <view class='invite'>
             <view class='txt'>他们都在逛</view>
             <view class='bot'>
                 <view class='lf'>
-                    <view class='blo' wx:for='{{data.friend}}'>
+                    <view class='blo' wx:for='{{detail.userList}}' wx:key='{{index}}'>
                         <image class='friend' src='{{item}}'></image>
                     </view>
                 </view>
@@ -39,10 +41,10 @@
     </view>
     <view class='info'>
         <view class='top'>
-            <image class='avatar' src='{{data.sell.avatar}}'></image>
+            <image class='avatar' src='{{detail.headImgUrl}}'></image>
             <view class='mid'>
-                <view class='name str'>{{data.sell.name}}</view>
-                <view class='addrs str'>{{data.sell.addrs}}</view>
+                <view class='name str'>{{detail.merchantName}}</view>
+                <view class='addrs str'>{{detail.addr}}</view>
             </view>
             <view class='rt'>
                 <text class='txt'>进店逛逛</text>
@@ -57,25 +59,26 @@
                     <image class='addrs' src='../../static/img/addrs.png'></image>
                 </view>
             </view>
-            <view class='item'>营业时间:{{data.sell.time}}</view>
-            <view class='item'>地址:{{data.sell.addrsdesc}}</view>
-            <view class='header'>
-                <view class='text'>购买须知</view>
-            </view>
-            <view class='item' wx:for='{{data.sell.qa}}'>{{item}}</view>
+            <view class='item'>营业时间:{{detail.businessTime}}</view>
+            <view class='item'>地址:{{detail.addr}}</view>
         </view>
+    </view>
+    <view class='gmxz' wx:if='{{detail.useIntro}}'>
+            <view class='text'>购买须知</view>
+        <view class='item'>{{detail.useIntro}}</view>
     </view>
     <view class='goodsdetail'>
         <image class='icon' src='../../static/img/goodsdetail.png'></image>
         <view class='desc'>
-            <image src='{{item}}' class='img' wx:for='{{data.goodsdesc}}'></image>
+            <!-- <image src='{{item}}' class='img' wx:for='{{detail.goodsdesc}}' wx:key='{{index}}'></image> -->
+            <!-- <web-view src=''></web-view> -->
         </view>
     </view>
     <view class='aslid'>
-        <view class='btn' wx:for='{{aslid_btn}}'>
+        <view class='btn' wx:for='{{aslid_btn}}' wx:key='{{index}}' data-index='{{index}}' bindtap='handleAslidBtnClick'>
             <image class='icon' src='{{item.img}}'></image>
             <view class='txt'>{{item.txt}}</view>
         </view>
-        <view class='btn1'>立即抢购</view>
+        <view class='btn1' bindtap='handlePayClick'>立即抢购</view>
     </view>
 </view>

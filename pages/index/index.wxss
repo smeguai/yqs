@@ -130,17 +130,18 @@
 
 .container .favorable .top {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .container .favorable .top .txt {
-    font-weight: 500;
-    font-size: 32rpx;
+    font-size: 28rpx;
+    font-weight: 600;
 }
 
 .container .favorable .top .more {
     color: #ff7527;
     font-size: 20rpx;
-    flex: 1;
     text-align: right;
 }
 
@@ -217,7 +218,8 @@
 
 .container .recommend .title {
     font-size: 28rpx;
-    padding-top: 30rpx;
+    padding: 30rpx 0;
+    font-weight: 600;
 }
 .container .recommend .item {
     border-top: 1rpx solid #f6f6f6;

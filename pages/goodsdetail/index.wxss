@@ -43,10 +43,10 @@
 }
 
 @keyframes paysanition {
-    0% {top: 90rpx;opacity: 0;}
-    30% {top: 120rpx;opacity: 1;}
-    60% {top: 120rpx;opacity: 1;}
-    100% {top: 110rpx;opacity: 0;}
+    0% {top: 120rpx;opacity: 0;}
+    30% {top: 140rpx;opacity: 1;}
+    60% {top: 160rpx;opacity: 1;}
+    100% {top: 150rpx;opacity: 0;}
 }
 
 .container .banner-wrapper .swiper .item .anit .avatar {
@@ -121,14 +121,21 @@
     font-size: 24rpx;
     padding-top: 20rpx;
 }
-
-.container .section .price {
+.container .section .bott {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.container .section .bott .price {
     font-size: 52rpx;
     color: #f60;
     font-weight: bold;
     padding-top: 16rpx;
 }
-
+.container .section .bott .count {
+    font-size: 24rpx;
+    color:#666666;
+}
 .container .section .price .oldprice {
     font-size: 28rpx;
     color: #999;
@@ -178,12 +185,11 @@
     border-radius: 26rpx;
 }
 
-.container .info {
+.container .info,.container .gmxz {
     background: #fff;
     margin-top: 20rpx;
     padding: 50rpx 24rpx;
 }
-
 .container .info .top .avatar {
     width: 98rpx;
     height: 98rpx;
@@ -230,13 +236,22 @@
     border-top: 1rpx solid #f8f8f8;
     margin-top: 30rpx;
 }
+.container .gmxz .text {
+    font-size:28rpx;
+}
+.container .gmxz .item {
+    font-size:24rpx;
+color:#666;
+position:relative;
+padding:4rpx 0 4rpx 16rpx;
 
-.container .info .main .header {
+}
+.container .info .main .header,.container .info .gmxz .header {
     display: flex;
     padding: 26rpx 0;
 }
 
-.container .info .main .header .text {
+.container .info .main .header .text,.container .info .gmxz .header {
     font-size: 28rpx;
     flex: 1;
 }
@@ -300,6 +315,7 @@
     right: 0;
     height: 98rpx;
     background: #fff;
+    z-index: 9999;
 }
 .container .aslid .btn {
     text-align: center;

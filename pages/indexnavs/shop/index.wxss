@@ -260,3 +260,73 @@ color: #999999;
     color: #999999;
     padding-left: 10rpx;
 }
+.container .section {
+    padding: 16rpx 24rpx;
+    background: #fff;
+}
+.container .section .top {
+    display: flex;
+    justify-content: space-between;
+    padding: 24rpx 0;
+}
+.container .section .top .txt {
+    font-size: 32rpx;
+    font-weight: bold;
+}
+.container .section .top .more {
+    color: #FF6600;
+    font-size: 24rpx;
+}
+.container .section .tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+.container .section .tags .item {
+    border-radius: 24rpx;
+    border: 1rpx solid #C8C8C8;
+    padding: 12rpx 22rpx;
+    box-sizing: border-box;
+    font-size: 24rpx;
+    margin: 14rpx 32rpx 14rpx 0;
+}
+.container .section .list {
+    padding-top: 14rpx;
+}
+.container .section .item {
+    display: flex;
+}
+.container .section .item .avatar {
+    width: 68rpx;
+    height: 68rpx;
+    border-radius: 100%;
+}
+.container .section .item .info {
+    flex: 1;
+    padding-left: 22rpx;
+    box-sizing: border-box;
+    width: 0;
+}
+.container .section .item .info .name {
+    font-size: 28rpx;
+}
+.container .section .item .info .midd {
+    display: flex;
+    justify-content: space-between;
+}
+.container .section .item .info .midd .time {
+    font-size: 24rpx;
+    color: #999999;
+}
+.container .section .item .info .content {
+    font-size: 24rpx;
+    line-height: 36rpx;
+}
+.container .section .item .info .imglist {
+    display: flex;
+    padding-top: 22rpx;
+}
+.container .section .item .info .imglist .img {
+    width: 128rpx;
+    height: 128rpx;
+    padding-right: 24rpx;
+}

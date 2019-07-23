@@ -29,7 +29,12 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
     coupon = configUrl + '/api/coupon/get',
     //  我的钱包
     cash = configUrl + '/api/user/cash/get',
-    elecard = configUrl + '/api/user/elecard/get'
+    elecard = configUrl + '/api/user/elecard/get',
+    //  商品详情
+    productdetail = configUrl + '/api/shopping/product/detail',
+    groupbuydetail = configUrl + '/api/shopping/groupbuy/detail',
+    cutdetail = configUrl + '/api/shopping/cut/detail',
+    limitdetail = configUrl + '/api/shopping/limit/detail'
 module.exports = {
     xcxloginfcode,
     decrypt,
@@ -47,5 +52,9 @@ module.exports = {
     indexdiscount,
     coupon,
     cash,
-    elecard
+    elecard,
+    productdetail,
+    groupbuydetail,
+    cutdetail,
+    limitdetail
 }

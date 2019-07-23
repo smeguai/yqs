@@ -12,6 +12,9 @@ Page({
      */
     data: {
         data: null,
+        currentData: null,
+        currentStation: null,
+        historyAddrsList: null,
         add: [{
                 name: '黄鹤小区5片',
                 num: '距离200米',
@@ -57,7 +60,13 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {},
+    onLoad: function(options) {
+        this.setData({
+            historyAddrsList: wx.getStorageSync('historyAddrsList'),
+            currentStation: wx.getStorageSync('station')
+        })
+        
+    },
     getservice() {
         let data = {
             x: app.globalData.location[0],
@@ -66,17 +75,64 @@ Page({
         promiseRequest(serviceget, 'post', data).then(res => {
             if (res.data.code == 0) {
                 this.setData({
-                    data: res.data.data
+                    nearbyData: res.data.nearbyData
                 })
-                app.globalData.station = res.data.data
+            }
+        })
+    },
+    //  附近小区 item  被点击
+    nearItemClick(e) {
+        let id = e.currentTarget.dataset.id,
+            near = this.data.nearbyData,
+            hasHistory = true
+        near.map(item => {
+            if (item.stationId == id) {
+                app.globalData.station = item
                 wx.setStorage({
                     key: 'station',
-                    data: res.data.data,
+                    data: item
                 })
-            } else if (res.data.code == 201) {
-                wx.showToast({
-                    title: res.data.msg,
-                    icon: 'none'
+                this.setData({
+                    currentStation: item
+                })
+                this.getHistory()
+            }
+        })
+    },
+    //  历史记录
+    getHistory() {
+        let status = true
+        let list = this.data.historyAddrsList,
+            current = this.data.currentStation
+        if (list) {
+            list.map(item => {
+                if (this.data.currentStation.stationId == current.stationId) {
+                    status = false
+                }
+            })
+        }
+        if (status) {
+            wx.setStorage({
+                key: 'historyAddrsList',
+                data: [...list, current]
+            })
+            this.setData({
+                historyAddrsList: [...list, current]
+            })
+        }
+    },
+    //  点击修改地理位置
+    setStation() {
+        wx.chooseLocation({
+            success: res => {
+                this.setData({
+                    currentData: res.name
+                })
+                let location = [res.latitude, res.longitude]
+                app.globalData.location = location
+                wx.setStorage({
+                    key: 'location',
+                    data: location,
                 })
             }
         })
