@@ -1,0 +1,7 @@
+<view class='catcount'>
+
+    <view class='btn' bindtap='calculate' data-mode='minus'>-</view>
+    <text class='count'>{{count}}</text>
+    <view class='btn' bindtap='calculate' data-mode='add'>+</view>
+
+</view>

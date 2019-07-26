@@ -1,0 +1,18 @@
+.catcount {
+    border: 1rpx solid #F5F5F5;
+    font-size: 26rpx;
+    color: #999999;
+    display: flex;
+}
+.catcount .btn {
+    width: 40rpx;
+    height: 40rpx;
+    background: #F5F5F5;
+    text-align: center;
+    line-height: 40rpx;
+}
+.catcount .count {
+    width: 60rpx;
+    text-align: center;
+    color: #333;
+}

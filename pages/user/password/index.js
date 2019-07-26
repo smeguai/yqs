@@ -9,7 +9,7 @@ Page({
         newPassword_num: '',
         code: false,
         code_num: '',
-        confirm: false,
+        confirm: false, 
     },
 
     Password(e) {

@@ -26,10 +26,7 @@ Page({
     },
     //  获取现金收支明细
     getcash() {
-        let header = {
-            Authorization: 'Bearer ' + app.globalData.userInfo.token
-        }
-        promiseRequest(cash, 'get', {}, header).then(res => {
+        promiseRequest(cash, 'get').then(res => {
             console.log(res)
             if (res.data.code === 0) {
                 this.setData({

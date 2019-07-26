@@ -16,7 +16,7 @@
     width: 100%;
 }
 
-.container .banner-wrapper .swiper .item .txt {
+.container .banner-wrapper .txt {
     position: absolute;
     bottom: 20rpx;
     right: 0;
@@ -27,7 +27,7 @@
     padding: 10rpx 14rpx 10rpx 32rpx;
 }
 
-.container .banner-wrapper .swiper .item .anit {
+.container .banner-wrapper .anit {
     position: absolute;
     top: 0;
     left: 20rpx;
@@ -49,13 +49,13 @@
     100% {top: 150rpx;opacity: 0;}
 }
 
-.container .banner-wrapper .swiper .item .anit .avatar {
+.container .banner-wrapper .anit .avatar {
     width: 44rpx;
     height: 44rpx;
     border-radius: 100%;
 }
 
-.container .banner-wrapper .swiper .item .anit .name {
+.container .banner-wrapper .anit .name {
     padding-left: 14rpx;
 }
 
@@ -68,6 +68,7 @@
     line-height: 100rpx;
     text-align: center;    
 }
+
 .container .banner-wrapper .genre .icon {
     width: 100%;
     height: 100%;

@@ -1,13 +1,16 @@
 .popup {
     position: fixed;
     top: 90%;
-    bottom: 98rpx;
+    bottom: 0;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 99;
+    z-index: 10000;
     display: flex;
     flex-direction: column-reverse;
+}
+.popup.sellout {
+    bottom: 98rpx;
 }
 .popup .main {
     background: #fff;
@@ -107,4 +110,92 @@
 .popup .main .item .section .count {
     font-size: 20rpx;
     color: #999;
+}
+.goodsclass {
+    background: #fff;
+}
+.goodsclass .info {
+    border-bottom: 1rpx solid #F5F5F5;
+    display: flex;
+    padding: 24rpx 24rpx 40rpx 24rpx;
+}
+.goodsclass .info .img {
+    position: relative;
+    width: 200rpx;
+}
+.goodsclass .info .img>image {
+    width: 100%;
+    height: 200rpx;
+    position: absolute;
+    bottom: 0;
+    background:red;
+    border-radius: 6rpx;
+    border: 2rpx solid #fff;
+}
+.goodsclass .info .contents {
+    flex: 1;
+    padding-left: 20rpx;
+}
+.goodsclass .info .contents .top {
+    color:#FF6600;
+}
+.goodsclass .info .contents .top .price {
+    font-size: 52rpx;
+    font-weight: bold;
+}
+.goodsclass .info .contents .top .txt {
+    padding-left: 22rpx;
+    font-size: 24rpx;
+}
+.goodsclass .info .contents .oldprice {
+    color: #999999;
+    font-size: 28rpx;
+}
+.goodsclass .info .close {
+    width: 30rpx;
+    height: 30rpx;
+    padding: 10rpx;
+}
+.goodsclass .tag {
+    padding: 24rpx;
+    border-bottom: 1rpx solid #F5F5F5;
+}
+.goodsclass .tag .txt {
+    font-size: 28rpx;
+    font-weight: 600;
+}
+.goodsclass .tag .list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.goodsclass .tag .list .item {
+    padding: 12rpx 14rpx;
+    border-radius: 6rpx;
+    border: 1rpx solid #999999;
+    background: #F8F8F8;
+    font-size: 24rpx;
+    margin: 26rpx 40rpx 26rpx 0;
+    box-sizing: border-box;
+}
+.goodsclass .tag .list .item.active {
+    color: #fff;
+    background: #333333;
+}
+.goodsclass .bloc {
+    display: flex;
+    justify-content: space-between;
+    padding: 36rpx 26rpx;
+}
+.goodsclass .bloc .txt {
+    font-size: 28rpx;
+    font-weight: 600;
+}
+.popup .goodsclass .btncommit {
+    margin: 14rpx 24rpx;
+    border-radius: 37rpx;
+    height: 74rpx;
+    line-height: 74rpx;
+    text-align: center;
+    background: #FFDE4E;
+    font-size: 32rpx;
 }

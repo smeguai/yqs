@@ -42,3 +42,13 @@
     font-size: 26rpx;
     padding-left: 20rpx;
 }
+.loding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64rpx;
+    color: #333;
+    font-size: 24rpx;
+    background: #fff;
+    margin-top: 20rpx;
+}

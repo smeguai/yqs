@@ -1,58 +1,134 @@
 <view class='container'>
-    <view class='tips'>
-        <view class='content'>等待买家付款</view>
-        <view class='subtxt'>订单24小时后将自动关闭</view>
+  <!-- 订单状态 -->
+  <view class='tips'>
+    <view class='content'>{{modeList[info.status].strong}}</view>
+    <view class='subtxt'>{{modeList[info.status].sub}}</view>
+  </view>
+  <view class='main'>
+    <!-- 商家信息 -->
+    <view class='userinfo section'>
+      <view class='top'>
+        <image class='avatar' src='{{info.headImgUrl}}'></image>
+        <text class='name'>{{info.merchantName}}</text>
+      </view>
+      <view class='info'>
+        <view class='lf'>
+          <view class='username'>{{info.contactName}}</view>
+          <view class='usertel'>{{info.contactMobile}}</view>
+        </view>
+        <view class='rt'>
+          <image class='telicon' src='../../static/img/orderdetail_tel.png'></image>
+          <text class='shu'></text>
+          <image class='addrsicon' src='../../static/img/orderdetail_addr.png'></image>
+        </view>
+      </view>
+      <text class='addrs'>{{info.addr}}</text>
     </view>
-    <view class='main'>
-        <view class='userinfo section'>
-            <view class='top'>
-                <image class='avatar' src='{{orderDesc.avatar}}'></image>
-                <text class='name'>{{orderDesc.seller}}</text>
+    <!-- 商品信息 -->
+    <view class='list section'>
+      <view class='item' wx:for='{{info.detailList}}' wx:key='{{index}}'>
+        <image class='img' src='{{item.imgUrl}}'></image>
+        <view class='info'>
+          <view class='name str'>{{item.productName}}</view>
+          <view class='subname str'>{{item.productSkuvalName}}</view>
+          <view class='block'>
+            <view class='price'>￥{{item.unitPrice}}
+              <text class='oldprice del'>￥{{item.tagPrice}}</text>
             </view>
-            <view class='info'>
-                <view class='lf'>
-                    <view class='username'>{{orderDesc.sellers}}</view>
-                    <view class='usertel'>{{orderDesc.sellerTel}}</view>
-                </view>
-                <view class='rt'>
-                    <image class='telicon' src='../../static/img/pay_tel.png'></image>
-                    <text class='shu'></text>
-                    <image class='addrsicon' src='../../static/img/pay_addrs.png'></image>
-                </view>
-            </view>
-            <text class='addrs'>{{orderDesc.sellerAddrs}}</text>
+            <view class='count'>X{{item.quantity}}</view>
+          </view>
         </view>
-        <view class='list section'>
-            <view class='item' wx:for='{{orderDesc.list}}'>
-                <image class='img' src='{{item.imgUrl}}'></image>
-                <view class='info'>
-                    <view class='name str'>{{item.title}}</view>
-                    <view class='subname str'>{{item.subtitle}}</view>
-                    <view class='block'>
-                        <view class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.oldprice}}</text></view>
-                        <view class='count'>X{{item.count}}</view>
-                    </view>
-                </view>
-            </view>
-            <view class='total'>
-                <text class='txt'>需付</text>
-                <text class='price'>￥{{listTotal}}</text>
-            </view>
+      </view>
+      <view class='tally'>
+        <view class='top'>
+          <text class='txt0'>优惠券</text>
+          <text class='txt1'>￥5.00</text>
         </view>
-        <view class='section orderinfo'>
-            <view class='title'>订单信息</view>
-            <view class='qa'>交易单号<text class='txt'>20190706156246</text></view>
-            <view class='qa'>创建时间<text class='txt'>2019-07-04 15:48:36</text></view>
+        <view class='list' wx:for='{{4}}'>
+          <text class='txt0'>优惠券</text>
+          <text class='txt2'>￥5.00</text>
         </view>
-        <view class='section orderinfo'>
-            <view class='title'>用户信息</view>
-            <view class='qa'>联系姓名<text class='txt'>李小生</text></view>
-            <view class='qa'>联系电话<text class='txt'>15264865565</text></view>
-            <view class='qa'>留言备注<text class='txt'>先打包，晚点过去拿</text></view>
-        </view>
+      </view>
+      <view class='total'>
+        <text class='txt'>共{{info.detailList.length}}件 合计实付款：</text>
+        <text class='price'>￥{{info.grandTotal}}</text>
+      </view>
     </view>
-    <view class='btns'>
-        <view class='btn0 btn'>取消订单</view>
-        <view class='btn1 btn'>继续付款</view>
+    <!-- 核销信息 wx:if='{{info.status != 88 && info.status != 0}}'-->
+    <view class='section orderinfo' >
+      <view class='head'>
+        <view class='info'>
+        <view class='title'>核销记录</view>
+        <view class='btn'>申请退款</view>
+        </view>
+      <view class='substr'>{{info.codeList.codeNum}}个可用 | 有效期至 {{info.codeList.endTime}}</view>
+      </view>
+      <view class='qa' wx:for='{{info.codeList.dataList}}'>
+        <text class='ltxt'>核销码</text>
+        <text class='txt'>{{item.code}}</text>
+        <view class='navige' wx:if='{{item.status == 0}}'>去核销</view>
+        <view class='text' wx:else>去核销</view>
+      </view>
+      <view class='qa' wx:if='{{info.returnModel}}'>关闭时间
+        <text class='txt'>{{info.createTime}}</text>
+      </view>
     </view>
+    <!-- 用户信息 -->
+    <view class='section orderinfo'>
+      <view class='title'>用户信息</view>
+      <view class='qa'>
+        <text class='ltxt'>联系姓名</text>
+        <text class='txt'>{{info.recipient}}</text>
+      </view>
+      <view class='qa'>
+        <text class='ltxt'>联系电话</text>
+        <text class='txt'>{{info.mobile}}</text>
+      </view>
+      <view class='qa'>
+        <text class='ltxt'>留言备注</text>
+        <text class='txt'>{{info.remark}}</text>
+      </view>
+    </view>
+    <!-- 订单信息 -->
+    <view class='section orderinfo'>
+      <view class='title'>订单信息</view>
+      <view class='qa'>
+        <text class='ltxt'>交易单号</text>
+        <text class='txt'>{{info.orderNumber}}</text>
+      </view>
+      <view class='qa'>
+        <text class='ltxt'>创建时间</text>
+        <text class='txt'>{{info.status == 88}}</text>
+      </view>
+      <view class='qa' wx:if='{{info.returnModel}}'>
+        <text class='ltxt'>关闭时间</text>
+        <text class='txt'>{{info.createTime}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 底部按钮 0待付款，1待使用，2待收货，3退款中，4已退款，8待评价，9已完成，88已取消 -->
+  <view class='btns' wx:if='{{info.status == 0}}'>
+    <view class='btn0 btn'>取消订单</view>
+    <view class='btn1 btn'>继续付款</view>
+  </view>
+  <view class='btns' wx:if='{{info.status == 1}}'>
+    <view class='btn2 btn'>一键核销</view>
+  </view>
+  <view class='btns' wx:if='{{info.status == 2}}'>
+    <view class='btn2 btn'>确认收货</view>
+  </view>
+  <view class='btns' wx:if='{{info.status == 3}}'>
+    <view class='btn2 btn'>取消退款</view>
+  </view>
+  <view class='btns' wx:if='{{info.status == 4 || info.status == 9}}'>
+    <view class='btn0 btn'>删除订单</view>
+    <view class='btn1 btn'>再次购买</view>
+  </view>
+  <view class='btns' wx:if='{{info.status == 8}}'>
+    <view class='btn2 btn'>去评价</view>
+  </view>
+  <view class='btns' wx:if='{{info.status == 88}}'>
+    <view class='btn0 btn'>删除订单</view>
+    <view class='btn1 btn'>重新购买</view>
+  </view>
 </view>

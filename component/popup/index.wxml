@@ -1,5 +1,6 @@
-<view class='popup' animation='{{animationData}}'>
-    <view class='main'>
+<view class='popup {{sellout?"sellout" : ""}}' animation='{{animationData}}'>
+    <!-- 卖完了 -->
+    <view class='main' wx:if='{{sellout}}'>
         <image class='back' src=''></image>
         <view class='header'>
             <text class='txt'>来晚啦，看看其他的吧</text>
@@ -18,11 +19,44 @@
                 <view class='section'>
                     <view class='tag'>拼团价</view>
                     <view class='text'>￥
-                        <text class='price'>9.9</text><text class='oldprice del'>￥39</text>
+                        <text class='price'>9.9</text>
+                        <text class='oldprice del'>￥39</text>
                     </view>
                     <view class='count'>已售189份/剩余89份</view>
                 </view>
             </view>
         </view>
+    </view>
+    <!-- 普通商品购买 -->
+    <view class='goodsclass'>
+        <view class='info'>
+            <view class='img'>
+                <image src='{{detail.skuPic}}'></image>
+            </view>
+            <view class='contents'>
+                <view class='top'>
+                    <text class='price'>￥{{detail.price}}</text>
+                    <!-- <text class='txt'>秒杀价</text> -->
+                </view>
+                <view class='oldprice del'>￥{{detail.tagPrice}}</view>
+            </view>
+            <image class='close' bindtap='closepopup' src='../../static/img/close.png'></image>
+        </view>
+        <view class='tag'>
+            <view class='list'>
+                <view 
+                    class='item {{tagCurr==index?"active":""}}' 
+                    data-curr='{{index}}' 
+                    bindtap='handleTagItemClick'
+                    wx:for='{{skulist}}'
+                    wx:key='{{index}}'
+                    >{{item.propValName}}</view>
+            </view>
+        </view>
+        <view class='bloc'>
+            <text class='txt'>购买数量</text>
+            <catcount bindreduce='reduceCount' />
+        </view>
+        <view class='btncommit' bindtap='handleOrderSubmit'>提交订单</view>
     </view>
 </view>

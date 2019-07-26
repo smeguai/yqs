@@ -5,25 +5,27 @@
         </view>
     </view>
     <view class='list'>
-        <view class='item' wx:for='{{list}}' wx:key='{{item.merchantId}}' bindtap='checkOrderDesc'>
+        <view class='item' wx:for='{{list}}' data-orderid='{{item.orderId}}' wx:key='{{item.merchantId}}' bindtap='checkOrderDesc'>
             <view class='top'>
                 <image class='avatar' src='{{item.headImgUrl}}'></image>
                 <text class='name str'>{{item.merchantName}}</text>
-                <text class='cate'>{{cateMode(item.status)}}</text>
+                <text class='cate'>{{cateMode[item.status]}}</text>
             </view>
+            <block wx:for='{{item.detailList}}' wx:key='{{index}}'>
             <view class='desc'>
                 <image class='img' src='{{item.imgUrl}}'></image>
                 <view class='info'>
-                    <view class='title strmore'>{{item.title}}</view>
-                    <view class='subtitle'>{{item.productName}}</view>
+                    <view class='title strmore'>{{item.productName}}</view>
+                    <view class='subtitle'>{{item.productSkuvalName}}</view>
                     <view class='bot'>
-                        <view class='price'>￥{{item.discountAmount}}
-                            <text class='oldprice del'>￥{{item.unitPrice}}</text>
+                        <view class='price'>￥{{item.unitPrice}}
+                            <text class='oldprice del'>￥{{item.tagPrice}}</text>
                         </view>
-                        <text class='count'>×{{item.amount}}</text>
+                        <text class='count'>×{{item.quantity}}</text>
                     </view>
                 </view>
             </view>
+            </block>
             <view class='handle'>
                 <view class='txt'>实付：
                     <text class='price'>￥{{item.payTotal}}</text>
@@ -54,5 +56,6 @@
                 </view>
             </view>
         </view>
+        <view class='loding'>{{loadingText}}</view>
     </view>
 </view>

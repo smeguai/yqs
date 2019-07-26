@@ -1,185 +1,294 @@
 .container {
-    position: relative;
+  position: relative;
 }
+
 .container .tips {
-    height: 268rpx;
-    padding: 40rpx 48rpx;
-    box-sizing: border-box;
-    background: #FFDE4E;
+  height: 268rpx;
+  padding: 40rpx 48rpx;
+  box-sizing: border-box;
+  background: #ffde4e;
 }
+
 .container .tips .content {
-    font-weight: 500;
-    font-size: 36rpx;
+  font-weight: 500;
+  font-size: 36rpx;
 }
+
 .container .tips .subtxt {
-    color: #666666;
-    font-size: 28rpx;
+  color: #666;
+  font-size: 28rpx;
 }
+
 .container .main {
-    position: absolute;
-    top: 160rpx;
-    left: 0;
-    right: 0;
-    padding: 0 24rpx 98rpx 24rpx;
-    box-sizing: border-box;
+  position: absolute;
+  top: 160rpx;
+  left: 0;
+  right: 0;
+  padding: 0 24rpx 98rpx 24rpx;
+  box-sizing: border-box;
 }
+
 .container .main .section {
-    background: #fff;
-    border-radius: 10rpx;
-    box-shadow: 0 0 10rpx 0 rgba(0,0,0,.2);
-    padding: 26rpx 24rpx 34rpx 24rpx;
-    box-sizing: border-box;
-    margin-bottom: 20rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.2);
+  padding: 26rpx 24rpx 34rpx 24rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
 }
+.container .main .section .head {
+  border-bottom: 1rpx solid #f5f5f5;
+  padding-bottom: 16rpx;
+}
+.container .main .section .head .substr {
+  color: #999999;
+  font-size: 24rpx;
+  line-height: 48rpx;
+}
+.container .main .section .head .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .main .section .head .info .title {
+  padding: 0;
+  border: 0;
+}
+
+.container .main .section .head .info .btn {
+  font-size: 24rpx;
+  border: 1rpx solid #666;
+  border-radius: 24rpx;
+  width: 130rpx;
+  text-align: center;
+  height: 48rpx;
+  line-height: 48rpx;
+  box-sizing: border-box;
+}
+
 .container .main .userinfo .top {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .container .main .userinfo .top .avatar {
-    width: 36rpx;
-    height: 36rpx;
-    border-radius: 50%;
-    background: red;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
 }
+
 .container .main .userinfo .top .name {
-    font-size: 24rpx;
-    padding-left: 18rpx;
+  font-size: 24rpx;
+  padding-left: 18rpx;
 }
+
 .container .main .userinfo .info {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .container .main .userinfo .info .lf {
-    font-size: 28rpx;
-    display: flex;
-    padding-top: 24rpx;
-    flex: 1;
+  font-size: 28rpx;
+  display: flex;
+  padding-top: 24rpx;
+  flex: 1;
 }
+
 .container .main .userinfo .info .lf .usertel {
-    padding-left: 24rpx;
-    flex: 1;
+  padding-left: 24rpx;
+  flex: 1;
 }
+
 .container .main .userinfo .info .rt {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .container .main .userinfo .info .rt .shu {
-    margin: 0 32rpx;
-    width: 2rpx;
-    height: 24rpx;
-    background: #ccc;
-    display: inline-block;
-    vertical-align: middle;
+  margin: 0 12rpx;
+  width: 2rpx;
+  height: 24rpx;
+  background: #ccc;
+  display: inline-block;
+  vertical-align: middle;
 }
+
 .container .main .userinfo .info .rt .telicon {
-    width: 20rpx;
-    height: 20rpx;
-    padding: 10rpx;
+  width: 20rpx;
+  height: 20rpx;
+  padding: 10rpx 14rpx;
 }
+
 .container .main .userinfo .info .rt .addrsicon {
-    width: 20rpx;
-    height: 20rpx;
-    padding: 10rpx;
+  width: 20rpx;
+  height: 20rpx;
+  padding: 10rpx 14rpx;
 }
+
 .container .main .userinfo .addrs {
-    color: #666666;
-    font-size: 24rpx;
-    padding-top: 14rpx;
+  color: #666;
+  font-size: 24rpx;
+  padding-top: 14rpx;
 }
 
 .container .main .list .item {
-    display: flex;
-    padding-bottom: 20rpx;
+  display: flex;
+  padding-bottom: 20rpx;
 }
+
 .container .main .list .item .img {
-    width: 158rpx;
-    height: 158rpx;
-    border-radius: 6rpx;
+  width: 158rpx;
+  height: 158rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid #f5f5f5;
 }
+
 .container .main .list .item .info {
-    padding-left: 20rpx;
-    box-sizing: border-box;
-    flex: 1;
-    width: 0;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+  flex: 1;
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
+
 .container .main .list .item .info .name {
-    font-size: 28rpx;
-    font-weight: 500;
+  font-size: 28rpx;
+  font-weight: 500;
 }
+
 .container .main .list .item .info .subname {
-    font-size: 24rpx;
-    color: #666;
+  font-size: 24rpx;
+  color: #666;
 }
+
 .container .main .list .item .info .block {
-    display: flex;
+  display: flex;
 }
+
 .container .main .list .item .info .block .price {
-    flex: 1;
-    font-size: 32rpx;
+  flex: 1;
+  font-size: 32rpx;
 }
+
 .container .main .list .item .info .block .price .oldprice {
-    font-size: 20rpx;
-    color: #999;
-    padding-left: 10rpx;
+  font-size: 20rpx;
+  color: #999;
+  padding-left: 10rpx;
 }
+
 .container .main .list .item .info .block .count {
-    font-size: 24rpx;
-    color: #999;
+  font-size: 24rpx;
+  color: #999;
 }
+
 .container .main .list .total {
-    border-top: 1rpx solid #F5F5F5;
-    padding-top: 28rpx;
-    display: flex;
+  border-top: 1rpx solid #f5f5f5;
+  padding-top: 28rpx;
+  text-align: right;
+}
+.container .main .list .tally .top {
+  display: flex;
+  justify-content: space-between;
+  padding: 24rpx 0; 
+  border-top: 1rpx solid #F5F5F5;
+  box-sizing: border-box;
+}
+.container .main .list .tally .txt0 {
+  font-size: 24rpx;
+}
+.container .main .list .tally .top .txt1 {
+  font-size: 28rpx;
+}
+.container .main .list .tally .list {
+  display: flex;
+  justify-content: space-between;
+  padding:12rpx 0;
+}
+.container .main .list .tally .list .txt2 {
+  font-size: 28rpx;
+  color: #FF6600;
 }
 .container .main .list .total .txt {
-    font-size: 24rpx;
-    flex: 1;
+  font-size: 28rpx;
 }
 .container .main .list .total .price {
-    font-size: 28rpx;
-    color: #FF6600;
-    font-weight: 500;
+  font-size: 32rpx;
+  color: #f60;
+  font-weight: bold;
 }
 
 .container .orderinfo .title {
-    font-size: 28rpx;
-    border-bottom: 1rpx solid #F5F5F5;
-    padding-bottom: 26rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  padding-bottom: 26rpx;
 }
+
 .container .orderinfo .qa {
-    padding-top: 30rpx;
-    font-size: 24rpx;
+  padding-top: 30rpx;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .orderinfo .qa .ltxt {
+  width: 116rpx;
 }
 .container .orderinfo .qa .txt {
-    color: #999;
-    padding-left: 30rpx;
+  color: #999;
+  flex: 1;
+}
+.container .orderinfo .qa .navige {
+  color: #FF6600;
+  width: 106rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  text-align: center;
+  border: 1rpx solid #FF6600;
+  border-radius: 20rpx;
+}
+.container .orderinfo .qa .text {
+  color: #FF6600;
+  width: 106rpx;
+  height: 38rpx;
+  text-align: center;
+  line-height: 38rpx;
 }
 .container .btns {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 98rpx;
-    display: flex;
-    padding: 0 24rpx;
-    box-sizing: border-box;
-    background: #fff;
-    align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 98rpx;
+  display: flex;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  background: #fff;
+  align-items: center;
 }
+
 .container .btns .btn {
-    text-align: center;
-    font-size: 32rpx;
-    flex: 1;
-    height: 74rpx;
-    box-sizing: border-box;
-    line-height: 74rpx;
+  text-align: center;
+  font-size: 32rpx;
+  flex: 1;
+  height: 74rpx;
+  box-sizing: border-box;
+  line-height: 74rpx;
 }
+
 .container .btns .btn0 {
-    border: 1rpx solid #bfbfbf;
-    border-radius: 38rpx 0 0 38rpx;
-    color: #bfbfbf;
+  border: 1rpx solid #bfbfbf;
+  border-radius: 38rpx 0 0 38rpx;
+  color: #bfbfbf;
 }
+
 .container .btns .btn1 {
-    background: #FFDE4E;
-    border-radius: 0 38rpx 38rpx 0;
+  background: #ffde4e;
+  border-radius: 0 38rpx 38rpx 0;
+}
+.container .btns .btn2 {
+  background: #ffde4e;
+  border-radius: 38rpx;
 }

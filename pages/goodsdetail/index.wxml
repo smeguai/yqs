@@ -1,19 +1,17 @@
 <view class='container'>
-    <popup wx:if='{{popupShow}}' />
+    <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' skulist='{{detail.skuList.skulist}}' />
     <view class='banner-wrapper'>
         <swiper class='swiper'>
             <swiper-item class='item' wx:for='{{detail.imgList}}' wx:key='{{index}}'>
                 <image class='img' src='{{item.fileUrl}}'></image>
-                <view class='txt'>{{item.viewNum}}人感兴趣</view>
-                <view class='anit'>
-                    <image class='avatar' src='{{pays[paysCurrent].img}}'></image>
-                    <view class='name'>{{pays[paysCurrent].name}}购买了{{data.sell.name}}</view>
-                </view>
             </swiper-item>
-        </swiper>{{status}}
-        <block wx:if='{{status!="product"}}'>
-            <image src='../../static/img/goodsdetail_{{status}}.png' class='genre'></image>
-        </block>
+        </swiper>
+        <view class='anit'>
+            <image class='avatar' src='{{pays[paysCurrent].img}}'></image>
+            <view class='name'>{{pays[paysCurrent].name}}购买了{{data.sell.name}}</view>
+        </view>
+        <view class='txt'>{{detail.viewNum}}人感兴趣</view>
+        <image wx:if='{{!isproduct}}' src='../../static/img/goodsdetail_{{status}}.png' class='genre'></image>
         <view class='nums'>
             <view class='{{bannerCurrent == index ? "item active" : "item"}}' wx:for='{{data.banner.length}}' wx:key='{{index}}'></view>
         </view>
@@ -59,12 +57,12 @@
                     <image class='addrs' src='../../static/img/addrs.png'></image>
                 </view>
             </view>
-            <view class='item'>营业时间:{{detail.businessTime}}</view>
-            <view class='item'>地址:{{detail.addr}}</view>
+            <view class='item'>营业时间: {{detail.businessTime}}</view>
+            <view class='item'>地址: {{detail.addr}}</view>
         </view>
     </view>
     <view class='gmxz' wx:if='{{detail.useIntro}}'>
-            <view class='text'>购买须知</view>
+        <view class='text'>购买须知</view>
         <view class='item'>{{detail.useIntro}}</view>
     </view>
     <view class='goodsdetail'>

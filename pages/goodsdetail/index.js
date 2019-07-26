@@ -7,6 +7,8 @@ import {
 import {
     promiseRequest
 } from '../../utils/util.js'
+const app = getApp()
+
 Page({
 
     /**
@@ -14,6 +16,7 @@ Page({
      */
     data: {
         status: null,
+        isproduct: true,
         productId: null,
         popupShow: false,
         aslid_btn: [{
@@ -71,9 +74,9 @@ Page({
 
                 })
                 break;
-            default:
+            case 'product':
                 promiseRequest(productdetail, 'get', data).then(res => {
-                    console.log(res)
+
                     if (res.data.code == 0) {
                         this.setData({
                             detail: res.data.data
@@ -100,11 +103,12 @@ Page({
             this.paysCurrent()
         }, 4000)
     },
+    popupStatus(e) {
+    },
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
-
+    onShow: function () {
     },
 
     /**
@@ -153,7 +157,7 @@ Page({
     },
     handlePayClick() {
         this.setData({
-            popupShow: !this.data.popupShow
+            popupShow: true
         })
     }
 })

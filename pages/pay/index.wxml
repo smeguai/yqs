@@ -4,10 +4,19 @@
         <view class='sell section'>
             <view class='blo'>
                 <view class='header'>商家信息</view>
-                <view class='nate'>李三 15896456256</view>
-                <view class='addrs'>长沙市岳麓区麓枫和苑8栋136号</view>
+                <view class='infor'>
+                    <view>
+                        <view class='nate'>{{info.contactName}} {{info.contactMobile}}</view>
+                        <view class='addrs'>{{info.addr}}</view>
+                    </view>
+                    <view class='rt'>
+                        <image class='icon' src='../../static/img/phone.png'></image>
+                        <text class='shu'>|</text>
+                        <image class='icon' src='../../static/img/addrs.png'></image>
+                    </view>
+                </view>
             </view>
-            <view class='btns'>
+            <!-- <view class='btns'>
                 <view class='btn'>
                     <image class='icon' src=''></image>
                     <text class='txt'>联系商家</text>
@@ -16,25 +25,28 @@
                     <image class='icon' src=''></image>
                     <text class='txt'>查看定位</text>
                 </view>
-            </view>
+            </view> -->
         </view>
         <view class='shoping section'>
-            <view class='bloc'>
-                <image class='img' src='https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3973605131,2074415988&fm=27&gp=0.jpg'></image>
+            <view class='bloc' wx:for='{{info.detailList}}' wx:key='{{index}}'>
+                <image class='img' src='{{item.headImgUrl}}'></image>
                 <view class='info'>
-                    <view class='name'>HO’K美味成真 | 超精致美味的蛋糕...</view>
-                    <view class='subtxt'>红丝绒</view>
+                    <view class='name'>{{item.productName}}</view>
+                    <view class='subtxt'>{{item.productSkuvalName}}</view>
                     <view class='bott'>
                         <view class='lf'>
-                            <text class='price'>￥18</text>
-                            <text class='oldprice'>￥38</text>
+                            <text class='price'>￥{{item.unitPrice}}</text>
+                            <text class='oldprice del'>￥{{item.tagPrice}}</text>
+                        </view>
+                        <view class='rt'>
+                            <catcount bindreduce='catcountNum' bindtap='handleCatIndex' data-index='{{index}}' />
                         </view>
                     </view>
                 </view>
             </view>
             <view class='ad'>
-                <view class='txt'>实付</view>
-                <view class='price'>￥18</view>
+                <view class='txt'>合计</view>
+                <view class='price'>￥{{total}}</view>
             </view>
         </view>
         <view class='ticket section'>
@@ -42,7 +54,8 @@
             <view class='bloc'>
                 <view class='txt'>店铺优惠券</view>
                 <view class='rt'>
-                    <view class='txt'>无优惠券</view>
+                    <view class='txt' wx:if='{{info.couponList.length==0}}'>无优惠券</view>
+                    <view class='txt' wx:else>{{info.couponList[0].couponName}}</view>
                     <image src='../../static/img/right.png' class='icon'></image>
                 </view>
             </view>
@@ -50,31 +63,47 @@
         <view class='ipts section'>
             <view class='item'>
                 <view class='txt'>姓名</view>
-                <input class='ipt' placeholder='请输入姓名'></input>
+                <input class='ipt' placeholder='请输入姓名' value='{{fullname}}' bindinput='handleIptName'></input>
             </view>
             <view class='item'>
                 <view class='txt'>联系电话</view>
-                <input class='ipt' placeholder='请输入正确的联系号码'></input>
+                <input class='ipt' placeholder='请输入正确的联系号码' value='{{telephone}}' bindinput='handleIptTel'></input>
             </view>
             <view class='item'>
-                <textarea class='textarea' placeholder='留言备注'></textarea>
+                <textarea class='textarea' placeholder='留言备注' value='{{remark}}' bindinput='handleIptRemark'></textarea>
+            </view>
+        </view>
+        <view class='pay_count section'>
+            <text class='txt'>实际应付</text>
+            <text class='price'>￥{{total}}</text>
+        </view>
+        <view class='paymode section' wx:if='{{info.cashBalance || info.eleCardBalance && info.enabledEleCard}}'>
+            <view class='header'>账户余额</view>
+            <view class='item' wx:if='{{info.eleCardBalance}}' bindtap='handleCardItemClick' data-idx='1'>
+                <image class='icon' src='../../static/img/pay_dzk.png'></image>
+                <view class='txt'>电子卡<text class='sub'>{{info.eleCardBalance}}</text></view>
+                <image wx:if='{{radio1}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+                <text wx:else class='yuan'></text>
+            </view>
+            <view class='item' wx:if='{{info.cashBalance}}' bindtap='handleCardItemClick' data-idx='2'>
+                <image class='icon' src='../../static/img/pay_xjye.png'></image>
+                <view class='txt'>现金余额支付<text class='sub'>{{info.cashBalance}}</text>  </view>
+                <image wx:if='{{radio2}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+                <text wx:else class='yuan'></text>
             </view>
         </view>
         <view class='paymode section'>
             <view class='header'>支付方式</view>
-            <view class='item'>
-                <image class='icon' src=''></image>
-                <view class='txt'>电子卡</view>
-                <radio class='radio'></radio>
-            </view>
-            <view class='item'>
-                <image class='icon' src=''></image>
+            <view class='item' bindtap='handleCardItemClick' data-idx='3'>
+                <image class='icon' src='../../static/img/wechat.png'></image>
                 <view class='txt'>微信支付</view>
-                <radio class='radio'></radio>
+                <image wx:if='{{radio3}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+                <text wx:else class='yuan'></text>
             </view>
         </view>
     </view>
     <view class='topay'>
-        <view class='btn'>立即付款</view>
+        <view class='btn' bindtap='submitpay'>立即付款</view>
     </view>
+    <!-- <paypass /> -->
 </view>

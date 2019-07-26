@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 16,
 			"list": [
 				{
 					"id": -1,
@@ -131,7 +131,7 @@
 					"id": 12,
 					"name": "商品详情",
 					"pathName": "pages/goodsdetail/index",
-					"query": "status=product&productId=2",
+					"query": "status=product&productId=1388",
 					"scene": null
 				},
 				{
@@ -139,6 +139,27 @@
 					"name": "首页",
 					"pathName": "pages/index/index",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "提交订单",
+					"pathName": "pages/pay/index",
+					"query": "productid=1388&skuid=3607&count=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的订单",
+					"pathName": "pages/orders/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "我的订单详情",
+					"pathName": "pages/orderdetail/index",
+					"query": "orderid=195",
 					"scene": null
 				}
 			]
