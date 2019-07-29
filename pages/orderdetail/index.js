@@ -1,5 +1,6 @@
 import {
-  orderdetail
+  orderdetail,
+  canceorder
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -45,6 +46,31 @@ Page({
         this.setData({
           info: res.data.data
         })
+      }
+    })
+  },
+  handleCanceOrder() {
+    console.log(1)
+    wx.showModal({
+      content: '确认取消订单吗?',
+      success: (r) => {
+        console.log(r)
+        wx.showToast({
+          title: '已取消订单',
+          icon: 'none'
+        })
+      }
+    })
+    // promiseRequest(canceorder, 'get', {
+    //   orderId: this.data.orderId
+    // }).then(res => {
+    // })
+  },
+  handleDeleteOrder() {
+    wx.showModal({
+      content: '确定删除订单吗?',
+      success: r => {
+        console.log(r)
       }
     })
   },

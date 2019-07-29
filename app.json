@@ -25,7 +25,7 @@
         "pages/user/info/index",
         "pages/user/alterMobile/index",
         "pages/user/password/index",
-        
+        "pages/pay/index",
         "pages/payPassword/index",
         "pages/privilege/index",
         "pages/wallet/index",
@@ -35,7 +35,6 @@
         "pages/accredit/index",
         "pages/about/index",
         "pages/paydone/index",
-        "pages/pay/index",
         "pages/orderdetail/index",
         "pages/login/index",
         "pages/logout/index",

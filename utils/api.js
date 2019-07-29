@@ -41,11 +41,27 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   //  普通商品下单页面
   placeorder = configUrl + '/api/shopping/placeorder/get',
   //  订单详情
-  orderdetail = configUrl + '/api/order/detail'
+  orderdetail = configUrl + '/api/order/detail',
+  //  取消订单
+  canceorder = configUrl + '/api/order/cancel',
+  //  验证支付密码是否正确
+  verifypass = configUrl + '/api/user/verificapaypwd',
+  //  是否有支付密码
+  existpaypwd = configUrl + '/api/user/existpaypwd',
+  //  是否绑定手机
+  hasbindtel = configUrl + '/api/user/getmobile',
+  //  绑定手机号
+  bindtel = configUrl + '/api/user/mobile/changebind',
+  //  发送验证码
+  getcode = configUrl + '/api/user/sendvalidcode'
 
 
 
 module.exports = {
+  getcode,
+  hasbindtel,
+  bindtel,
+  existpaypwd,
   xcxloginfcode,
   decrypt,
   wxlogin,
@@ -69,5 +85,7 @@ module.exports = {
   limitdetail,
   producOrder,
   placeorder,
-  orderdetail
+  orderdetail,
+  canceorder,
+  verifypass
 }

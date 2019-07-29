@@ -1,37 +1,20 @@
 <view class='pass'>
-    <view class='main'>
-        <view class="password-title">设置支付密码</view>
-        <view wx:if="{{password_oneShow}}" class="password-text">首次支付请先设置支付密码用于支付验证</view>
-        <view wx:else class="password-text">请再次输入密码已确认</view>
+  <view class='main'>
+    <view class="password-title">设置支付密码</view>
 
-        <block wx:if="{{password_oneShow}}">
-            <view class='password-input-box'>
-                <view class='input' bindtap='getFocus'>
-                    <view wx:for="{{Length}}" wx:key="item" class='input-content'>
-                        <input value="{{Value.length>=index+1?Value[index]:''}}" disabled password='{{ispassword}}' catchtap='Tap'></input>
-                    </view>
-                </view>
-                <view wx:if="{{pass_none}}" class="password_none">密码不一致，请重新设置</view>
-                <input name="password" password="{{true}}" class='password-input' maxlength="{{Length}}" focus="{{isFocus}}" bindconfirm="password_done" bindinput="password_input"></input>
-            </view>
+    <block wx:if="{{password_oneShow}}">
+      <view class='password-input-box'>
+        <view class='input' bindtap='getFocus'>
+          <view wx:for="{{Length}}" wx:key="item" class='input-content'>
+            <input value="{{iptValue1.length>=index+1? iptValue1[index] :''}}" disabled password='{{ispassword}}' catchtap='Tap'></input>
+          </view>
+        </view>
+        <input name="password" password="{{true}}" class='password-input' maxlength="{{Length}}" focus='{{isFocus}}' bindconfirm="password_done" bindinput="password_input"></input>
+      </view>
 
-            <view class="password_btn" wx:if='{{Value.length == 6}}'>
-                <view bindtap="passConfime">确定</view>
-            </view>
-        </block>
-
-        <block wx:else>
-            <view class='password-input-box'>
-                <view class='input' bindtap='getFocus'>
-                    <view wx:for="{{Length}}" wx:key="item" class='input-content'>
-                        <input value="{{Value_tow.length>=index+1?Value_tow[index]:''}}" disabled password='{{ispassword}}' catchtap='Tap'></input>
-                    </view>
-                </view>
-                <input name="password" password="{{true}}" class='password-input' maxlength="{{Length}}" focus="{{isFocus}}" bindinput="password_tow"></input>
-            </view>
-            <view class="password_btn" wx:if='{{Value_tow.length == 6}}'>
-                <view bindtap="completeClick">完成</view>
-            </view>
-        </block>
-    </view>
+      <view class="password_btn" wx:if='{{iptValue.length == 6}}'>
+        <view bindtap="passConfime">确定</view>
+      </view>
+    </block>
+  </view>
 </view>

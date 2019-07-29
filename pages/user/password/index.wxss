@@ -23,7 +23,6 @@
 }
 .password_viewInput>input {
     height: 100%;
-    color: #CCCCCC;
     font-size: 28rpx;
     flex: 1;
 }

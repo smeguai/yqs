@@ -40,18 +40,26 @@
         </view>
       </view>
       <view class='tally'>
-        <view class='top'>
+        <view class='top' wx:if='{{info.promotion > 0}}'>
           <text class='txt0'>优惠券</text>
-          <text class='txt1'>￥5.00</text>
+          <text class='txt1'>￥{{info.promotion}}</text>
         </view>
-        <view class='list' wx:for='{{4}}'>
-          <text class='txt0'>优惠券</text>
-          <text class='txt2'>￥5.00</text>
+        <view class='list' wx:if='{{info.eleCardPayTotal > 0}}'>
+          <text class='txt0'>电子卡支付</text>
+          <text class='txt2'>￥{{info.eleCardPayTotal}}</text>
+        </view>
+        <view class='list' wx:if='{{info.cashPayTotal > 0}}'>
+          <text class='txt0'>现金余额支付</text>
+          <text class='txt2'>￥{{info.cashPayTotal}}</text>
+        </view>
+        <view class='list' wx:if='{{info.payTotal > 0}}'>
+          <text class='txt0'>微信支付</text>
+          <text class='txt2'>￥{{info.payTotal}}</text>
         </view>
       </view>
       <view class='total'>
         <text class='txt'>共{{info.detailList.length}}件 合计实付款：</text>
-        <text class='price'>￥{{info.grandTotal}}</text>
+        <text class='price'>￥{{info.eleCardPayTotal + info.cashPayTotal + info.payTotal}}</text>
       </view>
     </view>
     <!-- 核销信息 wx:if='{{info.status != 88 && info.status != 0}}'-->
@@ -63,7 +71,7 @@
         </view>
       <view class='substr'>{{info.codeList.codeNum}}个可用 | 有效期至 {{info.codeList.endTime}}</view>
       </view>
-      <view class='qa' wx:for='{{info.codeList.dataList}}'>
+      <view class='qa' wx:for='{{info.codeList.dataList}}' wx:key='{{index}}'>
         <text class='ltxt'>核销码</text>
         <text class='txt'>{{item.code}}</text>
         <view class='navige' wx:if='{{item.status == 0}}'>去核销</view>
@@ -108,7 +116,7 @@
   </view>
   <!-- 底部按钮 0待付款，1待使用，2待收货，3退款中，4已退款，8待评价，9已完成，88已取消 -->
   <view class='btns' wx:if='{{info.status == 0}}'>
-    <view class='btn0 btn'>取消订单</view>
+    <view class='btn0 btn' bindtap="handleCanceOrder">取消订单</view>
     <view class='btn1 btn'>继续付款</view>
   </view>
   <view class='btns' wx:if='{{info.status == 1}}'>
@@ -121,7 +129,7 @@
     <view class='btn2 btn'>取消退款</view>
   </view>
   <view class='btns' wx:if='{{info.status == 4 || info.status == 9}}'>
-    <view class='btn0 btn'>删除订单</view>
+    <view class='btn0 btn' bindtap='handleDeleteOrder'>删除订单</view>
     <view class='btn1 btn'>再次购买</view>
   </view>
   <view class='btns' wx:if='{{info.status == 8}}'>

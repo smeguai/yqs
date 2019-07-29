@@ -4,16 +4,19 @@
             class="page_view_input" 
             value="{{input_mobile}}" 
             placeholder="请输入手机号码"
-            bindblur="mobile" ></input>
+            bindinput="mobile"
+            type='number'
+            maxlength='11'
+            ></input>
         <button class="page_view_btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">一键授权</button>
     </view>
 
     <view class="page_view">
-        <input class="page_view_input" placeholder="请输入验证码"></input>
-        <view wx:if="{{code}}" class="page_view_yzm2" bindtap="codeClick">获取验证码</view>
+        <input class="page_view_input" placeholder="请输入验证码" maxlength='4' bindinput="code"></input>
+        <view wx:if="{{codeMode}}" class="page_view_yzm2" bindtap="handleClickGetCode">获取验证码</view>
         <view wx:else class="page_view_yzm">获取验证码</view>
     </view>
 
     <view wx:if="{{input_binding==1}}" class="page_viewBtn" style="background:#CCCCCC;">立即绑定</view>
-    <view wx:else class="page_viewBtn">立即绑定</view>
+    <view wx:else class="page_viewBtn" bindtap="handleBindTel">立即绑定</view>
 </view>

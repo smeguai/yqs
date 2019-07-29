@@ -1,9 +1,11 @@
 import {
   placeorder,
-  producOrder
+  producOrder,
+  existpaypwd
 } from '../../utils/api.js'
 import {
-  promiseRequest
+  promiseRequest,
+  formatNum
 } from '../../utils/util.js'
 const app = getApp()
 
@@ -19,14 +21,15 @@ Page({
     info: null,
     total: 0,
     remark: '',
-    telephone: '',
-    fullname: '',
+    telephone: '111',
+    fullname: 'aaa',
     rcouponId: 0,
     cash: 0,
     eleAmount: 0,
     radio1: false,
     radio2: false,
-    radio3: false
+    radio3: false,
+    hasPassMode: false
   },
 
   /**
@@ -41,7 +44,26 @@ Page({
     })
     this.getPlaceOrder()
   },
+  // 账户是否开通支付密码
+  getExistpaypwd() {
+    promiseRequest(existpaypwd, 'get').then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          hasPassMode: res.data.isPaypwd
+        })
+      }
+    })
+  },
   submitpay() {
+    //  账户是否开通支付密码
+    this.getExistpaypwd()
+    //  跳转 设置支付密码页面
+    if (!this.data.hasPassMode) {
+      wx.navigateTo({
+        url: '../user/password/index',
+      })
+    }
+    return
     if (this.data.telephone == '' && this.data.fullname == '') {
       wx.showToast({
         title: '请输入姓名及联系电话',
@@ -66,41 +88,22 @@ Page({
         cash: 0,
         eleAmount: 0
       }
-    if (!radio1 && !radio2 && !radio3)
+    if (!radio1 && !radio2 && !radio3) {
       wx.showToast({
         title: '选择支付方式',
         icon: 'none'
       })
-    // data.eleAmount = radio1 ? info.eleCardBalance : 0
-    // data.cash = radio1 ? info.cashBalance : 0
-
-    if (radio1 && radio2 && radio3) {
-      data.eleAmount = info.eleCardBalance
-      data.cash = info.cashBalance
-      console.log(`电子卡${data.eleAmount}, 余额${data.cash},微信`)
-    } else if (radio1 && radio2) {
-      data.eleAmount = info.eleCardBalance
-      data.cash = total - info.eleCardBalance
-      console.log(`电子卡${data.eleAmount}, 余额${data.cash}`)
-    } else if (radio1 && radio3) {
-      data.eleAmount = info.eleCardBalance
-      console.log(`电子卡${data.eleAmount}, 微信`)
-    } else if (radio2 && radio3) {
-      data.cash = info.cashBalance
-      console.log(`余额${data.eleAmount}, 微信`)
-    } else if (radio1) {
-      data.eleAmount = total
-      console.log(`电子卡`)
-    } else if (radio2) {
-      data.cash = total
-      console.log(`余额`)
-    } else if (radio3) {
-
-      console.log(`微信`)
+      return
     }
-
-
-    console.log('-------------支付-----------------')
+    if (radio1) {
+      data.eleAmount = info.eleCardBalance >= total ? total : info.eleCardBalance
+    }
+    if (radio2) {
+      data.cash = info.cashBalance >= total ? total : info.cashBalance
+    }
+    if (radio1 && radio2) {
+      data.cash = info.eleCardBalance >= total ? 0 : formatNum(total - info.eleCardBalance)
+    }
     let header = {
       Authorization: 'Bearer ' + app.globalData.userInfo.token
     }
@@ -109,8 +112,16 @@ Page({
         wx.reLaunch({
           url: '../paydone/index',
         })
-      } else {
-
+      } else if (res.data.value && res.data.value.code == 1) {
+        wx.showToast({
+          title: res.data.value.msg,
+          icon: 'none'
+        })
+      } else if (res.data.code == 1) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
       }
     })
   },
@@ -179,53 +190,10 @@ Page({
       radio3
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  verifypass(e) {
+    this.setData({
+      hasPassMode: e.detail
+    })
   },
   handleIptName(e) {
     this.setData({
@@ -247,38 +215,18 @@ Page({
       info = this.data.info,
       radio1 = this.data.radio1,
       radio2 = this.data.radio2,
-      radio3 = this.data.radio3,
-      total = this.data.total
+      radio3 = this.data.radio3
+      //  radio1 2 3 电子卡 现金余额 微信支付
+      //  total 总价
 
     switch (i) {
       case '1':
         radio1 = !radio1
-        if (info.eleCardBalance >= total || info.cashBalance >= total) {
-          radio2 = radio3 = false
-        }
-        if (radio1 && radio2 && info.cashBalance + info.eleCardBalance >= total) {
-          radio3 = false
-        }
         break;
       case '2':
         radio2 = !radio2
-        if (info.eleCardBalance >= total || info.cashBalance >= total) {
-          radio1 = radio3 = false
-        }
-        if (radio1 && radio2 && info.cashBalance + info.eleCardBalance >= total) {
-          radio3 = false
-        }
         break;
       case '3':
-        if (info.eleCardBalance >= total) {
-          radio1 = false
-        }
-        if (info.cashBalance >= total) {
-          radio2 = false
-        }
-        if (radio1 && radio2 && info.cashBalance + info.eleCardBalance >= total) {
-          radio1 = radio2 = false
-        }
         radio3 = !radio3
         break;
     }

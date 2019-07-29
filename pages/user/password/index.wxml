@@ -1,5 +1,5 @@
 <view>
-    <view class="password_title">您当前已经设置过电子卡支付码</view>
+    <view class="password_title" wx:if='{{haspayowd}}'>您当前已经设置过电子卡支付码</view>
 
     <view class="password_view">
         <view class="password_viewInput">
@@ -29,7 +29,7 @@
                 value="{{code_num}}" 
                 bindinput="code" ></input>
 
-            <view wx:if="{{code}}">发送验证码</view>
+            <view wx:if="{{code}}" bindtap="handleQAcode">发送验证码</view>
             <view wx:else style="background:#CCCCCC;">发送验证码</view>
         </view>
 

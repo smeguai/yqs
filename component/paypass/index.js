@@ -1,91 +1,73 @@
-// component/paypass/index.js
+import { verifypass} from '../../utils/api.js'
+import { promiseRequest} from '../../utils/util.js'
+
 Component({
-    /**
-     * 组件的属性列表
-     */
-    properties: {
+  /**
+   * 组件的属性列表
+   */
+  properties: {
 
+  },
+
+  /**
+   * 组件的初始数据
+   */
+  data: {
+    focus: false,
+    Length: 6, //输入框个数  
+    isFocus: true, //聚焦  
+    iptValue: "", //输入的内容  
+    iptValue1: '', // 显示的密码
+    password_one: '',
+    password_oneShow: true,
+    Value_tow: "",
+    pass_none: false,
+  },
+
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+    password_done(e) {
+      if (e.detail.value.length != 6) return
     },
 
-    /**
-     * 组件的初始数据
-     */
-    data: {
-        focus: false,
-        Length: 6,        //输入框个数  
-        isFocus: true,    //聚焦  
-        Value: "",        //输入的内容  
-        ispassword: false, //是否密文显示 true为密文， false为明文。
-
-        password_one: '',
-        password_oneShow: true,
-        Value_tow: "",
-        pass_none: false,
+    password_input(e) {
+      var iptValue = e.detail.value;
+      let iptValue1 = []
+      for (let i = 0; i < iptValue.length - 1; i++) {
+        iptValue1.push('*')
+      }
+      iptValue1.push(iptValue.charAt(iptValue.length - 1))
+      this.setData({
+        iptValue,
+        iptValue1
+      })
     },
 
-    /**
-     * 组件的方法列表
-     */
-    methods: {
-        password_done(e) {
-            if (e.detail.value.length != 6) return
-            this.setData({
-                password_one: e.detail.value,
-                password_oneShow: false,
-                Value_tow: '',
-            })
-        },
-        
-        password_input(e) {
-            var that = this;
-            var inputValue = e.detail.value;
-            that.setData({
-                Value: inputValue
-            })
-        },
+    passConfime() {
+      promiseRequest(verifypass, 'get', {
+        pwd: this.data.value
+      }).then(res => {
+        console.log(res)
+        if (res.data.code == 0) {
+          if (res.data.exactness) {
+            console.log('正确')
+            this.triggerEvent('verifypass', true)
+          }
+        }
+      })
+    },
+    Tap() {
+      this.setData({
+        isFocus: true,
+      })
+    },
 
-        passConfime() {
-            this.setData({
-                password_one: this.data.Value,
-                password_oneShow: false,
-                Value_tow: '',
-            })
-        },
-        password_tow(e) {
-            if (e.detail.value.length != 6) return
-            var that = this;
-            var valueTow = e.detail.value;
-            that.setData({
-                Value_tow: valueTow
-            })
-        },
-        completeClick() {
-            let that = this;
-            if (that.data.password_one != that.data.Value_tow) {
-                that.setData({
-                    pass_none: true,
-                    password_oneShow: true,
-                    Value: '',
-                })
-            } else {
-
-                wx.showToast({
-                    title: '和和大傻逼',
-                })
-            }
-        },
-
-        Tap() {
-            var that = this;
-            that.setData({
-                isFocus: true,
-            })
-        },
-
-        getFocus() {
-            this.setData({
-                focus: !this.data.focus
-            })
-        },
-    }
+    getFocus() {
+      this.setData({
+        focus: !this.data.focus
+      })
+    },
+  }
 })

@@ -87,7 +87,13 @@ function upload(page, path, way, id) {
   }
 }
 
+//  处理小数精度
+function formatNum (num) {
+  return parseInt(num * 100) / 100
+}
+
 module.exports = {
-  formatTime: formatTime,
+  formatTime,
+  formatNum,
   promiseRequest
 }
