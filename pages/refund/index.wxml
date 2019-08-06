@@ -1,0 +1,54 @@
+<view class='container'>
+  <view class='main'>
+    <view class='section'>
+      <view class='top'>
+        <image class='avatar' src='{{data.headImgUrl}}'></image>
+        <view class='name'>{{data.merchantName}}</view>
+      </view>
+      <view class='bott' wx:for='{{data.detailList}}'>
+        <image class='img' src='{{item.imgUrl}}'></image>
+        <view class='detail'>
+          <view class='name'>{{item.productName}}</view>
+          <view class='sub'>{{item.productSkuvalName}}</view>
+          <view class='con'>
+            <view class='price'>￥{{item.unitPrice}}<text class='tagprice del'>￥{{item.tagPrice}}</text></view>
+            <view class='count'>X{{item.quantity}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='section'>
+      <view class='header'>核销记录</view>
+      <view class='info' wx:for='{{data.codeList.dataList}}'>
+        <view class='fl'>核销码</view>
+        <view class='rt'>{{item.code}}</view>
+      </view>
+    </view>
+    <view class='section'>
+      <view class='header'>核销记录</view>
+      <view class='info'>
+        <view class='fl'>原路返回</view>
+        <view class='rt'>（1-3个工作日）</view>
+      </view>
+    </view>
+    <view class='section'>
+      <view class='header'>退款原因
+        <text class='sub'>（至少选一项）</text>
+      </view>
+      <view class='list'>
+        <view class='item' wx:for='{{causelist}}' data-index='{{index}}' bindtap='handleCauseItemClick'>
+          <view class='cause'>{{item.txt}}</view>
+          <image class='' wx:if='{{item.active}}' src='../../static/img/success.png'></image>
+          
+          <view class='radios' wx:else></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='btn-wrapper'>
+    <view class='lf'>退款金额：
+      <text class='strong'>￥{{data.itemsTotal}}</text>
+    </view>
+    <view class='btn {{btnActive ? "active": ""}}' bindtap='handleRefund'>申请提款</view>
+  </view>
+</view>

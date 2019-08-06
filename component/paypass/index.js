@@ -1,12 +1,15 @@
-import { verifypass} from '../../utils/api.js'
-import { promiseRequest} from '../../utils/util.js'
+import {
+  verifypass
+} from '../../utils/api.js'
+import {
+  promiseRequest
+} from '../../utils/util.js'
 
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
   },
 
   /**
@@ -21,7 +24,7 @@ Component({
     password_one: '',
     password_oneShow: true,
     Value_tow: "",
-    pass_none: false,
+    pass_none: false
   },
 
   /**
@@ -44,19 +47,24 @@ Component({
         iptValue1
       })
     },
-
     passConfime() {
       promiseRequest(verifypass, 'get', {
-        pwd: this.data.value
+        pwd: this.data.iptValue
       }).then(res => {
-        console.log(res)
         if (res.data.code == 0) {
           if (res.data.exactness) {
-            console.log('正确')
             this.triggerEvent('verifypass', true)
+          } else {
+            wx.showToast({
+              title: '密码错误',
+              icon: 'none'
+            })
           }
         }
       })
+    },
+    close() {
+      this.triggerEvent('close', false)
     },
     Tap() {
       this.setData({

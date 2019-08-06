@@ -1,7 +1,7 @@
 <view class='pass'>
   <view class='main'>
-    <view class="password-title">设置支付密码</view>
-
+    <view class="password-title">输入支付密码</view>
+    <image class='close' src='../../static/img/close.png' bindtap="close"></image>
     <block wx:if="{{password_oneShow}}">
       <view class='password-input-box'>
         <view class='input' bindtap='getFocus'>

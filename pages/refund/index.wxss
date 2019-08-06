@@ -1,0 +1,148 @@
+.container {
+  position: relative;
+}
+.container .main {
+  padding-bottom: 98rpx;
+}
+
+.container .btn-wrapper {
+  display: flex;
+  height: 98rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+}
+
+.container .btn-wrapper .lf {
+  flex: 1;
+  font-size: 28rpx;
+  background: #fff;
+  padding-left: 26rpx;
+  height: 98rpx;
+  line-height: 98rpx;
+}
+
+.container .btn-wrapper .lf .strong {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #f60;
+}
+
+.container .btn-wrapper .btn {
+  width: 260rpx;
+  background: #ccc;
+  text-align: center;
+  height: 98rpx;
+  line-height: 98rpx;
+}
+.container .btn-wrapper .btn.active {
+  background: #FFDE4E;
+}
+.container .main {
+  padding: 16rpx 24rpx 98rpx 16rpx;
+}
+.container .main .section {
+  border-radius: 10rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+.container .main .section .header {
+  padding: 30rpx 24rpx 22rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+  font-size: 28rpx;
+}
+.container .main .section .header .sub {
+  color: #999;
+}
+.container .main .section .info {
+  display: flex;
+  padding:29rpx 24rpx 49rpx;
+}
+.container .main .section .fl {
+  font-size: 24rpx;
+  width: 140rpx;
+}
+.container .main .section .rt {
+  font-size: 24rpx;
+  color: #999;
+  flex: 1;
+}
+.container .main .section .list {
+  padding: 13rpx 24rpx;
+}
+.container .main .section .list .item {
+  padding: 16rpx 0;
+  display: flex;
+}
+.container .main .section .list .item .cause {
+  font-size: 24rpx;
+  flex: 1;
+}
+.container .main .section .list .item image {
+  width: 24rpx;
+  height: 24rpx;
+}
+.container .main .section .list .item .radios {
+  border-radius: 100%;
+  width: 24rpx;
+  height: 24rpx;
+  border: 1rpx solid #999;
+  box-sizing: border-box;
+}
+.container .main .section .top {
+  display: flex;
+  padding: 26rpx 24rpx 10rpx;
+}
+.container .main .section .top .avatar {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 100%;
+}
+.container .main .section .top .name {
+  padding-left: 18rpx;
+  font-size: 24rpx;
+  flex: 1;
+  box-sizing: border-box;
+}
+.container .main .section .bott {
+  display: flex;
+  padding: 20rpx 24rpx;
+}
+.container .main .section .bott .img {
+  width: 158rpx;
+  height: 158rpx;
+}
+.container .main .section .bott .detail {
+  padding-left: 20rpx;
+  width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.container .main .section .bott .detail .name {
+  font-size: 28rpx;
+}
+.container .main .section .bott .detail .sub {
+  font-size: 24rpx;
+  color: #666666;
+}
+.container .main .section .bott .detail .con {
+  display: flex;
+  justify-content: space-between;
+}
+.container .main .section .bott .detail .con .price {
+  font-weight: bold;
+  font-size: 32rpx;
+}
+.container .main .section .bott .detail .con .price .tagprice {
+  font-size: 20rpx;
+  color: #999999;
+  padding-left: 10rpx;
+}
+.container .main .section .bott .detail .con .count {
+  font-size: 24rpx;
+  color: #999999;
+}

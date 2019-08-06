@@ -45,6 +45,7 @@
     font-size: 24rpx;
     transition: all .2s;
     padding: 22rpx 0;
+    border-bottom: 2rpx solid transparent;  
 }
 .container .navs .item.active text {
     color: #333;

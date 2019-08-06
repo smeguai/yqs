@@ -9,6 +9,9 @@
     display: flex;
     flex-direction: column-reverse;
 }
+.del {
+    text-decoration:line-through;
+}
 .popup.sellout {
     bottom: 98rpx;
 }

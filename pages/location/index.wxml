@@ -1,56 +1,57 @@
 <view class="container">
-    <!-- 搜索 -->
-    <view class="xg_top">
-        <view class="xg_search" >
-            <view class="xg_search_city" bindtap="cityClick">
-                <text>长沙市</text>
-                <view></view>
-            </view>
-            <view class="xg_search_url" bindtap="selectClick">
-                <image src="../../static/img/search.png"></image>
-                <text>请输入小区名称</text>
-            </view>
-        </view>
-
-        <view class="xg_record" wx:if='{{currentStation}}'>
-            <text class="xg_record_title">已选小区</text>
-            <view class="xg_record_text">
-                <view class="xg_record_textName">{{currentStation.stationName}}</view>
-                <view class="xg_record_textAdd">{{currentStation.areaName}}</view>
-            </view>
-        </view>
+  <!-- 搜索 -->
+  <view class="xg_top">
+    <view class="xg_search">
+      <view class="xg_search_city" bindtap="cityClick">
+        <text>长沙市</text>
+        <view></view>
+      </view>
+      <view class="xg_search_url" bindtap="selectClick">
+        <image src="../../static/img/search.png"></image>
+        <text>请输入小区名称</text>
+      </view>
     </view>
 
-    <!-- 位置 -->
-    <view class="xg_center">
-        <view class="xg_centerTop">
-            <view class="xg_centerTop_left">
-                <image src="../../static/img/addrsicon.png"></image>
-                <view>
-                    <view class="xg_centerTop_leftTitle">当前位置</view>
-                    <view class="xg_centerTop_leftText">{{currentData || data.stationName}}</view>
-                </view>
-            </view>
-            <view class="xg_centerTop_right" bindtap='setStation'>修改</view>
-        </view>
-        <view class="xg_centerBot" wx:if='{{nearbyData.length}}'>
-            <view class="xg_centerBotTitle">附近小区</view>
-            <view class="xg_centerBot_text" wx:for="{{nearbyData}}" bindtap='nearItemClick' data-id='{{item.stationId}}' wx:for-index="index" wx:key="index">
-                <view class="xg_centerBot_text_name">
-                    <text class="xg_centerBot_text_name_estate">{{item.stationName}}</text>
-                    <text class="xg_centerBot_text_name_num">{{item.distance}}</text>
-                </view>
-                <view class="xg_centerBot_text_add">{{item.areaName}}</view>
-            </view>
-        </view>
+    <view class="xg_record" wx:if='{{currentStation}}'>
+      <text class="xg_record_title">已选小区</text>
+      <view class="xg_record_text">
+        <view class="xg_record_textName">{{currentStation.stationName}}</view>
+        <view class="xg_record_textAdd">{{currentStation.areaName}}</view>
+      </view>
     </view>
-    
-    <!-- 记录 -->
-    <view class="xg_bottom" wx:if='{{historyAddrsList}}'>
-        <view class="xg_bottom_title">历史记录</view>
-        <view class="xg_bottom_text" wx:for="{{historyAddrsList}}" wx:for-index="index" wx:key="index">
-            <view class="xg_bottom_textName">{{item.stationName}}</view>
-            <view class="xg_bottom_textadd">{{item.areaName}}</view>
+  </view>
+
+  <!-- 位置 -->
+  <view class="xg_center">
+    <view class="xg_centerTop">
+      <view class="xg_centerTop_left">
+        <image src="../../static/img/addrsicon.png"></image>
+        <view>
+          <view class="xg_centerTop_leftTitle">当前位置</view>
+          <view class="xg_centerTop_leftText">{{currentData || data.stationName}}</view>
         </view>
+      </view>
+      <view class="xg_centerTop_right" bindtap='setStation'>修改</view>
     </view>
+    <view class="xg_centerBot" wx:if='{{nearbyData.length}}'>
+      <view class="xg_centerBotTitle">附近小区</view>
+      <view class="xg_centerBot_text" wx:for="{{nearbyData}}" wx:key="{{index}}" bindtap='nearItemClick' data-id='{{item.stationId}}'>
+        <view class="xg_centerBot_text_name">
+          <view class="xg_centerBot_text_name_estate">{{item.stationName}}</view>
+          <view class="xg_centerBot_text_add">{{item.areaName}}</view>
+        </view>
+          <text class="xg_centerBot_text_name_num">距离{{item.distance}}</text>
+          <text class="xg_centerBot_text_name_xq" catchtap='nearItemBtnClick' data-id='{{item.stationId}}'>进入小区</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记录 -->
+  <view class="xg_bottom" wx:if='{{historyAddrsList}}'>
+    <view class="xg_bottom_title">历史记录</view>
+    <view class="xg_bottom_text" wx:for="{{historyAddrsList}}" wx:for-index="index" wx:key="index">
+      <view class="xg_bottom_textName">{{item.stationName}}</view>
+      <view class="xg_bottom_textadd">{{item.areaName}}</view>
+    </view>
+  </view>
 </view>

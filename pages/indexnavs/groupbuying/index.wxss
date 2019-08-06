@@ -62,10 +62,11 @@
 }
 .container .list .item .top {
     display: flex;
+    align-items: center;
 }
 .container .list .item .top .icon {
-    width: 24rpx;
-    height: 22rpx;
+    width: 28rpx;
+    height: 28rpx;
 }
 .container .list .item .top .sellername {
     font-size: 24rpx;
@@ -106,9 +107,17 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.container .list .item .info .desc .topi {
+  display: flex;
+  justify-content: space-between;
+}
 .container .list .item .info .desc .goodsname {
     font-size: 32rpx;
     font-weight: 500;
+    flex: 1;
+}
+.container .list .item .info .desc .dis {
+  padding-left: 10rpx;
 }
 .container .list .item .info .desc .date {
     font-size: 24rpx;

@@ -1,7 +1,7 @@
 import {
   existpaypwd,
-  bindtel,
-  hasbindtel
+  getcode,
+  setpaypass
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -12,42 +12,67 @@ Page({
    * 页面的初始数据
    */
   data: {
-    password_num: '',
-    newPassword_num: '',
+    pass: '',
+    pass_2: '',
     code: false,
     code_num: '',
     confirm: false,
     haspaypwd: false,
     hasbindtel: false,
-    tel: ''
+    tel: '',
+    timer: 60,
+    codetxt: '获取验证码',
+    t: null,
+    alert: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getBindTel()
-    if (!this.data.hasbindtel) return
     this.getExistpaypwd()
   },
   //  发送验证码
   handleQAcode() {
+    if (this.data.timer != 60) return
+    let userInfo = wx.getStorageSync('userInfo')
+    promiseRequest(getcode, 'post', {
+      mobile: userInfo.mobile,
+      action: 'paypwd'
+    }).then(res => {
+      console.log(res)
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          success: () => {
+            this.getTimeout()
+          }
+        })
+      }
+    })
 
   },
-  //  是否绑定过手机号
-  getBindTel() {
-    promiseRequest(hasbindtel, 'get').then(res => {
-      if (res.data.code == 0) {
-        if (res.data.mobile) {
-          this.setData({
-            hasbindtel: res.data.mobile
-          })
-        } else {
-          wx.navigateTo({
-            url: '../../login/index'
-          })
-        }
-      }
+  //  倒计时
+  getTimeout() {
+    let t = null
+    if (this.data.timer > 0) {
+      clearTimeout(this.data.t)
+      t = setTimeout(() => {
+        this.setData({
+          timer: this.data.timer - 1,
+          codetxt: (this.data.timer - 1) + '秒再次获取'
+        })
+        this.getTimeout()
+      }, 1000)
+    } else {
+      this.setData({
+        timer: 60,
+        codetxt: '获取验证码'
+      })
+    }
+    this.setData({
+      t
     })
   },
   //  是否有支付密码
@@ -59,16 +84,6 @@ Page({
           haspaypwd: res.data.isPaypwd
         })
       }
-    })
-  },
-  Password(e) {
-    this.setData({
-      password_num: e.detail.value,
-    })
-    this.data.password_num == '' || this.data.newPassword_num == '' ? this.setData({
-      code: false
-    }) : this.setData({
-      code: true
     })
   },
   newPassword(e) {
@@ -91,35 +106,80 @@ Page({
       code: true
     })
   },
-
-  code(e) {
-    if (this.data.newPassword_num == '' || this.data.password_num == '') {
+  //  第一个密码 不足6位数时
+  ipt1_blur(e) {
+    let len = e.detail.cursor
+    if (len < 6 && len != '') {
       this.setData({
-        code_num: '',
+        alert: '密码必须为6位数'
       })
-      wx.showToast({
-        title: '密码不能为空',
-        icon: 'none',
-      })
-      return;
     }
-    if (this.data.newPassword_num != this.data.password_num) {
-      this.setData({
-        code_num: '',
-      })
-      wx.showToast({
-        title: '请输入相同密码',
-        icon: 'none',
-      })
-      return;
+  },
+  password(e) {
+    let pass = e.detail.value,
+      code_num = '',
+      pass_2 = '',
+      code = false,
+      alert = '',
+      confirm = false
+    this.setData({
+      pass,
+      pass_2,
+      code,
+      alert,
+      code_num,
+      confirm
+    })
+  },
+  //  第二个密码
+  newpassword(e) {
+    let pass = e.detail.value,
+      code = false,
+      confirm = false,
+      code_num = ''
+    if (pass == this.data.pass && pass.length == 6) {
+      code = true
+      alert = ''
+    } else if (pass != this.data.pass && pass.length == 6) {
+      code = false
+      alert = '两次密码不一致'
     }
     this.setData({
-      code_num: e.detail.value,
+      code,
+      pass_2: pass,
+      alert,
+      confirm,
+      code_num
     })
-    this.data.code_num == '' ? this.setData({
-      confirm: false
-    }) : this.setData({
-      confirm: true
+  },
+  //  验证码
+  code(e) {
+    let v = e.detail.value,
+      confirm = false
+    if (v.length == 4 && this.data.pass && this.data.pass == this.data.pass_2) {
+      confirm = true
+    }
+    this.setData({
+      confirm,
+      code_num: v
+    })
+  },
+  //  设置密码
+  setPass() {
+    promiseRequest(setpaypass, 'get', {
+      pwd: this.data.pass,
+      validcode: this.data.code_num
+    }).then(res => {
+      if (res.data.code == 0) {
+        wx.navigateBack({
+          delat: -1
+        })
+      } else if (res.data.code == 1) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
     })
   }
 })

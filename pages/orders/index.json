@@ -1,4 +1,6 @@
 {
-    "usingComponents": {},
+    "usingComponents": {
+      "paypass": "../../component/paypass/index"
+    },
     "enablePullDownRefresh": true
 }

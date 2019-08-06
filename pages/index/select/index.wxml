@@ -1,63 +1,59 @@
 <view class="container">
-    <view class="page_search">
-        <view class="page_search_inp">
-            <image src="../../../static/img/search.png"></image>
-            <input placeholder="请输入小区名称"></input>
-            <icon type="clear" size="14" color="#CCCCCC" class="clear_icon" />
-        </view>
-        <view class="page_search_btn">搜索</view>
+  <view class="page_search">
+    <view class="page_search_inp">
+      <image src="../../../static/img/search.png"></image>
+      <input placeholder="搜索商品或店铺" bindinput="handleinput" bindconfirm="handlesearch" value='{{keys}}' bindfocus='handleInputFocus'></input>
+      <icon wx:if='{{keys.length > 0}}' type="clear" size="14" color="#CCCCCC" class="clear_icon" bindtap='handleSearchInputClear' />
+    </view>
+    <view class="page_search_btn" bindtap="handlesearch">搜索</view>
+  </view>
+  <!-- 搜索快 -->
+  <view class='search_qa' wx:if="{{inputFocus}}">
+    <view class="name_title">大家都在搜</view>
+    <view class="name_text">
+      <!-- <view class="name_textName" wx:for="{{historyKeys}}" wx:for-index="index" wx:key="index">{{item}}</view> -->
     </view>
 
-    <block wx:if="{{searchShow}}">
-        <view class="name_title">大家都在搜</view>
-        <view class="name_text">
-            <view class="name_textName" wx:for="{{name}}" wx:for-index="index" wx:key="index">{{item.name}}</view>
-        </view>
-
-        <view class="name_history">
-            <view>历史搜索</view>
-            <image src="../../../static/img/ico-del.png"></image>
-        </view>
-        <view class="name_text" style="border-bottom:0rpx;">
-            <view class="name_textName" wx:for="{{name}}" wx:for-index="index" wx:key="index">{{item.name}}</view>
-        </view>
-    </block>
-
-    <block wx:if="{{searchShow}}">
-        <view class="shop_title">相关商品</view>
-        <view class="shop_goods" wx:for="{{shop_goods}}" wx:for-index="index" wx:key="index">
-            <image src="{{item.img}}"></image>
-            <view class="shop_goods_view">
-                <view>
-                    <view class="shop_goods_view_title">{{item.title}}</view>
-                    <view class="shop_goods_view_text">{{item.text}}</view>
-                </view>
-                <view class="shop_goods_viewNum">
-                    ￥<text class="shop_goods_viewNum_pay">{{item.pay}}</text>
-                    <text class="shop_goods_viewNum_price">￥{{item.price}}</text>
-                </view>
-            </view>
-        </view>
-        <view class="shop_border"></view>
-
-        <view class="shop_title">相关商店</view>
-        <view class="shop_shop" wx:for="{{shop}}" wx:for-index="index" wx:key="index">
-            <image src="{{item.img}}"></image>
-            <view class="shop_shopView">
-                <view class="shop_shopText">
-                    <view class="shop_shopText_title">{{item.name}}</view>
-                    <view class="shop_shopText_text">
-                        {{item.num}}米
-                        <image src="../../../static/img/right.png"></image>
-                    </view>
-                </view>
-                <view wx:if="{{item.text != ''}}" class="shop_shopText_text" style="margin-top: 16rpx;">{{item.text}}</view>
-            </view>
-        </view>
-    </block>
-
-    <view class="shop_none">
-        <image src="../../../static/img/icon_search.png"></image>
-        <view>抱歉！未搜索到“西瓜”相关的商品~</view>
+    <view class="name_history">
+      <view>历史搜索</view>
+      <image src="../../../static/img/ico-del.png" bindtap="hisoryclear"></image>
     </view>
+    <view class="name_text" style="border-bottom:0rpx;">
+      <view class="name_textName" wx:for="{{historyKeys}}" data-keys='{{item}}' bindtap='historyItemClick' wx:for-index="index" wx:key="index">{{item}}</view>
+    </view>
+  </view>
+  <!-- 搜索内容 -->
+  <block wx:if='{{sellerList.length > 0 || goodsList.length > 0}}'>
+    <view class="shop_title">相关商品</view>
+    <view class="shop_goods" wx:for="{{goodsList}}" wx:key="index">
+      <image src="{{item.coverUrl}}"></image>
+      <view class="shop_goods_view">
+        <view>
+          <view class="shop_goods_view_title strmore">{{item.productName}}</view>
+          <view class="shop_goods_view_text strmore">{{item.productShoreDesc}}</view>
+        </view>
+        <view class="shop_goods_viewNum">
+          ￥
+          <text class="shop_goods_viewNum_pay">{{item.price}}</text>
+          <text class="shop_goods_viewNum_price">￥{{item.tagPrice}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="shop_border"></view>
+
+    <view class="shop_title">相关商店</view>
+    <view class="shop_shop" wx:for="{{sellerList}}" wx:key="index">
+      <image src="{{item.merchantImgUrl}}"></image>
+      <view class="shop_shopText_title str">{{item.merchantName}}</view>
+      <view class="shop_shopText_text">
+        <dis num='{{item.distance}}' />
+        <image src="../../../static/img/right.png"></image>
+      </view>
+      <view wx:if="{{item.text != ''}}" class="shop_shopText_text" style="margin-top: 16rpx;">{{item.text}}</view>
+    </view>
+  </block>
+  <view class="shop_none" wx:else>
+    <image src="../../../static/img/icon_search.png"></image>
+    <view>抱歉！未搜索到“西瓜”相关的商品~</view>
+  </view>
 </view>

@@ -1,6 +1,7 @@
 {
     "usingComponents": {
-        "countdown": "../../../component/countdown/index"
+        "countdown": "../../../component/countdown/index",
+        "dis": "../../../component/dis/index"
     },
     "navigationBarTitleText": "秒杀"
 }

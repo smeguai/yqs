@@ -1,40 +1,50 @@
 <view class='container'>
-    <view class='search'>
-        <image src='../../../static/img/search.png' class='icon'></image>
-        <input class='ipt' placeholder='搜索附近商家'></input>
-    </view>
+  <view class='search'>
+    <image src='../../../static/img/search.png' class='icon'></image>
+    <input class='ipt' placeholder='搜索附近商家' bindinput="searchInput" bindconfirm="handleSearch"></input>
+  </view>
 
-    <view class='list'>
-        <view class='item' wx:for='{{list}}'>
-            <view class='main'>
-                <image src='{{item.avatar}}' class='avatar'></image>
-                <view class='info'>
-                    <view class='top'>
-                        <view class='name'>{{item.name}}</view>
-                        <view class='lm ckbox'>联盟</view>
-                        <view class='pp ckbox'>品牌</view>
-                    </view>
-                    <view class='middel'>
-                        <grade />
-                        <text>{{item.genre}}</text>|
-                        <text>{{item.moods}}</text>
-                        <text class='dis'>500米</text>
-                    </view>
-                    <view class='tag'>
-                        <view class='tagitem' wx:for='{{item.tag}}'>{{item}}</view>
-                    </view>
-                </view>
-            </view>
-            <scroll-view scroll-x class='ticket'>
-                <view class='block'>
-                    <view class='ticketitem' wx:for='{{item.ticket}}'>
-                        <view class='title'>{{item.title}}</view>
-                        <view class='price'>￥{{item.price}}</view>
-                        <view class='txt'>{{item.txt}}</view>
-                        <view class='btn'>点击领取</view>
-                    </view>
-                </view>
-            </scroll-view>
+  <view class='list'>
+    <view class='item' wx:for='{{list}}'>
+      <view class='main'>
+        <image src='{{item.merchantImgUrl}}' class='avatar'></image>
+        <view class='info'>
+          <view class='top'>
+            <view class='name'>{{item.merchantName}}</view>
+            <view class='lm ckbox' wx:if='{{item.hasUnion}}'>联盟</view>
+            <view class='pp ckbox' wx:if='{{item.hasBrand}}'>品牌</view>
+          </view>
+          <view class='middel'>
+            <grade score='{{item.starIndex}}' />
+            <text>{{item.typeName}}</text>|
+            <text>人气{{item.viewNum}}</text>
+            <text class='dis'>500米</text>
+          </view>
+          <view class='tag'>
+            <view class='tagitem' wx:for='{{item.tagList}}'>{{item}}</view>
+          </view>
         </view>
+      </view>
+      <scroll-view scroll-x class='ticket'>
+        <view class='block'>
+          <view class='ticketitem' wx:for='{{item.couponList}}'>
+            <view class='title'>{{item.couponName}}</view>
+            <view class='bott'>
+              <view class='price'>￥{{item.couponMoney}}</view>
+              <view class='txt'>{{item.couponDes}}</view>
+              <view class='btn'>点击领取</view>
+            </view>
+          </view>
+          <view class='ticketitem' wx:for='{{item.voucherList}}'>
+            <view class='title'>{{item.productName}}</view>
+            <view class='bott'>
+              <view class='price'>￥{{item.price}}</view>
+              <!-- <view class='txt'>{{item.txt}}</view> -->
+              <view class='btn'>点击购买</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
     </view>
+  </view>
 </view>

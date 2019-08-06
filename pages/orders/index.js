@@ -1,5 +1,9 @@
 import {
-  getorder
+  getorder,
+  canceorder,
+  orderpay,
+  receiving,
+  deleteorder
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -12,6 +16,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    payStatus: false,
+    orderId: null,
     navList: [{
       txt: '全部',
       id: 0
@@ -32,15 +38,18 @@ Page({
       0: '待付款',
       1: '待使用',
       2: '待收货',
-      3: '退款中'
+      3: '退款中',
+      4: '已退款',
+      8: '待评论',
+      9: '已完成',
+      88: '已取消'
     },
     navIdx: 0,
     list: [],
     status: 0,
     pageIndex: 1,
     pageSize: 10,
-    count: 0,
-    loadingText: '加载中...'
+    count: 0
   },
   navItemClick(e) {
     let id = e.currentTarget.dataset.id
@@ -49,8 +58,11 @@ Page({
       navIdx: id,
       status: id,
       pageIndex: 1,
-      list: [],
-      loadingText: '加载中...'
+      list: []
+    })
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
     })
     this.getOrders()
   },
@@ -59,17 +71,119 @@ Page({
       url: `../orderdetail/index?orderid=${e.currentTarget.dataset.orderid}`,
     })
   },
-  cancelOrder() {
+  //  确认收货
+  consignee(e) {
+    wx.showModal({
+      content: '是否确认收货?',
+      success: r => {
+        if (r.confirm) {
+          promiseRequest(receiving, 'get', {
+            orderId: e.currentTarget.dataset.orderid
+          }).then(res => {
+            console.log(res)
+            if (res.data.code == 0) {
+              wx.showToast({
+                title: '收货成功!',
+                icon: 'none'
+              })
+              let list = this.data.list
+              list.map((item, index) => {
+                list.splice(index, 1)
+              })
+              this.setData({
+                list
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+  //  一键核销
+  handleVerifyClick(e) {
+    let orderid = e.currentTarget.dataset.orderid
+    wx.navigateTo({
+      url: `../verify/index?orderid=${orderid}`,
+    })
+  },
+  //  删除订单
+  deleteOrder(e) {
+    wx.showModal({
+      content: '是否要删除此订单?（确认后无法撤回）',
+      success: (r) => {
+        if (r.confirm) {
+          let orderId = e.currentTarget.dataset.orderid
+          promiseRequest(deleteorder, 'get', {
+            orderId
+          }).then(res => {
+            console.log(res)
+            if (res.data.code == 0) {
+              wx.showToast({
+                title: '已删除订单',
+                icon: 'none'
+              })
+              let list = this.data.list
+              list.map((item, index) => {
+                if (item.orderId == orderId) {
+                  list.splice(index, 1)
+                }
+              })
+              this.setData({
+                list
+              })
+            }
+          })
+        }
+      }
+    })
+
+  },
+  //  取消订单
+  cancelOrder(e) {
     wx.showModal({
       title: '提示',
       content: '是否要取消当前订单？（确认后无法撤回）',
+      success: r => {
+        // 
+        if (r.confirm) {
+          promiseRequest(canceorder, 'get', {
+            orderId: e.currentTarget.dataset.orderid
+          }).then(res => {
+            console.log(res)
+            if (res.data.code == 1) {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                success: () => {
+                  let list = this.data.list
+                  list.map((item, index) => {
+                    if (item.orderId == e.currentTarget.dataset.orderid) {
+                      item.status = 88
+                    }
+                  })
+                  this.setData({
+                    list
+                  })
+                }
+              })
+            }
+          })
+        }
+      }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getOrders()
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    this.setData({
+      navIdx: options.pid,
+      status: options.pid
+    })
   },
   getOrders() {
     let data = {
@@ -79,45 +193,73 @@ Page({
     }
     promiseRequest(getorder, 'get', data).then(res => {
       if (res.data.code == 0) {
-        if (res.data.data.length == 0) {
-          this.setData({
-            loadingText: '空空如也...'
-          })
-        } else {
+        if (res.data.data.length != 0) {
           this.setData({
             list: [...this.data.list, ...res.data.data],
             count: res.data.totalCount,
             pageIndex: data.pageIndex + 1
           })
         }
+        wx.hideLoading()
+        wx.stopPullDownRefresh()
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
+
+  //  弹出支付密码
+  paying(e) {
+    this.setData({
+      payStatus: true,
+      orderId: e.currentTarget.dataset.orderid
+    })
+  },
+
+  //  关闭输入框
+  payclose(e) {
+    this.setData({
+      payStatus: e.detail,
+      orderId: null
+    })
+  },
+
+  //  密码验证
+  verifypass(e) {
+    if (e.detail) {
+      this.wxPayment()
+    }
+  },
+
+  //  微信支付
+
+  wxPayment(v) {
+    promiseRequest(orderpay, 'get', {
+      orderId: this.data.orderId
+    }).then(res => {
+      if (res.data.code == 0) {
+        let v = res.data.data
+        wx.requestPayment({
+          timeStamp: v.timestamp,
+          nonceStr: v.noncestr,
+          package: v.partnerid,
+          signType: 'MD5',
+          paySign: v.sign,
+          success: (res) => {
+            console.log(res)
+          }
+        })
+      }
+    })
 
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
+    this.setData({
+      list: [],
+      pageIndex: 1
+    })
+    this.getOrders()
   },
 
   /**
@@ -127,10 +269,13 @@ Page({
     this.setData({
       pageIndex: 1,
       list: [],
-      loadingText: '加载中...'
+    })
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
     })
     this.getOrders()
-    wx.stopPullDownRefresh()
+    
   },
 
   /**
@@ -138,11 +283,11 @@ Page({
    */
   onReachBottom: function() {
     if (this.data.list.length < this.data.count) {
-      this.getOrders()
-    } else {
-      this.setData({
-        loadingText: '到底了~'
+      wx.showLoading({
+        title: '加载中...',
+        mask: true
       })
+      this.getOrders()
     }
   },
 

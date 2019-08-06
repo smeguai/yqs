@@ -5,37 +5,41 @@
         <view class="password_viewInput">
             <text>新密码</text>
             <input 
-                placeholder="请设置新密码" 
+                placeholder="请输入密码" 
                 type="number"
                 maxlength="6"
-                bindinput="Password" 
-                value="{{password_num}}"></input>
+                password
+                bindinput="password" 
+                bindblur="ipt1_blur"
+                value="{{pass}}"></input>
         </view>
 
         <view class="password_viewInput">
             <text>确认新密码</text>
             <input 
-                placeholder="请再次确认新密码" 
+                placeholder="请再次确认密码" 
                 type="number
                 maxlength="6"
-                bindinput="newPassword" 
-                value="{{newPassword_num}}" ></input>
+                password
+                bindinput="newpassword" 
+                value="{{pass_2}}" ></input>
         </view>
 
         <view class="password_viewCode">
             <input 
                 placeholder="填写验证码" 
-                type="number
-                value="{{code_num}}" 
-                bindinput="code" ></input>
+                type="number"
+                value='{{code_num}}'
+                maxlength="4"
+                bindinput="code"></input>
 
-            <view wx:if="{{code}}" bindtap="handleQAcode">发送验证码</view>
-            <view wx:else style="background:#CCCCCC;">发送验证码</view>
+            <view wx:if="{{code}}" bindtap="handleQAcode">{{codetxt}}</view>
+            <view wx:else style="background:#CCCCCC;">获取验证码</view>
         </view>
 
-        <text class="password_viewText">密码必须是6位数字</text>
+        <text class="password_viewText">{{alert}}</text>
 
-        <button wx:if="{{confirm}}" class="password_viewConfirm">确定修改</button>
-        <button wx:else class="password_viewConfirm" style="background:#CCCCCC;" >确定修改</button>
+        <view wx:if="{{confirm}}" class="password_viewConfirm" bindtap="setPass">确定修改</view>
+        <view wx:else class="password_viewConfirm" style="background:#CCCCCC;" >确定修改</view>
     </view>
 </view>

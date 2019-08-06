@@ -102,6 +102,9 @@
     padding-left: 28rpx;
     box-sizing: border-box;
     width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .container .list .item .info .desc .goodsname {
     font-size: 32rpx;
@@ -113,6 +116,7 @@
 }
 .container .list .item .info .desc .bot {
     display: flex;
+    align-items: flex-end;
 }
 .container .list .item .info .desc .bot .price {
     font-size: 24rpx;

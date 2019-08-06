@@ -1,100 +1,146 @@
 .page {
-    padding: 0 28rpx;
+  padding: 0 28rpx;
 }
+
 .page_search {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 28rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 0;
 }
+
 .page_search_inp {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    background: #f4f4f4;
-    border-radius: 24rpx;
-    padding: 4rpx 0 4rpx 30rpx;
-    box-sizing: border-box;
-    height: 60rpx;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 24rpx;
+  padding: 4rpx 0 4rpx 30rpx;
+  box-sizing: border-box;
+  height: 60rpx;
 }
+
 .page_search_inp>image {
-    width: 30rpx;
-    height: 30rpx;
-    padding: 0 30rpx;
+  width: 30rpx;
+  height: 30rpx;
+  padding: 0 30rpx;
 }
+
 .page_search_inp>input {
-    color: #999999;
-    font-size: 24rpx;
-    flex: 1;
+  color: #999;
+  font-size: 24rpx;
+  flex: 1;
 }
+
 .clear_icon {
-    padding: 10rpx 20rpx;
-    display: none;
+  padding: 10rpx 20rpx;
+  display: none;
 }
+
 .clear_icon.show {
-    display: inline-block;
+  display: inline-block;
 }
+
 .page_search_btn {
-    color: #333333;
-    font-size: 28rpx;
-    margin-left: 29rpx;
+  color: #333;
+  font-size: 28rpx;
+  margin-left: 29rpx;
 }
+
 .page_search_btn:active {
-    color: #666666;
+  color: #666;
 }
 
 /* 没有搜索到小区 */
+
 .page_searchNone {
-    width: 100%;
-    text-align: center;
-    color: #999999;
-    font-size: 24rpx;
-    padding: 30rpx 0;
-}
-.page_searchText {
-    color: #999999;
-    font-size: 24rpx;
-}
-.xg_centerBot_text {
-    border-bottom: 1rpx solid #F5F5F5;
-    padding: 25rpx 0;
-}
-.xg_centerBot_text:last-child {
-    border-bottom: 0rpx;
-}
-.xg_centerBot_text_name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.xg_centerBot_text_name_estate {
-    color: #333333;
-    font-size: 28rpx;
-}
-.xg_centerBot_text_name_num {
-    color: #666666;
-    font-size: 24rpx;
-}
-.xg_centerBot_text_add {
-    color: #666666;
-    font-size: 24rpx;
-    margin-top: 18rpx;
+  width: 100%;
+  text-align: center;
+  color: #999;
+  font-size: 24rpx;
+  padding: 30rpx 0;
 }
 
+.page_searchText {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.xg_centerBot_text {
+  border-bottom: 1rpx solid #f5f5f5;
+  padding: 25rpx 0;
+  display: flex;
+  align-items: center;
+}
+
+.xg_centerBot_text:last-child {
+  border-bottom: 0rpx;
+}
+
+.xg_centerBot_text_name {
+  flex: 1;
+  overflow: hidden;
+}
+
+.xg_centerBot_text_name_estate {
+  color: #333;
+  font-size: 28rpx;
+}
+
+.xg_centerBot_text_name_num {
+  color: #666;
+  font-size: 24rpx;
+  padding: 0 10rpx;
+}
+
+.xg_centerBot_text_add {
+  color: #666;
+  font-size: 24rpx;
+  margin-top: 18rpx;
+}
+
+.xg_bottom_item_btn, .tostaction {
+  font-size: 28rpx;
+  height: 58rpx;
+  line-height: 58rpx;
+  width: 164rpx;
+  text-align: center;
+  border-radius: 29rpx;
+  border: 2rpx solid #ffde4e;
+}
+.xg_bottom_item_dis {
+  padding-right: 10rpx;
+}
+.xg_bottom_item {
+  display: flex;
+  border-bottom: 1rpx solid #F5F5F5;
+  padding: 10rpx 0;
+  align-items: center;
+}
+.xg_bottom_item_info {
+  flex: 1;
+  width: 0;
+  padding-right: 20rpx;
+  box-sizing: border-box;
+}
 /*  */
+
 .xg_bottom_text {
-    padding: 20rpx 0;
-    border-bottom: 1rpx solid #F5F5F5;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
 }
+
 .xg_bottom_text:last-child {
-    border-bottom: 0rpx;
+  border-bottom: 0rpx;
 }
+
 .xg_bottom_textName {
-    color: #333333;
-    font-size: 28rpx;
-    margin-bottom: 18rpx;
+  color: #333;
+  font-size: 28rpx;
+  margin-bottom: 18rpx;
 }
+
 .xg_bottom_textadd {
-    color: #666666;
-    font-size: 24rpx;
+  color: #666;
+  font-size: 24rpx;
 }

@@ -1,137 +1,137 @@
 .container {
-    padding: 0 24rpx;
-    background: #fff;
+  padding: 0 24rpx;
+  background: #fff;
 }
 
 .container .list .item {
-    border-top: 1rpx solid #f6f6f6;
-    display: flex;
-    padding: 30rpx 0;
-    flex-wrap: wrap;
+  border-top: 1rpx solid #f6f6f6;
+  display: flex;
+  padding: 30rpx 0;
+  flex-wrap: wrap;
 }
 
 .container .list .item .avatar {
-    width: 128rpx;
-    height: 128rpx;
-    border-radius: 6rpx;
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 6rpx;
 }
 
 .container .list .item .info {
-    padding-left: 30rpx;
-    flex: 1;
+  padding-left: 30rpx;
+  flex: 1;
 }
 
 .container .list .item .info .middel {
-    display: flex;
-    align-items: center;
-    font-size: 20rpx;
-    color: #666;
-    padding: 4rpx 0;
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+  color: #666;
+  padding: 4rpx 0;
 }
 
 .container .list .item .info .middel text {
-    padding: 0 16rpx;
+  padding: 0 16rpx;
 }
 
 .container .list .item .info .middel .dis {
-    text-align: right;
-    flex: 1;
+  text-align: right;
+  flex: 1;
 }
 
 .container .list .item .info .top {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .container .list .item .info .top .name {
-    font-size: 28rpx;
-    font-weight: bold;
+  font-size: 28rpx;
+  font-weight: bold;
 }
 
 .container .list .item .info .top .ckbox {
-    padding: 4rpx 8rpx;
-    border-radius: 4rpx;
-    font-size: 20rpx;
-    margin-left: 14rpx;
-    font-weight: bold;
+  padding: 4rpx 8rpx;
+  border-radius: 4rpx;
+  font-size: 20rpx;
+  margin-left: 14rpx;
+  font-weight: bold;
 }
 
 .container .list .item .info .top .lm {
-    background: #ffcd06;
-    color: #442113;
+  background: #ffcd06;
+  color: #442113;
 }
 
 .container .list .item .info .top .pp {
-    background: #1d72b4;
-    color: #fff;
+  background: #1d72b4;
+  color: #fff;
 }
 
 .container .list .item .info .tag {
-    display: flex;
-    padding-top: 10rpx;
+  display: flex;
+  padding-top: 10rpx;
 }
 
 .container .list .item .info .tag .tagitem {
-    font-size: 20rpx;
-    padding: 6rpx 12rpx;
-    border-radius: 6rpx;
-    border: 1rpx solid red;
-    margin-right: 16rpx;
+  font-size: 20rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid red;
+  margin-right: 16rpx;
 }
 
 .container .list .item .info .activity {
-    display: flex;
-    align-items: center;
-    padding-top: 20rpx;
+  display: flex;
+  align-items: center;
+  padding-top: 20rpx;
 }
 
 .container .list .item .info .activity .cate {
-    width: 24rpx;
-    height: 24rpx;
-    border-radius: 2rpx;
-    font-size: 20rpx;
-    color: #fff;
-    display: inline-block;
-    text-align: center;
-    line-height: 24rpx;
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 2rpx;
+  font-size: 20rpx;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  line-height: 24rpx;
 }
 
 .container .list .item .info .activity .cate.tuan {
-    background: #3098ff;
+  background: #3098ff;
 }
 
 .container .list .item .info .activity .cate.quan {
-    background: #f63;
+  background: #f63;
 }
 
 .container .list .item .info .activity .txt {
-    font-size: 24rpx;
-    padding-left: 6rpx;
+  font-size: 24rpx;
+  padding-left: 6rpx;
 }
 
 .container .list .item .info .goods {
-    display: flex;
-    justify-content: space-around;
-    padding-top: 24rpx;
+  display: flex;
+  padding-top: 24rpx;
+  justify-content: space-between;
 }
 
 .container .list .item .info .goods .goodsitem {
-    flex: 1;
+  width: 178rpx;
 }
 
 .container .list .item .info .goods .goodsitem .imgurl {
-    width: 178rpx;
-    height: 150rpx;
-    border-radius: 6rpx;
+  width: 178rpx;
+  height: 150rpx;
+  border-radius: 6rpx;
 }
 
 .container .list .item .info .goods .goodsitem .price {
-    font-size: 32rpx;
-    color: #f60;
+  font-size: 32rpx;
+  color: #f60;
 }
 
 .container .list .item .info .goods .goodsitem .price .oldprice {
-    font-size: 20rpx;
-    color: #999;
-    padding-left: 12rpx;
+  font-size: 20rpx;
+  color: #999;
+  padding-left: 12rpx;
 }

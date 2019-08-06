@@ -1,11 +1,14 @@
 import {
-  decrypt,
+  changebindtel,
   bindtel,
+  decrypt,
   getcode
 } from '../../utils/api.js'
 import {
   promiseRequest
 } from '../../utils/util.js'
+const app = getApp()
+
 Page({
 
   /**
@@ -15,7 +18,9 @@ Page({
     input_mobile: '',
     codeMode: '',
     input_binding: '1',
-    code: ''
+    code: '',
+    timer: 60,
+    codetxt: '获取验证码'
   },
 
   mobile(e) {
@@ -24,7 +29,7 @@ Page({
     if (e.detail.value.length == 11) {
       codeMode = true
     }
-    this.setData({ 
+    this.setData({
       input_mobile,
       codeMode
     })
@@ -45,12 +50,12 @@ Page({
       mobile: this.data.input_mobile
     }
     promiseRequest(getcode, 'post', data).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         wx.showToast({
           title: res.data.msg,
           icon: 'none'
         })
+        this.timerout()
       } else {
         wx.showToast({
           title: res.data.msg,
@@ -59,15 +64,54 @@ Page({
       }
     })
   },
+  //  60秒倒计时
+  timerout() {
+
+    if (this.data.timer > 0) {
+      setTimeout(() => {
+        this.setData({
+          timer: this.data.timer - 1,
+          codeMode: false,
+          codetxt: this.data.timer + '秒再次获取'
+        })
+        this.timerout()
+      }, 100)
+    } else {
+      this.setData({
+        codeMode: true,
+        timer: 60
+      })
+    }
+  },
   getPhoneNumber(e) {
-    console.log(e)
     promiseRequest(decrypt, 'post', {
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv,
-      sessionKey: '111',
+      sessionKey: app.globalData.session_key,
       source: 0
     }).then(res => {
-      console.log(res)
+      let openORunion = wx.getStorageSync('openORunion')
+      //  一键绑定
+      // let 
+
+      promiseRequest(changebindtel, 'post', {
+        mobile: res.data.purePhoneNumber,
+        unionId: openORunion.unionId,
+        openId: openORunion.openId,
+      }).then(res => {
+        console.log(res)
+      })
+      wx.showToast({
+        title: '绑定成功',
+        icon: 'none',
+        success: () => {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: -1
+            })
+          }, 2000)
+        }
+      })
     })
   },
 
@@ -80,8 +124,24 @@ Page({
   //  绑定手机号
   handleBindTel() {
     promiseRequest(bindtel, 'post', {
-      mobile: this.data.mobile,
-      validCode: this.data.code
+      mobile: this.data.input_mobile,
+      validCode: this.data.code,
+      codeMode: false
+    }).then(res => {
+      console.log(res)
+      if (res.data.code == 0) {
+        success: () => {
+          wx.navigateBack({
+            delta: -1
+          })
+        }
+      }
+      else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
     })
   }
 })

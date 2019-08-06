@@ -1,0 +1,13 @@
+<view class='container'>
+
+  <view class='nav'>
+    <view class='item {{navcurrent == index ? "active": ""}}' wx:for='{{navlist}}' data-idx='{{index}}' bindtap="handleNavItemClick">
+      <text>{{item}}</text>
+      <image class='icon' src=''></image>
+    </view>
+  </view>
+
+
+
+
+</view>

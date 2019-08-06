@@ -1,34 +1,38 @@
 <view class='container'>
     <view class='search'>
         <image src='../../../static/img/search.png' class='icon'></image>
-        <input class='ipt' placeholder='搜索附近商家'></input>
+        <input class='ipt' placeholder='搜索附近商家' bindinput="handleSetkeys" bindconfirm='handleKeysDone'></input>
     </view>
     <view class='list'>
         <view class='item' wx:for='{{list}}'>
-            <image src='{{item.avatar}}' class='avatar'></image>
+            <image src='{{item.merchantImgUrl}}' class='avatar'></image>
             <view class='info'>
                 <view class='top'>
-                    <view class='name'>{{item.name}}</view>
-                    <view class='lm ckbox'>联盟</view>
-                    <view class='pp ckbox'>品牌</view>
+                    <view class='name'>{{item.merchantName}}</view>
+                    <view class='lm ckbox' wx:if='{{item.hasUnion}}'>联盟</view>
+                    <view class='pp ckbox' wx:if='{{item.hasBrand}}'>品牌</view>
                 </view>
                 <view class='middel'>
-                    <grade />
-                    <text>{{item.genre}}</text>|
-                    <text>{{item.moods}}</text>
-                    <text class='dis'>500米</text>
+                    <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex > 0}}' />
+                    <text>{{item.typeName}}</text>|
+                    <text>人气{{item.viewNum}}</text>
+                    <dis num='{{item.distance}}' class='dis' />
                 </view>
                 <view class='tag'>
-                    <view class='tagitem' wx:for='{{item.tag}}'>{{item}}</view>
+                    <view class='tagitem' wx:for='{{item.tagList}}'>{{item}}</view>
                 </view>
-                <view class='activity' wx:for='{{item.activity}}'>
-                    <text class='cate tuan'>{{item.id}}</text>
-                    <text class='txt'>{{item.txt}}</text>
+                <view class='activity' wx:if='{{item.couponDes}}'>
+                    <text class='cate quan'>券</text>
+                    <text class='txt'>{{item.couponDes}}</text>
+                </view>
+                <view class='activity' wx:if='{{item.groupDes}}'>
+                    <text class='cate tuan'>团</text>
+                    <text class='txt'>{{item.groupDes}}</text>
                 </view>
                 <view class='goods'>
-                    <view class='goodsitem' wx:for='{{item.goods}}'>
-                        <image src='{{item.imgUrl}}' class='imgurl'></image>
-                        <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.oldprice}}</text></text>
+                    <view class='goodsitem' wx:for='{{item.proList}}' data-id='{{item.productId}}'>
+                        <image src='{{item.productImgUrl}}' class='imgurl'></image>
+                        <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
                     </view>
                 </view>
             </view>

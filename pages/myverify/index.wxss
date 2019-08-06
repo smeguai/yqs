@@ -1,0 +1,101 @@
+.container {
+  background: #FFDE4E;
+  padding: 30rpx 24rpx;
+  box-sizing: border-box;
+}
+.top {
+  border-radius: 10rpx;
+  background: #fff;
+  padding: 52rpx 0 88rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 2rpx dashed #FFDE4E;
+  position: relative;
+}
+.top .avatar {
+  width: 118rpx;
+  height: 118rpx;
+  border-radius: 100%;
+  border: 2rpx solid #FFDE4E;
+}
+.top .name {
+  padding: 22rpx 0 38rpx;
+  font-size: 28rpx;
+}
+.top .subtitle {
+  color: #999999;
+  font-size: 28rpx;
+  padding: 0 34rpx;
+}
+.top::before {
+  position: absolute;
+  content: '';
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 100%;
+  background: #FFDE4E;
+  left: -20rpx;
+  bottom: -20rpx;
+}
+.top::after {
+  position: absolute;
+  content: '';
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 100%;
+  background: #FFDE4E;
+  right: -20rpx;
+  bottom: -20rpx;
+}
+.info {
+  background: #fff;
+  padding: 88rpx 0 130rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10rpx;
+}
+.info .list {
+  padding:10rpx 0;
+}
+.info .list .item {
+  font-size: 36rpx;
+  font-weight: 600;
+  padding: 4rpx 0;
+  letter-spacing: 6rpx;
+}
+.info .tips {
+  font-size: 24rpx;
+  padding-top: 40rpx;
+}
+.info .input {
+  width:0;
+  height: 0;
+}
+.info .btn {
+  height: 74rpx;
+  width: 422rpx;
+  background: #CCCCCC;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+  text-align: center;
+  line-height: 74rpx;
+}
+.info .btn.active {
+  background: #FFDE4E;
+}
+.info .ipt {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx 0 44rpx 0;
+}
+.info .ipt .item {
+  border: 1rpx solid #FFDE4E;
+  border-radius: 10rpx;
+  width: 80rpx;
+  height: 80rpx;
+  margin:0 14rpx;
+  text-align: center;
+  line-height: 80rpx;
+}

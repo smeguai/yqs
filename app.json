@@ -1,81 +1,85 @@
 {
-    "pages": [
-      "pages/index/index",
-      "pages/myself/index",
-
-        "pages/index/select/index",
-        "pages/goodsdetail/index",
-        "pages/indexnavs/shop/index",
-        "pages/indexnavs/ticket/index",
-        "pages/indexnavs/groupbuying/index",
-        "pages/indexnavs/askedprice/index",
-        "pages/indexnavs/seckill/index",
-        "pages/indexnavs/fooddrink/index",
-        "pages/location/index",
-        "pages/location/city/index",
-        "pages/location/select/index",
-        "pages/location/accredit/index",
-        "pages/setting/help/index",
-        "pages/setting/policy/index",
-        "pages/setting/protocol/index",
-        "pages/setting/index",
-        "pages/user/collect/index",
-        "pages/user/coupon/index",
-        "pages/user/record/index",
-        "pages/user/info/index",
-        "pages/user/alterMobile/index",
-        "pages/user/password/index",
-        "pages/pay/index",
-        "pages/payPassword/index",
-        "pages/privilege/index",
-        "pages/wallet/index",
-        "pages/coupon/index",
-        "pages/gathering/index",
-        "pages/contactus/index",
-        "pages/accredit/index",
-        "pages/about/index",
-        "pages/paydone/index",
-        "pages/orderdetail/index",
-        "pages/login/index",
-        "pages/logout/index",
-        "pages/orders/index"
-    ],
-    "permission": {
-        "scope.userLocation": {
-            "desc": "你的位置信息将用于小程序位置接口的效果展示"
-        }
-    },
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "翼起省",
-        "navigationBarTextStyle": "black"
-    },
-    "sitemapLocation": "sitemap.json",
-    "tabBar": {
-        "color": "#666666",
-        "selectedColor": "#333333",
-        "borderStyle": "black",
-        "backgroundColor": "#fff",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "text": "首页",
-                "iconPath": "static/img/index.png",
-                "selectedIconPath": "static/img/index_active.png"
-            },
-            {
-                "pagePath": "pages/privilege/index",
-                "text": "优惠",
-                "iconPath": "static/img/privilege.png",
-                "selectedIconPath": "static/img/privilege_active.png"
-            },
-            {
-                "pagePath": "pages/myself/index",
-                "text": "我的",
-                "iconPath": "static/img/me.png",
-                "selectedIconPath": "static/img/me_active.png"
-            }
-        ]
+  "pages": [
+    "pages/index/index",
+    "pages/refund/index",
+    "pages/verify/index",
+    "pages/myverify/index",
+    "pages/myself/index",
+    "pages/index/select/index",
+    "pages/goodsdetail/index",
+    "pages/indexnavs/shop/index",
+    "pages/indexnavs/ticket/index",
+    "pages/indexnavs/groupbuying/index",
+    "pages/indexnavs/askedprice/index",
+    "pages/indexnavs/seckill/index",
+    "pages/indexnavs/fooddrink/index",
+    "pages/location/index",
+    "pages/location/city/index",
+    "pages/location/select/index",
+    "pages/location/accredit/index",
+    "pages/setting/help/index",
+    "pages/setting/policy/index",
+    "pages/setting/protocol/index",
+    "pages/setting/index",
+    "pages/user/collect/index",
+    "pages/user/coupon/index",
+    "pages/user/record/index",
+    "pages/user/info/index",
+    "pages/user/alterMobile/index",
+    "pages/user/password/index",
+    "pages/pay/index",
+    "pages/payPassword/index",
+    "pages/privilege/index",
+    "pages/wallet/index",
+    "pages/coupon/index",
+    "pages/gathering/index",
+    "pages/contactus/index",
+    "pages/accredit/index",
+    "pages/about/index",
+    "pages/paydone/index",
+    "pages/orderdetail/index",
+    "pages/login/index",
+    "pages/logout/index",
+    "pages/orders/index",
+    "pages/comment/index",
+    "pages/sale/index"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "翼起省",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#333333",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/img/index.png",
+        "selectedIconPath": "static/img/index_active.png"
+      },
+      {
+        "pagePath": "pages/privilege/index",
+        "text": "优惠",
+        "iconPath": "static/img/privilege.png",
+        "selectedIconPath": "static/img/privilege_active.png"
+      },
+      {
+        "pagePath": "pages/myself/index",
+        "text": "我的",
+        "iconPath": "static/img/me.png",
+        "selectedIconPath": "static/img/me_active.png"
+      }
+    ]
+  }
 }

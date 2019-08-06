@@ -59,23 +59,25 @@
       </view>
       <view class='total'>
         <text class='txt'>共{{info.detailList.length}}件 合计实付款：</text>
-        <text class='price'>￥{{info.eleCardPayTotal + info.cashPayTotal + info.payTotal}}</text>
+        <text class='price'>￥{{total}}</text>
       </view>
     </view>
     <!-- 核销信息 wx:if='{{info.status != 88 && info.status != 0}}'-->
-    <view class='section orderinfo' >
+    <view class='section orderinfo'>
       <view class='head'>
         <view class='info'>
-        <view class='title'>核销记录</view>
-        <view class='btn'>申请退款</view>
+          <view class='title'>核销记录</view>
+          <view class='btn' wx:if='{{info.codeList.codeNum}}' bindtap='handleRefund' data-orderid='{{info.orderId}}'>申请退款</view>
         </view>
-      <view class='substr'>{{info.codeList.codeNum}}个可用 | 有效期至 {{info.codeList.endTime}}</view>
+        <view class='substr' wx:if='{{info.codeList.codeNum}}'>{{info.codeList.codeNum}}个可用 | 有效期至 {{info.codeList.endTime}}</view>
       </view>
       <view class='qa' wx:for='{{info.codeList.dataList}}' wx:key='{{index}}'>
         <text class='ltxt'>核销码</text>
         <text class='txt'>{{item.code}}</text>
-        <view class='navige' wx:if='{{item.status == 0}}'>去核销</view>
-        <view class='text' wx:else>去核销</view>
+        <view class='navige' wx:if='{{item.status == 0}}' data-code='{{item.code}}' bindtap="handleVierifyShow">去核销</view>
+        <view class='text' wx:if='{{item.status == 1}}' data-code='{{item.code}}' bindtap="tomyvierify">已核销</view>
+        <view class='navige' wx:if='{{item.status == 2}}' data-code='{{item.code}}'>退货中</view>
+        <view class='text' wx:if='{{item.status == 3}}' data-code='{{item.code}}' bindtap="tomyvierify">已退货</view>
       </view>
       <view class='qa' wx:if='{{info.returnModel}}'>关闭时间
         <text class='txt'>{{info.createTime}}</text>
@@ -104,13 +106,29 @@
         <text class='ltxt'>交易单号</text>
         <text class='txt'>{{info.orderNumber}}</text>
       </view>
-      <view class='qa'>
+      <view class='qa' wx:if='{{info.createTime}}'>
         <text class='ltxt'>创建时间</text>
-        <text class='txt'>{{info.status == 88}}</text>
-      </view>
-      <view class='qa' wx:if='{{info.returnModel}}'>
-        <text class='ltxt'>关闭时间</text>
         <text class='txt'>{{info.createTime}}</text>
+      </view>
+      <view class='qa' wx:if='{{info.cancelTime}}'>
+        <text class='ltxt'>取消时间</text>
+        <text class='txt'>{{info.cancelTime}}</text>
+      </view>
+      <view class='qa' wx:if='{{info.payTime}}'>
+        <text class='ltxt'>付款时间</text>
+        <text class='txt'>{{info.payTime}}</text>
+      </view>
+      <view class='qa' wx:if='{{info.backTime}}'>
+        <text class='ltxt'>退款时间</text>
+        <text class='txt'>{{info.backTime}}</text>
+      </view>
+      <view class='qa' wx:if='{{info.receiveTime}}'>
+        <text class='ltxt'>确认收货</text>
+        <text class='txt'>{{info.receiveTime}}</text>
+      </view>
+      <view class='qa' wx:if='{{info.commentTime}}'>
+        <text class='ltxt'>评价时间</text>
+        <text class='txt'>{{info.commentTime}}</text>
       </view>
     </view>
   </view>
@@ -120,13 +138,13 @@
     <view class='btn1 btn'>继续付款</view>
   </view>
   <view class='btns' wx:if='{{info.status == 1}}'>
-    <view class='btn2 btn'>一键核销</view>
+    <view class='btn2 btn' bindtap="handleVerifyClick" data-orderid='{{info.orderId}}' data-type='0'>一键核销</view>
   </view>
   <view class='btns' wx:if='{{info.status == 2}}'>
-    <view class='btn2 btn'>确认收货</view>
+    <view class='btn2 btn' bindtap="consignee" data-orderid='{{info.orderId}}'>确认收货</view>
   </view>
   <view class='btns' wx:if='{{info.status == 3}}'>
-    <view class='btn2 btn'>取消退款</view>
+    <view class='btn2 btn' bindtap='handleCancelRefund'>取消退款</view>
   </view>
   <view class='btns' wx:if='{{info.status == 4 || info.status == 9}}'>
     <view class='btn0 btn' bindtap='handleDeleteOrder'>删除订单</view>
@@ -136,7 +154,18 @@
     <view class='btn2 btn'>去评价</view>
   </view>
   <view class='btns' wx:if='{{info.status == 88}}'>
-    <view class='btn0 btn'>删除订单</view>
+    <view class='btn0 btn' bindtap='handleDeleteOrder'>删除订单</view>
     <view class='btn1 btn'>重新购买</view>
+  </view>
+
+  <!-- 核销弹出层 -->
+  <view class='vierify' wx:if="{{vierifyshow}}">
+    <view class='check'>
+      <view class='header'>核销电子凭证</view>
+      <image class='qacode'></image>
+      <view class='num'>{{code}}</view>
+      <view class='tip'>注：确定使用，请将该二维码出示给商家核销</view>
+      <view class='btn' bindtap='handleBtnClick' data-code='{{code}}'>自助核销</view>
+    </view>
   </view>
 </view>

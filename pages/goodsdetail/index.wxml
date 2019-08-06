@@ -1,82 +1,140 @@
 <view class='container'>
-    <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' skulist='{{detail.skuList.skulist}}' />
-    <view class='banner-wrapper'>
-        <swiper class='swiper'>
-            <swiper-item class='item' wx:for='{{detail.imgList}}' wx:key='{{index}}'>
-                <image class='img' src='{{item.fileUrl}}'></image>
-            </swiper-item>
-        </swiper>
-        <view class='anit'>
-            <image class='avatar' src='{{pays[paysCurrent].img}}'></image>
-            <view class='name'>{{pays[paysCurrent].name}}购买了{{data.sell.name}}</view>
-        </view>
-        <view class='txt'>{{detail.viewNum}}人感兴趣</view>
-        <image wx:if='{{!isproduct}}' src='../../static/img/goodsdetail_{{status}}.png' class='genre'></image>
-        <view class='nums'>
-            <view class='{{bannerCurrent == index ? "item active" : "item"}}' wx:for='{{data.banner.length}}' wx:key='{{index}}'></view>
-        </view>
+  <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' goodsimg='{{detail.imgList[0].fileUrl}}' skulist='{{detail.skuList.skuShowList[0]}}' classs='{{status}}' price='{{price}}' tagprice='{{detail.tagPrice}}' orderid='{{popupId}}' />
+  <view class='banner-wrapper'>
+    <swiper class='swiper'>
+      <swiper-item class='item' wx:for='{{detail.imgList}}' wx:key='{{index}}'>
+        <image class='img' src='{{item.fileUrl}}'></image>
+      </swiper-item>
+    </swiper>
+    <view class='anit' wx:if='{{pays.length > 0}}'>
+      <image class='avatar' src='{{pays[paysCurrent].headImgUrl}}'></image>
+      <view class='name'>{{pays[paysCurrent].nickName}}{{pays[paysCurrent].typeName}}了{{data.sell.name}}</view>
     </view>
-    <view class='section'>
-        <view class='name'>{{detail.productName}}</view>
-        <view class='subtxt'>{{detail.productShoreDesc}}</view>
-        <view class='bott'>
-            <view class='price'>￥{{detail.price}}
-                <text class='oldprice del'>￥{{detail.tagPrice}}</text>
+    <view class='txt'>{{detail.viewNum}}人感兴趣</view>
+    <image wx:if='{{isproduct && status}}' src='../../static/img/goodsdetail_{{status}}.png' class='genre'></image>
+    <view class='nums'>
+      <view class='{{bannerCurrent == index ? "item active" : "item"}}' wx:for='{{data.banner.length}}' wx:key='{{index}}'></view>
+    </view>
+  </view>
+  <view class='section'>
+    <view class='name'>{{detail.productName}}</view>
+    <view class='subtxt'>{{detail.productShoreDesc}}</view>
+    <view class='bott'>
+      <view class='price'>￥{{detail.price}}
+        <text class='group'>拼团价</text>
+        <text class='oldprice del'>￥{{detail.tagPrice}}</text>
+      </view>
+      <view class='count'>已售{{detail.virtualSoldNum}} / 仅剩{{detail. stock}}</view>
+    </view>
+    <view class='invite'>
+      <view class='txt'>他们都在逛</view>
+      <view class='bot'>
+        <view class='lf'>
+          <view class='blo' wx:for='{{detail.userList}}' wx:key='{{index}}'>
+            <image class='friend' src='{{item}}'></image>
+          </view>
+        </view>
+        <view class='btn'>邀请好友一起抢</view>
+      </view>
+    </view>
+  </view>
+  <block wx:if='{{status == "group"}}'>
+    <!-- 拼团 -->
+    <view class='group-buying'>
+      <view class='group-header'>1人正在拼单，可直接参与</view>
+      <view class='group-list'>
+        <view class='group-item'>
+          <view class='group-avatar-wrapper'>
+            <view class='group-avatar'>
+              <image src=''></image>
             </view>
-            <view class='count'>已售{{detail.virtualSoldNum}} / 仅剩{{detail. stock}}</view>
+          </view>
+          <text class='group-buyname'>韩丽丽、冉七</text>
+          <view class='group-info'>
+            <view class='group-num'>还差
+              <text class='num'>1</text>人</view>
+            <view class='group-endtime'>剩余时间03:54:36</view>
+          </view>
+          <view class='btn'>去参团</view>
         </view>
-        <view class='invite'>
-            <view class='txt'>他们都在逛</view>
-            <view class='bot'>
-                <view class='lf'>
-                    <view class='blo' wx:for='{{detail.userList}}' wx:key='{{index}}'>
-                        <image class='friend' src='{{item}}'></image>
-                    </view>
-                </view>
-                <view class='btn'>邀请好友一起抢</view>
+        <view class='group-item'>
+          <view class='group-avatar-wrapper'>
+            <view class='group-avatar'>
+              <image src=''></image>
             </view>
-        </view>
-    </view>
-    <view class='info'>
-        <view class='top'>
-            <image class='avatar' src='{{detail.headImgUrl}}'></image>
-            <view class='mid'>
-                <view class='name str'>{{detail.merchantName}}</view>
-                <view class='addrs str'>{{detail.addr}}</view>
+            <view class='group-avatar'>
+              <image src=''></image>
             </view>
-            <view class='rt'>
-                <text class='txt'>进店逛逛</text>
-                <image class='icon' src='../../static/img/right.png'></image>
+            <view class='group-avatar'>
+              <image src=''></image>
             </view>
+          </view>
+          <text class='group-buyname str'>韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽韩丽丽</text>
+          <view class='group-info'>
+            <view class='group-num'>还差
+              <text class='num'>1</text>人</view>
+            <view class='group-endtime str'>剩余时间03:54:36</view>
+          </view>
+          <view class='btn'>去参团</view>
         </view>
-        <view class='main'>
-            <view class='header'>
-                <view class='text'>基本信息</view>
-                <view class='icon'>
-                    <image class='phone' src='../../static/img/phone.png'></image>
-                    <image class='addrs' src='../../static/img/addrs.png'></image>
-                </view>
-            </view>
-            <view class='item'>营业时间: {{detail.businessTime}}</view>
-            <view class='item'>地址: {{detail.addr}}</view>
+      </view>
+    </view>
+    <view class='group-rule'>
+      <view class='header'>拼团规则</view>
+      <view class='sub'>1、选择商品开/参团。2、邀请好友参团。3、24小时内人满成团，不满退款。</view>
+    </view>
+  </block>
+
+  <view class='info'>
+    <view class='top'>
+      <image class='avatar' src='{{detail.headImgUrl}}'></image>
+      <view class='mid'>
+        <view class='name str'>{{detail.merchantName}}</view>
+        <view class='addrs str'>{{detail.addr}}</view>
+      </view>
+      <view class='rt'>
+        <text class='txt'>进店逛逛</text>
+        <image class='icon' src='../../static/img/right.png'></image>
+      </view>
+    </view>
+    <view class='main'>
+      <view class='header'>
+        <view class='text'>基本信息</view>
+        <view class='icon'>
+          <image class='phone' src='../../static/img/phone.png'></image>
+          <image class='addrs' src='../../static/img/addrs.png'></image>
         </view>
+      </view>
+      <view class='item'>营业时间: {{detail.businessTime}}</view>
+      <view class='item'>地址: {{detail.addr}}</view>
     </view>
-    <view class='gmxz' wx:if='{{detail.useIntro}}'>
-        <view class='text'>购买须知</view>
-        <view class='item'>{{detail.useIntro}}</view>
+  </view>
+  <view class='gmxz' wx:if='{{detail.useIntro}}'>
+    <view class='text'>购买须知</view>
+    <view class='item'>{{detail.useIntro}}</view>
+  </view>
+  <view class='goodsdetail'>
+    <image class='icon' src='../../static/img/goodsdetail.png'></image>
+    <view class='desc'>
+      <!-- <image src='{{item}}' class='img' wx:for='{{detail.goodsdesc}}' wx:key='{{index}}'></image> -->
+      <!-- <web-view src=''></web-view> -->
     </view>
-    <view class='goodsdetail'>
-        <image class='icon' src='../../static/img/goodsdetail.png'></image>
-        <view class='desc'>
-            <!-- <image src='{{item}}' class='img' wx:for='{{detail.goodsdesc}}' wx:key='{{index}}'></image> -->
-            <!-- <web-view src=''></web-view> -->
-        </view>
+  </view>
+  <view class='aslid'>
+    <view class='btn' wx:for='{{aslid_btn}}' wx:key='{{index}}' data-index='{{index}}' bindtap='handleAslidBtnClick'>
+      <image class='icon' src='{{item.img}}'></image>
+      <view class='txt'>{{item.txt}}</view>
     </view>
-    <view class='aslid'>
-        <view class='btn' wx:for='{{aslid_btn}}' wx:key='{{index}}' data-index='{{index}}' bindtap='handleAslidBtnClick'>
-            <image class='icon' src='{{item.img}}'></image>
-            <view class='txt'>{{item.txt}}</view>
-        </view>
-        <view class='btn1' bindtap='handlePayClick'>立即抢购</view>
+    <view class='btn1' wx:if='{{status == "product"}}' bindtap='handlePayClick' data-price='{{detail.price}}'>立即抢购</view>
+    <view class='group-wrapper' wx:if='{{status == "group"}}'>
+      <view class='btn-item btn-lf' bindtap='handleGetGoodsDetail' data-orderid='{{detail.productId}}'>
+        <view class='price'>￥{{detail.alonePrice}}</view>
+        <view class='txt'>单独购买</view>
+      </view>
+      <view class='btn-item btn-rt' bindtap='handlePayClick' data-type='groupprice' data-price='{{detail.price}}'>
+        <view class='price'>￥{{detail.price}}</view>
+        <view class='txt'>发起拼团</view>
+      </view>
     </view>
+  </view>
 </view>

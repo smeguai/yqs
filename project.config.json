@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 27,
 			"list": [
 				{
 					"id": -1,
@@ -131,7 +131,7 @@
 					"id": 12,
 					"name": "商品详情",
 					"pathName": "pages/goodsdetail/index",
-					"query": "status=product&productId=1388",
+					"query": "name=product&pid=34",
 					"scene": null
 				},
 				{
@@ -145,7 +145,7 @@
 					"id": 14,
 					"name": "提交订单",
 					"pathName": "pages/pay/index",
-					"query": "productid=1388&skuid=3607&count=1",
+					"query": "productid=1478&skuid=3607&count=1",
 					"scene": null
 				},
 				{
@@ -160,6 +160,82 @@
 					"name": "我的订单详情",
 					"pathName": "pages/orderdetail/index",
 					"query": "orderid=195",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "评论",
+					"pathName": "pages/comment/index",
+					"query": "productid=1388&skuid=3607&count=1",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "退款",
+					"pathName": "pages/refund/index",
+					"query": "orderid=219",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "特惠",
+					"pathName": "pages/sale/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择小区",
+					"pathName": "pages/location/select/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠团购",
+					"pathName": "pages/indexnavs/groupbuying/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "附近好券",
+					"pathName": "pages/indexnavs/ticket/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "砍价",
+					"pathName": "pages/indexnavs/askedprice/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "秒杀",
+					"pathName": "pages/indexnavs/seckill/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "搜索",
+					"pathName": "pages/index/select/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的钱包",
+					"pathName": "pages/wallet/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "优惠",
+					"pathName": "pages/privilege/index",
 					"scene": null
 				}
 			]

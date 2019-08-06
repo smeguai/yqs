@@ -1,99 +1,102 @@
 <view class='container'>
-    <view class='bgcolor'></view>
-    <view class='main'>
-        <view class='sell section'>
-            <view class='blo'>
-                <view class='header'>商家信息</view>
-                <view class='infor'>
-                    <view>
-                        <view class='nate'>{{info.contactName}} {{info.contactMobile}}</view>
-                        <view class='addrs'>{{info.addr}}</view>
-                    </view>
-                    <view class='rt'>
-                        <image class='icon' src='../../static/img/phone.png'></image>
-                        <text class='shu'>|</text>
-                        <image class='icon' src='../../static/img/addrs.png'></image>
-                    </view>
-                </view>
-            </view>
+  <view class='bgcolor'></view>
+  <view class='main'>
+    <view class='sell section'>
+      <view class='blo'>
+        <view class='header'>商家信息</view>
+        <view class='infor'>
+          <view>
+            <view class='nate'>{{info.contactName}} {{info.contactMobile}}</view>
+            <view class='addrs'>{{info.addr}}</view>
+          </view>
+          <view class='rt'>
+            <image class='icon' src='../../static/img/phone.png' data-tel='{{info.contactMobile}}' bindtap="handlePhoneClick"></image>
+            <text class='shu'>|</text>
+            <image class='icon' src='../../static/img/addrs.png' bindtap="handleSellerAddr"></image>
+          </view>
         </view>
-        <view class='shoping section'>
-            <view class='bloc' wx:for='{{info.detailList}}' wx:key='{{index}}'>
-                <image class='img' src='{{item.headImgUrl}}'></image>
-                <view class='info'>
-                    <view class='name'>{{item.productName}}</view>
-                    <view class='subtxt'>{{item.productSkuvalName}}</view>
-                    <view class='bott'>
-                        <view class='lf'>
-                            <text class='price'>￥{{item.unitPrice}}</text>
-                            <text class='oldprice del'>￥{{item.tagPrice}}</text>
-                        </view>
-                        <view class='rt'>
-                            <catcount bindreduce='catcountNum' bindtap='handleCatIndex' data-index='{{index}}' />
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <view class='ad'>
-                <view class='txt'>合计</view>
-                <view class='price'>￥{{total}}</view>
-            </view>
-        </view>
-        <view class='ticket section'>
-            <view class='header'>优惠券</view>
-            <view class='bloc'>
-                <view class='txt'>店铺优惠券</view>
-                <view class='rt'>
-                    <view class='txt' wx:if='{{info.couponList.length==0}}'>无优惠券</view>
-                    <view class='txt' wx:else>{{info.couponList[0].couponName}}</view>
-                    <image src='../../static/img/right.png' class='icon'></image>
-                </view>
-            </view>
-        </view>
-        <view class='ipts section'>
-            <view class='item'>
-                <view class='txt'>姓名</view>
-                <input class='ipt' placeholder='请输入姓名' value='{{fullname}}' bindinput='handleIptName'></input>
-            </view>
-            <view class='item'>
-                <view class='txt'>联系电话</view>
-                <input class='ipt' placeholder='请输入正确的联系号码' value='{{telephone}}' bindinput='handleIptTel'></input>
-            </view>
-            <view class='item'>
-                <textarea class='textarea' placeholder='留言备注' value='{{remark}}' bindinput='handleIptRemark'></textarea>
-            </view>
-        </view>
-        <view class='pay_count section'>
-            <text class='txt'>实际应付</text>
-            <text class='price'>￥{{total}}</text>
-        </view>
-        <view class='paymode section' wx:if='{{info.cashBalance || info.eleCardBalance && info.enabledEleCard}}'>
-            <view class='header'>账户余额</view>
-            <view class='item' wx:if='{{info.eleCardBalance}}' bindtap='handleCardItemClick' data-idx='1'>
-                <image class='icon' src='../../static/img/pay_dzk.png'></image>
-                <view class='txt'>电子卡<text class='sub'>{{info.eleCardBalance}}</text></view>
-                <image wx:if='{{radio1}}' class='radio' src='../../static/img/pay_cuur.png'></image>
-                <text wx:else class='yuan'></text>
-            </view>
-            <view class='item' wx:if='{{info.cashBalance}}' bindtap='handleCardItemClick' data-idx='2'>
-                <image class='icon' src='../../static/img/pay_xjye.png'></image>
-                <view class='txt'>现金余额支付<text class='sub'>{{info.cashBalance}}</text>  </view>
-                <image wx:if='{{radio2}}' class='radio' src='../../static/img/pay_cuur.png'></image>
-                <text wx:else class='yuan'></text>
-            </view>
-        </view>
-        <view class='paymode section'>
-            <view class='header'>支付方式</view>
-            <view class='item' bindtap='handleCardItemClick' data-idx='3'>
-                <image class='icon' src='../../static/img/wechat.png'></image>
-                <view class='txt'>微信支付</view>
-                <image wx:if='{{radio3}}' class='radio' src='../../static/img/pay_cuur.png'></image>
-                <text wx:else class='yuan'></text>
-            </view>
-        </view>
+      </view>
     </view>
-    <view class='topay'>
-        <view class='btn' bindtap='submitpay'>立即付款</view>
+    <view class='shoping section'>
+      <view class='bloc' wx:for='{{info.detailList}}' wx:key='{{index}}'>
+        <image class='img' src='{{item.headImgUrl}}'></image>
+        <view class='info'>
+          <view class='name'>{{item.productName}}</view>
+          <view class='subtxt'>{{item.productSkuvalName}}</view>
+          <view class='bott'>
+            <view class='lf'>
+              <text class='price'>￥{{item.unitPrice}}</text>
+              <text class='oldprice del'>￥{{item.tagPrice}}</text>
+            </view>
+            <view class='rt'>
+              <catcount bindreduce='catcountNum' bindtap='handleCatIndex' data-index='{{index}}' />
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='ad'>
+        <view class='txt'>合计</view>
+        <view class='price'>￥{{total}}</view>
+      </view>
     </view>
-    <paypass wx:if='{{hasPassMode}}' bindverifypass='verifypass' />
+    <view class='ticket section'>
+      <view class='header'>优惠券</view>
+      <view class='bloc'>
+        <view class='txt'>店铺优惠券</view>
+        <view class='rt'>
+          <view class='txt' wx:if='{{info.couponList.length==0}}'>无优惠券</view>
+          <view class='txt' wx:else>{{info.couponList[0].couponName}}</view>
+          <image src='../../static/img/right.png' class='icon'></image>
+        </view>
+      </view>
+    </view>
+    <view class='ipts section'>
+      <view class='item'>
+        <view class='txt'>姓名</view>
+        <input class='ipt' placeholder='请输入姓名' value='{{fullname}}' bindinput='handleIptName'></input>
+      </view>
+      <view class='item'>
+        <view class='txt'>联系电话</view>
+        <input class='ipt' placeholder='请输入正确的联系号码' value='{{telephone}}' bindinput='handleIptTel'></input>
+      </view>
+      <view class='item'>
+        <textarea class='textarea' placeholder='留言备注' value='{{remark}}' bindinput='handleIptRemark'></textarea>
+      </view>
+    </view>
+    <view class='pay_count section'>
+      <text class='txt'>实际应付</text>
+      <text class='price'>￥{{total}}</text>
+    </view>
+    <view class='paymode section' wx:if='{{info.cashBalance || info.eleCardBalance && info.enabledEleCard}}'>
+      <view class='header'>账户余额</view>
+      <view class='item' wx:if='{{info.enabledEleCard && info.eleCardBalance}}' bindtap='handleCardItemClick' data-idx='1'>
+        <image class='icon' src='../../static/img/pay_dzk.png'></image>
+        <view class='txt'>电子卡
+          <text class='sub'>{{info.eleCardBalance}}</text>
+        </view>
+        <image wx:if='{{radio1}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+        <text wx:else class='yuan'></text>
+      </view>
+      <view class='item' wx:if='{{info.cashBalance}}' bindtap='handleCardItemClick' data-idx='2'>
+        <image class='icon' src='../../static/img/pay_xjye.png'></image>
+        <view class='txt'>现金余额支付
+          <text class='sub'>{{info.cashBalance}}</text> </view>
+        <image wx:if='{{radio2}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+        <text wx:else class='yuan'></text>
+      </view>
+    </view>
+    <view class='paymode section'>
+      <view class='header'>支付方式</view>
+      <view class='item' bindtap='handleCardItemClick' data-idx='3'>
+        <image class='icon' src='../../static/img/wechat.png'></image>
+        <view class='txt'>微信支付</view>
+        <image wx:if='{{radio3}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+        <text wx:else class='yuan'></text>
+      </view>
+    </view>
+  </view>
+  <view class='topay'>
+    <view class='btn' bindtap='submitpay'>立即付款</view>
+  </view>
+  <paypass wx:if='{{hasPassMode}}' bindverifypass='verifypass' bindclose='passclose'  />
 </view>

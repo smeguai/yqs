@@ -102,47 +102,54 @@
     box-sizing: border-box;
     margin-right: 24rpx;
     text-align: center;
-    border: 1rpx solid #ffe574;
-    border-radius: 4rpx;
-    display: block;
-    position: relative;
-}
-.container .list .item .ticket .block .ticketitem::before {
-    position: absolute;
-    left: -15rpx;
-    top: 50rpx;
-    content: '';
-    width: 40rpx;
-    height: 40rpx;
-    border-right: 1rpx solid #FFE574;
-    border-bottom: 1rpx solid #FFE574;
-    border-radius: 50%;
-    background: #fff;
-    transform: rotate(-45deg);
-}
-.container .list .item .ticket .block .ticketitem::after {
-    position: absolute;
-    right: -15rpx;
-    top: 50rpx;
-    content: '';
-    width: 40rpx;
-    height: 40rpx;
-    border-left: 1rpx solid #FFE574;
-    border-bottom: 1rpx solid #FFE574;
-    border-radius: 50%;
-    background: #fff;
-    transform: rotate(45deg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;    
 }
 .container .list .item .ticket .ticketitem .title {
     font-size: 24rpx;
     font-weight: bold;
     padding: 20rpx 0 14rpx 0;
+    border: 1rpx solid #FFE574;
     border-bottom: 2rpx dashed #eaac06;
     box-sizing: border-box;
+    position: relative;
+}
+.container .list .item .ticket .ticketitem .title::after {
+    position: absolute;
+    right: -20rpx;
+    bottom: -20rpx;
+    content: '';
+    width: 40rpx;
+    height: 40rpx;
+    border: 1rpx solid #FFE574;
+    border-radius: 50%;
+    background: #fff;
+}
+.container .list .item .ticket .ticketitem .title::before {
+    position: absolute;
+    left: -20rpx;
+    bottom: -20rpx;
+    content: '';
+    width: 40rpx;
+    height: 40rpx;
+    border: 1rpx solid #FFE574;
+    border-radius: 50%;
+    background: #fff;
+}
+.container .list .item .ticket .ticketitem .bott {
+  border: 1rpx solid #FFE574;
+  border-top: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
 }
 .container .list .item .ticket .ticketitem .price {
     color: #FF6600;
-    font-size: 48rpx;
+    font-size: 44rpx;
     font-weight: bold;
 }
 .container .list .item .ticket .ticketitem .txt {

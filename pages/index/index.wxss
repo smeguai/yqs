@@ -157,6 +157,9 @@
     width: 240rpx;
     margin-left: 30rpx;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .container .favorable .scroll .list .item:nth-child(1) {
@@ -365,10 +368,10 @@
 .container .aslid {
     position: fixed;
     top: 50%;
-    width: 68rpx;
-    height: 400rpx;
+    width: 20rpx;
+    height: 600rpx;
     transform: translateY(-50%);
-    right: 24rpx;
+    right: 12rpx;
     text-align: center;
 }
 
@@ -380,6 +383,7 @@
     border-radius: 100%;
     padding: 4rpx;
     box-sizing: border-box;
+    left: -40rpx;
 }
 
 .container .aslid .icon {

@@ -1,6 +1,8 @@
 import {
   orderdetail,
-  canceorder
+  receiving,
+  canceorder,
+  deleteorder
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -16,15 +18,42 @@ Page({
     orderId: 0,
     info: null,
     modeList: {
-      0: {strong: '等待买家付款', sub: '订单24小时后将自动关闭'},
-      1: { strong: '电子凭证待使用', sub: '到店向店员出示电子凭证，凭凭证取商品' },
-      2: { strong: '电子凭证已核销', sub: '商凭证已使用，确认下收货吧~' },
-      3: { strong: '申请退款中', sub: '商家已收到退款申请，会尽快处理的' },
-      4: { strong: '订单已退款完成', sub: '订单已完成退款，需要还可以再商城重新购买哦~' },
-      8: { strong: '订单已确认收货', sub: '感谢你的购买，给您购买的商品一个评价吧~' },
-      9: { strong: '已完成', sub: '订单24小时后将自动关闭' },
-      88: { strong: '订单已取消', sub: '订单已关闭，可在商城继续购买哦~' }
-    }
+      0: {
+        strong: '等待买家付款',
+        sub: '订单24小时后将自动关闭'
+      },
+      1: {
+        strong: '电子凭证待使用',
+        sub: '到店向店员出示电子凭证，凭凭证取商品'
+      },
+      2: {
+        strong: '电子凭证已核销',
+        sub: '商凭证已使用，确认下收货吧~'
+      },
+      3: {
+        strong: '申请退款中',
+        sub: '商家已收到退款申请，会尽快处理的'
+      },
+      4: {
+        strong: '订单已退款完成',
+        sub: '订单已完成退款，需要还可以再商城重新购买哦~'
+      },
+      8: {
+        strong: '订单已确认收货',
+        sub: '感谢你的购买，给您购买的商品一个评价吧~'
+      },
+      9: {
+        strong: '已完成',
+        sub: '订单24小时后将自动关闭'
+      },
+      88: {
+        strong: '订单已取消',
+        sub: '订单已关闭，可在商城继续购买哦~'
+      }
+    },
+    vierifyshow: false,
+    code: null,
+    total: null
   },
 
   /**
@@ -34,43 +63,129 @@ Page({
     this.setData({
       orderId: options.orderid
     })
-    this.getOrderDetail()
+    
   },
+  //  跳转到退款页
+  handleRefund(e) {
+    wx.navigateTo({
+      url: `../refund/index?orderid=${e.currentTarget.dataset.orderid}`
+    })
+  },
+  //  去核销 弹出层
+  handleVierifyShow(e) {
+    let code = e.currentTarget.dataset.code
+    this.setData({
+      vierifyshow: true,
+      code
+    })
+  },
+  //  一键核销
+  handleVerifyClick() {
+    let orderid = this.data.orderId
+    wx.navigateTo({
+      url: `../verify/index?orderid=${orderid}`,
+    })
+  },
+  //  单个核销码得自助核销
+  handleBtnClick(e) {
+    let orderid = this.data.orderId
+    let code = e.currentTarget.dataset.code
+    wx.navigateTo({
+      url: `../myverify/index?orderid=${orderid}&type=1&code=${code}`,
+    })
+  },
+  //  确认收货
+  consignee(e) {
+    wx.showModal({
+      content: '是否确认收货?',
+      success: r => {
+        if (r.confirm) {
+          promiseRequest(receiving, 'get', {
+            orderId: e.currentTarget.dataset.orderid
+          }).then(res => {
+            console.log(res)
+            if (res.data.code == 0) {
+              wx.showToast({
+                title: '收货成功!',
+                icon: 'none',
+                success: () => {
+                  this.getOrderDetail()
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+  //  获取订单详情
   getOrderDetail() {
     let data = {
       orderId: this.data.orderId
     }
     promiseRequest(orderdetail, 'get', data).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
+        let info = res.data.data
+        console.log(info.eleCardPayTotal + info.cashPayTotal + info.payTotal)
+        let total = parseInt(info.eleCardPayTotal * 10 + info.cashPayTotal * 10 + info.payTotal * 10) / 10
         this.setData({
-          info: res.data.data
+          info,
+          total
         })
       }
     })
   },
+  //  取消订单
   handleCanceOrder() {
     console.log(1)
     wx.showModal({
       content: '确认取消订单吗?',
       success: (r) => {
-        console.log(r)
-        wx.showToast({
-          title: '已取消订单',
-          icon: 'none'
-        })
+        if (r.confirm) {
+          promiseRequest(canceorder, 'get', {
+            orderId: this.data.orderId
+          }).then(res => {
+            if (res.data.code == 1) {
+              wx.showToast({
+                title: '已取消订单',
+                icon: 'none'
+              })
+              this.getOrderDetail()
+            }
+          })
+        }
       }
     })
-    // promiseRequest(canceorder, 'get', {
-    //   orderId: this.data.orderId
-    // }).then(res => {
-    // })
+
   },
+  //  取消退款
+  handleCancelRefund() {
+
+  },
+  //  删除订单
   handleDeleteOrder() {
     wx.showModal({
       content: '确定删除订单吗?',
       success: r => {
-        console.log(r)
+        if (r.confirm) {
+          promiseRequest(deleteorder, 'get', {
+            orderId: this.data.orderId
+          }).then(res => {
+            if (res.data.code == 0) {
+              wx.showToast({
+                title: '已删除订单',
+                icon: 'none',
+                success: () => {
+                  setTimeout(() => {
+                    wx.navigateBack({
+                      delta: -1
+                    })
+                  }, 1500)
+                }
+              })
+            }
+          })
+        }
       }
     })
   },
@@ -85,7 +200,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getOrderDetail()
   },
 
   /**

@@ -5,8 +5,7 @@
 
 .container .nav {
     display: flex;
-    height: 60rpx;
-    line-height: 60rpx;
+    border-bottom: 1rpx solid #EEEEEE;
 }
 
 .container .nav .nav-item {
@@ -15,10 +14,16 @@
     font-weight: 500;
     text-align: center;
 }
-
+.container .nav .nav-item .txt {
+  transition: all .2s;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 60rpx;
+    color: #999999;
+}
 .container .nav .nav-item.active .txt {
     border-bottom: 4rpx solid #ffde4e;
-    display: inline-block;
+    color: #333;
 }
 .container .list .list-item {
     border-bottom: 1rpx solid #F6F6F6;
@@ -26,10 +31,11 @@
 }
 .container .list .list-item .top {
     display: flex;
+    align-items: center;
 }
 .container .list .list-item .top .icon {
-    width: 24rpx;
-    height: 22rpx;
+    width: 28rpx;
+    height: 28rpx;
 }
 .container .list .list-item .top .sellername {
     font-size: 24rpx;
@@ -62,8 +68,12 @@
 }
 .container .list .list-item .info .desc {
     flex: 1;
+    width: 0;
     padding-left: 28rpx;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .container .list .list-item .info .desc .goodsname {
     font-size: 32rpx;
@@ -75,6 +85,7 @@
 }
 .container .list .list-item .info .desc .bot {
     display: flex;
+    align-items: flex-end;
 }
 .container .list .list-item .info .desc .bot .price {
     font-size: 24rpx;

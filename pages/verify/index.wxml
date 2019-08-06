@@ -1,0 +1,52 @@
+<view class='container'>
+  <view class='section'>
+    <view class='seller'>
+      <image class='avatar' src='{{data.headImgUrl}}'></image>
+      <view class='info'>
+        <view class='name'>{{data.merchantName}}</view>
+        <view class='title'>{{data.addr}}</view>
+      </view>
+      <view class='icon-wrapper'>
+        <image class='tel' src='../../static/img/orderdetail_tel.png'></image>
+        <view class='shu'></view>
+        <image class='addr' src='../../static/img/orderdetail_addr.png'></image>
+      </view>
+    </view>
+    <view class='goods' wx:for='{{data.detailList}}'>
+      <image class='img' src='{{item.imgUrl}}'></image>
+      <view class='detail'>
+        <view class='name'>{{item.productName}}</view>
+        <view class='name'>{{item.productSkuvalName}}</view>
+        <view class='butt'>
+          <view class='price'>￥{{item.productSkuvalName}}
+            <text class='tagprice del'>￥{{item.tagPrice}}</text>
+          </view>
+          <view class='count'>X{{item.quantity}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='main'>
+    <image class='codeimg'></image>
+    <view class='code'>{{data.rootCode}}</view>
+    <view class='block'>
+      <view class='mod'>核销状态:
+        <text class='st status'>{{codeStatus}}</text>
+      </view>
+      <view class='mod' wx:if='{{data.sendTime}}'>核销时间:
+        <text class='st'>{{data.sendTime}}</text>
+      </view>
+    </view>
+    <view class='btn' bindtap="handleVerify">自助核销</view>
+  </view>
+
+  <view class='tips'>
+    <view class='title'>用户须知</view>
+    <view class='list'>
+      <view class='item'>1、使用时间：2019年6月8日-9月8日 10:00-14:00,16:0 0-21:00，周末及节假日通用。</view>
+      <view class='item'>2、每次限使用一张，不与店内其他优惠同享。</view>
+      <view class='item'>3、无需预约，高峰时期需内心等位。</view>
+      <view class='item'>4、下单购买成功后，到店出示电子凭证使用。</view>
+    </view>
+  </view>
+</view>

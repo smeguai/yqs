@@ -19,7 +19,7 @@ Page({
                 add: '长沙市岳麓区',
             },
             {
-                name: '万事家景小区',
+              name: '万事家景小区万事家景小区万事家景小区万事家景小区万事家景小区',
                 num: '距离1.23公里',
                 add: '长沙市岳麓区',
             }
@@ -34,6 +34,26 @@ Page({
     onLoad: function (options) {
 
     },
+  //  进入小区
+  nearItemBtnClick(e) {
+    let id = e.currentTarget.dataset.id,
+      near = this.data.record,
+      hasHistory = true
+    near.map(item => {
+      if (item.stationId == id) {
+        app.globalData.station = item
+        wx.setStorage({
+          key: 'station',
+          data: item,
+          success: () => {
+            wx.switchTab({
+              url: '../../index/index'
+            })
+          }
+        })
+      }
+    })
+  },
     clearIptValue() {
         this.setData({
             searchContent: ''

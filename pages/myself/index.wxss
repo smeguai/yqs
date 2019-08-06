@@ -1,158 +1,180 @@
 .container {
-    background: #F9F9F9;
+  background: #f9f9f9;
 }
+
 .container .user {
-    background: #FFDE4E;
-    padding: 82rpx 40rpx 148rpx 24rpx;
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+  background: #ffde4e;
+  padding: 82rpx 40rpx 148rpx 24rpx;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .container .user .avatar {
-    width: 98rpx;
-    height: 98rpx;
-    border-radius: 50%;
-    background: #DADADA;
+  width: 98rpx;
+  height: 98rpx;
+  border-radius: 50%;
+  background: #dadada;
 }
 
 .container .user .info {
-    flex: 1;
-    padding-left: 30rpx;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  flex: 1;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
+
 .container .user .info .nickName {
-    font-size: 32rpx;
-    font-weight: 500;
+  font-size: 32rpx;
+  font-weight: 500;
 }
+
 .container .user .info .txt {
-    font-size: 20rpx;
+  font-size: 20rpx;
 }
 
 .container .orders {
-    background: #fff;
-    margin: 232rpx 22rpx 0 22rpx;
-    position: relative;
-    z-index: 2;
-    border-radius: 10rpx;
-    box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
-    padding: 32rpx 22rpx 50rpx 24rpx;
+  background: #fff;
+  margin: 232rpx 22rpx 0 22rpx;
+  position: relative;
+  z-index: 2;
+  border-radius: 10rpx;
+  box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
+  padding: 32rpx 22rpx 50rpx 24rpx;
 }
 
 .container .orders .title {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .container .orders .title .txt {
-    color: #000;
-    font-size: 28rpx;
-    font-weight: 600;
-    flex: 1;
+  color: #000;
+  font-size: 28rpx;
+  font-weight: 600;
+  flex: 1;
 }
+
 .container .orders .title .all {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .container .orders .title .all .txt {
-    font-size: 24rpx;
-    color: #999999;
-    font-weight: 400;
+  font-size: 24rpx;
+  color: #999;
+  font-weight: 400;
 }
+
 .container .orders .title .all .right {
-    width: 22rpx;
-    height: 22rpx;
+  width: 22rpx;
+  height: 22rpx;
 }
+
 .container .orders .list {
-    display: flex;
-    align-items: center;
-    padding-top: 50rpx;
+  display: flex;
+  align-items: center;
+  padding-top: 50rpx;
 }
+
 .container .orders .list .item {
-    flex: 1;
-    text-align: center;
-    font-size: 0;
-    position: relative;
+  flex: 1;
+  text-align: center;
+  font-size: 0;
+  position: relative;
 }
+
 .container .orders .list .item .icon {
-    width: 52rpx;
-    height: 52rpx;
+  width: 52rpx;
+  height: 52rpx;
 }
+
 .container .orders .list .item .txt {
-    color: #333333;
-    font-size: 24rpx;
-    padding-top: 25rpx;
+  color: #333;
+  font-size: 24rpx;
+  padding-top: 25rpx;
 }
+
 .container .orders .list .item .num {
-    font-size: 18rpx;
-    background: #FF6600;
-    border-radius: 10rpx;
-    position: absolute;
-    right: 48rpx;
-    top: -14rpx;
-    padding: 4rpx 10rpx;
-    color: #fff;
+  font-size: 18rpx;
+  background: #f60;
+  border-radius: 10rpx;
+  position: absolute;
+  right: 48rpx;
+  top: -14rpx;
+  padding: 4rpx 10rpx;
+  color: #fff;
 }
+
 .container .myconis {
-    margin: 36rpx 22rpx 0 22rpx;
-    border-radius: 10rpx;
-    background: #fff;
-    height: 88rpx;
-    display: flex;
-    padding: 0 26rpx;
-    align-items: center;
-    box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
+  margin: 36rpx 22rpx 0 22rpx;
+  border-radius: 10rpx;
+  background: #fff;
+  height: 88rpx;
+  display: flex;
+  padding: 0 26rpx;
+  align-items: center;
+  box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
 }
+
 .container .myconis .txt {
-    flex: 1;
-    font-size: 28rpx;
-    font-weight: 600;
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 600;
 }
+
 .container .myconis .sub {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .container .myconis .sub .subtxt {
-    font-size: 24rpx;
-    color: #999999;
+  font-size: 24rpx;
+  color: #999;
 }
+
 .container .myconis .sub .icon {
-    width: 22rpx;
-    height: 22rpx;
+  width: 22rpx;
+  height: 22rpx;
 }
+
 .container .more {
-    margin: 34rpx 24rpx 0 24rpx;
-    background: #fff;
-    box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
+  margin: 34rpx 24rpx 0 24rpx;
+  background: #fff;
+  box-shadow: 0 0 16rpx 0 rgba(194, 194, 194, 0.24);
 }
+
 .container .more .txt {
-    font-size: 28rpx;
-    font-weight: 600;
-    padding: 32rpx 24rpx 20rpx 24rpx;
-    border-bottom: 1rpx solid #F6F6F6;
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: 32rpx 24rpx 20rpx 24rpx;
+  border-bottom: 1rpx solid #f6f6f6;
 }
+
 .container .more .list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    padding-top: 50rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 20rpx 0;
 }
+
 .container .more .list .item {
-    width: 25%;
-    text-align: center;
-    font-size: 0;
-    padding: 18rpx 0;
+  width: 25%;
+  text-align: center;
+  font-size: 0;
+  padding: 18rpx 0;
 }
+
 .container .more .list .item .icon {
-    width: 44rpx;
-    height: 44rpx;
+  width: 44rpx;
+  height: 44rpx;
 }
+
 .container .more .list .item .content {
-    font-size: 24rpx;
-    padding-top: 18rpx;
+  font-size: 24rpx;
+  padding-top: 18rpx;
 }

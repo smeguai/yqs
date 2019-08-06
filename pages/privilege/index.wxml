@@ -53,7 +53,7 @@
             </view>
         </view>
     </view>
-    <view class='nearbywelfare section'>
+    <view class='nearbywelfare section' wx:if='{{groupdata.length > 0}}'>
         <!-- 团购 -->
         <view class='top'>
             <view class='heartxt'>优惠团购</view>
@@ -82,7 +82,7 @@
             </view>
         </view>
     </view>
-    <view class='nearbywelfare section'>
+    <view class='nearbywelfare section' wx:if='{{limitdata.length > 0}}'>
 
         <!-- 秒杀 -->
         <view class='top'>
@@ -112,7 +112,7 @@
             </view>
         </view>
     </view>
-    <view class='nearbywelfare section'>
+    <view class='nearbywelfare section' wx:if='{{cutdata.length > 0}}'>
         <!-- 砍价 -->
         <view class='top'>
             <view class='heartxt'>砍价</view>

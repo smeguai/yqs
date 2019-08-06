@@ -2,7 +2,7 @@ const configUrl = 'https://yqsapi.bnbn99.com'
 // const configUrl = 'https://yqsapi.oicp.vip'
 //  微信code
 const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
-  //  获取用户信息
+  //  v解密微信小程序的加密数据
   decrypt = configUrl + '/api/wechat/decrypt',
   // 登录用户
   wxlogin = configUrl + '/api/wechat/wxlogin',
@@ -24,6 +24,8 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   getorder = configUrl + '/api/order/get',
   //  按条件获取拼团列表
   getgrouplist = configUrl + '/api/shopping/groupbuy/get',
+  //  按条件获取普通商品
+  getgoodslist = configUrl + '/api/shopping/get',
   //  首页特惠商品
   indexdiscount = configUrl + '/api/shopping/discount/index',
   //  首页/附近好券
@@ -36,7 +38,7 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   groupbuydetail = configUrl + '/api/shopping/groupbuy/detail',
   cutdetail = configUrl + '/api/shopping/cut/detail',
   limitdetail = configUrl + '/api/shopping/limit/detail',
-  //  提交订单
+  //  提交订单[普通商品订单]
   producOrder = configUrl + '/api/product/order/submitted',
   //  普通商品下单页面
   placeorder = configUrl + '/api/shopping/placeorder/get',
@@ -51,14 +53,66 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   //  是否绑定手机
   hasbindtel = configUrl + '/api/user/getmobile',
   //  绑定手机号
-  bindtel = configUrl + '/api/user/mobile/changebind',
+  bindtel = configUrl + '/api/user/mobile/bind',
   //  发送验证码
-  getcode = configUrl + '/api/user/sendvalidcode'
+  getcode = configUrl + '/api/user/sendvalidcode',
+  //  微信一键授权
+  changebindtel = configUrl + '/api/user/wechant/changebind',
+  //  设置支付密码
+  setpaypass = configUrl + '/api/user/setpaypwd',
+  //  我的页面订单数统计
+  ordercount = configUrl + '/api/order/getcount',
+  //  继续支付
+  orderpay = configUrl + '/api/order/pay',
+  // 删除订单
+  deleteorder = configUrl + '/api/order/delete',
+  //  核销订单
+  cancellation = configUrl + '/api/order/cancellation',
+  //  确认收货
+  receiving = configUrl + '/api/order/receiving',
+  //  申请退款
+  refund = configUrl + '/api/order/refund',
+  //  banner
+  banner = configUrl + '/api/img/getbychannelid',
+  //  首页4类商家
+  getsell = configUrl + '/api/shop/get',
+  //  拼团详细信息
+  groupdetail = configUrl + '/api/group/detail',
+  //  商品详情页 购买,分享过商品的用户信息
+  sharegooddes = configUrl + '/api/shopping/order/get',
+  //  团购订单页
+  grouporder = configUrl + '/api/group/order/get',
+  //  团购订单提交
+  subgrouporder = configUrl + '/api/group/order/submitted',
+  //  我正在拼团中的商品
+  mygroupbuy = configUrl + '/api/shopping/groupbuy/myget',
+  //  我正在砍价得商品
+  mycut = configUrl + '/api/shopping/cut/myget',
+  //  我的钱包
+  mywallet = configUrl + '/api/user/balance'
 
 
 
 module.exports = {
+  mywallet,
+  getgoodslist,
+  mycut,
+  mygroupbuy,
+  subgrouporder,
+  grouporder,
+  sharegooddes,
+  groupdetail,
+  getsell,
+  banner,
+  refund,
+  receiving,
+  cancellation,
+  deleteorder,
+  orderpay,
+  ordercount,
+  setpaypass,
   getcode,
+  changebindtel,
   hasbindtel,
   bindtel,
   existpaypwd,

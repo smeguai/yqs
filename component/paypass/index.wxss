@@ -12,6 +12,7 @@
 .pass .main {
     background: #fff;
     min-height: 875rpx;
+    position: relative;
 }
 .password-title {
     color: #333333;
@@ -80,4 +81,12 @@
     font-size: 24rpx;
     margin-top: 14rpx;
     text-align: center;
+}
+.main .close {
+  width: 24rpx;
+  height: 24rpx;
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
+  padding: 10rpx;
 }

@@ -1,0 +1,1 @@
+<view class='number' wx:if='{{content!="0米"}}'>{{content}}</view>

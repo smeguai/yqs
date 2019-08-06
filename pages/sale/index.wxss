@@ -1,0 +1,28 @@
+.container {
+}
+
+.nav {
+  display: flex;
+  background: #fff;
+  padding: 16rpx 24rpx;
+  justify-content: space-between;
+}
+
+.nav .item {
+  display: flex;
+  align-items: center;
+  height: 60rpx;
+}
+.nav .item.active {
+  border-bottom: 2rpx solid #FDDD52;
+  border-radius: 2rpx;
+}
+.nav .item text {
+  font-size: 28rpx;
+}
+.nav .item image {
+  width: 22rpx;
+  height: 12rpx;
+  background: red;
+  padding-left: 12rpx;
+}

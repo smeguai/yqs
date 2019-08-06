@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "dis": "../../../component/dis/index"
+  },
   "navigationBarTitleText": "选择小区"
 }

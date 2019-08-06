@@ -1,0 +1,165 @@
+.container {
+  background: #FFDE4E;
+  padding: 30rpx 24rpx;
+}
+.container .tips {
+  padding: 34rpx 26rpx 50rpx 26rpx;
+  background: #fff;
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+}
+.container .tips .header {
+  font-size: 26rpx;
+}
+.container .tips .list {
+  padding-top: 10rpx;
+}
+.container .tips .list .item {
+  font-size: 24rpx;
+  padding: 6rpx 0;
+}
+.container .main {
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 40rpx 0 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .main .btn {
+  width: 422rpx;
+  height: 74rpx;
+  line-height: 74rpx;
+  text-align: center;
+  background: #FFDE4E;
+  font-size: 32rpx;
+  border-radius: 38rpx;
+}
+.container .main .block {
+  padding: 70rpx 0 80rpx;
+}
+.container .main .block .mod {
+  font-size: 24rpx;
+}
+.container .main .block .mod .status {
+  color: #FF7F36;
+}
+.container .main .block .mod .st {
+  padding-left: 10rpx;
+}
+.container .main .code {
+  font-size: 48rpx;
+  color: #FF6600;
+  font-weight: 500;
+  padding-top: 20rpx;
+}
+.container .main .codeimg {
+  width: 238rpx;
+  height: 238rpx;
+  padding: 10rpx;
+  border-radius: 4rpx;
+  border: 1rpx solid #EEEEEE;
+}
+.container .section {
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 26rpx 24rpx 70rpx;
+  border-bottom: 1rpx dashed #FFDE4E;
+  position: relative;
+}
+.container .section::before {
+  content: '';
+  position: absolute;
+  left: -20rpx;
+  bottom: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 100%;
+  background: #FFDE4E;
+}
+.container .section::after {
+  content: '';
+  position: absolute;
+  right: -20rpx;
+  bottom: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 100%;
+  background: #FFDE4E;
+}
+.container .section .seller {
+  display: flex;
+  padding-bottom: 29rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+  align-items: center;
+}
+.container .section .seller .avatar {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 100%;
+}
+.container .section .seller .info {
+  padding-left: 8rpx;
+  flex: 1;
+  box-sizing: border-box;
+  font-size: 24rpx;
+}
+.container .section .seller .info .title {
+  color: #666666;
+  padding-top: 14rpx;
+}
+.container .section .seller .icon-wrapper {
+  display: flex;
+  align-items: center;
+}
+.container .section .seller .icon-wrapper image {
+  width: 20rpx;
+  height: 20rpx;
+  padding: 10rpx;
+}
+.container .section .seller .icon-wrapper .shu {
+  height: 24rpx;
+  width: 2rpx;
+  background: #ccc;
+  margin: 0 10rpx;
+}
+.container .section .goods {
+  display: flex;
+  padding-top: 20rpx;
+}
+.container .section .goods .img {
+  width: 158rpx;
+  height: 158rpx;
+  border-radius: 6rpx;
+}
+.container .section .goods .detail {
+  padding-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.container .section .goods .detail .name {
+  font-size: 28rpx;
+}
+.container .section .goods .detail .sub {
+  font-size: 24rpx;
+  color: #ccc;
+}
+.container .section .goods .detail .butt {
+  display: flex;
+  justify-content: space-between;
+}
+.container .section .goods .detail .butt .price {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.container .section .goods .detail .butt .price .tagprice {
+  padding-left: 24rpx;
+  color: #999;
+  font-size: 20rpx;
+  font-weight: 400;
+}
+.container .section .goods .detail .butt .count {
+  font-size: 24rpx;
+  color: #999;
+}

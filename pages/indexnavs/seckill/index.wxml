@@ -1,7 +1,7 @@
 <view class='container'>
     <view class='search'>
         <image src='../../../static/img/search.png' class='icon'></image>
-        <input class='ipt' placeholder='搜索附近商家'></input>
+        <input class='ipt' placeholder='搜索附近商家' bindinput="searchInput" bindconfirm="handleSearch"></input>
     </view>
     <view class='nav'>
         <view class='{{navCurrent == item.id ? "nav-item active" : "nav-item"}}' wx:for='{{navList}}' bindtap='navClick' data-id='{{item.id}}'>
@@ -11,26 +11,26 @@
     <view class='list'>
         <view class='list-item' wx:for='{{list}}'>
             <view class='top'>
-                <image src='' class='icon'></image>
-                <text class='sellername'>{{item.sellerName}}</text>
-                <text class='dis'>{{item.dis}}</text>
+                <image src='../../../static/img/seller.png' class='icon'></image>
+                <text class='sellername'>{{item.merchantName}}</text>
+                <dis num='{{item.distance}}' />
             </view>
             <view class='tags'>
-                <view class='tag-item' wx:for='{{item.tags}}'>{{item}}</view>
+                <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
             </view>
             <view class='info'>
-                <image class='avart' src='{{item.avatar}}'></image>
+                <image class='avart' src='{{item.coverUrl}}'></image>
                 <view class='desc'>
-                    <view class='goodsname str'>{{item.goodsname}}</view>
-                    <view class='date'>{{item.subtitle}}</view>
+                    <view class='goodsname str'>{{item.productName}}</view>
+                    <view class='date'>{{item.productShortDesc}}</view>
                     <view class='counttime'>
-                        <countdown strTime='{{item.activityTime}}'></countdown>
+                        <countdown strTime='{{item.endTime}}'></countdown>
                         <view class='txt'>后结束</view>
                     </view>
                     <view class='bot'>
                         <view class='price'>￥
                             <text class='conis'>{{item.price}}</text>
-                            <text class='oldprice del'>￥{{item.oldprice}}</text>
+                            <text class='oldprice del'>￥{{item.tagPrice}}</text>
                         </view>
                         <view class='btn'>马上抢</view>
                     </view>
