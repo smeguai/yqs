@@ -1,3 +1,5 @@
+const app = getApp()
+
 Component({
   /**
    * 组件的属性列表
@@ -9,14 +11,16 @@ Component({
     avatarUrl: String,
     orderid: Number,
     goodsimg: String,
-    classs: String
+    classs: String,
+    groupBuyId: Number
   },
   data: {
     animationData: null,
     sellout: false,
     tagCurr: 0,
     detail: null,
-    count: 1
+    count: 1,
+    onLine: false
   },
   methods: {
     reduceCount(e) {
@@ -44,21 +48,32 @@ Component({
       this.triggerEvent('myPopupClose', false)
     },
     handleOrderSubmit() {
-      if (this.data.skulist.length > 0) {
+      //  用户是否登录
+      if (!this.data.onLine) {
         wx.navigateTo({
-          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&skuid=${this.data.detail.productSKUId}&classs=${this.data.classs}`,
+          url: '../accredit/index',
+        })
+        return
+      }
+      //  登录状态
+      if (this.data.skulist.length > 0) {
+        console.log(this.data.groupBuyId)
+        wx.navigateTo({
+          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&skuid=${this.data.detail.productSKUId}&classs=${this.data.classs}&groupBuyId=${this.data.groupBuyId}`,
         })
       } else {
         wx.navigateTo({
-          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&classs=${this.data.classs}`,
+          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&classs=${this.data.classs}&groupBuyId=${this.data.groupBuyId}`,
         })
       }
     }
   },
   ready() {
     this.createAnimation()
+
     this.setData({
-      detail: this.data.skulist[0]
+      detail: this.data.skulist[0],
+      onLine: wx.getStorageSync('userInfo') ? true : false
     })
   }
 })

@@ -21,6 +21,10 @@ Component({
      * 组件的方法列表
      */
     methods: {
-        
+      handleItemClick(e) {
+        wx.navigateTo({
+          url: '../../indexnavs/shop/index?pid='+e.currentTarget.dataset.id,
+        })
+      }
     }
 })

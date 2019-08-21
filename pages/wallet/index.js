@@ -4,8 +4,7 @@ import {
   mywallet
 } from '../../utils/api.js'
 import {
-  promiseRequest,
-  formatTime
+  promiseRequest
 } from '../../utils/util.js'
 const app = getApp()
 
@@ -19,16 +18,14 @@ Page({
     pageIndex: 1,
     pageSize: 10,
     list: [],
-    mywallet: null
+    mywallet: null,
+    loding: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中...',
-    })
     this.getWallet()
     this.getcash()
   },
@@ -41,13 +38,10 @@ Page({
           pageSize: this.data.pageSize
         }).then(res => {
           if (res.data.code === 0) {
-            let list = res.data.data
-            list.map(item => {
-              item.createTime = formatTime(item.createTime)
-            })
             this.setData({
-              list: [...this.data.list, ...list],
-              pageIndex: this.data.pageIndex + 1
+              list: [...this.data.list, ...res.data.data],
+              pageIndex: this.data.pageIndex,
+              loding: false
             })
           }
         })
@@ -58,13 +52,10 @@ Page({
           pageSize: this.data.pageSize
         }).then(res => {
           if (res.data.code === 0) {
-            let list = res.data.data
-            list.map(item => {
-              item.createTime = formatTime(item.createTime)
-            })
             this.setData({
-              list: [...this.data.list, ...list],
-              pageIndex: this.data.pageIndex + 1
+              list: [...this.data.list, ...res.data.data],
+              pageIndex: this.data.pageIndex,
+              loding: false
             })
           }
         })
@@ -84,23 +75,21 @@ Page({
   },
   //  nav 切换
   navClick(e) {
-    wx.showLoading({
-      title: '加载中...',
-    })
     this.setData({
       currentIndex: parseInt(e.currentTarget.dataset.idx),
       pageIndex: 1,
-      list: []
+      list: [],
+      loding: true
     })
     this.getcash()
   },
   //  上拉加载
-  onReachBottom: function() {
-    if (this.data.pageIndex * this.data.pageIndex <= this.data.list) {
-      wx.showLoading({
-        title: '加载中...',
+  onReachBottom: function () {
+    if (this.data.pageIndex * this.data.pageSize <= this.data.list.length) {
+      this.setData({
+        pageIndex: this.data.pageIndex + 1
       })
-      this.getcash()
+      this.getcash() 
     }
   }
 })

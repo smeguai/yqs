@@ -12,6 +12,8 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   groupbuy = configUrl + '/api/shopping/groupbuy/get',
   limit = configUrl + '/api/shopping/limit/get',
   cut = configUrl + '/api/shopping/cut/get',
+  //  商品详情评论
+  comment = configUrl + '/api/comment/load',
   //  经纬度定位小区
   serviceget = configUrl + '/api/user/service/get',
   //  首页navList
@@ -28,7 +30,7 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   getgoodslist = configUrl + '/api/shopping/get',
   //  首页特惠商品
   indexdiscount = configUrl + '/api/shopping/discount/index',
-  //  首页/附近好券
+  //  附近好券
   coupon = configUrl + '/api/coupon/get',
   //  我的钱包
   cash = configUrl + '/api/user/cash/get',
@@ -38,8 +40,14 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   groupbuydetail = configUrl + '/api/shopping/groupbuy/detail',
   cutdetail = configUrl + '/api/shopping/cut/detail',
   limitdetail = configUrl + '/api/shopping/limit/detail',
-  //  提交订单[普通商品订单]
+  //  提交订单[普通 团购 秒杀 砍价商品订单]
   producOrder = configUrl + '/api/product/order/submitted',
+  limitOrder = configUrl + '/api/limit/order/submitted',
+  subgrouporder = configUrl + '/api/group/order/submitted',
+  //  秒杀商品下单页
+  limitsubmit = configUrl + '/api/limit/order/get',
+  //  发起砍价
+  usercut = configUrl + '/api/shopping/cut/submitted',
   //  普通商品下单页面
   placeorder = configUrl + '/api/shopping/placeorder/get',
   //  订单详情
@@ -82,18 +90,53 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   sharegooddes = configUrl + '/api/shopping/order/get',
   //  团购订单页
   grouporder = configUrl + '/api/group/order/get',
-  //  团购订单提交
-  subgrouporder = configUrl + '/api/group/order/submitted',
   //  我正在拼团中的商品
   mygroupbuy = configUrl + '/api/shopping/groupbuy/myget',
   //  我正在砍价得商品
   mycut = configUrl + '/api/shopping/cut/myget',
   //  我的钱包
-  mywallet = configUrl + '/api/user/balance'
-
-
-
+  mywallet = configUrl + '/api/user/balance',
+  //  用户领券
+  getreceive = configUrl + '/api/coupon/receive',
+  //  砍价详情
+  usercutdesc = configUrl + '/api/shopping/usercut/detail',
+  //  我的优惠券
+  mycoupon = configUrl + '/api/coupon/my/get',
+  freecoupon = configUrl + '/api/freecoupon/get',
+  businessrecord = configUrl + '/api/record/shop/get',
+  goodsrecord = configUrl +'/api/record/product/get',
+  //  返回核销图
+qrcodeimg = configUrl + '/api/wechat/qrcode/get',
+cancelrefund = configUrl +'/api/order/cancelrefund',
+//  帮忙砍价
+cutfriendcut = configUrl + '/api/shopping/cut/friendcut',
+  //  根据经纬度获取地区（高德地图)
+nowloction = configUrl + '/api/region/get',
+collection = configUrl +'/api/collection/shop/get',
+addcollection = configUrl + '/api/collection/shop/add',
+// 我的砍价
+mycutlist = configUrl + '/api/shopping/cut/my',
+//  商品中 可用的优惠券
+  usercoupon = configUrl + '/api/producr/usercoupon'
 module.exports = {
+  usercoupon,
+  mycutlist,
+  addcollection,
+  collection,
+  nowloction,
+  cutfriendcut,
+  cancelrefund,
+  qrcodeimg,
+  businessrecord,
+  goodsrecord,
+  usercutdesc,
+  mycoupon,
+  freecoupon,
+  usercut,
+  comment,
+  limitsubmit,
+  getreceive,
+  limitOrder,
   mywallet,
   getgoodslist,
   mycut,

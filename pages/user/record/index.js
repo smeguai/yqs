@@ -1,119 +1,113 @@
-// pages/user/record/index.js
+import {
+  businessrecord,
+  goodsrecord
+} from '../../../utils/api.js'
+import {
+  promiseRequest
+} from '../../../utils/util.js'
 Page({
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-        nav: [
-            { name: '已浏览商家' }, { name: '已浏览商品' }
-        ],
-        index: 0,
-        navIndex: 0,
-        content: [
-            {
-                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg',
-                name: '安特鲁美味成真烘焙店',
-                num: '1230',
-                text: '长沙第一烘焙蛋糕店',
-            },
-            {
-                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg',
-                name: '安特鲁美味成真烘焙店',
-                num: '0',
-                text: '长沙第一烘焙蛋糕店',
-            },
-            {
-                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg',
-                name: '安特鲁美味成真烘焙店',
-                num: '666',
-                text: '长沙第一烘焙蛋糕店',
-            }
-        ],
-        goods: [
-            {
-                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg',
-                name: '牛魔黑砖巧克力水果美味夏日冰爽超级美味奶茶',
-                text: '张三疯欧式奶茶铺',
-                pay: '9.8',
-                price: '19.8',
-            },
-            {
-                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg',
-                name: '牛魔黑砖巧克力水果美味夏日冰爽超级美味奶茶',
-                text: '张三疯欧式奶茶铺',
-                pay: '9.8',
-                price: '19.8',
-            },
-            {
-                img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2922170376,2371336021&fm=27&gp=0.jpg',
-                name: '牛魔黑砖巧克力水果美味夏日冰爽超级美味奶茶',
-                text: '张三疯欧式奶茶铺',
-                pay: '9.8',
-                price: '19.8',
-            }
-        ]
-    },
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    nav: [{
+      name: '已浏览商家'
+    }, {
+      name: '已浏览商品'
+    }],
+    index: 0,
+    navIndex: 0,
+    sellerLs: [],
+    goodsLs: [],
+    sellerIndex: 1,
+    goodsIndex: 1,
+    pageSize: 10
+  },
 
-    navClick(e) {
+  navClick(e) {
+    this.setData({
+      navIndex: e.currentTarget.dataset.index
+    })
+  },
+  //  跳转 店铺详情
+  handleSellerItemClick(e) {
+    wx.navigateTo({
+      url: `../../indexnavs/shop/index?pid=${e.currentTarget.dataset.id}`
+    })
+  },
+  //  跳转 商品详情
+  handleGoodsClick(e) {
+    wx.navigateTo({
+      url: `../../goodsdetail/index?name=product&pid=${e.currentTarget.dataset.pid}`
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.getSellrecord()
+    this.getGoodsrecord()
+  },
+  //  获取商家浏览记录
+  getSellrecord() {
+    promiseRequest(businessrecord, 'get', {
+      pageIndex: this.data.sellerIndex,
+      pageSize: this.data.pageSize
+    }).then(res => {
+      if (res.data.code == 0 && res.data.data) {
         this.setData({
-            navIndex: e.currentTarget.dataset.index
+          sellerLs: res.data.data
         })
-    },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+      }
+    })
+  },
+  //  获取浏览过的商品
+  getGoodsrecord() {
+    promiseRequest(goodsrecord, 'get', {
+      pageIndex: this.data.goodsIndex,
+      pageSize: this.data.pageSize
+    }).then(res => {
+      if (res.data.code == 0 && res.data.data) {
+        this.setData({
+          goodsLs: [...this.data.goodsLs, ...res.data.data]
+        })
+      }
+    })
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+    if (this.data.navIndex == 0) {
+      this.setData({
+        sellerIndex: 1,
+        sellerLs: [],
+      })
+      this.getSellrecord()
+    } else {
+      this.setData({
+        goodsIndex: 1,
+        goodsLs: [],
+      })
+      this.getGoodsrecord()
     }
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    if (this.data.navIndex == 0) {
+      this.setData({
+        sellerIndex: this.data.sellerIndex + 1
+      })
+      this.getSellrecord()
+    } else {
+      this.setData({
+        goodsIndex: this.data.goodsIndex + 1
+      })
+      this.getGoodsrecord()
+    }
+  }
 })

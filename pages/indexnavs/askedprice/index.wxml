@@ -1,72 +1,73 @@
 <view class='container'>
-    <view class='search'>
-        <image src='../../../static/img/search.png' class='icon'></image>
-        <input class='ipt' placeholder='搜索附近商家' bindinput="searchInput" bindconfirm="handleSearch"></input>
+  <view class='search'>
+    <image src='../../../static/img/search.png' class='icon'></image>
+    <input class='ipt' placeholder='搜索附近商家' bindinput="searchInput" bindconfirm="handleSearch"></input>
+  </view>
+  <view class='list mylist' wx:if='{{mylist.length > 0}}'>
+    <view class='header'>
+      <text class='x'></text>
+      <text class='z'></text>
+      <text class='d'></text>
+      <text class='txt'>正在砍价中</text>
+      <text class='d'></text>
+      <text class='z'></text>
+      <text class='x'></text>
     </view>
-    <view class='list' wx:if='{{mylist.length > 0}}'>
-        <view class='{{item.ask ? "item active": "item"}}' wx:for='{{list}}'>
-            <view class='header' wx:if='{{item.ask}}'>
-                <text class='x'></text>
-                <text class='z'></text>
-                <text class='d'></text>
-                <text class='txt'>正在砍价中</text>
-                <text class='d'></text>
-                <text class='z'></text>
-                <text class='x'></text>
+    <view class='item' wx:for='{{mylist}}' bindtap="handleCuting" data-pid='{{item.cutPriceId}}'>
+      <view class='top'>
+        <image src='../../../static/img/seller.png' class='icon'></image>
+        <text class='sellername'>{{item.merchantName}}</text>
+        <!-- <text class='dis'></text> -->
+        <dis num='{{item.distance}}' />
+      </view>
+      <view class='tags'>
+        <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
+      </view>
+      <view class='info'>
+        <image class='avart' src='{{item.productImgUrl}}'></image>
+        <view class='desc'>
+          <view class='goodsname str'>{{item.productName}}</view>
+          <view class='date'>已砍{{item.hadCutPrice}}元,还差{{item.disparityPrice}}元</view>
+          <view class='counttime'>
+            <countdown strTime='{{item.endTime}}'></countdown>
+            <view class='txt'>后结束</view>
+          </view>
+          <view class='bot'>
+            <view class='price'>￥
+              <text class='conis'>{{item.price}}</text>
+              <text class='oldprice del'>￥{{item.tagPrice}}</text>
             </view>
-            <view class='top'>
-                <image src='' class='icon'></image>
-                <text class='sellername'>{{item.sellerName}}</text>
-                <text class='dis'>{{item.dis}}</text>
-            </view>
-            <view class='tags'>
-                <view class='tag-item' wx:for='{{item.tags}}'>{{item}}</view>
-            </view>
-            <view class='info'>
-                <image class='avart' src='{{item.avatar}}'></image>
-                <view class='desc'>
-                    <view class='goodsname str'>{{item.goodsname}}</view>
-                    <view class='date'>{{item.subtitle}}</view>
-                    <view class='counttime'>
-                        <countdown strTime='{{item.activityTime}}'></countdown>
-                        <view class='txt'>后结束</view>
-                    </view>
-                    <view class='bot'>
-                        <view class='price'>￥
-                            <text class='conis'>{{item.price}}</text>
-                            <text class='oldprice del'>￥{{item.oldprice}}</text>
-                        </view>
-                        <view class='btn'>马上抢</view>
-                    </view>
-                </view>
-            </view>
+            <view class='btn'>继续砍价</view>
+          </view>
         </view>
+      </view>
     </view>
-    
-    <view class='list'>
-        <view class='{{item.ask ? "item active": "item"}}' wx:for='{{list}}'>
-            <view class='top'>
-                <image src='../../../static/img/seller.png' class='icon'></image>
-                <text class='sellername'>{{item.merchantName}}</text>
-                <dis class='dis' num='{{item.distance}}' />
+  </view>
+
+  <view class='list'>
+    <view class='{{item.ask ? "item active": "item"}}' wx:for='{{list}}' wx:key='{{index}}' bindtap='handleCutprice' data-pid='{{item.productCutPriceId}}'>
+      <view class='top'>
+        <image src='../../../static/img/seller.png' class='icon'></image>
+        <text class='sellername'>{{item.merchantName}}</text>
+        <dis class='dis' num='{{item.distance}}' />
+      </view>
+      <view class='tags'>
+        <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
+      </view>
+      <view class='info'>
+        <image class='avart' src='{{item.coverUrl}}'></image>
+        <view class='desc'>
+          <view class='goodsname str'>{{item.productName}}</view>
+          <view class='date'>{{item.productShoreDesc}}</view>
+          <view class='bot'>
+            <view class='price'>￥
+              <text class='conis'>{{item.price}}</text>
+              <text class='oldprice del'>￥{{item.tagPrice}}</text>
             </view>
-            <view class='tags'>
-                <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
-            </view>
-            <view class='info'>
-                <image class='avart' src='{{item.coverUrl}}'></image>
-                <view class='desc'>
-                    <view class='goodsname str'>{{item.productName}}</view>
-                    <view class='date'>{{item.productShoreDesc}}</view>
-                    <view class='bot'>
-                        <view class='price'>￥
-                            <text class='conis'>{{item.price}}</text>
-                            <text class='oldprice del'>￥{{item.tagPrice}}</text>
-                        </view>
-                        <view class='btn'>我要砍价</view>
-                    </view>
-                </view>
-            </view>
+            <view class='btn'>我要砍价</view>
+          </view>
         </view>
+      </view>
     </view>
+  </view>
 </view>

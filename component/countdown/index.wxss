@@ -1,7 +1,7 @@
 .countdown {
     display: flex;
     align-items: center;
-    background: rgba(0,0,0,.2);
+    background: rgba(255,255,255,.2);
     padding: 4rpx 6rpx;
     border-radius: 4rpx;
 }
@@ -24,4 +24,7 @@
     font-size: 20rpx;
     padding: 0 6rpx;
     font-weight: bold;
+}
+.withe {
+  color: #fff;
 }

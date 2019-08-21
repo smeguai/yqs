@@ -1,5 +1,5 @@
 <view class='container'>
-  <loding />
+  <loding show='{{loding}}' />
   <view class='addrs'>
     <view class='lf' bindtap="locationClick">
       <image class='addricon' src='../../static/img/addrsicon.png'></image>
@@ -12,7 +12,7 @@
     </navigator>
   </view>
   <view class='banner' wx:if='{{swiperList.length > 0}}'>
-    <swiper class='list' autoplay circular current='{{bannerCurrent}}' bindchange='bannerChange'>
+    <swiper class='list' autoplay bindchange='bannerChange'>
       <swiper-item class='item' wx:for='{{swiperList}}' wx:key='{{item.id}}'>
         <image src='{{item.imgUrl}}' class='banner-img'></image>
       </swiper-item>
@@ -29,7 +29,7 @@
       </view>
     </view>
     <view class='list'>
-      <view class='item' wx:for='{{navList}}' bindtap='navNavigate'data-title='{{item.typeName}}'  data-id='{{item.typeId}}' wx:key='{{index}}'>
+      <view class='item' wx:for='{{navList}}' bindtap='navNavigate' data-title='{{item.typeName}}' data-id='{{item.jumpType}}' data-pid='{{item.typeId}}' wx:key='{{index}}'>
         <image src='{{item.imgUrl}}' class='img'></image>
         <view class='txt'>{{item.typeName}}</view>
       </view>
@@ -42,52 +42,52 @@
     </view>
     <scroll-view class='scroll' scroll-x>
       <view class='list'>
-        <view class='item' wx:for='{{groupdata}}' bindtap='goodsItemClick' data-pid='{{item.productGroupBuyId}}' data-name='group' wx:key='{{index}}'>
-          <image class='icon' src='../../static/img/tag0.png'></image>
-          <image src='{{item.coverUrl}}' class='img'></image>
-          <view class='title str'>{{item.productName}}</view>
-          <view class='subtitle str'>{{item.productShoreDesc}}</view>
-          <view class='price'>
-            <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
-            <text class='oldprice'>￥{{item.tagPrice}}</text>
-          </view>
-          <view>
+        <block wx:if='{{groupdata}}'>
+          <view class='item' wx:for='{{groupdata}}' bindtap='goodsItemClick' data-pid='{{item.productGroupBuyId}}' data-name='group' wx:key='{{index}}'>
+            <image class='icon' src='../../static/img/tag0.png'></image>
+            <image src='{{item.coverUrl}}' class='img'></image>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+            <view class='price'>
+              <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
+              <text class='oldprice'>￥{{item.tagPrice}}</text>
+            </view>
             <countdown class='countdown' strTime='{{item.endTime}}' />
           </view>
-        </view>
-        <view class='item' wx:for='{{cutdata}}' bindtap='goodsItemClick' data-pid='{{item.productId}}' data-name='cut' wx:key='{{index}}'>
-          <image class='icon' src='../../static/img/tag1.png'></image>
-          <image src='{{item.coverUrl}}' class='img'></image>
-          <view class='title str'>{{item.productName}}</view>
-          <view class='subtitle str'>{{item.productShoreDesc}}</view>
-          <view class='price'>
-            <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
-            <text class='oldprice'>￥{{item.tagPrice}}</text>
-          </view>
-          <view>
+        </block>
+        <block wx:if='{{cutdata}}'>
+          <view class='item' wx:for='{{cutdata}}' bindtap='goodsItemClick' data-pid='{{item.productCutPriceId}}' data-name='cut' wx:key='{{index}}'>
+            <image class='icon' src='../../static/img/tag1.png'></image>
+            <image src='{{item.coverUrl}}' class='img'></image>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+            <view class='price'>
+              <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
+              <text class='oldprice'>￥{{item.tagPrice}}</text>
+            </view>
             <countdown class='countdown' strTime='{{item.endTime}}' />
           </view>
-        </view>
-        <view class='item' wx:for='{{limitdata}}' bindtap='goodsItemClick' data-pid='{{item.productId}}' data-name='limit' wx:key='{{index}}'>
-          <image class='icon' src='../../static/img/tag2.png'></image>
-          <image src='{{item.coverUrl}}' class='img'></image>
-          <view class='title str'>{{item.productName}}</view>
-          <view class='subtitle str'>{{item.productShoreDesc}}</view>
-          <view class='price'>
-            <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
-            <text class='oldprice'>￥{{item.tagPrice}}</text>
-          </view>
-          <view>
+        </block>
+        <block wx:if='{{limitdata}}'>
+          <view class='item' wx:for='{{limitdata}}' bindtap='goodsItemClick' data-pid='{{item.timeLimitBuyId}}' data-name='limit' wx:key='{{index}}'>
+            <image class='icon' src='../../static/img/tag2.png'></image>
+            <image src='{{item.coverUrl}}' class='img'></image>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+            <view class='price'>
+              <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
+              <text class='oldprice'>￥{{item.tagPrice}}</text>
+            </view>
             <countdown class='countdown' strTime='{{item.endTime}}' />
           </view>
-        </view>
+        </block>
       </view>
     </scroll-view>
   </view>
-  <view class='recommend' wx:if='{{recommendList}}'>
+  <view class='recommend' wx:if='{{recommendList.length> 0}}'>
     <view class='title'>推荐商家</view>
-    <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}'>
-      <image src='{{item.merchantImgUrl}}' class='avatar'></image>
+    <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}'>
+      <image src='{{item.merchantImgUrl && item.merchantImgUrl !="" ?item.merchantImgUrl:"../../static/img/imgloading.png"}}' class='avatar'></image>
       <view class='info'>
         <view class='top'>
           <view class='name'>{{item.merchantName}}</view>
@@ -98,27 +98,30 @@
           <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex>0}}' />
           <text>{{item.typeName}}</text>|
           <text>{{item.viewNum}}</text>
-          <text class='dis' wx:if='{{item.distance != 0}}'>{{item.distance}}米</text>
+          <!-- <text class='dis' wx:if='{{item.distance != 0}}'>{{item.distance}}米</text> -->
+          <dis num='{{item.distance}}' class='dis' />
         </view>
         <view class='tag'>
           <view class='tagitem' wx:for='{{item.tagList}}' wx:key='{{index}}'>
             <text class='{{item == "长沙市连锁"?"txt0":"txt1"}}'>{{item}}</text>
           </view>
         </view>
-        <view class='activity'>
+        <view class='activity' wx:if='{{item.couponDes}}'>
           <text class='cate quan'>券</text>
           <text class='txt'>{{item.couponDes}}</text>
         </view>
-        <view class='activity'>
+        <view class='activity' wx:if='{{item.groupDes}}'>
           <text class='cate tuan'>团</text>
           <text class='txt'>{{item.groupDes}}</text>
         </view>
-        <view class='goods'>
-          <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}'>
-            <image src='{{item.productImgUrl}}' class='imgurl'></image>
-            <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
+        <scroll-view class='goods' scroll-x='{{item.proList?true: false}}'>
+          <view class='list'>
+            <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}'>
+              <image src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
+              <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
+            </view>
           </view>
-        </view>
+        </scroll-view>
       </view>
     </view>
   </view>

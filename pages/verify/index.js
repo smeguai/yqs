@@ -1,5 +1,6 @@
 import {
-  orderdetail
+  orderdetail,
+  qrcodeimg
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -12,21 +13,33 @@ Page({
   data: {
     orderid: null,
     data: null,
-    codeStatus: null
+    codeStatus: null,
+    imgUrl: '',
+    timer: null,
+    loding: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     this.setData({
       orderid: options.orderid
     })
-    this.getOrderDetail()
+   this.getOrderDetail()
+  },
+  //  获取核销图
+  getQCcodeImg(){
+    promiseRequest(qrcodeimg, 'get', {
+      code: this.data.data.rootCode
+    }).then(res => {
+      console.log(res)
+      if (res.data.code == 0) {
+        this.setData({
+          imgUrl: res.data.data
+        })
+      }
+    })
   },
   //  获取订单详情
   getOrderDetail () {
@@ -37,6 +50,7 @@ Page({
         this.setData({
           data: res.data.data
         })
+        this.getQCcodeImg()
         let s = this.data.data.status
         let t = ''
         if (s == 0 || s == 1) {
@@ -53,8 +67,13 @@ Page({
         this.setData({
           codeStatus: t
         })
-        wx.hideLoading()
       }
+      this.setData({
+        loding: false
+      })
+    })
+    this.setData({
+      timer: setTimeout(this.getOrderDetail, 4000)
     })
   },
   //  跳转到自助核销
@@ -88,7 +107,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.timer)
   },
 
   /**

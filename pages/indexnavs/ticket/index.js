@@ -1,5 +1,6 @@
 import {
-  coupon
+  coupon,
+  getreceive
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -14,15 +15,16 @@ Page({
     pageIndex: 1,
     pageSize: 10,
     keys: '',
-    list: []
+    list: [],
+    onLine: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中',
+    this.setData({
+      onLine: wx.getStorageSync('userInfo') ? true : false
     })
     this.getcoupon()
   },
@@ -32,14 +34,53 @@ Page({
       keys: e.detail.value
     })
   },
+  //  购买代金券
+  handleClickPay(e) {
+    if (this.data.onLine) {
+      wx.navigateTo({
+        url: `../../pay/index?classs=product&productid=${e.currentTarget.dataset.pid}&count=1&skuid=0`,
+      })
+    } else {
+      wx.showToast({
+        title: '请先登录!',
+        icon: 'none'
+      })
+    }
+  },
+  //  领取优惠券
+  handleClickGet(e) {
+    if (this.data.onLine) {
+      wx.showLoading({
+        title: '领取中...',
+        mask: true
+      })
+      promiseRequest(getreceive, 'get', {
+        couponId: e.currentTarget.dataset.id
+      }).then(res => {
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '领取成功!',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '请先登录!',
+        icon: 'none'
+      })
+    }
+  },
   //  keys  input输入后回车
   handleSearch() {
     this.setData({
       list: [],
       pageIndex: 1
-    })
-    wx.showLoading({
-      title: '加载中...',
     })
     this.getcoupon()
   },
@@ -59,65 +100,25 @@ Page({
         this.setData({
           list: res.data.data
         })
-        console.log(this.data.list)
-        wx.hideLoading()
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function() {
     if (this.data.pageIndex * this.data.pageSize <= this.data.list.length) {
-      wx.showLoading({
-        title: '加载中',
-      })
       this.setData({
         pageIndex: this.data.pageIndex + 1
       })
       this.getcoupon()
     }
   },
-
   /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+  onPullDownRefresh: function () {
+    this.setData({
+      pageIndex: 1,
+      list: []
+    })
+    this.getcoupon()
   }
 })

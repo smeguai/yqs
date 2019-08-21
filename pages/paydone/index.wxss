@@ -114,3 +114,116 @@
     font-size: 20rpx;
     color: #999999;
 }
+.container .goup {
+  background: #fff;
+  padding: 70rpx 24rpx 64rpx 24rpx;
+  position: relative;
+}
+.container .goup .topbackground  {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 182rpx;
+  background: #FFDE4E;
+}
+.container .goup .main {
+  background: #fff;
+  border-radius: 10rpx;
+  position: relative;
+  z-index: 4;
+}
+.container .goup .main .info {
+  padding: 18rpx 24rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+  display: flex;
+}
+.container .goup .main .info .avatar {
+  width: 158rpx;
+  height: 158rpx;
+  border-radius: 6rpx;
+}
+.container .goup .main .info .desc {
+  padding-left: 20rpx;
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.container .goup .main .info .desc .title {
+  font-size: 28rpx;
+}
+.container .goup .main .info .desc .sub {
+  font-size: 24rpx;
+  color: #666666;
+}
+.container .goup .main .info .desc .price {
+  color: #FF6600;
+  font-size: 32rpx;
+}
+.container .goup .main .info .desc .price .tag {
+  color :#999999;
+  font-size: 20rpx;
+}
+.container .goup .main .center {
+  text-align: center;
+}
+.container .goup .main .center .tpo {
+  padding-top: 60rpx;
+  font-size: 24rpx;
+}
+.container .goup .main .center .tpo .num {
+  color:#FF6600;
+}
+.container .goup .main .center .list {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 58rpx;
+}
+.container .goup .main .center .countdown {
+  display: flex;
+  justify-content: center;
+  padding: 20rpx 0 80rpx;
+}
+.container .goup .main .center .list .item {
+  position: relative;
+}
+.container .goup .main .center .list .item .avatar {
+  border: 1rpx solid #FFDE4E;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%;
+}
+.container .goup .main .center .list .kong {
+  border: 1rpx dashed #BFBFBF;
+  border-radius: 100%;
+  width: 80rpx;
+  height: 80rpx;
+  box-sizing: border-box;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #CCCCCC;
+  text-align: center;
+  line-height: 80rpx;
+}
+.container .goup .main .btn{
+  height: 68rpx;
+  line-height: 68rpx;
+  background: #FFDE4E;
+  border-radius: 34rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.container .goup .main .center .list .item .tz {
+  font-size: 20rpx;
+  position: absolute;
+  left: -10rpx;
+  top: -10rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 10rpx;
+  background: #FFDE4E;
+  border: 1rpx solid #fff;
+  box-sizing: border-box;
+}

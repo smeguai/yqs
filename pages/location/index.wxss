@@ -21,6 +21,12 @@
     justify-content: center;
     border-right: 1rpx solid #999999;
 }
+.xg_centerBot_subtxt {
+  font-size: 24rpx;
+  color:#999999;
+  padding: 24rpx 0;
+  text-align: center;
+}
 .xg_centerBot_text_name_xq {
   border: 2rpx solid #FFDE4E;
   font-size: 28rpx;
@@ -91,6 +97,12 @@
 .xg_centerTop_left {
     display: flex;
     align-items: center;
+    flex:1;
+    width: 0;
+}
+.xg_centerTop_midd {
+  width: 0;
+  flex: 1;
 }
 .xg_centerTop_left>image {
     width: 42rpx;
@@ -110,8 +122,10 @@
     background: #FFDE4E;
     color: #333333;
     font-size: 28rpx;
-    padding: 16rpx 31rpx;
+    padding: 16rpx 0;
     border-radius: 50rpx;
+    width: 116rpx;
+    text-align: center;
 }
 .xg_centerTop_right:active {
     background: #FFCE0E;

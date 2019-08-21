@@ -1,6 +1,7 @@
 {
     "usingComponents": {
-        "popup": "../../component/popup/index"
+        "popup": "../../component/popup/index",
+        "countdown": "../../component/countdown/index"
     },
     "navigationBarTitleText": "产品详情"
 }

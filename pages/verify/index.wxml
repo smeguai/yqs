@@ -1,4 +1,5 @@
 <view class='container'>
+  <loding show='{{loding}}' />
   <view class='section'>
     <view class='seller'>
       <image class='avatar' src='{{data.headImgUrl}}'></image>
@@ -27,7 +28,7 @@
     </view>
   </view>
   <view class='main'>
-    <image class='codeimg'></image>
+    <image class='codeimg' src='data:image/jpeg;base64,{{imgUrl}}'></image>
     <view class='code'>{{data.rootCode}}</view>
     <view class='block'>
       <view class='mod'>核销状态:

@@ -1,144 +1,178 @@
 <view class='container'>
-    <view class='banner'>
-        <swiper class='swipper' circular current='{{bannerCurrent}}' bindchange='bannerItemChange'>
-            <swiper-item class='item' wx:for='{{bannerList}}' data-id='{{item.id}}' wx:key='{{index}}'>
-                <image src='{{item.img}}' class='img'></image>
-            </swiper-item>
-        </swiper>
-        <view class='nums'>
-            <view class='{{item.id == bannerCurrent ? "num-item active":"num-item"}}' wx:for='{{bannerList}}' wx:key='{{index}}'></view>
-        </view>
+  <loding show='{{loding}}' />
+  <view class='banner' wx:if='{{bannerList.length > 0}}'>
+    <swiper class='swipper' circular bindchange='bannerItemChange'>
+      <swiper-item class='item' wx:for='{{bannerList}}' data-id='{{item.itemId}}' wx:key='{{index}}'>
+        <image src='{{item.imgUrl}}' class='img'></image>
+      </swiper-item>
+    </swiper>
+    <view class='nums'>
+      <view class='{{index == bannerCurrent ? "num-item active":"num-item"}}' wx:for='{{bannerList}}' wx:key='{{index}}'></view>
     </view>
-    <view class='section'>
-        <view class='top'>
-            <view class='heartxt'>附近好券</view>
-            <view class='tabnav'>
-                <view class='recommend btn'>推荐</view>
-                <view class='hotsale btn'>热卖</view>
-            </view>
-        </view>
-        <view class='list-wrapper'>
-            <view class='list'>
-                <view class='item' wx:for='{{list}}' wx:key='{{index}}'>
-                    <view class='main'>
-                        <image src='{{item.avatar}}' class='avatar'></image>
-                        <view class='info'>
-                            <view class='top'>
-                                <view class='name'>{{item.name}}</view>
-                                <view class='lm ckbox'>联盟</view>
-                                <view class='pp ckbox'>品牌</view>
-                            </view>
-                            <view class='middel'>
-                                <grade score='{{item.score}}' />
-                                <text>{{item.genre}}</text>|
-                                <text>{{item.moods}}</text>
-                                <text class='dis'>500米</text>
-                            </view>
-                            <view class='tag'>
-                                <view class='tagitem' wx:for='{{item.tag}}' wx:key='{{index}}'>{{item}}</view>
-                            </view>
-                        </view>
-                    </view>
-                    <scroll-view scroll-x class='ticket'>
-                        <view class='block'>
-                            <view class='ticketitem' wx:for='{{item.ticket}}' wx:key='{{index}}'>
-                                <view class='title'>{{item.title}}</view>
-                                <view class='price'>￥{{item.price}}</view>
-                                <view class='txt'>{{item.txt}}</view>
-                                <view class='btn'>点击领取</view>
-                            </view>
-                        </view>
-                    </scroll-view>
-                </view>
-            </view>
-        </view>
+  </view>
+  <view class='section'>
+    <view class='top'>
+      <view class='heartxt'>附近好券</view>
+      <view class='tabnav'>
+        <view class='{{index==priviCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='privilege' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
+      </view>
     </view>
-    <view class='nearbywelfare section' wx:if='{{groupdata.length > 0}}'>
-        <!-- 团购 -->
-        <view class='top'>
-            <view class='heartxt'>优惠团购</view>
-            <view class='tabnav'>
-                <view class='{{index==groupCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='group' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
+    <view class='list-wrapper'>
+      <view class='list'>
+        <view class='item' wx:for='{{priviLs}}' wx:key='{{index}}'>
+          <view class='main'>
+            <image src='{{item.merchantImgUrl}}' class='avatar'></image>
+            <view class='info'>
+              <view class='top'>
+                <view class='name'>{{item.merchantName}}</view>
+                <view class='lm ckbox' wx:if='{{item.hasUnion}}'>联盟</view>
+                <view class='pp ckbox' wx:if='{{item.hasBrand}}'>品牌</view>
+              </view>
+              <view class='middel'>
+                <grade score='{{item.StarIndex}}' />
+                <text>{{item.typeName}}</text>|
+                <text>{{item.viewNum}}</text>
+                <dis class='dis' num='{{item.distance}}' />
+              </view>
+              <view class='tag'>
+                <view class='tagitem' wx:for='{{item.tagList}}' wx:key='{{index}}'>{{item}}</view>
+              </view>
             </view>
-        </view>
-        <view class='lists'>
-            <view class='item' wx:for='{{groupdata}}' wx:key='{{index}}'>
-                <image class='lists-img' src='{{item.coverUrl}}'></image>
-                <view class='opera'>
-                    <view class='lf'>
-                        <view class='title str'>{{item.productName}}</view>
-                        <view class='subtitle str'>{{item.productShoreDesc}}</view>
-                    </view>
-                    <view class='btn'>立即拼团</view>
-                </view>
-                <view class='info'>
-                    <view class='tag'>拼团价</view>
-                    <view class='txt'>￥
-                        <text class='price'>{{item.price}}</text>
-                        <text class='del oldprice'>￥{{item.tagPrice}}</text>
-                    </view>
-                    <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
-                </view>
+          </view>
+          <scroll-view scroll-x class='ticket'>
+            <view class='block'>
+              <view
+                class='ticketitem' 
+                wx:for='{{item.couponList}}' 
+                wx:key='{{item.couponId}}' 
+                data-pid='{{item.couponId}}'
+                bindtap='handleGetPreferential'
+               >
+                <view class='title'>{{item.couponName}}</view>
+                <view class='price'>￥{{item.couponMoney}}</view>
+                <view class='txt'>{{item.couponDes}}</view>
+                <view class='btn btn2' wx:if='{{item.status}}'>已领取</view>
+                <view class='btn btn1' wx:else  bindtap="handleClickGet" data-id='{{item.couponId}}'>点击领取</view>
+              </view>
+              <view class='ticketitem' wx:for='{{item.voucherList}}' wx:key='{{index}}' data-pid='{{item.productId}}' bindtap='handleClickPay'>
+                <view class='title'>{{item.productName}}</view>
+                <view class='price'>￥{{item.price}}</view>
+                <view class='txt'>{{item.useIntro}}</view>
+                <view class='btn btn1'>点击购买</view>
+              </view>
             </view>
+          </scroll-view>
         </view>
+      </view>
     </view>
-    <view class='nearbywelfare section' wx:if='{{limitdata.length > 0}}'>
+  </view>
+  <view class='nearbywelfare section' wx:if='{{groupdata.length > 0}}'>
+    <!-- 团购 -->
+    <view class='top'>
+      <view class='heartxt'>优惠团购</view>
+      <view class='tabnav'>
+        <view class='{{index==groupCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='group' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
+      </view>
+    </view>
+    <view class='lists'>
+      <view 
+      class='item' 
+      wx:for='{{groupdata}}' 
+      wx:key='{{index}}' 
+      bindtap='handleGoodsDetail' 
+      data-pid='{{item.productGroupBuyId}}'
+      data-name='group'
+      >
+        <image class='lists-img' src='{{item.coverUrl}}'></image>
+        <view class='opera'>
+          <view class='lf'>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+          </view>
+          <view class='btn'>立即拼团</view>
+        </view>
+        <view class='info'>
+          <view class='tag'>拼团价</view>
+          <view class='txt'>￥
+            <text class='price'>{{item.price}}</text>
+            <text class='del oldprice'>￥{{item.tagPrice}}</text>
+          </view>
+          <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='nearbywelfare section' wx:if='{{limitdata.length > 0}}'>
 
-        <!-- 秒杀 -->
-        <view class='top'>
-            <view class='heartxt'>秒杀</view>
-            <view class='tabnav'>
-                <view class='{{index==limitCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='limit' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
-            </view>
-        </view>
-        <view class='lists'>
-            <view class='item' wx:for='{{limitdata}}' wx:key='{{index}}'>
-                <image class='lists-img' src='{{item.coverUrl}}'></image>
-                <view class='opera'>
-                    <view class='lf'>
-                        <view class='title str'>{{item.productName}}</view>
-                        <view class='subtitle str'>{{item.productShoreDesc}}</view>
-                    </view>
-                    <view class='btn'>立即拼团</view>
-                </view>
-                <view class='info'>
-                    <view class='tag'>拼团价</view>
-                    <view class='txt'>￥
-                        <text class='price'>{{item.price}}</text>
-                        <text class='del oldprice'>￥{{item.tagPrice}}</text>
-                    </view>
-                    <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
-                </view>
-            </view>
-        </view>
+    <!-- 秒杀 -->
+    <view class='top'>
+      <view class='heartxt'>秒杀</view>
+      <view class='tabnav'>
+        <view class='{{index==limitCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='limit' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
+      </view>
     </view>
-    <view class='nearbywelfare section' wx:if='{{cutdata.length > 0}}'>
-        <!-- 砍价 -->
-        <view class='top'>
-            <view class='heartxt'>砍价</view>
-            <view class='tabnav'>
-                <view class='{{index==cutCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='cut' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
-            </view>
+    <view class='lists'>
+      <view 
+        class='item' 
+        wx:for='{{limitdata}}' 
+        wx:key='{{index}}'
+        bindtap='handleGoodsDetail' 
+        data-pid='{{item.timeLimitBuyId}}'
+        data-name='limit'
+      >
+        <image class='lists-img' src='{{item.coverUrl}}'></image>
+        <view class='opera'>
+          <view class='lf'>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+          </view>
+          <view class='btn'>立即秒杀</view>
         </view>
-        <view class='lists'>
-            <view class='item' wx:for='{{cutdata}}' wx:key='{{index}}'>
-                <image class='lists-img' src='{{item.coverUrl}}'></image>
-                <view class='opera'>
-                    <view class='lf'>
-                        <view class='title str'>{{item.productName}}</view>
-                        <view class='subtitle str'>{{item.productShoreDesc}}</view>
-                    </view>
-                    <view class='btn'>立即拼团</view>
-                </view>
-                <view class='info'>
-                    <view class='tag'>拼团价</view>
-                    <view class='txt'>￥
-                        <text class='price'>{{item.price}}</text>
-                        <text class='del oldprice'>￥{{item.tagPrice}}</text>
-                    </view>
-                    <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
-                </view>
-            </view>
+        <view class='info'>
+          <view class='tag'>秒杀价</view>
+          <view class='txt'>￥
+            <text class='price'>{{item.price}}</text>
+            <text class='del oldprice'>￥{{item.tagPrice}}</text>
+          </view>
+          <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
         </view>
+      </view>
     </view>
+  </view>
+  <view class='nearbywelfare section' wx:if='{{cutdata.length > 0}}'>
+    <!-- 砍价 -->
+    <view class='top'>
+      <view class='heartxt'>砍价</view>
+      <view class='tabnav'>
+        <view class='{{index==cutCurrent?"btn notclick":"btn"}}' bindtap='handleTabItemClick' data-t='cut' data-idx='{{index}}' wx:for='{{btnList}}' wx:key='{{index}}'>{{item}}</view>
+      </view>
+    </view>
+    <view class='lists'>
+      <view 
+        class='item' 
+        wx:for='{{cutdata}}' 
+        wx:key='{{index}}'
+        data-name='cut'
+        data-pid='{{item.productCutPriceId}}'
+        bindtap='handleGoodsDetail' 
+      >
+        <image class='lists-img' src='{{item.coverUrl}}'></image>
+        <view class='opera'>
+          <view class='lf'>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+          </view>
+          <view class='btn'>立即拼团</view>
+        </view>
+        <view class='info'>
+          <view class='tag'>拼团价</view>
+          <view class='txt'>￥
+            <text class='price'>{{item.price}}</text>
+            <text class='del oldprice'>￥{{item.tagPrice}}</text>
+          </view>
+          <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

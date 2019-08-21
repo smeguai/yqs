@@ -1,195 +1,229 @@
 import {
-    groupbuy,
-    limit,
-    cut
+  groupbuy,
+  limit,
+  cut,
+  coupon,
+  banner
 } from '../../utils/api.js'
 import {
-    promiseRequest
+  promiseRequest
 } from '../../utils/util.js'
 const app = getApp()
 
 Page({
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-        btnList: ['推荐', '热卖'],
-        groupCurrent: 0,
-        limitCurrent: 0,
-        cutCurrent: 0,
-        bannerCurrent: 0,
-        stationId: 1,
-        pageSize: 3,
-        pageIndex: 1,
-        merchantId: 0,
-        bannerList: [{
-            img: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=115048785,2693865241&fm=27&gp=0.jpg',
-            id: 0
-        }, {
-            img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4103562629,1178676710&fm=27&gp=0.jpg',
-            id: 1
-        }, {
-            img: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3463632868,3775004076&fm=27&gp=0.jpg',
-            id: 2
-        }],
-        list: [{
-            avatar: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3393805308,1492477291&fm=27&gp=0.jpg',
-            name: '张三疯欧式奶茶铺',
-            score: 5,
-            genre: '甜品饮品',
-            moods: 566,
-            tag: ['长沙市连锁', '第一奶茶店'],
-            ticket: [{
-                price: 5,
-                txt: '满30元可用',
-                title: '优惠券'
-            }, {
-                price: 19,
-                txt: '满30元可用|可叠加',
-                title: '100元代金券'
-            }, {
-                price: 19,
-                txt: '周六至周日可用|可叠加',
-                title: '100元代金券'
-            }, {
-                price: 19,
-                txt: '周六至周日可用|可叠加',
-                title: '100元代金券'
-            }, {
-                price: 19,
-                txt: '周六至周日可用|可叠加',
-                title: '100元代金券'
-            }]
-        }],
-        groupdata: null,
-        limitdata: null,
-        cutdata: null,
-        stationId: null
-    },
-    bannerItemChange(e) {
-        this.setData({
-            bannerCurrent: e.detail.current
-        })
-    },
-    _initData() {
-        let data = {
-            stationId: this.data.stationId,
-            pageSize: this.data.pageSize,
-            pageIndex: this.data.pageIndex,
-            merchantId: 0
-        }
-        return data
-    },
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    btnList: ['推荐', '热卖'],
+    groupCurrent: 0,
+    limitCurrent: 0,
+    cutCurrent: 0,
+    bannerCurrent: 0,
+    pageSize: 5,
+    pageIndex: 1,
+    merchantId: 0,
+    bannerList: null,
+    groupdata: null,
+    limitdata: null,
+    cutdata: null,
+    stationId: null,
+    priviCurrent: 0,
+    priviLs: null,
+    loding: true,
+    location: null
+  },
+  //  购买代金券
+  handleClickPay(e) {
+    let pid = e.currentTarget.dataset.pid
+    wx.navigateTo({
+      url: `../pay/index?classs=product&productid=${pid}&count=1&skuid=0`,
+    })
+  },
 
-    getLimitdata() {
-        let data = this._initData()
-        promiseRequest(limit, 'get', data).then(res => {
-            if (res.data.code == 0) {
-                this.setData({
-                    limitdata: res.data.data
-                })
-            }
+  //  领取优惠券
+  handleClickGet(e) {
+    wx.showLoading({
+      title: '领取中...',
+      mask: true
+    })
+    promiseRequest(getreceive, 'get', {
+      couponId: e.currentTarget.dataset.id
+    }).then(res => {
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: '领取成功!',
+          icon: 'none'
         })
-    },
-    getCutdata() {
-        let data = this._initData()
-        promiseRequest(cut, 'get', data).then(res => {
-            if (res.data.code == 0) {
-                this.setData({
-                    cutdata: res.data.data
-                })
-            }
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
         })
-    },
-    getGroupdata() {
-        let data = this._initData()
-        promiseRequest(groupbuy, 'get', data).then(res => {
-            if (res.data.code == 0) {
-                this.setData({
-                    groupdata: res.data.data
-                })
-            }
-        })
-    },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
+      }
+      wx.hideLoading()
+    })
+  },
+  //  获取banner图
+  getBanner() {
+    promiseRequest(banner, 'get', {
+      id: 1,
+      stationId: this.data.stationId || 0
+    }).then(res => {
+      if (res.data.code == 0) {
         this.setData({
-            stationId: app.globalData.station.stationId
+          bannerList: res.data.data
+        })
+      }
+    })
+  },
+  //  附近好券
+  getCoupon() {
+    promiseRequest(coupon, 'get', {
+      pageIndex: this.data.pageIndex,
+      pageSize: this.data.pageSize,
+      stationId: this.data.stationId,
+      x: this.data.location[0],
+      y: this.data.location[1],
+      merchantId: 0,
+      keys: '',
+      orderby: this.data.priviCurrent
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          priviLs: res.data.data
+        })
+      }
+    })
+  },
+  bannerItemChange(e) {
+    this.setData({
+      bannerCurrent: e.detail.current
+    })
+  },
+  //  秒杀
+  getLimitdata() {
+    promiseRequest(limit, 'get', {
+      pageIndex: this.data.pageIndex,
+      pageSize: this.data.pageSize,
+      stationId: this.data.stationId,
+      merchantId: this.data.merchantId,
+      keys: '',
+      orderby: this.data.limitCurrent,
+      x: this.data.location[0],
+      y: this.data.location[1],
+      searchType: 0
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          limitdata: res.data.data
+        })
+      }
+    })
+  },
+  //  获取免费券
+  handleGetPreferential() {
+
+  },
+  //  跳转到商品详情
+  handleGoodsDetail(e) {
+    let name = e.currentTarget.dataset.name
+    let pid = e.currentTarget.dataset.pid
+    wx.navigateTo({
+      url: `../goodsdetail/index?name=${name}&pid=${pid}`
+    })
+  },
+  //  砍价
+  getCutdata() {
+    promiseRequest(cut, 'get', {
+      pageIndex: this.data.pageIndex,
+      pageSize: this.data.pageSize,
+      stationId: this.data.stationId,
+      merchantId: this.data.merchantId,
+      keys: '',
+      orderby: this.data.cutCurrent,
+      x: this.data.location[0],
+      y: this.data.location[1]
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          cutdata: res.data.data
+        })
+      }
+    })
+  },
+  //  团购
+  getGroupdata() {
+    promiseRequest(groupbuy, 'get', {
+      pageIndex: this.data.pageIndex,
+      pageSize: this.data.pageSize,
+      stationId: this.data.stationId,
+      merchantId: this.data.merchantId,
+      keys: '',
+      orderby: this.data.groupCurrent,
+      x: this.data.location[0],
+      y: this.data.location[1]
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          groupdata: res.data.data
+        })
+      }
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.setData({
+      stationId: wx.getStorageSync('station').stationId,
+      location: wx.getStorageSync('location')
+    })
+    Promise.all([this.getBanner(), this.getCoupon(), this.getGroupdata(), this.getCutdata(), this.getLimitdata()]).then(() => {
+      this.setData({
+        loding: false
+      })
+    })
+  },
+  handleTabItemClick(e) {
+    let d = e.currentTarget.dataset
+    switch (d.t) {
+      case 'privilege':
+        this.setData({
+          priviCurrent: d.idx
+        })
+        this.getCoupon()
+        break;
+      case 'group':
+        this.setData({
+          groupCurrent: d.idx
         })
         this.getGroupdata()
-        this.getCutdata()
+        break;
+      case 'limit':
+        this.setData({
+          limitCurrent: d.idx
+        })
         this.getLimitdata()
-    },
-    handleTabItemClick(e) {
-        let d = e.currentTarget.dataset
-        console.log(d.t)
-        switch (d.t) {
-            case 'group':
-                this.setData({
-                    groupCurrent: d.idx
-                })
-                break;
-            case 'limit':
-                this.setData({
-                    limitCurrent: d.idx
-                })
-                break;
-            case 'cut':
-                this.setData({
-                    cutCurrent: d.idx
-                })
-                break;
-        }
-    },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function() {
-
+        break;
+      case 'cut':
+        this.setData({
+          cutCurrent: d.idx
+        })
+        this.getCutdata()
+        break;
     }
+  },
+  //  下拉刷新
+  onPullDownRefresh: function() {
+    this.setData({
+      loding: true
+    })
+    Promise.all([this.getBanner(), this.getCoupon(), this.getGroupdata(), this.getCutdata(), this.getLimitdata()]).then(() => {
+      this.setData({
+        loding: false
+      })
+    })
+  }
 })

@@ -9,7 +9,7 @@
         </view>
     </view>
     <view class='list'>
-        <view class='list-item' wx:for='{{list}}'>
+        <view class='list-item' wx:for='{{list}}' bindtap="handleTogoodsdetail" data-pid='{{item.timeLimitBuyId}}'>
             <view class='top'>
                 <image src='../../../static/img/seller.png' class='icon'></image>
                 <text class='sellername'>{{item.merchantName}}</text>
@@ -22,7 +22,7 @@
                 <image class='avart' src='{{item.coverUrl}}'></image>
                 <view class='desc'>
                     <view class='goodsname str'>{{item.productName}}</view>
-                    <view class='date'>{{item.productShortDesc}}</view>
+                    <view class='date strmore'>{{item.productShortDesc}}</view>
                     <view class='counttime'>
                         <countdown strTime='{{item.endTime}}'></countdown>
                         <view class='txt'>后结束</view>

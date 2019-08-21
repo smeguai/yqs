@@ -1,7 +1,30 @@
 .container {
   background: #f9f9f9;
 }
-
+.container .asild {
+  height: 78rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.4);
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left:0;
+  right: 0;
+  z-index: 9999;
+}
+.container .asild button {
+  background: #0CAE42;
+  border-radius: 27rpx;
+  font-size: 28rpx;
+  color: #fff;
+  padding: 0 24rpx;
+  margin: 0 0 0 24rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+}
 .container .user {
   background: #ffde4e;
   padding: 82rpx 40rpx 148rpx 24rpx;

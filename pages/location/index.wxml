@@ -26,15 +26,16 @@
     <view class="xg_centerTop">
       <view class="xg_centerTop_left">
         <image src="../../static/img/addrsicon.png"></image>
-        <view>
+        <view class='xg_centerTop_midd'>
           <view class="xg_centerTop_leftTitle">当前位置</view>
-          <view class="xg_centerTop_leftText">{{currentData || data.stationName}}</view>
+          <view class="xg_centerTop_leftText str">{{address}}</view>
         </view>
       </view>
       <view class="xg_centerTop_right" bindtap='setStation'>修改</view>
     </view>
-    <view class="xg_centerBot" wx:if='{{nearbyData.length}}'>
+    <view class="xg_centerBot">
       <view class="xg_centerBotTitle">附近小区</view>
+      <block wx:if='{{nearbyData.length}}'>
       <view class="xg_centerBot_text" wx:for="{{nearbyData}}" wx:key="{{index}}" bindtap='nearItemClick' data-id='{{item.stationId}}'>
         <view class="xg_centerBot_text_name">
           <view class="xg_centerBot_text_name_estate">{{item.stationName}}</view>
@@ -43,6 +44,8 @@
           <text class="xg_centerBot_text_name_num">距离{{item.distance}}</text>
           <text class="xg_centerBot_text_name_xq" catchtap='nearItemBtnClick' data-id='{{item.stationId}}'>进入小区</text>
       </view>
+      </block>
+      <view class='xg_centerBot_subtxt' wx:else>当前没有开通的小区</view>
     </view>
   </view>
 

@@ -3,5 +3,6 @@
         "catcount": "../../component/catcount/index",
         "paypass": "../../component/paypass/index"
     },
-    "navigationBarTitleText": "提交订单"
+    "navigationBarTitleText": "提交订单",
+    "navigationBarBackgroundColor": "#FFDE4E"
 }

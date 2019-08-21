@@ -1,15 +1,18 @@
 <view class="collect_box">
-    <view class="collect_view" wx:for="{{text}}" wx:key="{{item}}">
-        <image class="collect_viewImg" src="{{item.img}}"></image>
-        <view class="collect_viewText">
-            <view class="collect_viewText_name">
-                <text class="collect_viewText_nameText">{{item.name}}</text>
-                <view>
-                    {{item.num}}人逛过
-                    <image class="collect_right" src="../../static/img/right.png"></image>
-                </view>
-            </view>
-            <view>{{item.text}}</view>
+  <view class="collect_view" wx:for="{{text}}" wx:key="{{item}}" data-id='{{item.merchantId}}' bindtap='handleItemClick'>
+    <image class="collect_viewImg" src="{{item.headImgUrl}}"></image>
+    <view class="collect_viewText">
+      <view class="collect_viewText_name">
+        <view class='collect_viewText_midd'>
+          <text class="collect_viewText_nameText str">{{item.merchantName}}</text>
+          <text class="collect_viewText_nameText str">{{item.tagName}}</text>
         </view>
+        <view>
+          {{item.viewNum}}人逛过
+          <image class="collect_right" src="../../static/img/right.png"></image>
+        </view>
+      </view>
+      <view>{{item.text}}</view>
     </view>
+  </view>
 </view>

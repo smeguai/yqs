@@ -7,7 +7,16 @@
     </view>
   </view>
 
-
+  <view class='list-wrapper'>
+    <view class='item'>
+      <image class='img' src=''></image>
+      <view class='midd'>
+        <view class='price'><text class='tagprice'></text></view>
+        <view class='paynum'></view>
+      </view>
+      <view class='name strmore'></view>
+    </view>
+  </view>
 
 
 </view>

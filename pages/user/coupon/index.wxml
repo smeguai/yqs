@@ -1,55 +1,60 @@
 <view class="container">
-    <view class="coupon_nav">
-        <view class="coupon_navView" wx:for="{{nav}}" data-index="{{index}}" wx:key="index" bindtap="navClick">
-            <text class="coupon_navView_text {{activeIndex == index ?'active' : ''}}">{{item.name}}<text wx:if="{{item.id==0}}"> ({{coupon_my.length}})</text></text>
-        </view>
+<loding show='{{loding}}' />
+  <view class="coupon_nav">
+    <view class="coupon_navView" wx:for="{{nav}}" data-index="{{index}}" wx:key="index" bindtap="navClick">
+      <text class="coupon_navView_text {{activeIndex == index ?'active' : ''}}">{{item.name}}<text wx:if="{{item.id==0}}"> </text></text>
     </view>
+  </view>
 
-    <!-- 我的优惠券 -->
-    <view class="coupon" wx:if="{{activeIndex==0}}">
-        <view class="coupon_box" wx:for="{{coupon_my}}" wx:key="item">
-            <view class="coupon_boxCircle_left"></view>
-            <view class="coupon_boxCircle_right"></view>
-            <view class="coupon_text">
-                <view class="coupon_text_left">
-                    <view class="coupon_text_leftPrice">
-                        <view class="coupon_text_leftPay">￥<text>{{item.pay}}</text></view>
-                        <view>满{{item.price}}可用</view>
-                    </view>
-                    <view>
-                        <view class="coupon_text_leftTitle">{{item.title}}</view>
-                        <view wx:if='{{item.day}}' class="coupon_text_leftDay">还剩{{item.day}}天</view>
-                        <view wx:if='{{item.day2}}' class="coupon_text_leftDay2">有效期至{{item.day2}}</view>
-                    </view>
-                </view>
-                <view class="coupon_text_btn">立即使用</view>
+  <!-- 我的优惠券 -->
+  <view class="coupon" wx:if="{{activeIndex==0}}">
+    <view class="coupon_box" wx:for="{{coupon_my}}" wx:key="{{index}}">
+      <view class="coupon_boxCircle_left"></view>
+      <view class="coupon_boxCircle_right"></view>
+      <view class="coupon_text">
+        <view class="coupon_text_left">
+          <view class="coupon_text_leftPrice">
+            <view class="coupon_text_leftPay">￥
+              <text>{{item.couponMoney}}</text>
             </view>
-            <view class="coupon_texts">{{item.text}}</view>
+            <view class='coupon_text_tiaojian'>满{{item.spendMoney}}可用</view>
+          </view>
+          <view class='coupon_textc'>
+            <view class="coupon_text_leftTitle">{{item.merchantName}}</view>
+            <view wx:if='{{false}}' class="coupon_text_leftDay">还剩{{item.validEndTime}}天</view>
+            <view wx:else class="coupon_text_leftDay2">有效期:{{item.validStartTime}}至{{item.validEndTime}}</view>
+          </view>
         </view>
+        <view class="coupon_text_btn">立即使用</view>
+      </view>
+      <view class="coupon_texts">{{item.couponDes}}</view>
     </view>
+  </view>
 
-    <!-- 免费领券 -->
-    <view class="coupon" wx:else>
-        <view class="coupon_box" wx:for="{{coupon_my}}" wx:key="item">
-            <view class="coupon_boxCircle_left"></view>
-            <view class="coupon_boxCircle_right"></view>
-            <image wx:if="{{item.type==1}}" class="coupon_boxImg" src="../../../static/img/icon-coupon.png"></image>
-            <view class="coupon_text">
-                <view class="coupon_text_left">
-                    <view class="coupon_text_leftPrice">
-                        <view class="coupon_text_leftPay">￥<text>{{item.pay}}</text></view>
-                        <view>满{{item.price}}可用</view>
-                    </view>
-                    <view>
-                        <view class="coupon_text_leftTitle">{{item.title}}</view>
-                        <view wx:if='{{item.day}}' class="coupon_text_leftDay">还剩{{item.day}}天</view>
-                        <view wx:if='{{item.day2}}' class="coupon_text_leftDay2">有效期至{{item.day2}}</view>
-                    </view>
-                </view>
-                <view wx:if="{{item.type==0}}" class="coupon_text_btn">立即领取</view>
-                <view wx:else class="coupon_text_btn2">去使用</view>
+  <!-- 免费领券 -->
+  <view class="coupon" wx:else>
+    <view class="coupon_box" wx:for="{{free_coupon_list}}" wx:key="item">
+      <view class="coupon_boxCircle_left"></view>
+      <view class="coupon_boxCircle_right"></view>
+      <image wx:if="{{item.type==1}}" class="coupon_boxImg" src="../../../static/img/icon-coupon.png"></image>
+      <view class="coupon_text">
+        <view class="coupon_text_left">
+          <view class="coupon_text_leftPrice">
+            <view class="coupon_text_leftPay">￥
+              <text>{{item.couponMoney}}</text>
             </view>
-            <view class="coupon_texts">{{item.text}}</view>
+            <view>满{{item.spendMoney}}可用</view>
+          </view>
+          <view>
+            <view class="coupon_text_leftTitle">{{item.merchantName}}</view>
+            <view wx:if='{{false}}' class="coupon_text_leftDay">还剩{{item.day}}天</view>
+            <view wx:else class="coupon_text_leftDay2">有效期:{{item.validStartTime}}至{{item.validEndTime}}</view>
+          </view>
         </view>
+        <view wx:if="{{item.active==index}}" class="coupon_text_btn2">去使用</view>
+        <view class="coupon_text_btn" wx:else data-idx='{{index}}' data-id='{{item.couponId}}' bindtap='handleGetCoupon'>立即领取</view>
+      </view>
+      <view class="coupon_texts">{{item.CouponDes}}</view>
     </view>
+  </view>
 </view>

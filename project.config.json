@@ -4,17 +4,24 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": false,
 		"autoAudits": false,
-		"checkInvalidKey": true
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.5",
+	"libVersion": "2.8.0",
 	"appid": "wx00490ec45f3058a7",
 	"projectname": "yqs",
 	"debugOptions": {
@@ -41,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 27,
+			"current": 33,
 			"list": [
 				{
 					"id": -1,
@@ -131,7 +138,7 @@
 					"id": 12,
 					"name": "商品详情",
 					"pathName": "pages/goodsdetail/index",
-					"query": "name=product&pid=34",
+					"query": "name=group&pid=1486",
 					"scene": null
 				},
 				{
@@ -145,7 +152,7 @@
 					"id": 14,
 					"name": "提交订单",
 					"pathName": "pages/pay/index",
-					"query": "productid=1478&skuid=3607&count=1",
+					"query": "productid=1483&skuid=0&count=1&classs=product",
 					"scene": null
 				},
 				{
@@ -236,6 +243,48 @@
 					"id": -1,
 					"name": "优惠",
 					"pathName": "pages/privilege/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 28,
+					"name": "店铺详情",
+					"pathName": "pages/indexnavs/shop/index",
+					"query": "pid= 10011",
+					"scene": null
+				},
+				{
+					"id": 29,
+					"name": "分享后的砍价页",
+					"pathName": "pages/cutdetail/index",
+					"query": "pid=42&uid=1000008",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "支付成功",
+					"pathName": "pages/paydone/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "支付页",
+					"pathName": "pages/pay/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择小区",
+					"pathName": "pages/location/select/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的砍价",
+					"pathName": "pages/mycutlist/index",
 					"scene": null
 				}
 			]

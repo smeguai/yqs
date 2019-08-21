@@ -19,6 +19,8 @@
 .container .list .item .info {
   padding-left: 30rpx;
   flex: 1;
+  width: 0;
+  box-sizing: border-box;
 }
 
 .container .list .item .info .middel {
@@ -110,13 +112,14 @@
 }
 
 .container .list .item .info .goods {
-  display: flex;
   padding-top: 24rpx;
-  justify-content: space-between;
 }
-
+.container .list .item .info .goods .goods-list {
+  display: flex;
+}
 .container .list .item .info .goods .goodsitem {
   width: 178rpx;
+  margin: 0 10rpx;
 }
 
 .container .list .item .info .goods .goodsitem .imgurl {

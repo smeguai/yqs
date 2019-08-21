@@ -16,7 +16,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    payStatus: false,
     orderId: null,
     navList: [{
       txt: '全部',
@@ -49,7 +48,8 @@ Page({
     status: 0,
     pageIndex: 1,
     pageSize: 10,
-    count: 0
+    count: 0,
+    loding: true
   },
   navItemClick(e) {
     let id = e.currentTarget.dataset.id
@@ -58,11 +58,8 @@ Page({
       navIdx: id,
       status: id,
       pageIndex: 1,
-      list: []
-    })
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
+      list: [],
+      loding: true
     })
     this.getOrders()
   },
@@ -176,10 +173,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     this.setData({
       navIdx: options.pid,
       status: options.pid
@@ -197,50 +190,27 @@ Page({
           this.setData({
             list: [...this.data.list, ...res.data.data],
             count: res.data.totalCount,
-            pageIndex: data.pageIndex + 1
+            pageIndex: data.pageIndex + 1,
           })
         }
-        wx.hideLoading()
-        wx.stopPullDownRefresh()
+        this.setData({
+          loding: false
+        })
       }
     })
   },
 
-  //  弹出支付密码
-  paying(e) {
-    this.setData({
-      payStatus: true,
-      orderId: e.currentTarget.dataset.orderid
-    })
-  },
-
-  //  关闭输入框
-  payclose(e) {
-    this.setData({
-      payStatus: e.detail,
-      orderId: null
-    })
-  },
-
-  //  密码验证
-  verifypass(e) {
-    if (e.detail) {
-      this.wxPayment()
-    }
-  },
-
   //  微信支付
-
-  wxPayment(v) {
+  wxPayment(e) {
     promiseRequest(orderpay, 'get', {
-      orderId: this.data.orderId
+      orderId: e.currentTarget.dataset.orderid
     }).then(res => {
       if (res.data.code == 0) {
         let v = res.data.data
         wx.requestPayment({
           timeStamp: v.timestamp,
           nonceStr: v.noncestr,
-          package: v.partnerid,
+          package: 'prepay_id=' + v.prepayid,
           signType: 'MD5',
           paySign: v.sign,
           success: (res) => {
@@ -257,7 +227,8 @@ Page({
   onShow: function() {
     this.setData({
       list: [],
-      pageIndex: 1
+      pageIndex: 1,
+      loding: true
     })
     this.getOrders()
   },
@@ -270,10 +241,6 @@ Page({
       pageIndex: 1,
       list: [],
     })
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     this.getOrders()
     
   },
@@ -283,10 +250,6 @@ Page({
    */
   onReachBottom: function() {
     if (this.data.list.length < this.data.count) {
-      wx.showLoading({
-        title: '加载中...',
-        mask: true
-      })
       this.getOrders()
     }
   },

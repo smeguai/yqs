@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-      "grade": "../../../component/grade/grade"
+      "grade": "../../../component/grade/grade",
+      "dis": "../../../component/dis/index"
   },
-    "navigationBarTitleText": "优惠"
+    "navigationBarTitleText": "优惠",
+    "enablePullDownRefresh": true
 }

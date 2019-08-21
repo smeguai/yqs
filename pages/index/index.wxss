@@ -240,6 +240,7 @@
 .container .recommend .item .info {
     padding-left: 30rpx;
     flex: 1;
+    width: 0;
 }
 
 .container .recommend .item .info .middel {
@@ -339,13 +340,14 @@
 }
 
 .container .recommend .item .info .goods {
-    display: flex;
-    justify-content: space-around;
     padding-top: 24rpx;
 }
-
+.container .recommend .item .info .goods .list {
+  display: flex;
+}
 .container .recommend .item .info .goods .goodsitem {
-    flex: 1;
+    width: 178rpx;
+    margin: 0 10rpx;
 }
 
 .container .recommend .item .info .goods .goodsitem .imgurl {

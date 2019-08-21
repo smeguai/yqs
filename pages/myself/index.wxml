@@ -1,4 +1,8 @@
 <view class='container'>
+  <view class='asild'>
+    <text>关注翼省钱go公众号，快速查找订单</text>
+    <button>关注+</button>
+  </view>
   <view class='user'>
     <image src='{{userInfo.headimg || "../../static/img/notloding.png"}}' class='avatar'></image>
     <view class='info' wx:if='{{onLine}}'>

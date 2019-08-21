@@ -2,11 +2,13 @@ import {
   orderdetail,
   receiving,
   canceorder,
-  deleteorder
+  deleteorder,
+  cancelrefund
 } from '../../utils/api.js'
 import {
   promiseRequest
 } from '../../utils/util.js'
+const app = getApp()
 
 Page({
 
@@ -17,6 +19,7 @@ Page({
     listTotal: 0,
     orderId: 0,
     info: null,
+    loding: true,
     modeList: {
       0: {
         strong: '等待买家付款',
@@ -63,7 +66,18 @@ Page({
     this.setData({
       orderId: options.orderid
     })
-    
+  },
+  //  复制单号
+  handleCloneOrderNo(e) {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.txt,
+      success: () => {
+        wx.showToast({
+          title: '复制成功!',
+          icon: 'none'
+        })
+      }
+    })
   },
   //  跳转到退款页
   handleRefund(e) {
@@ -118,6 +132,20 @@ Page({
       }
     })
   },
+  //  打商家电话
+  handleTelClick(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.tel
+    })
+  },
+  //  查看商家地理位置
+  handleOpenLocation() {
+    wx.openLocation({
+      latitude: parseFloat(this.data.info.x),
+      longitude: parseFloat(this.data.info.y),
+      address: this.data.info.addr
+    })
+  },
   //  获取订单详情
   getOrderDetail() {
     let data = {
@@ -126,18 +154,19 @@ Page({
     promiseRequest(orderdetail, 'get', data).then(res => {
       if (res.data.code == 0) {
         let info = res.data.data
-        console.log(info.eleCardPayTotal + info.cashPayTotal + info.payTotal)
         let total = parseInt(info.eleCardPayTotal * 10 + info.cashPayTotal * 10 + info.payTotal * 10) / 10
         this.setData({
           info,
           total
         })
       }
+      this.setData({
+        loding: false
+      })
     })
   },
   //  取消订单
   handleCanceOrder() {
-    console.log(1)
     wx.showModal({
       content: '确认取消订单吗?',
       success: (r) => {
@@ -160,7 +189,22 @@ Page({
   },
   //  取消退款
   handleCancelRefund() {
-
+    promiseRequest(cancelrefund, 'get', {
+      orderId: this.data.orderId
+    }).then(res => {
+      console.log(res)
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: '操作成功',
+          icon: 'none',
+          success: () => {
+            setTimeout(() => {
+              this.getOrderDetail()
+            }, 1000)
+          }
+        })
+      }
+    })
   },
   //  删除订单
   handleDeleteOrder() {
@@ -190,16 +234,12 @@ Page({
     })
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      loding: true
+    })
     this.getOrderDetail()
   },
 
@@ -228,13 +268,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
 
   }
 })

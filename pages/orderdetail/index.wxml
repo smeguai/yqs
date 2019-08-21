@@ -1,4 +1,5 @@
 <view class='container'>
+<loding show='{{loding}}' />
   <!-- 订单状态 -->
   <view class='tips'>
     <view class='content'>{{modeList[info.status].strong}}</view>
@@ -17,9 +18,9 @@
           <view class='usertel'>{{info.contactMobile}}</view>
         </view>
         <view class='rt'>
-          <image class='telicon' src='../../static/img/orderdetail_tel.png'></image>
+          <image class='telicon' src='../../static/img/orderdetail_tel.png' data-tel='{{info.contactMobile}}' bindtap='handleTelClick'></image>
           <text class='shu'></text>
-          <image class='addrsicon' src='../../static/img/orderdetail_addr.png'></image>
+          <image class='addrsicon' src='../../static/img/orderdetail_addr.png' bindtap="handleOpenLocation"></image>
         </view>
       </view>
       <text class='addrs'>{{info.addr}}</text>
@@ -67,21 +68,24 @@
       <view class='head'>
         <view class='info'>
           <view class='title'>核销记录</view>
-          <view class='btn' wx:if='{{info.codeList.codeNum}}' bindtap='handleRefund' data-orderid='{{info.orderId}}'>申请退款</view>
+          <view class='btn' wx:if='{{info.status == 1}}' bindtap='handleRefund' data-orderid='{{info.orderId}}'>申请退款</view>
         </view>
-        <view class='substr' wx:if='{{info.codeList.codeNum}}'>{{info.codeList.codeNum}}个可用 | 有效期至 {{info.codeList.endTime}}</view>
+        <view class='substr' wx:if='{{info.codeList.codeNum && info.status != 0}}'>{{info.codeList.codeNum}}个可用 | 有效期至 {{info.codeList.endTime}}</view>
+        <view class='substr' wx:else>核销码暂无</view>
       </view>
-      <view class='qa' wx:for='{{info.codeList.dataList}}' wx:key='{{index}}'>
-        <text class='ltxt'>核销码</text>
-        <text class='txt'>{{item.code}}</text>
-        <view class='navige' wx:if='{{item.status == 0}}' data-code='{{item.code}}' bindtap="handleVierifyShow">去核销</view>
-        <view class='text' wx:if='{{item.status == 1}}' data-code='{{item.code}}' bindtap="tomyvierify">已核销</view>
-        <view class='navige' wx:if='{{item.status == 2}}' data-code='{{item.code}}'>退货中</view>
-        <view class='text' wx:if='{{item.status == 3}}' data-code='{{item.code}}' bindtap="tomyvierify">已退货</view>
-      </view>
-      <view class='qa' wx:if='{{info.returnModel}}'>关闭时间
+      <block wx:if='{{info.status != 0}}'>
+        <view class='qa' wx:for='{{info.codeList.dataList}}' wx:key='{{index}}'>
+          <text class='ltxt'>核销码</text>
+          <text class='txt'>{{item.code}}</text>
+          <view class='navige' wx:if='{{item.status == 0}}' data-code='{{item.code}}' bindtap="handleVierifyShow">去核销</view>
+          <view class='text' wx:if='{{item.status == 1}}' data-code='{{item.code}}' bindtap="tomyvierify">已核销</view>
+          <view class='navige' wx:if='{{item.status == 2}}' data-code='{{item.code}}'>退货中</view>
+          <view class='text' wx:if='{{item.status == 3}}' data-code='{{item.code}}' bindtap="tomyvierify">已退货</view>
+        </view>
+      </block>
+      <!-- <view class='qa' wx:if='{{info.returnModel}}'>关闭时间
         <text class='txt'>{{info.createTime}}</text>
-      </view>
+      </view> -->
     </view>
     <!-- 用户信息 -->
     <view class='section orderinfo'>
@@ -105,6 +109,7 @@
       <view class='qa'>
         <text class='ltxt'>交易单号</text>
         <text class='txt'>{{info.orderNumber}}</text>
+        <text class='btn' bindtap="handleCloneOrderNo" data-txt='{{info.orderNumber}}'>复制</text>
       </view>
       <view class='qa' wx:if='{{info.createTime}}'>
         <text class='ltxt'>创建时间</text>

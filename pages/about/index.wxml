@@ -2,7 +2,7 @@
     <view class='bg'></view>
     <view class='main'>
         <image src='' class='avatar'></image>
-        <view class='name'>翼起省</view>
+        <view class='name'>翼省钱go</view>
         <view class='info'>
             <view class='item'>
                 <text>当前版本</text>

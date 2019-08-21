@@ -1,6 +1,7 @@
 import {
   bindtel,
-  hasbindtel
+  hasbindtel,
+  getcode
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -15,20 +16,48 @@ Page({
     code: false,
     code_num: '',
     confirm: false,
-    hasbindtel: false
+    hasbindtel: false,
+
+
+    timer: 60,
+    codetxt: '发送验证'
   },
 
   newMobile(e) {
     this.setData({
       mobile: e.detail.value
     })
-    this.data.mobile == '' ? this.setData({
-      code: false
-    }) : this.setData({
-      code: true
+    let code = this.data.mobile.length == 11 ? true : false
+    this.setData({
+      code,
+      code_num: '',
+      confirm: false
     })
   },
 
+  //  倒计时
+  getTimeout() {
+    if (this.data.timer > 0) {
+      setTimeout(() => {
+        this.setData({
+          timer: this.data.timer - 1,
+          codetxt: (this.data.timer - 1) + '秒再次获取'
+        })
+        this.getTimeout()
+      }, 100)
+    } else {
+      this.setData({
+        timer: 60,
+        codetxt: '发送验证'
+      })
+    }
+  },
+  //  发送验证码
+  handleGetCode() {
+    if (this.data.codetxt == '发送验证' && this.data.timer == 60) {
+      this.getcode()
+    }
+  },
   mobileCode(e) {
     if (this.data.mobile == '') {
       this.setData({
@@ -41,15 +70,25 @@ Page({
       return;
     }
     this.setData({
-      code_num: e.detail.value
-    })
-    this.data.code_num == '' ? this.setData({
-      confirm: false
-    }) : this.setData({
-      confirm: true
+      code_num: e.detail.value,
+      confirm: e.detail.value.length == 4 && this.data.code ? true: false
     })
   },
-
+  //  获取验证码
+  getcode() {
+    promiseRequest(getcode, 'post', {
+      action: 'bind',
+      mobile: this.data.mobile
+    }).then(res => {
+      wx.showToast({
+        title: res.data.msg,
+        icon: 'none'
+      })
+      if (this.data.code == 0) {
+        this.getTimeout()
+      }
+    })
+  },
   /* 生命周期函数--监听页面加载 */
   onLoad: function(options) {
     this.getBindTel()
@@ -66,8 +105,22 @@ Page({
   },
   //  绑定手机号
   handleBindTel() {
-    // promiseRequest(bindtel, 'post', {
-    //   pwd: 
-    // })
+    promiseRequest(bindtel, 'post', {
+      mobile: this.data.mobile,
+      validCode: 1230
+    }).then(res => {
+      console.log(res)
+      wx.showToast({
+        title: res.data.msg,
+        icon: 'none'
+      })
+      if (res.data.code == 0) {
+        setTimeout(()=> {
+          wx.navigateBack({
+            delta: -1
+          })
+        }, 1000)
+      }
+    })
   }
 })

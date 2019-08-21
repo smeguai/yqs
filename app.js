@@ -8,8 +8,8 @@ App({
   onLaunch: function() {
     this.getWXLogin()
     this.getLocation()
-    this.globalData.station = wx.getStorageSync('station')
     this.globalData.userInfo = wx.getStorageSync('userInfo')
+    this.globalData.station = wx.getStorageSync('station')
   },
   getWXLogin() {
     // 登录
@@ -34,23 +34,26 @@ App({
   getLocation() {
     //  获取当前地理位置
     return new Promise((res, rej) => {
-      let location = wx.getStorageSync('location')
-      if (location) {
-        this.globalData.location = location
-        return
+      let station = wx.getStorageSync('station')
+      if (station) {
+        this.globalData.station = station
       }
       wx.getLocation({
         success: (res) => {
           this.globalData.location = [res.latitude, res.longitude]
+//拿this.globalData.location  Storage比较//
           wx.setStorage({
             key: 'location',
             data: [res.latitude, res.longitude],
           })
+          console.log('app.js, [x,y]', res.latitude, res.longitude)
         },
-        complete: () => {
-          wx.navigateTo({
-            url: './../../pages/location/index',
-          })
+        complete: (r) => {
+          if (!station) {
+            wx.navigateTo({
+              url: '../location/index',
+            })
+          }
         }
       })
     })

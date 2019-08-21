@@ -6,7 +6,49 @@
   top: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   z-index: 99999;
-  background: rgba(0,0,0,.1);
+  background: #fff;
+}
+
+.loding .main {
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loding .main .block {
+  position: relative;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 100%;
+  border: 6rpx solid #ccc;
+}
+.loding .main .block::before {
+  position: absolute;
+  content: '';
+  left: -6rpx;
+  top: -6rpx;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 100%;
+  border: 6rpx solid #FFDE4E;
+  border-color: transparent transparent transparent #FFDE4E;
+  animation: zhuan linear 1s infinite;
+}
+.txt {
+  font-size: 24rpx;
+  color: #ccc;
+  padding-top: 20rpx;
+}
+@keyframes zhuan {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
 }

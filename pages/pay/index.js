@@ -1,10 +1,13 @@
 import {
   placeorder,
   producOrder,
+  limitOrder,
   hasbindtel,
   existpaypwd,
   grouporder,
-  subgrouporder
+  subgrouporder,
+  limitsubmit,
+  usercoupon
 } from '../../utils/api.js'
 import {
   promiseRequest,
@@ -19,7 +22,7 @@ Page({
    */
   data: {
     num: null,
-    orderid: null,
+    // orderid: null,
     skuid: null,
     info: null,
     total: 0,
@@ -36,7 +39,12 @@ Page({
     hasbindtel: false,
     hasbindpass: false,
     classs: null,
-    productid: null
+    productid: null,
+    time: null,
+    groupBuyId: 0,
+    ticketupMode: false,
+    couponLs: null,
+    textareaStyle: 'height: 106rpx;'
   },
 
   /**
@@ -46,15 +54,17 @@ Page({
     this.setData({
       num: options.count,
       productid: options.productid,
-      skuid: options.skuid
+      skuid: options.skuid,
+      classs: options.classs,
+      groupBuyId: options.groupBuyId
     })
-    this.setData({
-      classs: options.classs
-    })
-    console.log(this.data.classs)
+    this.getUsercoupon()
     switch (this.data.classs) {
       case 'group':
         this.getGroupOrder()
+        break;
+      case 'limit':
+        this.getLimit()
         break;
       case 'product':
         this.getPlaceOrder()
@@ -64,17 +74,43 @@ Page({
   onShow() {
     this.getExistpaypwd()
     this.getBindTel()
+    let userInfo = wx.getStorageSync('userInfo')
+    this.setData({
+      fullname: userInfo.nickname,
+      telephone: userInfo.mobile
+    })
   },
-  //  普通商品
-  getPlaceOrder() {
+  //  获取商品可用优惠券
+  getUsercoupon() {
+    promiseRequest(usercoupon, 'get', {
+      productId: this.data.productid
+    }).then(res => {
+      console.log(res)
+    })
+  },
+  //  关闭优惠券弹出层
+  handleCloseticketup() {
+    this.setData({
+      ticketupMode: false,
+      textareaStyle: 'height: 106rpx;'
+    })
+  },
+  //  打开优惠券弹出层
+  handleShowticketup() {
+    this.setData({
+      ticketupMode: true,
+      textareaStyle: 'display: none;'
+    })
+  },
+  //  秒杀商品
+  getLimit() {
     let data = {
-      productId: this.data.productid,
+      TimeLimitBuyId: this.data.productid,
       skuId: this.data.skuid,
       quantity: this.data.num
     }
-    promiseRequest(placeorder, 'get', data).then(res => {
-      console.log(res)
-      if (res.data.code === 0) {
+    promiseRequest(limitsubmit, 'get', data).then(res => {
+      if (res.data.code == 0) {
         let total = 0
         res.data.data.detailList.map(item => {
           total += parseInt((this.data.num * item.unitPrice) * 100) / 100
@@ -87,15 +123,42 @@ Page({
       }
     })
   },
+  //  普通商品
+  getPlaceOrder() {
+    let data = {
+      productId: this.data.productid,
+      skuId: this.data.skuid,
+      quantity: this.data.num
+    }
+    promiseRequest(placeorder, 'get', data).then(res => {
+      if (res.data.code === 0) {
+        let total = 0
+        res.data.data.detailList.map(item => {
+          total += parseInt((this.data.num * item.unitPrice) * 100) / 100
+        })
+        let time = ''
+        let isVouchers = res.data.data.isVouchers
+        if (isVouchers) {
+          time = res.data.data.useStartTime.substr(0, 10) + ' 至 ' + res.data.data.useEndTime.substr(0, 10)
+        }
+        this.setData({
+          info: res.data.data,
+          total,
+          time
+        })
+        this.isCardPay()
+      }
+    })
+  },
   //  拼团订单
   getGroupOrder() {
+    console.log(this.data.groupBuyId)
     promiseRequest(grouporder, 'get', {
       productGroupBuyId: this.data.productid,
       skuId: this.data.skuid,
-      groupBuyId: 0,
+      groupBuyId: this.data.groupBuyId,
       quantity: this.data.num
     }).then(res => {
-      console.log(res)
       if (res.data.code === 0) {
         let total = 0
         res.data.data.detailList.map(item => {
@@ -146,15 +209,17 @@ Page({
       })
       return
     }
-    if (!this.data.hasbindpass) {
-      wx.navigateTo({
-        url: '../user/password/index',
-      })
-      return
-    }
     if (this.data.radio1 || this.data.radio2) {
+      //  没有绑定支付密码跳转设置支付密码页
+      if (!this.data.hasbindpass) {
+        wx.navigateTo({
+          url: '../user/password/index',
+        })
+        return
+      }
       this.setData({
-        hasPassMode: true
+        hasPassMode: true,
+        textareaStyle: 'display: none;'
       })
     } else {
       this.verifypass({
@@ -210,11 +275,13 @@ Page({
       hasPassMode: e.detail
     })
   },
+
+  // 微信支付
   wxPayment(v) {
     wx.requestPayment({
       timeStamp: v.data.timestamp,
       nonceStr: v.data.noncestr,
-      package: v.data.partnerid,
+      package: 'prepay_id=' + v.data.prepayid,
       signType: 'MD5',
       paySign: v.data.sign,
       success: (res) => {
@@ -247,49 +314,62 @@ Page({
         })
         return
       }
+      //  电子卡
       if (radio1) {
         data.eleAmount = info.eleCardBalance >= total ? total : info.eleCardBalance
       }
+      //  余额
       if (radio2) {
         data.cash = info.cashBalance >= total ? total : info.cashBalance
       }
+      //  电子卡+余额 >= 应支付
       if (radio1 && radio2 && info.cashBalance + info.eleCardBalance >= total) {
         data.cash = info.eleCardBalance >= total ? 0 : formatNum(total - info.eleCardBalance)
       }
+      //  电子卡+余额 <  应支付
       if (radio1 && radio2 && info.cashBalance + info.eleCardBalance < total && !radio3) {
+        wx.showToast({
+          title: '账户余额不足以支付!',
+          icon: 'none'
+        })
         return
       }
       switch (this.data.classs) {
         case 'group':
           data.productGroupBuyId = this.data.productid
-          this.submitGrouporder(data)
+          data.groupBuyId = this.data.groupBuyId
+          this.subOrder(subgrouporder, data)
+          break;
+        case 'limit':
+          data.timeLimitBuyId = this.data.productid
+          this.subOrder(limitOrder, data)
           break;
         case 'product':
           data.productId = this.data.productid
-          this.submitProduct(data)
+          this.subOrder(producOrder, data)
           break;
       }
       this.setData({
-        hasPassMode: false
+        hasPassMode: false,
+        textareaStyle: 'height: 106rpx;'
       })
     }
   },
-  //  团购商品提交
-  submitGrouporder(data) {
-    promiseRequest(subgrouporder, 'post', data).then(res => {
-      console.log(res)
-    })
-  },
-  //  普通商品提交
-  submitProduct(data) {
-    promiseRequest(producOrder, 'post', data).then(res => {
+  //  提交订单
+  subOrder(url, data) {
+    promiseRequest(url, 'post', data).then(res => {
       let v = res.data.value
+      console.log(v)
       if (v && v.code == 0) {
         if (v.order.grandTotal > 0) {
           this.wxPayment(v)
         } else {
-          wx.reLaunch({
-            url: '../paydone/index',
+          //  如果是团购 传递group = 1
+          let group = this.data.classs == 'group' ? 1 : 0
+          let groupBuyId = res.data.value.order.groupbuyId ? res.data.value.order.groupbuyId : false
+          let productid = groupBuyId ? groupBuyId : this.data.productid
+          wx.redirectTo({
+            url: `../paydone/index?pid=${productid}&group=${group}`
           })
         }
       } else if (res.data.value && res.data.value.code == 1) {
@@ -305,6 +385,7 @@ Page({
       }
     })
   },
+
   handleIptName(e) {
     this.setData({
       fullname: e.detail.value

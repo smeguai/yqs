@@ -60,11 +60,18 @@
 .coupon_text_left {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .coupon_text_leftPrice {
     color: #FF6600;
     font-size: 24rpx;
-    margin-right: 43rpx;
+    width: 160rpx;
+}
+.coupon_textc {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .coupon_text_leftPay>text {
     font-size: 64rpx;
@@ -79,13 +86,13 @@
 }
 .coupon_text_leftDay {
     color: #FF6600;
-    font-size: 28rpx;
-    margin-top: 10rpx;
+    font-size: 20rpx;
+    margin-top: 40rpx;
 }
 .coupon_text_leftDay2 {
     color: #666666;
     font-size: 24rpx;
-    margin-top: 10rpx;
+    margin-top: 40rpx;
 }
 .coupon_boxImg {
     width: 100rpx;

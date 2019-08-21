@@ -3,7 +3,8 @@ import {
   groupbuydetail,
   cutdetail,
   limitdetail,
-  sharegooddes
+  sharegooddes,
+  usercut
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -16,10 +17,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loding: true,
     status: null,
     isproduct: true,
     productId: null,
     popupShow: false,
+    startcutmode: false,
+    cutprice: 0,
     aslid_btn: [{
       img: '../../static/img/goods_index.png',
       txt: '首页'
@@ -28,7 +32,7 @@ Page({
       txt: '分享'
     }, {
       img: '../../static/img/goods_service.png',
-      txt: '联系客服'
+      txt: '联系商家'
     }],
     bannerCurrent: 0,
     pays: null,
@@ -38,50 +42,88 @@ Page({
     pageSize: 10,
     groupPrice: 0,
     groupAlonePrice: 0,
-    popupId: null
+    popupId: null,
+    groupBuyId: 0,
+    onLine: false,
+    grouppaystatus: false,
+    itemDesc: null
   },
-
+  //  进店逛逛
+  handleToSeller(e) {
+    wx.navigateTo({
+      url: `../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}`
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     this.setData({
       status: options.name,
-      productId: options.pid
+      productId: options.pid,
+      groupBuyId: options.groupBuyId,
+      onLine: wx.getStorageSync('userInfo') ? true : false
     })
     this.getDetails()
     this.getsharegooddes()
   },
+  //  参与拼团
+  handleGroupPay(e){
+    this.setData({
+      popupShow: true,
+      grouppaystatus: false,
+      popupId: this.data.productId,
+      groupBuyId: e.currentTarget.dataset.pid
+    })
+  },
+  //  弹出参团层
+  handleChangeGroupPay(e) {
+    this.setData({
+      grouppaystatus: true,
+      itemDesc: e.currentTarget.dataset.itemdesc
+    })
+  },
+  //  提交订单
   getDetails() {
-    let data = {
-
-    }
     switch (this.data.status) {
       case 'group':
         promiseRequest(groupbuydetail, 'get', {
           Id: this.data.productId
         }).then(res => {
-          console.log(res)
           if (res.data.code == 0) {
             this.setData({
-              detail: res.data.data
+              detail: res.data.data,
+              loding: false
             })
-            wx.hideLoading()
           }
         })
         break;
       case 'limit':
-        promiseRequest(limitdetail, 'get', data).then(res => {
-
+        promiseRequest(limitdetail, 'get', {
+          Id: this.data.productId
+        }).then(res => {
+          if (res.data.code == 0) {
+            this.setData({
+              detail: res.data.data,
+              loding: false
+            })
+          }
         })
         break;
       case 'cut':
-        promiseRequest(cutdetail, 'get', data).then(res => {
-
+        promiseRequest(cutdetail, 'get', {
+          Id: this.data.productId
+        }).then(res => {
+          if (res.data.code == 0) {
+            let detail = res.data.data
+            detail.cutList.map(item => {
+              item.receiveTime = item.receiveTime.substr(0, 10)
+            })
+            this.setData({
+              detail,
+              loding: false
+            })
+          }
         })
         break;
       case 'product':
@@ -91,29 +133,48 @@ Page({
           if (res.data.code == 0) {
             this.setData({
               detail: res.data.data,
-              isproduct: false
+              isproduct: false,
+              loding: false
             })
-            wx.hideLoading()
           }
         })
         break;
     }
   },
+
+  //  发起砍价
+  handleStartCut() {
+    if (!this.data.onLine) {
+      wx.navigateTo({
+        url: '../accredit/index',
+      })
+      return
+    }
+    wx.showLoading({
+      title: '砍价中...',
+    })
+    promiseRequest(usercut, 'get', {
+      productCutPriceId: this.data.productId
+    }).then(res => {
+      if (res.data.code == 1) {
+        this.setData({
+          startcutmode: true,
+          cutprice: res.data.data.hadCutPrice
+        })
+        wx.redirectTo({
+          url: `../cutdetail/index?pid=${this.data.productId}`
+        })
+      }
+    })
+  },
+  //  关闭发起砍价
+  handleStartCutClose() {
+    this.setData({
+      startcutmode: false
+    })
+  },
   //  单独购买 重新获取普通商品详情
   handleGetGoodsDetail(e) {
-    // this.setData({
-    //   productId: e.currentTarget.dataset.orderid
-    // })
-    // promiseRequest(productdetail, 'get', {
-    //   productId: this.data.productId
-    // }).then(res => {
-    //   if (res.data.code == 0) {
-    //     this.setData({
-    //       detail: res.data.data,
-    //       status: 'product'
-    //     })
-    //   }
-    // })
     wx.redirectTo({
       url: `./index?name=product&pid=${e.currentTarget.dataset.orderid}`,
     })
@@ -138,6 +199,7 @@ Page({
   onReady: function() {
     this.paysCurrent()
   },
+  //  购买数
   paysCurrent() {
     let timer = setTimeout(() => {
       let len = this.data.pays.length - 1,
@@ -162,45 +224,6 @@ Page({
       popupShow: e.detail
     })
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  },
   handleAslidBtnClick(e) {
     let i = e.currentTarget.dataset.index
     switch (i) {
@@ -209,6 +232,9 @@ Page({
           url: '../index/index'
         })
         break;
+      case 2:
+        this.handleTelClick()
+      break;
     }
   },
   //  发起拼团
@@ -217,15 +243,33 @@ Page({
     switch (this.data.status) {
       case 'group':
         popupId = this.data.detail.productGroupBuyId
-      break;
+        break;
+      case 'limit':
+        popupId = this.data.detail.timeLimitBuyId
+        break;
       case 'product':
         popupId = this.data.detail.productId
-      break;
+        break;
     }
     this.setData({
       popupShow: true,
       price: e.currentTarget.dataset.price,
       popupId
+    })
+  },
+  onShareAppMessage: function (ops) {
+    if (ops.from === 'button') {
+      return {
+        title: this.data.detail.productName,
+        imageUrl: this.data.detail.imgList[0].fileUrl,
+        path: '/pages/index/index?jump=123'
+      }
+    }
+  },
+  //  拨打商家电话
+  handleTelClick(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.tel
     })
   }
 })

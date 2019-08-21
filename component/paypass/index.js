@@ -60,6 +60,11 @@ Component({
               icon: 'none'
             })
           }
+        }else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
         }
       })
     },

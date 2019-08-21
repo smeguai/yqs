@@ -2,5 +2,6 @@
     "usingComponents": {
       "grade": "../../../component/grade/grade"
     },
-    "navigationBarTitleText": "附近好券"
+    "navigationBarTitleText": "附近好券",
+    "enablePullDownRefresh": true
 }

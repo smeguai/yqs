@@ -1,5 +1,5 @@
 <view>
     <view class="collect_title">已收藏店铺</view>
-    
+    <loding show='{{loding}}' />
     <info text="{{content}}" />
 </view>

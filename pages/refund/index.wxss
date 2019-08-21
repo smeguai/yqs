@@ -58,7 +58,7 @@
 }
 .container .main .section .info {
   display: flex;
-  padding:29rpx 24rpx 49rpx;
+  padding:12rpx 24rpx 12rpx;
 }
 .container .main .section .fl {
   font-size: 24rpx;

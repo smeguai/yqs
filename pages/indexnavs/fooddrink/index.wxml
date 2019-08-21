@@ -1,41 +1,44 @@
 <view class='container'>
-    <view class='search'>
-        <image src='../../../static/img/search.png' class='icon'></image>
-        <input class='ipt' placeholder='搜索附近商家' bindinput="handleSetkeys" bindconfirm='handleKeysDone'></input>
-    </view>
-    <view class='list'>
-        <view class='item' wx:for='{{list}}'>
-            <image src='{{item.merchantImgUrl}}' class='avatar'></image>
-            <view class='info'>
-                <view class='top'>
-                    <view class='name'>{{item.merchantName}}</view>
-                    <view class='lm ckbox' wx:if='{{item.hasUnion}}'>联盟</view>
-                    <view class='pp ckbox' wx:if='{{item.hasBrand}}'>品牌</view>
-                </view>
-                <view class='middel'>
-                    <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex > 0}}' />
-                    <text>{{item.typeName}}</text>|
-                    <text>人气{{item.viewNum}}</text>
-                    <dis num='{{item.distance}}' class='dis' />
-                </view>
-                <view class='tag'>
-                    <view class='tagitem' wx:for='{{item.tagList}}'>{{item}}</view>
-                </view>
-                <view class='activity' wx:if='{{item.couponDes}}'>
-                    <text class='cate quan'>券</text>
-                    <text class='txt'>{{item.couponDes}}</text>
-                </view>
-                <view class='activity' wx:if='{{item.groupDes}}'>
-                    <text class='cate tuan'>团</text>
-                    <text class='txt'>{{item.groupDes}}</text>
-                </view>
-                <view class='goods'>
-                    <view class='goodsitem' wx:for='{{item.proList}}' data-id='{{item.productId}}'>
-                        <image src='{{item.productImgUrl}}' class='imgurl'></image>
-                        <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
-                    </view>
-                </view>
-            </view>
+  <loding show='{{loding}}' />
+  <view class='search'>
+    <image src='../../../static/img/search.png' class='icon'></image>
+    <input class='ipt' placeholder='搜索附近商家' bindinput="handleSetkeys" bindconfirm='handleKeysDone'></input>
+  </view>
+  <view class='list'>
+    <view class='item' wx:for='{{list}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}'>
+      <image src='{{item.merchantImgUrl}}' class='avatar'></image>
+      <view class='info'>
+        <view class='top'>
+          <view class='name'>{{item.merchantName}}</view>
+          <view class='lm ckbox' wx:if='{{item.hasUnion}}'>联盟</view>
+          <view class='pp ckbox' wx:if='{{item.hasBrand}}'>品牌</view>
         </view>
+        <view class='middel'>
+          <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex > 0}}' />
+          <text>{{item.typeName}}</text>|
+          <text>人气{{item.viewNum}}</text>
+          <dis num='{{item.distance}}' class='dis' />
+        </view>
+        <view class='tag'>
+          <view class='tagitem' wx:for='{{item.tagList}}'>{{item}}</view>
+        </view>
+        <view class='activity' wx:if='{{item.couponDes}}'>
+          <text class='cate quan'>券</text>
+          <text class='txt'>{{item.couponDes}}</text>
+        </view>
+        <view class='activity' wx:if='{{item.groupDes}}'>
+          <text class='cate tuan'>团</text>
+          <text class='txt'>{{item.groupDes}}</text>
+        </view>
+        <scroll-view scroll-x class='goods'>
+          <view class='goods-list'>
+            <view class='goodsitem' wx:for='{{item.proList}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}'>
+              <image src='{{item.productImgUrl}}' class='imgurl'></image>
+              <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
     </view>
+  </view>
 </view>

@@ -14,10 +14,10 @@ Page({
     bannerCurrent: 0,
     pageIndex: 1,
     pageSize: 10,
-    stationId: 1,
+    stationId: null,
+    station: null,
     typeId: 0,
     navList: null,
-    station: null,
     swiperList: null,
     navDefList: [{
       imgUrl: '../../static/img/index_sys.png',
@@ -43,13 +43,19 @@ Page({
     groupdata: null,
     cutdata: null,
     limitdata: null,
-    recommendList: null,
-    loding: 0
+    recommendList: [],
+    loding: true
+  },
+  //  推荐商家 被点击
+  handleSellerClick(e) {
+    wx.navigateTo({
+      url: `../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}`,
+    })
   },
   //  推荐商品
   getDiscount() {
     let data = {
-      StationId: app.globalData.station && app.globalData.station.stationId || this.data.stationId
+      StationId: this.data.stationId
     }
     promiseRequest(indexdiscount, 'get', data).then(res => {
       if (res.data.code === 0) {
@@ -66,7 +72,7 @@ Page({
     promiseRequest(banner, 'get', {
       id: 0
     }).then(res => {
-      if (res.data.code == 0) {  
+      if (res.data.code == 0) {
         this.setData({
           swiperList: res.data.data
         })
@@ -75,48 +81,37 @@ Page({
   },
   //  推荐商家
   getShop() {
-    let stationId = wx.getStorageSync('station').stationId
     let location = wx.getStorageSync('location')
     let data = {
       pageIndex: this.data.pageIndex,
       pageSize: this.data.pageSize,
       typeId: this.data.typeId,
-      stationId,
+      stationId: this.data.stationId,
       x: location[0],
       y: location[1]
     }
     promiseRequest(shopget, 'get', data).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 0 && res.data.data) {
         this.setData({
-          recommendList: res.data.data
+          loding: false,
+          recommendList: [...this.data.recommendList, ...res.data.data]
         })
       }
     })
   },
   //  navList
   getindexNav() {
-    promiseRequest(indexNav, 'get').then(res => {
+    promiseRequest(indexNav, 'get', {
+      stationId: this.data.stationId
+    }).then(res => {
       if (res.data.code == 0) {
         this.setData({
-          navList: res.data.data
+          navList: res.data.data,
+          loding: false
         })
-        wx.hideLoading()
       }
     })
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
-    this.getindexNav()
-    this.getBanner()
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -124,47 +119,55 @@ Page({
     let station = wx.getStorageSync('station')
     if (station) {
       this.setData({
-        station
+        station,
+        stationId: station.stationId
       })
-      this.getDiscount()
-      this.getShop()
+      if (this.data.recommendList.length == 0) {
+        this.getBanner()
+        this.getindexNav()
+        this.getDiscount()
+        this.getShop()
+      }
+    } else {
+      if (app.globalData.location) {
+        wx.navigateTo({
+          url: `../location/index`
+        })
+      }
     }
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.setData({
+      pageIndex: 1,
+      recommendList: [],
+      loding: true
+    })
+    this.getBanner()
+    this.getindexNav()
+    this.getDiscount()
+    this.getShop()
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
+  // 页面上拉触底事件的处理函数
   onReachBottom: function() {
-
+    if (this.data.pageIndex * this.data.pageSize <= this.data.recommendList.length) {
+      this.setData({
+        pageIndex: this.data.pageIndex + 1
+      })
+      this.getShop()
+    }
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  //  商家商品跳转详情页
+  handleTogoodsDetail(e) {
+    let type = e.currentTarget.dataset.type
+    let pid = e.currentTarget.dataset.pid
+    wx.navigateTo({
+      url: `../goodsdetail/index?name=${type}&pid=${pid}`
+    })
   },
-
   bannerChange(e) {
     this.setData({
       bannerCurrent: e.detail.current
@@ -205,25 +208,23 @@ Page({
           url: '../indexnavs/askedprice/index'
         })
         break;
-      case 15:
+      case 'telecom':
         wx.navigateTo({
-          url: '../indexnavs/shop/index',
+          url: `../indexnavs/shop/index?title=${e.currentTarget.dataset.title}&pid=${e.currentTarget.dataset.pid}`
         })
         break;
-      default:
+      case 'type':
         wx.navigateTo({
-          url: `../indexnavs/fooddrink/index?title=${e.currentTarget.dataset.title}&typeid=${i}`
+          url: `../indexnavs/fooddrink/index?title=${e.currentTarget.dataset.title}&typeid=${e.currentTarget.dataset.pid}`
         })
         break;
     }
   },
-
   goodsItemClick(e) {
     wx.navigateTo({
       url: `../goodsdetail/index?pid=${e.currentTarget.dataset.pid}&name=${e.currentTarget.dataset.name}`,
     })
   },
-
   locationClick() {
     wx.navigateTo({
       url: '../location/index',

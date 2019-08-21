@@ -2,5 +2,6 @@
   "usingComponents": {
     "grade": "../../../component/grade/grade",
     "dis": "../../../component/dis/index"
-  }
+  },
+  "enablePullDownRefresh": true
 }

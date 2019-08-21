@@ -9,6 +9,9 @@
     overflow:hidden;
     text-overflow:ellipsis;
 }
+button::after {
+  border: 0;
+}
 .strmore {
     display:-webkit-box;
     overflow:hidden;

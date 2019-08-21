@@ -86,7 +86,9 @@ Page({
         })
         break;
       case 1:
-
+        wx.navigateTo({
+          url: '../mycutlist/index',
+        })
         break;
       case 2:
         wx.navigateTo({
@@ -136,8 +138,11 @@ Page({
       }
     })
   },
-  onShow: function() {
-    if (this.data.onLine) return
+  onShow: function () { 
+    this.getUserInfo()
+  },
+  //  获取用户信息
+  getUserInfo() {
     let userInfo = wx.getStorageSync('userInfo')
     if (userInfo) {
       this.setData({
@@ -145,6 +150,12 @@ Page({
         onLine: true
       })
       this.getOrderCount()
+    } else {
+      this.setData({
+        onLine: false,
+        userInfo: null,
+        navCountNum: null
+      })
     }
   },
   handleToWallet() {

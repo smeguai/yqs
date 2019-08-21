@@ -1,0 +1,29 @@
+<view class='container'>
+  <loding show='{{loding}}' />
+
+  <!-- nav list -->
+  <view class='navlist'>
+    <view class='item' wx:for='{{navlist}}' wx:key='{{index}}' bindtap="handleNavItemClick" data-idx='{{item.idx}}'>
+      <text class='{{navCurrent == index?"active": ""}}'>{{item.txt}}</text>
+    </view>
+  </view>
+
+  <!-- 砍价列表 -->
+  <view class='list-wrapper'>
+    <view class='item' wx:for='{{list}}' data-pid='{{item.cutPriceId}}' name='cut' bindtap="handleCutDesc">
+      <image class='img' src='{{item.productImgUrl}}'></image>
+      <view class='info'>
+        <view class='name strmore'>{{item.productName}}</view>
+        <view class='count'>
+          <countdown strTime='{{item.endTime}}' />
+          <text class='txt'>后结束</text>
+        </view>
+        <view class='bott'>
+          <view class='price'>还差{{item.disparityPrice}}元</view>
+          <view class='btn'>继续砍价</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

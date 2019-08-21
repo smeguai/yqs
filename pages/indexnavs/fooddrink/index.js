@@ -10,51 +10,65 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: null,
+    list: [],
     pageIndex: 1,
     pageSize: 10,
     x: null,
     y: null,
     stationId: null,
     typeId: null,
-    keys: ''
+    keys: '',
+    loding: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中...',
-    })
     wx.setNavigationBarTitle({
-      title: options.title,
-      typeId: options.typeid
+      title: options.title
     })
     let location = wx.getStorageSync('location')
     let stationId = wx.getStorageSync('station').stationId
     this.setData({
+      typeId: options.typeid,
       x: location[0],
       y: location[1],
       stationId
     })
     this.getSell()
   },
+  //  跳转 商品详情
+  handleTogoodsDetail(e) {
+    let type = e.currentTarget.dataset.type
+    let pid = e.currentTarget.dataset.pid
+    wx.navigateTo({
+      url: `../../goodsdetail/index?name=${type}&pid=${pid}`
+    })
+  },
+  //  推荐商家 被点击
+  handleSellerClick(e) {
+    wx.navigateTo({
+      url: `../../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}`,
+    })
+  },
   //  获取商家店铺
   getSell() {
     promiseRequest(getsell, 'get', {
-      stationId: 1 || this.data.stationId,
+      stationId: this.data.stationId,
       x: this.data.x,
       y: this.data.y,
       keys: this.data.keys,
+      typeId: parseInt(this.data.typeId),
       pageIndex: this.data.pageIndex,
       pageSize: this.data.pageSize
     }).then(res => {
+      let list = res.data.data || []
       if (res.data.code == 0) {
         this.setData({
-          list: res.data.data
+          list: [...this.data.list, ...list],
+          loding: false
         })
-        wx.hideLoading()
       }
     })
   },
@@ -72,60 +86,24 @@ Page({
     this.getSell()
   },
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.setData({
+      pageIndex: 1,
+      list: []
+    })
+    this.getSell()
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
     if (this.data.pageIndex * this.data.pageSize <= this.data.list.length) {
-      wx.showLoading({
-        title: '加载中...',
-      })
       this.setData({
-        list: [],
-        pageIndex: 1
+        pageIndex: this.data.pageIndex + 1
       })
       this.getSell()
     }
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })

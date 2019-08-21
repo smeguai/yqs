@@ -1,66 +1,59 @@
-// pages/paydone/index.js
+import {
+  groupdetail
+} from '../../utils/api.js'
+import {
+  promiseRequest
+} from '../../utils/util.js'
 Page({
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    isgroup: false,
+    pid: null,
+    groupdesc: null,
+    uid: null
+  },
+  //  参与拼团
+  handleGroupPay() {
+    wx.redirectTo({
+      url: `../goodsdetail/index?groupBuyId=${this.data.pid}&name=group&pid=${this.data.groupdesc.productGroupBuyId}`
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    this.setData({
+      isgroup: options.group != 0 ? true : false,
+      pid: options.pid,
+      uid: wx.getStorageSync('userInfo').uid
+    })
+    if (this.data.isgroup) {
+      this.getGroupDsc()
     }
+  },
+
+//  获取拼团信息
+getGroupDsc() {
+  promiseRequest(groupdetail, 'get', {
+    groupBuyId: this.data.pid
+  }).then(res => {
+    if (res.data.code == 1) {
+      this.setData({
+        groupdesc: res.data.data
+      })
+    }
+  })
+},
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+    return {
+      title: '和我来拼团',
+    path: `/pages/paydone/index?pid=${this.data.pid}&uid=${this.data.uid}&group=1`
+    }
+  }
 })

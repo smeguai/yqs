@@ -15,7 +15,7 @@ const formatNumber = n => {
 }
 
 //  时间格式化 yyyy-mmmm-dddd hh:mm:ss
-function formatTime(time) {
+function formatTime(time, type = 0) {
   let date = new Date(time)
   let y = date.getFullYear()
   let m = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
@@ -23,8 +23,11 @@ function formatTime(time) {
   let hh = date.getHours() >= 10 ? date.getHours() : '0' + date.getHours()
   let mm = date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes()
   let ss = date.getSeconds() >= 10 ? date.getSeconds() : '0' + date.getSeconds()
-  
-  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+  if (type == 0) {
+    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+  } else if (type == 1) {
+    return `${y}-${m}-${d}`
+  }
 }
 
 //  promise
@@ -47,7 +50,7 @@ function promiseRequest(url, method = 'post', data = {}) {
         console.log("failed")
       },
       complete: () => {
-        wx.hideLoading()
+        wx.stopPullDownRefresh()
       }
     })
   })

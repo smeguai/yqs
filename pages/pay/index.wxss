@@ -9,15 +9,113 @@
 .container .main {
     position: relative;
     z-index: 99;
-    padding: 64rpx 24rpx 138rpx 24rpx;
+    padding: 64rpx 24rpx 0 24rpx;
 }
-
+.main .voucher {
+  padding: 16rpx 24rpx;
+}
+.main .voucher .top {
+  display: flex;
+  align-items: center;
+  border-radius: 10rpx;
+  background: #FFFAEF;
+  height: 158rpx;
+  overflow: hidden;
+}
+.main .voucher .top .price {
+  height: 100%;
+  line-height: 158rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #FFDE4E;
+  border-right: 2rpx dashed #FFDE4E;
+  border-radius: 10rpx;
+  padding: 0 40rpx;
+  font-size: 54rpx;
+  font-weight: bold;
+  color: #FF6600;
+  position: relative;
+}
+.main .voucher .top .price::after {
+  position: absolute;
+  content: '';
+  bottom: -20rpx;
+  right: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: #fff;
+  border-radius: 100%;
+  border: 1rpx solid #FFDE4E;
+}
+.main .voucher .top .price::before {
+  position: absolute;
+  content: '';
+  top: -20rpx;
+  right: -20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: #fff;
+  border-radius: 100%;
+  border: 1rpx solid #FFDE4E;
+}
+.main .voucher .top .rt {
+  height: 100%;
+  flex: 1;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #FFDE4E;
+  border-left: 0;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.main .voucher .top .rt .txt {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.main .voucher .top .rt .time {
+  color: #666666;
+  font-size: 20rpx;
+  padding-top: 18rpx;
+}
+.main .voucher .bott {
+  display: flex;
+  padding-top: 20rpx;
+}
+.main .voucher .bott .txt {
+  font-size: 24rpx;
+  flex: 1;
+}
 .container .main .section {
     border-radius: 10rpx;
     background: #fff;
     margin-top: 26rpx;
 }
-
+.guize-wrapper {
+  background: #fff;
+  margin-top: 26rpx;
+  border-radius: 10rpx;
+}
+.guize-wrapper .header {
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid #F5F5F5;
+  box-sizing: border-box;
+}
+.guize-wrapper .infos {
+  padding: 30rpx 26rpx 50rpx;
+  display: flex;
+}
+.guize-wrapper .infos .txt {
+  font-size: 24rpx;
+}
+.guize-wrapper .infos .useIntro {
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 26rpx;
+  flex: 1;
+  width: 0;
+  padding-left: 28rpx;
+}
 .container .main .sell .blo {
     padding: 38rpx 24rpx 34rpx 24rpx;
     border-bottom: 1rpx solid #f5f5f5;
@@ -191,7 +289,6 @@
     background: #F9F9F9;
     border-radius: 10rpx;
     font-size: 28rpx;
-    height: 106rpx;
     padding: 20rpx;
 }
 .container .pay_count {
@@ -252,12 +349,8 @@
     display: flex;
     align-items: center;
     padding: 0 24rpx;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
     background: #fff;
+    margin-top: 20rpx;
 }
 .container .topay .btn {
     height: 74rpx;
@@ -268,4 +361,133 @@
     font-size: 32rpx;
     text-align: center;
     font-weight: 500;
+}
+.container .ticketup {
+  background: rgba(0, 0, 0, .4);
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .ticketup .section {
+  border-radius: 10rpx;
+  background: #FFDE4E;
+  width: 648rpx;
+  padding: 32rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.container .ticketup .section .bgimg {
+  width: 640rpx;
+  height: 170rpx;
+  position: absolute;
+  top: -26rpx;
+  left: 20rpx;
+}
+.container .ticketup .section .contimg {
+  width: 188rpx;
+  height: 68rpx;
+  padding: 22rpx 0;
+}
+.container .ticketup .section .btn {
+  font-size: 28rpx;
+  padding: 16rpx 32rpx;
+  border: 1rpx solid #999999;
+  border-radius: 10rpx;
+  margin-top: 50rpx;
+  color: #999999;
+}
+.container .ticketup .section .border {
+  overflow: hidden;
+  margin-top: 28rpx;
+}
+.container .ticketup .section .border .item {
+  background: #fff;
+  display: flex;
+  height: 128rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid #FF6600;
+}
+.container .ticketup .section .border .item .t {
+  width: 118rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 24rpx;
+}
+.container .ticketup .section .border .item .t text {
+  text-align: center;
+}
+.container .ticketup .section .border .item .t0 {
+  color: #FF6600;
+}
+.container .ticketup .section .border .item .t1 text {
+  border-radius: 20rpx;
+  background: #FFDE4E;
+  padding: 16rpx 10rpx;
+}
+.container .ticketup .section .border .item .t2 {
+  color: #999999;
+}
+.container .ticketup .section .border .item .t::after {
+  content: '';
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 100%;
+  border: 1rpx solid #FF6600;
+  left:-10rpx;
+  top: -10rpx;
+  background: #FFDE4E;
+  box-sizing: border-box;
+}
+.container .ticketup .section .border .item .t::before {
+  content: '';
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 100%;
+  border: 1rpx solid #FF6600;
+  left:-10rpx;
+  bottom: -10rpx;
+  background: #FFDE4E;
+  box-sizing: border-box;
+}
+.container .ticketup .section .border .item .info {
+  flex: 1;
+  padding: 0 24rpx;
+  display: flex;
+  border-right: 1rpx dashed #FF6600;
+  align-items: center;
+}
+.container .ticketup .section .border .item .info .left {
+  color: #FF6600;
+  font-size: 37rpx;
+}
+.container .ticketup .section .border .item .info .left .price {
+  font-size: 68rpx;
+}
+.container .ticketup .section .border .item .info .cent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 24rpx;
+}
+.container .ticketup .section .border .item .info .cent .guiz {
+  font-size: 32rpx;
+}
+.container .ticketup .section .border .item .info .cent .time {
+  font-size: 24rpx;
+  color: #666666;
 }

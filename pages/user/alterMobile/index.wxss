@@ -19,7 +19,6 @@
     line-height: 78rpx;
     border: 1rpx solid #CCCCCC;
     border-radius:12rpx;
-    color: #CCCCCC;
     font-size: 28rpx;
     padding: 0 26rpx;
     margin-bottom: 44rpx;
@@ -35,7 +34,6 @@
     line-height: 78rpx;
     border: 1rpx solid #CCCCCC;
     border-radius:12rpx;
-    color: #CCCCCC;
     font-size: 28rpx;
     padding: 0 26rpx;
 }

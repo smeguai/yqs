@@ -32,7 +32,8 @@
             <view class='bott'>
               <view class='price'>￥{{item.couponMoney}}</view>
               <view class='txt'>{{item.couponDes}}</view>
-              <view class='btn'>点击领取</view>
+              <view class='btn2' wx:if='{{item.status}}'>已领取</view>
+              <view class='btn' wx:else bindtap="handleClickGet" data-id='{{item.couponId}}'>点击领取</view>
             </view>
           </view>
           <view class='ticketitem' wx:for='{{item.voucherList}}'>
@@ -40,7 +41,7 @@
             <view class='bott'>
               <view class='price'>￥{{item.price}}</view>
               <!-- <view class='txt'>{{item.txt}}</view> -->
-              <view class='btn'>点击购买</view>
+              <view class='btn' bindtap="handleClickPay" data-pid='{{item.productId}}'>点击购买</view>
             </view>
           </view>
         </view>

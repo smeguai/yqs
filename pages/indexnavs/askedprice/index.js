@@ -21,26 +21,33 @@ Page({
     keys: '',
     orderby: 0,
     x: null,
-    y: null
+    y: null,
+    onLine: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
-      title: '加载中...',
-    })
     this.setData({
-      stationId: app.globalData.station.stationId,
+      stationId: wx.getStorageSync('station').stationId,
       x: app.globalData.location[0],
-      y: app.globalData.location[1]
+      y: app.globalData.location[1],
+      onLine: wx.getStorageSync('userInfo') ? true : false
     })
     this.getCutList()
     this.getMycut()
   },
+  //  继续砍价
+  handleCuting(e) {
+    let pid = e.currentTarget.dataset.pid
+    wx.navigateTo({
+      url: `../../cutdetail/index?pid=${pid}`
+    })
+  },
   //  获取我的砍价
   getMycut() {
+    if (!this.data.onLine) return
     promiseRequest(mycut, 'get', {
       x: app.globalData.location[0],
       y: app.globalData.location[1]
@@ -64,16 +71,13 @@ Page({
       list: [],
       pageIndex: 1
     })
-    wx.showLoading({
-      title: '加载中',
-    })
     this.getCutList()
   },
   //  获取砍价列表
   getCutList() {
     promiseRequest(cut, 'get', {
       pageIndex: this.data.pageIndex,
-      pageSize: this.data.pageSize + 1,
+      pageSize: this.data.pageSize,
       stationId: this.data.stationId,
       merchantId: this.data.merchantId,
       keys: this.data.keys,
@@ -81,66 +85,38 @@ Page({
       x: this.data.x,
       y: this.data.y
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         this.setData({
-          list: res.data.data
+          list: [...this.data.list, ...res.data.data]
         })
       }
-      wx.hideLoading()
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  //  砍价
+  handleCutprice(e) {
+    wx.navigateTo({
+      url: `../../goodsdetail/index?name=cut&pid=${e.currentTarget.dataset.pid}`,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
     if (this.data.pageIndex * this.data.pageSize <= this.data.list) {
-      wx.showLoading({
-        title: '加载中...',
+      this.setData({
+        pageIndex: this.data.pageIndex + 1
       })
       this.getCutList()
     }
   },
-
   /**
-   * 用户点击右上角分享
+   * 页面相关事件处理函数--监听用户下拉动作
    */
-  onShareAppMessage: function() {
-
+  onPullDownRefresh: function() {
+    this.setData({
+      pageIndex: 1,
+      list: []
+    })
+    this.getCutList()
   }
 })

@@ -56,10 +56,10 @@ Page({
           key: 'userInfo',
           data: res.data.data,
           success: () => {
-            wx.switchTab({
-              url: '../myself/index',
-            })
             app.globalData.onLine = true
+            wx.navigateBack({
+              delta: -1
+            })
           }
         })
       }

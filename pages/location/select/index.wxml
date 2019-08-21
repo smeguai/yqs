@@ -27,10 +27,10 @@
     <view class="page_searchText">附近小区</view>
     <view class="xg_centerBot_text" wx:for="{{add}}" wx:for-index="index" wx:key="index">
       <view class="xg_centerBot_text_name">
-        <text class="xg_centerBot_text_name_estate str">{{item.name}}</text>
-        <view class="xg_centerBot_text_add str">{{item.add}}</view>
+        <text class="xg_centerBot_text_name_estate str">{{item.stationName}}</text>
+        <view class="xg_centerBot_text_add str">{{item.provinceName}}{{item.cityName}}{{item.areaName}}</view>
       </view>
-      <text class="xg_centerBot_text_name_num">{{item.num}}</text>
+      <dis num='{{item.distance}}' class="xg_centerBot_text_name_num" />
       <view class='tostaction' catchtap='nearItemBtnClick' data-id='{{item.stationId}}'>进入小区</view>
     </view>
   </block>

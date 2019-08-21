@@ -1,4 +1,5 @@
 <view class='container'>
+  <loding show='{{loding}}' />
     <view class='price-wrapper'>
         <view class='item'>
             <text class='txt'>现金余额</text>

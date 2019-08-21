@@ -52,9 +52,6 @@ Page({
     })
   },
   handlesearch() {
-    wx.showLoading({
-      title: '加载中...',
-    })
     this.setData({
       inputFocus: false
     })

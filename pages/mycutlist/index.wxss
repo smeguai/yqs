@@ -1,0 +1,73 @@
+.navlist {
+  display: flex;
+  align-items: center;
+  height: 78rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #EDEDED;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.navlist .item {
+  flex: 1;
+  text-align: center;
+}
+.navlist .item text {
+  display: inline-block;
+  font-size: 24rpx;
+  box-sizing: border-box;
+  line-height: 78rpx;
+  color: #999999;
+}
+.navlist .item text.active {
+  border-bottom: 2rpx solid #FFCC33;
+  color: #333333;
+}
+
+.list-wrapper {
+  background: #fff;
+  padding: 14rpx 24rpx;
+}
+.list-wrapper .item {
+  padding: 24rpx 0;
+  display: flex;
+}
+.list-wrapper .item .img {
+  width: 239rpx;
+  height: 188rpx;
+  border-radius: 10rpx;
+}
+.list-wrapper .item .info {
+  padding-left: 32rpx;
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.list-wrapper .item .info .name {
+  font-size: 28rpx;
+}
+.list-wrapper .item .info .count {
+  display: flex;
+  align-items: center;
+}
+.list-wrapper .item .info .count .txt {
+  font-size: 24rpx;
+}
+.list-wrapper .item .info .bott {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-wrapper .item .info .bott .price {
+  font-size: 28rpx;
+  color: #FF6600;
+}
+.list-wrapper .item .info .bott .btn {
+  font-size: 24rpx;
+  padding: 12rpx 16rpx;
+  border-radius: 24rpx;
+  background: #FFDE4E;
+}

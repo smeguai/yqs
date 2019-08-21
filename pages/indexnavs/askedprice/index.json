@@ -3,5 +3,6 @@
         "countdown": "../../../component/countdown/index",
         "dis": "../../../component/dis/index"
     },
-    "navigationBarTitleText": "砍价"
+    "navigationBarTitleText": "砍价",
+    "enablePullDownRefresh": true
 }

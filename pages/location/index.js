@@ -1,6 +1,7 @@
 const app = getApp()
 import {
-  serviceget
+  serviceget,
+  nowloction
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -14,7 +15,8 @@ Page({
     data: null,
     currentData: null,
     currentStation: null,
-    historyAddrsList: null
+    historyAddrsList: null,
+    address: ''
   },
   cityClick() {
     wx.navigateTo({
@@ -33,9 +35,25 @@ Page({
   onLoad: function(options) {
     this.setData({
       historyAddrsList: wx.getStorageSync('historyAddrsList'),
-      currentStation: wx.getStorageSync('station')
+      currentStation: wx.getStorageSync('station'),
+      address: wx.getStorageSync('address')
     })
-
+    this.getNowLoction()
+  },
+  //  当前位置
+  getNowLoction() {
+    console.log('加载前'+app.globalData.location)
+    if (this.data.address) return
+    promiseRequest(nowloction, 'get', {
+      x: app.globalData.location[0],
+      y: app.globalData.location[1]
+    }).then(res => {
+      if (res.data.code == 1) {
+        this.setData({
+          address: res.data.data.address
+        })
+      }
+    })
   },
   getservice() {
     let data = {
@@ -49,7 +67,12 @@ Page({
           item.distance = item.distance >= 1000 ? parseInt(item.distance / 100) / 10 + '公里' : parseInt(item.distance) + '米'
         })
         this.setData({
-          nearbyData: d
+          nearbyData: d,
+          address: d.stationName
+        })
+      }else {
+        this.setData({
+          nearbyData: null
         })
       }
     })
@@ -102,9 +125,10 @@ Page({
     let status = true
     let list = this.data.historyAddrsList,
       current = this.data.currentStation
+      console.log(list, current)
     if (list) {
       list.map(item => {
-        if (this.data.currentStation.stationId == current.stationId) {
+        if (item.stationId == current.stationId) {
           status = false
         }
       })
@@ -124,13 +148,17 @@ Page({
     wx.chooseLocation({
       success: res => {
         this.setData({
-          currentData: res.name
+          currentData: res.name,
+          address: res.name
         })
         let location = [res.latitude, res.longitude]
         app.globalData.location = location
+        console.log('加载后' + location)
         wx.setStorage({
           key: 'location',
+          key: 'address',
           data: location,
+          data: res.name
         })
       }
     })
@@ -139,7 +167,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let location = wx.getStorageSync('location')
+    let location = app.globalData.location
     if (location) {
       this.getservice()
     } else {

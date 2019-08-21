@@ -1,142 +1,192 @@
-<view class='container'>
-    <view class='header'>
-        <image class='avatar' src='{{}}'></image>
-        <view class='info'>
-            <view class='strong'>{{data.merchantName}}</view>
-            <view class='score'>
-                <grade score='3' />
-                <text class='count'>5.0分</text>
-            </view>
-            <view class='midd'>
-                <view class='lf'>
-                    <image class='icon' src='../../../static/img/addrsicon.png'></image>
-                    <text class='txt str'>3.6公里 | {{data.addr}}</text>
-                </view>
-                <image class='tel' src='../../../static/img/shop_tel.png'>{{data.contactMobile}}</image>
-            </view>
-            <view class='tags'>
-                <view class='item'>师范大学</view>
-            </view>
+<view class='container' wx:if='{{data}}'>
+  <view class='header'>
+    <image class='avatar' src='{{data.headImgUrl}}'></image>
+    <view class='info'>
+      <view class='top'>
+        <view class='strong str'>{{data.merchantName}}</view>
+        <view class='score_rt' bindtap="handleCollect">
+          <image class='collect' src='../../../static/img/collect.png'></image>
+          <view>收藏店铺</view>
         </view>
+      </view>
+      <view class='score' wx:if='{{data.starIndex != 0}}'>
+        <grade score='{{data.starIndex}}' />
+        <text class='count'>{{data.starIndex}}分</text>
+      </view>
+      <view class='midd'>
+        <view class='lf' data-x='{{data.x}}' data-y='{{data.y}}' data-subname='{{data.addr}}' data-name='{{data.merchantName}}' bindtap='handleClickAddres'>
+          <image class='icon' src='../../../static/img/addrsicon.png'></image>
+          <view class='txt str'>
+            <dis num='{{data.distance}}' class='dis' /> | {{data.addr}}</view>
+        </view>
+        <image class='tel' src='../../../static/img/shop_tel.png' data-tel='{{data.contactMobile}}'>{{data.contactMobile}}</image>
+      </view>
+      <view class='tags' wx:if='{{data.tagList}}'>
+        <view class='item' wx:for='{{data.tagList}}'>{{item}}</view>
+      </view>
     </view>
+  </view>
 
-    <view class='welfare'>
-        <view class='item-wrapper'>
-            <!-- 多个 -->
-            <block wx:if='{{data.couponList}}'>
-                <scroll-view scroll-x class='scroll'>
-                    <view class='list'>
-                        <view class='item0 item'>
-                            <view class='txt'>优惠券</view>
-                            <view class='info'>
-                                <view class='activedate'>有效期至{{item.validEndTime}}</view>
-                                <view class='btn b0'>领取</view>
-                            </view>
-                            <view class='price'>￥{{item.couponMoney}}
-                                <text class='tip'>满{{item.spendMoney}}可用</text>
-                            </view>
-                        </view>
-                    </view>
-                </scroll-view>
-            </block>
-            <block wx:else>
-                <view class='item1 item'>
-                    <view class='txt'>优惠券</view>
-                    <view class='info'>
-                        <view class='activedate'>有效期至2019.08.18</view>
-                        <view class='btn b0'>领取</view>
-                    </view>
-                    <view class='price'>￥10
-                        <text class='tip'>满38可用</text>
-                    </view>
-                </view>
-            </block>
-        </view>
-        <view class='item-wrapper'>
-            <!-- 多个 -->
-            <block wx:if='{{true}}'>
-                <scroll-view scroll-x class='scroll'>
-                    <view class='list'>
-                        <view class='item0 item' wx:for='{{4}}'>
-                            <view class='txt'>优惠券</view>
-                            <view class='info'>
-                                <view class='activedate'>有效期至2019.08.18</view>
-                                <view class='btn b2'>抢券</view>
-                            </view>
-                            <view class='price'>￥10
-                                <text class='tag'>4.8折</text>
-                                <text class='oldprice del'>￥100</text>
-                            </view>
-                        </view>
-                    </view>
-                </scroll-view>
-            </block>
-            <block wx:else>
-                <scroll-view scroll-x class='scroll'>
-                    <view class='list'>
-                        <view class='item0 item' wx:for='{{4}}'>
-                            <view class='txt'>优惠券</view>
-                            <view class='info'>
-                                <view class='activedate'>有效期至2019.08.18</view>
-                                <view class='btn b2'>抢券</view>
-                            </view>
-                            <view class='price'>￥10
-                                <text class='tag'>4.8折</text>
-                                <text class='oldprice del'>￥100</text>
-                            </view>
-                        </view>
-                    </view>
-                </scroll-view>
-            </block>
-        </view>
-        <view class='btn'>付款</view>
-    </view>
-
-    <view class='discount'>
-        <view class='top'>
-            <text class='txt'>特惠区</text>
-            <text class='more'>查看更多</text>
-        </view>
-        <scroll-view scroll-x>
-            <view class='list'>
-                <view class='item' wx:for='{{4}}' wx:key='{{index}}'>
-                    <image src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3361934473,3725527506&fm=27&gp=0.jpg'></image>
-                    <view class='name str'>红豆焦糖珍爱【冷热红豆焦糖珍爱【冷热...</view>
-                    <view class='price'>￥<text class='txt'>9.9</text><text class='old del'>￥18.9</text></view>
-                </view>
+  <view class='welfare'>
+    <view class='item-wrapper' wx:if='{{data.couponList}}'>
+      <!-- 多个  -->
+      <block wx:if='{{data.couponList.length > 1}}'>
+        <scroll-view scroll-x class='scroll'>
+          <view class='list'>
+            <view class='item0 item' wx:for='{{data.couponList}}'>
+              <view class='txt'>{{item.couponName}}</view>
+              <view class='info'>
+                <view class='activedate'>有效期: {{item.validStartTime}}/{{item.validEndTime}}</view>
+                <view class='btn b0' wx:if='{{item.rcouponId == 0}}' bindtap="handleReceive" data-id='{{item.couponId}}'>领取</view>
+                <view class='btn b1' wx:else>已领取</view>
+              </view>
+              <view class='price'>￥{{item.couponMoney}}
+                <text class='tip'>满{{item.spendMoney}}可用</text>
+              </view>
             </view>
+          </view>
         </scroll-view>
+      </block>
+      <block wx:else>
+        <view class='item1 item' wx:for='{{data.couponList}}'>
+          <view class='txt'>{{item.couponName}}</view>
+          <view class='info'>
+            <view class='activedate'>有效期: {{item.validStartTime}}/{{item.validEndTime}}</view>
+            <view class='btn b0' wx:if='{{item.rcouponId == 0}}' bindtap="handleReceive" data-id='{{item.couponId}}'>领取</view>
+            <view class='btn b1' wx:else>已领取</view>
+          </view>
+          <view class='price'>￥{{item.couponMoney}}
+            <text class='tip'>{{item.couponMoney}}</text>
+          </view>
+        </view>
+      </block>
     </view>
-
-    <view class='section'>
-        <view class='top'>
-            <view class='txt'>用户评价</view>
-            <view class='more'>更多评论（132条）</view>
-        </view>
-        <view class='tags'>
-            <view class='item' wx:for='{{6}}' wx:key='{{index}}'>味道好 57</view>
-        </view>
-        <view class='list'>
-            <view class='item'>
-                <image class='avatar' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg'></image>
-                <view class='info'>
-                    <view class='name'>蝴蝶和猫i</view>
-                    <view class='midd'>
-                        <grade score='{{4}}' />
-                        <view class='time'>2019.05.28 </view>
-                    </view>
-                    <view class='content'>又来了，这家店离我比较近，所以一般都是经常去的，味道也是蛮好的，算是回头客了。</view>
-                    <view class='imglist'>
-                        <image class='img' wx:for='{{3}}' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg' wx:key='{{index}}'></image>
-                    </view>
-                </view>
+    <view class='item-wrapper' wx:if='{{data.voucherList}}'>
+      <!-- 多个 -->
+      <block wx:if='{{data.voucherList.length > 1}}'>
+        <scroll-view scroll-x class='scroll'>
+          <view class='list'>
+            <view class='item0 item' wx:for='{{data.voucherList}}'>
+              <view class='txt'>{{item.productName}}</view>
+              <view class='info'>
+                <view class='activedate str'>有效期: {{item.useStartTime}}/{{item.useEndTime}}</view>
+                <view class='btn b2'>抢券</view>
+              </view>
+              <view class='price'>￥{{item.price}}</view>
             </view>
-        </view>
+          </view>
+        </scroll-view>
+      </block>
+      <block wx:else>
+        <scroll-view scroll-x class='scroll'>
+          <view class='list'>
+            <view class='item1 item' wx:for='{{data.voucherList}}'>
+              <view class='txt'>{{item.productName}}</view>
+              <view class='info'>
+                <view class='activedate'>有效期: {{item.useStartTime}}/{{item.useEndTime}}</view>
+                <view class='btn b2' bindtap="handleClickPay" data-pid='{{item.productId}}'>抢券</view>
+              </view>
+              <view class='price'>￥{{item.price}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </block>
     </view>
-
-
-
-
-
-
+    <view class='btn' bindtap='handlepay'>付款</view>
+  </view>
+  <view class='discount' wx:if='{{productList}}'>
+    <view class='top'>
+      <text class='txt'>特惠区</text>
+      <!-- <text class='more'>查看更多</text> -->
+    </view>
+    <scroll-view scroll-x>
+      <view class='list'>
+        <view class='item' wx:for='{{productList}}' wx:key='{{index}}' data-mode='product' data-pid='{{item.productId}}' bindtap="handleToGoodesc">
+          <image src='{{item.coverUrl}}'></image>
+          <view class='name str'>{{item.productName}}</view>
+          <view class='price'>￥
+            <text class='txt'>{{item.price}}</text>
+            <text class='old del'>￥{{item.tagPrice}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 团/ 秒/ 砍 -->
+  <view class='goodes' wx:if='{{gourpList}}'>
+    <view class='item' wx:for='{{gourpList}}' wx:key='index' data-mode='group' data-pid='{{item.productGroupBuyId}}' bindtap="handleToGoodesc">
+      <image src='{{item.coverUrl}}'></image>
+      <view class='midd'>
+        <view class='name strmore'>{{item.productName}}</view>
+        <view class='btn'>立即拼团</view>
+      </view>
+      <view class='bott'>
+        <view class='tag'>拼团价</view>
+        <view class='price'>￥
+          <text class='num'>{{item.price}}</text>
+        </view>
+        <view class='tagprice del'>￥{{item.tagPrice}}</view>
+        <view class='rt'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
+      </view>
+    </view>
+  </view>
+  <view class='goodes' wx:if='{{limitList}}'>
+    <view class='item' wx:for='{{limitList}}' wx:key='index' data-mode='limit' data-pid='{{item.timeLimitBuyId}}' bindtap="handleToGoodesc">
+      <image src='{{item.coverUrl}}'></image>
+      <view class='midd'>
+        <view class='name strmore'>{{item.productName}}</view>
+        <view class='btn'>立即秒杀</view>
+      </view>
+      <view class='bott'>
+        <view class='tag'>秒杀价</view>
+        <view class='price'>￥
+          <text class='num'>{{item.price}}</text>
+        </view>
+        <view class='tagprice del'>￥{{item.tagPrice}}</view>
+        <view class='rt'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
+      </view>
+    </view>
+  </view>
+  <view class='goodes' wx:if='{{cutList}}'>
+    <view class='item' wx:for='{{cutList}}' wx:key='index' data-mode='cut' data-pid='{{item.productId}}' bindtap="handleToGoodesc">
+      <image src='{{item.coverUrl}}'></image>
+      <view class='midd'>
+        <view class='name strmore'>{{item.productName}}</view>
+        <view class='btn'>立即砍价</view>
+      </view>
+      <view class='bott'>
+        <view class='price'>砍价至￥
+          <text class='num'>{{item.price}}</text>领
+        </view>
+        <view class='tagprice del'>￥{{item.tagPrice}}</view>
+        <view class='rt'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
+      </view>
+    </view>
+  </view>
+  <!-- 评价 -->
+  <view class='section'>
+    <view class='top'>
+      <view class='txt'>用户评价</view>
+      <view class='more'>更多评论（{{commentList.length}}条）</view>
+    </view>
+    <view class='tags'>
+      <view class='item {{commentTagIdx == item.idx ? "active":""}}' wx:for='{{commentTagLs}}' wx:key='{{item.idx}}' bindtap='handleCommentTagClick' data-idx='{{item.idx}}'>{{item.txt}}({{commentScore[item.n]}})</view>
+    </view>
+    <view class='list'>
+      <view class='item' wx:for='{{commentList}}' wx:key='{{index}}'>
+        <image class='avatar' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg'></image>
+        <view class='info'>
+          <view class='name'>{{item.nickName}}</view>
+          <view class='midd'>
+            <grade score='{{item.starIndex}}' />
+            <view class='time'>{{item.createTime}}</view>
+          </view>
+          <view class='content'>{{item.commentContent}}</view>
+          <view class='imglist'>
+            <image class='img' wx:for='{{item.lstImg}}' src='{{item.fileUrl}}' wx:key='{{index}}'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

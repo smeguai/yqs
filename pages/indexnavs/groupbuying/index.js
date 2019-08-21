@@ -6,11 +6,8 @@ import {
   promiseRequest
 } from '../../../utils/util.js'
 const app = getApp()
-Page({
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
     list: [],
     mylist: [],
@@ -18,15 +15,12 @@ Page({
     pageIndex: 1,
     pageSize: 10,
     merchantId: 0,
-    orderby: 0
+    orderby: 0,
+    onLine: false
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中...',
+  onLoad: function(options) {
+    this.setData({
+      onLine: wx.getStorageSync('userInfo') ? true : false
     })
     this.getMyGroupBuy()
     this.getGroupList()
@@ -37,10 +31,20 @@ Page({
       url: `../../goodsdetail/index?name=group&pid=${e.currentTarget.dataset.pid}`,
     })
   },
+  //  继续分享
+  handleTopaydone(e) {
+    let uid = wx.getStorageSync('userInfo').uid
+    wx.navigateTo({
+      url: `../../paydone/index?pid=${e.currentTarget.dataset.pid}&group=1&uid=${uid}`,
+    })
+  },
   //  获取正在拼团的商品
   getMyGroupBuy() {
-    promiseRequest(mygroupbuy, 'get').then(res => {
-      console.log(res)
+    if (!this.data.onLine) return
+    promiseRequest(mygroupbuy, 'get', {
+      x: app.globalData.location[0],
+      y: app.globalData.location[1]
+    }).then(res => {
       if (res.data.code == 0) {
         this.setData({
           mylist: res.data.data
@@ -66,54 +70,16 @@ Page({
           list: [...this.data.list, ...res.data.data]
         })
       }
-      wx.hideLoading()
     })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
   },
   //  输入框value
   searchInput(e) {
     this.setData({
-        keys: e.detail.value
+      keys: e.detail.value
     })
   },
   //  搜索附近团购商品
   handleSearch() {
-    wx.showLoading({
-      title: '加载中',
-    })
     this.setData({
       list: [],
       pageIndex: 1
@@ -128,17 +94,17 @@ Page({
       this.setData({
         pageIndex: this.data.pageIndex + 1
       })
-      wx.showLoading({
-        title: '加载中...',
-      })
       this.getGroupList()
     }
   },
-
   /**
-   * 用户点击右上角分享
+   * 页面相关事件处理函数--监听用户下拉动作
    */
-  onShareAppMessage: function() {
-
+  onPullDownRefresh: function() {
+    this.setData({
+      pageIndex: 1,
+      list: []
+    })
+    this.getGroupList()
   }
 })

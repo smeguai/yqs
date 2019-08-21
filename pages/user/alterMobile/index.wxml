@@ -1,14 +1,14 @@
 <view>
   <block wx:if='{{hasbindtel}}'>
     <view class="alterMobile_title">您已绑定的手机号</view>
-    <view class="alterMobile_num">155****3278</view>
+    <view class="alterMobile_num">{{hasbindtel}}</view>
   </block>
   <view class="alterMobile_view">
     <input class="alterMobile_viewTop" placeholder="请输入新手机号" type="number" value="{{mobile}}" bindinput="newMobile"></input>
     <view>
       <input placeholder="请输入验证码" type="number" value="{{code_num}}" bindinput="mobileCode"></input>
-      <button wx:if="{{code}}">发送验证码</button>
-      <button wx:else style="background: #CCCCCC">发送验证码</button>
+      <button wx:if="{{code}}" bindtap='handleGetCode'>{{codetxt}}</button>
+      <button wx:else style="background: #CCCCCC">发送验证</button>
     </view>
   </view>
 

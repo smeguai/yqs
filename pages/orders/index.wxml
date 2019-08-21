@@ -1,27 +1,31 @@
 <view class='container'>
+  <loding show='{{loding}}' />
   <view class='nav'>
     <view class='item' wx:for='{{navList}}' data-id='{{item.id}}' wx:key='{{item.id}}' bindtap='navItemClick'>
       <text class='{{navIdx == item.id ? "active txt" : "txt"}}'>{{item.txt}}</text>
     </view>
   </view>
-  <view class='list'>
+  <view class='list' wx:if='{{list.length>0}}'>
     <view class='item' wx:for='{{list}}' wx:key='{{item.merchantId}}' data-orderid='{{item.orderId}}' bindtap='checkOrderDesc'>
       <view class='top'>
         <image class='avatar' src='{{item.headImgUrl}}'></image>
         <text class='name str'>{{item.merchantName}}</text>
         <text class='cate'>{{cateMode[item.status]}}</text>
       </view>
-      <block wx:for='{{item.detailList}}' wx:key='{{index}}'>
+      <block wx:for='{{item.detailList}}' wx:key='{{index}}' wx:for-item='i'>
         <view class='desc'>
-          <image class='img' src='{{item.imgUrl}}'></image>
+          <image class='img' src='{{i.imgUrl}}'></image>
           <view class='info'>
-            <view class='title strmore'>{{item.productName}}</view>
-            <view class='subtitle'>{{item.productSkuvalName}}</view>
+            <view class='title strmore'>{{i.productName}}</view>
+            <view class='midd'>
+            <view class='subtitle str'>{{i.productSkuvalName}}</view>
+              <text class='count'>×{{i.quantity}}</text>
+            </view>
             <view class='bot'>
-              <view class='price'>￥{{item.unitPrice}}
-                <text class='oldprice del'>￥{{item.tagPrice}}</text>
+              <view class='price'>￥{{i.unitPrice}}
+                <text class='oldprice del'>￥{{i.tagPrice}}</text>
               </view>
-              <text class='count'>×{{item.quantity}}</text>
+                <text class='time'>{{item.createTime}}</text>
             </view>
           </view>
         </view>
@@ -33,7 +37,7 @@
         <view class='btns' wx:if='{{item.status == 0}}'>
           <text class='btnitem0 btn' catchtap='cancelOrder' data-orderid='{{item.orderId}}'>取消订单</text>
           <text class='btnitem0 btn'>查看详情</text>
-          <text class='btnitem1 btn' catchtap="paying" data-orderid='{{item.orderId}}'>继续付款</text>
+          <text class='btnitem1 btn' catchtap="wxPayment" data-orderid='{{item.orderId}}'>继续付款</text>
         </view>
         <view class='btns' wx:if='{{item.status == 1}}'>
           <text class='btnitem0 btn'>查看详情</text>
@@ -57,6 +61,8 @@
       </view>
     </view>
   </view>
-  <!-- 密码组件 -->
-  <paypass wx:if='{{payStatus}}' bindclose='payclose' bindverifypass='verifypass' />
+    <view class='null' wx:else>
+      <image class='icon' src='../../static/img/cat_null.png'></image>
+      <view class='txt'>您还没有相关记录，赶快去逛逛吧~</view>
+    </view>
 </view>

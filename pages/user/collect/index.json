@@ -2,5 +2,6 @@
   "usingComponents": {
       "info": "../../../component/info/info"
   },
-  "navigationBarTitleText": "我的收藏"
+  "navigationBarTitleText": "我的收藏",
+    "enablePullDownRefresh": true
 }

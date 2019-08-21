@@ -42,17 +42,22 @@
     "pages/logout/index",
     "pages/orders/index",
     "pages/comment/index",
-    "pages/sale/index"
+    "pages/sale/index",
+    "pages/cutdetail/index",
+    "pages/mycutlist/index"
   ],
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
+  "usingComponents": {
+    "loding": "../component/loding/index"
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "翼起省",
+    "navigationBarTitleText": "翼省钱go",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

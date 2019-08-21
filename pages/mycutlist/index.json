@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "countdown": "../../component/countdown/index"
+  },
+    "navigationBarTitleText": "我的砍价",
+    "enablePullDownRefresh": true
+}

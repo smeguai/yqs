@@ -1,28 +1,44 @@
 <view>
-    <view class="record_nav">
-        <view class="record_nav_view" wx:for="{{nav}}" wx:key="item" data-index="{{index}}" bindtap="navClick">
-            <text class="{{navIndex == index? 'active' : ''}}">{{item.name}}</text>
-        </view>
+  <view class="record_nav">
+    <view class="record_nav_view" wx:for="{{nav}}" wx:key="item" data-index="{{index}}" bindtap="navClick">
+      <text class="{{navIndex == index? 'active' : ''}}">{{item.name}}</text>
     </view>
+  </view>
 
-    <block wx:if="{{navIndex===0}}">
-        <info text="{{content}}" />
-    </block>
-
-    <block wx:else>
-        <view class="record_goods">
-            <view class="record_goodsView" wx:for="{{goods}}" wx:key="item" >
-                <image class="" src="{{item.img}}"></image>
-                <view class="record_goodsText">
-                    <view>
-                        <view class="record_goodsText_name">{{item.name}}</view>
-                        <view class="record_goodsText_text">{{item.text}}</view>
-                    </view>
-                    <view class="record_goodsText_num">
-                        ￥<text class="record_goodsText_pay">{{item.pay}}</text><text class="record_goodsText_price">￥{{item.price}}</text>
-                    </view>
-                </view>
+  <block wx:if="{{navIndex===0}}">
+    <view class="collect_box">
+      <view class="collect_view" wx:for="{{sellerLs}}" wx:key="{{index}}" data-id='{{item.merchantId}}' bindtap='handleSellerItemClick'>
+        <image class="collect_viewImg" src="{{item.headImgUrl}}"></image>
+        <view class="collect_viewText">
+          <view class="collect_viewText_name">
+            <text class="collect_viewText_nameText">{{item.merchantName}}</text>
+            <view>
+              {{item.viewNum}}人逛过
+              <image class="collect_right" src="../../../static/img/right.png"></image>
             </view>
+          </view>
+          <view>{{item.tagName}}</view>
         </view>
-    </block>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="record_goods">
+      <view class="record_goodsView" wx:for="{{goodsLs}}" wx:key="index" data-pid='{{item.productId}}' bindtap="handleGoodsClick">
+        <image class="" src="{{item.productImgUrl}}"></image>
+        <view class="record_goodsText">
+          <view>
+            <view class="record_goodsText_name">{{item.productName}}</view>
+            <view class="record_goodsText_text strmore">{{item.productShoreDesc}}</view>
+          </view>
+          <view class="record_goodsText_num">
+            ￥
+            <text class="record_goodsText_pay">{{item.price}}</text>
+            <text class="record_goodsText_price">￥{{item.tagPrice}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
 </view>
