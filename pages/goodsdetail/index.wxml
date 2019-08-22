@@ -1,6 +1,6 @@
 <view class='container'>
   <loding show='{{loding}}' />
-  <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' goodsimg='{{detail.imgList[0].fileUrl}}' skulist='{{detail.skuList.skuShowList[0]}}' groupBuyId='{{groupBuyId}}' classs='{{status}}' price='{{price}}' tagprice='{{detail.tagPrice}}' orderid='{{popupId}}'
+  <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' goodsimg='{{detail.imgList[0].fileUrl}}' skulist='{{detail.skuList.skuShowList[0]}}' classs='{{status}}' price='{{price}}' tagprice='{{detail.tagPrice}}' orderid='{{popupId}}'
   />
   <view class='banner-wrapper'>
     <swiper class='swiper'>

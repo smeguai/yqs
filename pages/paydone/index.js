@@ -25,8 +25,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options.group)
     this.setData({
-      isgroup: options.group != 0 ? true : false,
+      isgroup: options.group == 'true' ? true:false,
       pid: options.pid,
       uid: wx.getStorageSync('userInfo').uid
     })

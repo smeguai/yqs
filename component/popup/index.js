@@ -11,8 +11,7 @@ Component({
     avatarUrl: String,
     orderid: Number,
     goodsimg: String,
-    classs: String,
-    groupBuyId: Number
+    classs: String
   },
   data: {
     animationData: null,
@@ -58,20 +57,18 @@ Component({
       }
       //  登录状态
       if (this.data.skulist.length > 0) {
-        console.log(this.data.groupBuyId)
         wx.navigateTo({
-          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&skuid=${this.data.detail.productSKUId}&classs=${this.data.classs}&groupBuyId=${this.data.groupBuyId}`,
+          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&skuid=${this.data.detail.productSKUId}&classs=${this.data.classs}`,
         })
       } else {
         wx.navigateTo({
-          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&classs=${this.data.classs}&groupBuyId=${this.data.groupBuyId}`,
+          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&classs=${this.data.classs}`,
         })
       }
     }
   },
   ready() {
     this.createAnimation()
-
     this.setData({
       detail: this.data.skulist[0],
       onLine: wx.getStorageSync('userInfo') ? true : false

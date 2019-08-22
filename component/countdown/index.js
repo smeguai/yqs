@@ -5,7 +5,11 @@ Component({
   properties: {
     strTime: {
       value: '',
-      type: String
+      type: String,
+      observer(value) {
+        console.log(value)
+        this.countDown()
+      }
     },
     colorfff: {
       value: false,
@@ -21,7 +25,7 @@ Component({
     d: 0,
     h: 0,
     m: 0,
-    s: 0
+    s: 0,
   },
 
   /**
@@ -32,7 +36,6 @@ Component({
       let now = new Date().getTime()
       let end = new Date(this.data.strTime).getTime()
       let t = end - now
-      console.log(this.data.strTime)
       if (t >= 0) {
         let d = Math.floor(t / 1000 / 60 / 60 / 24)
         let h = Math.floor(t / 1000 / 60 / 60 % 24)
@@ -47,7 +50,7 @@ Component({
           m,
           s
         })
-        // setTimeout(() => (this.countDown()), 1000)
+        this.timer = setTimeout(() => (this.countDown()), 1000)
       } else {
         this.triggerEvent('getCountStatus', false)
       }
@@ -55,5 +58,11 @@ Component({
   },
   ready() {
     this.countDown()
+  },
+  destroy(){
+    if (this.timer) {
+      clearTimeout(this.timer)
+      this.timer = null
+    }
   }
 })

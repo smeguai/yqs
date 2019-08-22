@@ -7,8 +7,7 @@ import {
   grouporder,
   subgrouporder,
   limitsubmit,
-  usercoupon,
-  orderpay
+  usercoupon
 } from '../../utils/api.js'
 import {
   promiseRequest,
@@ -56,7 +55,8 @@ Page({
       num: options.count,
       productid: options.productid,
       skuid: options.skuid,
-      classs: options.classs
+      classs: options.classs,
+      groupBuyId: options.groupBuyId
     })
     this.getUsercoupon()
     switch (this.data.classs) {
@@ -69,9 +69,6 @@ Page({
       case 'product':
         this.getPlaceOrder()
         break;
-      case 'cut':
-
-      break;
     }
   },
   onShow() {
@@ -155,6 +152,7 @@ Page({
   },
   //  拼团订单
   getGroupOrder() {
+    console.log(this.data.groupBuyId)
     promiseRequest(grouporder, 'get', {
       productGroupBuyId: this.data.productid,
       skuId: this.data.skuid,
@@ -287,22 +285,12 @@ Page({
       signType: 'MD5',
       paySign: v.data.sign,
       success: (res) => {
-        let cate = this.data.classs
-        let isgroup = this.data.classs == 'group' ? true : false
-        switch (cate) {
-          case 'group':
-          case 'limit':
-          case 'product':
-            wx.redirectTo({
-              url: `../paydone/index?group=${isgroup}&pid=${this.data.productid}`
-            })
-            break;
-          case 'cut':
-            wx.redirectTo({
-              url: `../cutdetail/index?pid=${this.data.productid}`
-            })
-            break;
-        }
+        console.log(res)
+        let group = this.data.classs == 'group' ? 1 : 0
+        let uid = wx.getStorageSync('userInfo').uid
+        wx.redirectTo({
+          url: `../paydone/index?group=${group}&pid=${productid}&uid=${uid}`
+        })
       }
     })
   },
@@ -350,7 +338,7 @@ Page({
           icon: 'none'
         })
         return
-      }
+      } 
       switch (this.data.classs) {
         case 'group':
           data.productGroupBuyId = this.data.productid
@@ -375,32 +363,19 @@ Page({
   //  提交订单
   subOrder(url, data) {
     promiseRequest(url, 'post', data).then(res => {
-      console.log(res)
       let v = res.data.value
+      console.log(v)
       if (v && v.code == 0) {
-        this.setData({
-          productid: v.order.productid
-        })
         if (v.order.grandTotal > 0) {
           this.wxPayment(v)
         } else {
-          let cate = this.data.classs
-          let isgroup = this.data.classs == 'group' ? true : false
-          switch (cate) {
-            case 'group':
-            case 'limit':
-            case 'product':
-            case 'cut':
-              wx.redirectTo({
-                url: `../paydone/index?group=${isgroup}&pid=${this.data.productid}`
-              })
-              break;
-            case 'cut':
-              wx.redirectTo({
-                url: `../cutdetail/index?pid=${this.data.productid}`
-              })
-              break;
-          }
+          //  如果是团购 传递group = 1
+          let group = this.data.classs == 'group' ? 1 : 0
+          let groupBuyId = res.data.value.order.groupbuyId ? res.data.value.order.groupbuyId : false
+          let productid = groupBuyId ? groupBuyId : this.data.productid
+          wx.redirectTo({
+            url: `../paydone/index?pid=${productid}&group=${group}`
+          })
         }
       } else if (res.data.value && res.data.value.code == 1) {
         wx.showToast({

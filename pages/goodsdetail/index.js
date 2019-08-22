@@ -43,7 +43,6 @@ Page({
     groupPrice: 0,
     groupAlonePrice: 0,
     popupId: null,
-    groupBuyId: 0,
     onLine: false,
     grouppaystatus: false,
     itemDesc: null
@@ -64,7 +63,6 @@ Page({
     this.setData({
       status: options.name,
       productId: options.pid,
-      groupBuyId: options.groupBuyId,
       onLine: wx.getStorageSync('userInfo') ? true : false
     })
     this.getDetails()
@@ -75,8 +73,7 @@ Page({
     this.setData({
       popupShow: true,
       grouppaystatus: false,
-      popupId: this.data.productId,
-      groupBuyId: e.currentTarget.dataset.pid
+      popupId: this.data.productId
     })
   },
   //  弹出参团层
@@ -86,7 +83,7 @@ Page({
       itemDesc: e.currentTarget.dataset.itemdesc
     })
   },
-  //  提交订单
+  //  查看订单
   getDetails() {
     switch (this.data.status) {
       case 'group':
@@ -97,6 +94,18 @@ Page({
             this.setData({
               detail: res.data.data,
               loding: false
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              success: () => {
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: 0
+                  })
+                }, 1000)
+              }
             })
           }
         })
@@ -109,6 +118,18 @@ Page({
             this.setData({
               detail: res.data.data,
               loding: false
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              success: () => {
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: 0
+                  })
+                }, 1000)
+              }
             })
           }
         })
@@ -126,6 +147,18 @@ Page({
               detail,
               loding: false
             })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              success: () => {
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: 0
+                  })
+                }, 1000)
+              }
+            })
           }
         })
         break;
@@ -138,6 +171,18 @@ Page({
               detail: res.data.data,
               isproduct: false,
               loding: false
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              success: () => {
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: 0
+                  })
+                }, 1000)
+              }
             })
           }
         })
