@@ -286,6 +286,11 @@ Page({
       paySign: v.data.sign,
       success: (res) => {
         console.log(res)
+        let group = this.data.classs == 'group' ? 1 : 0
+        let uid = wx.getStorageSync('userInfo').uid
+        wx.redirectTo({
+          url: `../paydone/index?group=${group}&pid=${productid}&uid=${uid}`
+        })
       }
     })
   },
@@ -333,7 +338,7 @@ Page({
           icon: 'none'
         })
         return
-      }
+      } 
       switch (this.data.classs) {
         case 'group':
           data.productGroupBuyId = this.data.productid
@@ -434,14 +439,12 @@ Page({
     })
   },
   //  查看商家地图位置
-  handleSellerAddr() {
+  handleSellerAddr(e) {
+    let addr = e.currentTarget.dataset.addr
     wx.openLocation({
-      latitude: 28,
-      longitude: 112,
-      scale: 18,
-      success: () => {
-
-      }
+      latitude: app.globalData.locaton[0],
+      longitude: app.globalData.locaton[1],
+      address: addr
     })
   }
 })

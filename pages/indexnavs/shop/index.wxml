@@ -1,11 +1,12 @@
-<view class='container' wx:if='{{data}}'>
+<view class='container'>
   <view class='header'>
     <image class='avatar' src='{{data.headImgUrl}}'></image>
     <view class='info'>
       <view class='top'>
         <view class='strong str'>{{data.merchantName}}</view>
         <view class='score_rt' bindtap="handleCollect">
-          <image class='collect' src='../../../static/img/collect.png'></image>
+          <image class='collect' wx:if='{{data.isCollection}}' src='../../../static/img/collect.png'></image>
+          <image class='collect' wx:else src='../../../static/img/collect_active.png'></image>
           <view>收藏店铺</view>
         </view>
       </view>
@@ -19,7 +20,7 @@
           <view class='txt str'>
             <dis num='{{data.distance}}' class='dis' /> | {{data.addr}}</view>
         </view>
-        <image class='tel' src='../../../static/img/shop_tel.png' data-tel='{{data.contactMobile}}'>{{data.contactMobile}}</image>
+        <image class='tel' src='../../../static/img/shop_tel.png' data-tel='{{data.contactMobile}}' bindtap='handleClickTel'></image>
       </view>
       <view class='tags' wx:if='{{data.tagList}}'>
         <view class='item' wx:for='{{data.tagList}}'>{{item}}</view>
@@ -56,7 +57,7 @@
             <view class='btn b1' wx:else>已领取</view>
           </view>
           <view class='price'>￥{{item.couponMoney}}
-            <text class='tip'>{{item.couponMoney}}</text>
+            <text class='tip'>满{{item.spendMoney}}可用</text>
           </view>
         </view>
       </block>
@@ -97,11 +98,11 @@
   <view class='discount' wx:if='{{productList}}'>
     <view class='top'>
       <text class='txt'>特惠区</text>
-      <!-- <text class='more'>查看更多</text> -->
+      <text class='more' bindtap='handleClickDiscount'>查看更多</text>
     </view>
     <scroll-view scroll-x>
       <view class='list'>
-        <view class='item' wx:for='{{productList}}' wx:key='{{index}}' data-mode='product' data-pid='{{item.productId}}' bindtap="handleToGoodesc">
+        <view class='item' wx:for='{{productList}}' wx:key='{{index}}' data-mode='product' data-pid='{{item.productId}}' bindtap="handleToGoodesc" data-title='{{item.productName}}'>
           <image src='{{item.coverUrl}}'></image>
           <view class='name str'>{{item.productName}}</view>
           <view class='price'>￥
@@ -114,7 +115,7 @@
   </view>
   <!-- 团/ 秒/ 砍 -->
   <view class='goodes' wx:if='{{gourpList}}'>
-    <view class='item' wx:for='{{gourpList}}' wx:key='index' data-mode='group' data-pid='{{item.productGroupBuyId}}' bindtap="handleToGoodesc">
+    <view class='item' wx:for='{{gourpList}}' wx:key='index' data-mode='group' data-pid='{{item.productGroupBuyId}}' bindtap="handleToGoodesc" data-title='{{item.productName}}'>
       <image src='{{item.coverUrl}}'></image>
       <view class='midd'>
         <view class='name strmore'>{{item.productName}}</view>
@@ -131,7 +132,7 @@
     </view>
   </view>
   <view class='goodes' wx:if='{{limitList}}'>
-    <view class='item' wx:for='{{limitList}}' wx:key='index' data-mode='limit' data-pid='{{item.timeLimitBuyId}}' bindtap="handleToGoodesc">
+    <view class='item' wx:for='{{limitList}}' wx:key='index' data-mode='limit' data-pid='{{item.timeLimitBuyId}}' bindtap="handleToGoodesc" data-title='{{item.productName}}'>
       <image src='{{item.coverUrl}}'></image>
       <view class='midd'>
         <view class='name strmore'>{{item.productName}}</view>
@@ -148,7 +149,7 @@
     </view>
   </view>
   <view class='goodes' wx:if='{{cutList}}'>
-    <view class='item' wx:for='{{cutList}}' wx:key='index' data-mode='cut' data-pid='{{item.productId}}' bindtap="handleToGoodesc">
+    <view class='item' wx:for='{{cutList}}' wx:key='index' data-mode='cut' data-pid='{{item.productId}}' bindtap="handleToGoodesc" data-title='{{item.productName}}'>
       <image src='{{item.coverUrl}}'></image>
       <view class='midd'>
         <view class='name strmore'>{{item.productName}}</view>
@@ -167,7 +168,7 @@
   <view class='section'>
     <view class='top'>
       <view class='txt'>用户评价</view>
-      <view class='more'>更多评论（{{commentList.length}}条）</view>
+      <view class='more' bindtap="handleNavigateClick">更多评论（{{commentList.length}}条）</view>
     </view>
     <view class='tags'>
       <view class='item {{commentTagIdx == item.idx ? "active":""}}' wx:for='{{commentTagLs}}' wx:key='{{item.idx}}' bindtap='handleCommentTagClick' data-idx='{{item.idx}}'>{{item.txt}}({{commentScore[item.n]}})</view>

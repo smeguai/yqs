@@ -1,5 +1,5 @@
 <view class="collect_box">
-  <view class="collect_view" wx:for="{{text}}" wx:key="{{item}}" data-id='{{item.merchantId}}' bindtap='handleItemClick'>
+  <view class="collect_view" wx:for="{{text}}" wx:key="{{item}}" data-title='{{item.merchantName}}' data-id='{{item.merchantId}}' bindtap='handleItemClick'>
     <image class="collect_viewImg" src="{{item.headImgUrl}}"></image>
     <view class="collect_viewText">
       <view class="collect_viewText_name">

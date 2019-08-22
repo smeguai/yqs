@@ -1,0 +1,63 @@
+.score-wrapper {
+  background: #f9f9f9;
+  padding: 38rpx 0;
+  display: flex;
+  align-items: center;
+}
+
+.score-wrapper .score {
+  width: 218rpx;
+  text-align: center;
+}
+
+.score-wrapper .score .num {
+  font-size: 68rpx;
+  font-weight: 500;
+  color: #FF6600;
+}
+
+.score-wrapper .score .txt {
+  font-size: 24rpx;
+  padding-top: 24rpx;
+}
+.score-wrapper .cate {
+  padding-left: 56rpx;
+  border-left: 1rpx solid #CCCCCC;
+}
+.score-wrapper .cate .item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14rpx 0;
+}
+.score-wrapper .cate .item .txt {
+  font-size: 28rpx;
+  color: #666666;
+}
+.score-wrapper .cate .item .progress {
+  flex: 1;
+  width: 238rpx;
+  height: 20rpx;
+  margin: 0 30rpx;
+}
+.score-wrapper .cate .item .percent {
+  font-size: 28rpx;
+  color: #666666;
+}
+.tags-wrapper {
+  border-bottom: 1rpx solid #F0F0F0;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 32rpx 0 15rpx;
+}
+
+.tags-wrapper .item {
+  background: #F8F8F8;
+  font-size: 28rpx;
+  padding: 20rpx 28rpx;
+  border-radius: 10rpx;
+  margin: 15rpx;
+}
+.tags-wrapper .item.active {
+  background: #FFDE4E;
+}

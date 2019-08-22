@@ -3,6 +3,5 @@
         "countdown": "../../../component/countdown/index",
         "grade": "../../../component/grade/grade",
         "dis": "../../../component/dis/index"
-    },
-    "navigationBarTitleText": "店铺详情"
+    }
 }

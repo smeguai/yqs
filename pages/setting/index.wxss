@@ -1,6 +1,7 @@
 
 .container {
     padding: 30rpx 24rpx;
+    box-sizing: border-box;
 }
 .container .section {
     background: #fff;

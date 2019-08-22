@@ -63,25 +63,25 @@ Page({
             case 2:
                 // 服务协议
                 wx.navigateTo({
-                    url: ''
+                    url: './protocol/index'
                 })
                 break;
             case 3:
                 // 隐私政策
                 wx.navigateTo({
-                    url: ''
+                    url: './policy/index'
                 })
                 break;
             case 4:
                 // 用户反馈
                 wx.navigateTo({
-                    url: ''
+                    url: './feedback/index'
                 })
                 break;
             case 5:
                 // 帮助中心
                 wx.navigateTo({
-                    url: ''
+                    url: './help/index'
                 })
                 break;
             case 6:

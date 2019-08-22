@@ -42,14 +42,16 @@ Page({
   handleTogoodsDetail(e) {
     let type = e.currentTarget.dataset.type
     let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../../goodsdetail/index?name=${type}&pid=${pid}`
+      url: `../../goodsdetail/index?name=${type}&pid=${pid}&title=${title}`
     })
   },
   //  推荐商家 被点击
   handleSellerClick(e) {
+    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}`,
+      url: `../../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}&title=${title}`,
     })
   },
   //  获取商家店铺

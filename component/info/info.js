@@ -22,8 +22,10 @@ Component({
      */
     methods: {
       handleItemClick(e) {
+        let pid = e.currentTarget.dataset.id
+        let title = e.currentTarget.dataset.title
         wx.navigateTo({
-          url: '../../indexnavs/shop/index?pid='+e.currentTarget.dataset.id,
+          url: `../../indexnavs/shop/index?pid=${pid}&title=${title}`
         })
       }
     }

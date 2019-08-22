@@ -79,6 +79,14 @@
         </view>
         <view class='btn'>邀请好友一起抢</view>
       </view>
+      <view class='addcrowd'>
+        <image class='crowd-img' src=''></image>
+        <view class='crowd-info'>
+          <view class='crowd-txt1'>添加商家微信，带您翼起省！</view>
+          <view class='crowd-txt2'>加入群聊，每天有优惠活动哦~</view>
+        </view>
+        <view class='crowd-btn'>添加</view>
+      </view>
     </view>
   </view>
   <block wx:if='{{status == "group"}}'>
@@ -119,7 +127,7 @@
         <view class='name str'>{{detail.merchantName}}</view>
         <view class='addrs str'>{{detail.addr}}</view>
       </view>
-      <view class='rt' bindtap='handleToSeller' data-pid='{{detail.merchantId}}'>
+      <view class='rt' bindtap='handleToSeller' data-pid='{{detail.merchantId}}' data-title='{{detail.merchantName}}'>
         <text class='txt'>进店逛逛</text>
         <image class='icon' src='../../static/img/right.png'></image>
       </view>

@@ -117,8 +117,20 @@ addcollection = configUrl + '/api/collection/shop/add',
 // 我的砍价
 mycutlist = configUrl + '/api/shopping/cut/my',
 //  商品中 可用的优惠券
-  usercoupon = configUrl + '/api/producr/usercoupon'
+  usercoupon = configUrl + '/api/producr/usercoupon',
+  //  服务协议
+  serviceagreement = configUrl + '/api/article/serviceagreement',
+  //  隐私政策
+  privacypolicy = configUrl + '/api/article/privacypolicy',
+  //  帮助中心
+  helpcenter = configUrl + '/api/article/helpcenter',
+  //  商家付款
+  userpay = configUrl + '/api/shop/userpay'
 module.exports = {
+  userpay,
+  helpcenter,
+  privacypolicy,
+  serviceagreement,
   usercoupon,
   mycutlist,
   addcollection,

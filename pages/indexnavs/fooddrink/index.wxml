@@ -5,7 +5,7 @@
     <input class='ipt' placeholder='搜索附近商家' bindinput="handleSetkeys" bindconfirm='handleKeysDone'></input>
   </view>
   <view class='list'>
-    <view class='item' wx:for='{{list}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}'>
+    <view class='item' wx:for='{{list}}' bindtap="handleSellerClick" data-title='{{item.merchantName}}' data-pid='{{item.merchantId}}'>
       <image src='{{item.merchantImgUrl}}' class='avatar'></image>
       <view class='info'>
         <view class='top'>
@@ -32,7 +32,7 @@
         </view>
         <scroll-view scroll-x class='goods'>
           <view class='goods-list'>
-            <view class='goodsitem' wx:for='{{item.proList}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}'>
+            <view class='goodsitem' wx:for='{{item.proList}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}} ' data-title='{{item.productName}}'>
               <image src='{{item.productImgUrl}}' class='imgurl'></image>
               <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
             </view>

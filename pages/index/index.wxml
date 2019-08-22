@@ -38,12 +38,12 @@
   <view class='favorable' wx:if='{{groupdata || cutdata || limitdata}}'>
     <view class='top'>
       <text class='txt'>特惠</text>
-      <text class='more'>查看更多</text>
+      <!-- <text class='more'>查看更多</text> -->
     </view>
     <scroll-view class='scroll' scroll-x>
       <view class='list'>
         <block wx:if='{{groupdata}}'>
-          <view class='item' wx:for='{{groupdata}}' bindtap='goodsItemClick' data-pid='{{item.productGroupBuyId}}' data-name='group' wx:key='{{index}}'>
+          <view class='item' wx:for='{{groupdata}}' bindtap='goodsItemClick' data-pid='{{item.productGroupBuyId}}' data-name='group' wx:key='{{index}}' data-title='{{item.productName}}'>
             <image class='icon' src='../../static/img/tag0.png'></image>
             <image src='{{item.coverUrl}}' class='img'></image>
             <view class='title str'>{{item.productName}}</view>
@@ -52,7 +52,9 @@
               <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
               <text class='oldprice'>￥{{item.tagPrice}}</text>
             </view>
-            <countdown class='countdown' strTime='{{item.endTime}}' />
+            <block wx:if='{{item.endTime}}'>
+              <countdown class='countdown' strTime='{{item.endTime}}' />
+            </block>
           </view>
         </block>
         <block wx:if='{{cutdata}}'>
@@ -86,7 +88,7 @@
   </view>
   <view class='recommend' wx:if='{{recommendList.length> 0}}'>
     <view class='title'>推荐商家</view>
-    <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}'>
+    <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}' data-title='{{item.merchantName}}'>
       <image src='{{item.merchantImgUrl && item.merchantImgUrl !="" ?item.merchantImgUrl:"../../static/img/imgloading.png"}}' class='avatar'></image>
       <view class='info'>
         <view class='top'>
@@ -97,7 +99,7 @@
         <view class='middel'>
           <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex>0}}' />
           <text>{{item.typeName}}</text>|
-          <text>{{item.viewNum}}</text>
+          <text>人气{{item.viewNum}}</text>
           <!-- <text class='dis' wx:if='{{item.distance != 0}}'>{{item.distance}}米</text> -->
           <dis num='{{item.distance}}' class='dis' />
         </view>
@@ -116,7 +118,7 @@
         </view>
         <scroll-view class='goods' scroll-x='{{item.proList?true: false}}'>
           <view class='list'>
-            <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}'>
+            <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}' data-title='{{item.productName}}'>
               <image src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
               <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
             </view>

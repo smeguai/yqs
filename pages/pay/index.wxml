@@ -12,7 +12,7 @@
           <view class='rt'>
             <image class='icon' src='../../static/img/phone.png' data-tel='{{info.contactMobile}}' bindtap="handlePhoneClick"></image>
             <text class='shu'>|</text>
-            <image class='icon' src='../../static/img/addrs.png' bindtap="handleSellerAddr"></image>
+            <image class='icon' src='../../static/img/addrs.png' data-addr='{{info.addr}}' bindtap="handleSellerAddr"></image>
           </view>
         </view>
       </view>

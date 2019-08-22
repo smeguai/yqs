@@ -1,12 +1,13 @@
 <view class='container'>
+  <paypass wx:if='{{paypass}}' bindclose='paypassshow' bindverifypass='verifypass' />
     <view class='top section'>
         <view class='info'>
-            <image class='avatar' src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=400062461,2874561526&fm=27&gp=0.jpg'></image>
-            <view class='name'>张三疯欧式奶茶铺</view>
+            <image class='avatar' src='{{desc.headImgUrl}}'></image>
+            <view class='name'>{{desc.merchantName}}</view>
         </view>
         <view class='ipts'>
             <text class='rmb'>￥</text>
-            <input class='ipt' type='number'></input>
+            <input class='ipt' type='number' value='{{iptval}}' bindinput="handleIptvalChange"></input>
         </view>
     </view>
     <view class='privilege section'>
@@ -21,18 +22,26 @@
     </view>
     <view class='paystatus section'>
         <view class='text'>支付方式</view>
-        <view class='item'>
-            <image class='icon' src='../../static/img/dzk.png'></image>
-            <text class='text'>电子卡</text>
-            <radio class='radio' color='#FFDE4E'></radio>
+        <view class='item' data-idx='1' bindtap='handlePayItemClick' wx:if='{{desc.enabledEleCard && eleCardBalance > 0}}'>
+            <image class='icon' src='../../static/img/pay_dzk.png'></image>
+            <view class='text'>电子卡<text class='sub'>余额：{{eleCardBalance}}</text></view>
+            <image wx:if='{{radio1}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+            <view wx:else class='radio'></view>
         </view>
-        <view class='item'>
+        <view class='item' data-idx='2' bindtap='handlePayItemClick' wx:if='{{cashBalance > 0}}'>
+            <image class='icon' src='../../static/img/pay_xjye.png'></image>
+            <view class='text'>现金余额支付<text class='sub'>余额：{{cashBalance}}</text></view>
+            <image wx:if='{{radio2}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+            <view wx:else class='radio'></view>
+        </view>
+        <view class='item' data-idx='3' bindtap='handlePayItemClick'>
             <image class='icon' src='../../static/img/wechat.png'></image>
             <text class='text'>微信支付</text>
-            <radio class='radio' color='#FFDE4E'></radio>
+            <image wx:if='{{radio3}}' class='radio' src='../../static/img/pay_cuur.png'></image>
+            <view wx:else class='radio'></view>
         </view>
     </view>
     <view class='btns'>
-        <view class='btn'>确认支付</view>
+        <view class='btn' bindtap="submit">确认支付</view>
     </view>
 </view>

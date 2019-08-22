@@ -53,6 +53,7 @@ Component({
         wx.navigateTo({
           url: '../accredit/index',
         })
+        this.triggerEvent('myPopupClose', false)
         return
       }
       //  登录状态

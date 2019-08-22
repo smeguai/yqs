@@ -90,7 +90,16 @@
     font-size: 28rpx;
     flex: 1;
 }
-
+.container .paystatus .item .text .sub {
+  padding-left: 30rpx;
+  color: #999999;
+}
+.container .paystatus .item .radio {
+  border-radius: 100%;
+  border: 1rpx solid #999999;
+  width: 24rpx;
+  height: 24rpx;
+}
 .container .btns {
     padding: 150rpx 36rpx 0 36rpx;
 }

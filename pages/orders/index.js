@@ -214,6 +214,36 @@ Page({
           signType: 'MD5',
           paySign: v.sign,
           success: (res) => {
+            // let i = parseInt(e.currentTarget.dataset.type)
+            // switch (i) {
+            //   case 0:
+            //     wx.navigateTo({
+            //       url: `../paydone/index?group=0&pid=${e.currentTarget.dataset.orderid}`
+            //     })
+            //     break;
+            //   case 1:
+            //     wx.navigateTo({
+            //       url: `../paydone/index?group=1&pid=${e.currentTarget.dataset.orderid}`
+            //     })
+            //   break;
+            //   case 2:
+
+            //   break; 
+            //   case 3:
+            //     wx.navigateTo({
+            //       url: `../cutdetail/index?pid=${e.currentTarget.dataset.orderid}`
+            //     })
+            //   break;
+            // }
+            let list = this.data.list
+            list.map(item => {
+              if (item.orderId == e.currentTarget.dataset.orderid) {
+                item.status = 1
+              }
+            })
+            this.setData({
+              list
+            })
             console.log(res)
           }
         })
@@ -242,7 +272,7 @@ Page({
       list: [],
     })
     this.getOrders()
-    
+
   },
 
   /**

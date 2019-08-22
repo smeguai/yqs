@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 35,
 			"list": [
 				{
 					"id": -1,
@@ -250,7 +250,7 @@
 					"id": 28,
 					"name": "店铺详情",
 					"pathName": "pages/indexnavs/shop/index",
-					"query": "pid= 10011",
+					"query": "pid=10044",
 					"scene": null
 				},
 				{
@@ -285,6 +285,21 @@
 					"id": -1,
 					"name": "我的砍价",
 					"pathName": "pages/mycutlist/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商家评论",
+					"pathName": "pages/commentlist/index",
+					"query": "pid=10044",
+					"scene": null
+				},
+				{
+					"id": 35,
+					"name": "收款",
+					"pathName": "pages/gathering/index",
+					"query": "pid=10044",
 					"scene": null
 				}
 			]

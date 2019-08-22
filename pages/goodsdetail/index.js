@@ -50,14 +50,17 @@ Page({
   },
   //  进店逛逛
   handleToSeller(e) {
+    let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}`
+      url: `../indexnavs/shop/index?pid=${pid}&title=${title}`
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.setNavigationBarTitle({title: options.title})
     this.setData({
       status: options.name,
       productId: options.pid,
@@ -226,6 +229,7 @@ Page({
   },
   handleAslidBtnClick(e) {
     let i = e.currentTarget.dataset.index
+    console.log(i)
     switch (i) {
       case 0:
         wx.switchTab({
@@ -233,7 +237,9 @@ Page({
         })
         break;
       case 2:
-        this.handleTelClick()
+        wx.makePhoneCall({
+          phoneNumber: e.currentTarget.dataset.tel
+        })
       break;
     }
   },

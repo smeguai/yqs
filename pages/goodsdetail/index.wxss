@@ -348,6 +348,7 @@
 .container .section .invite .bot {
   display: flex;
   align-items: center;
+  padding: 16rpx 0 30rpx 0;
 }
 
 .container .section .invite .bot .lf {
@@ -376,7 +377,41 @@
   background: #ffde4e;
   border-radius: 26rpx;
 }
-
+.container .section .invite .addcrowd {
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #E8E8E8;
+  padding-top: 25rpx;
+}
+.container .section .invite .addcrowd .crowd-img {
+  width: 82rpx;
+  height: 82rpx;
+}
+.container .section .invite .addcrowd .crowd-info {
+  padding: 0 20rpx;
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.addcrowd .crowd-info .crowd-txt1 {
+  font-size: 28rpx;
+}
+.addcrowd .crowd-info .crowd-txt2 {
+  font-size: 24rpx;
+  color: #666666;
+}
+.addcrowd .crowd-btn {
+  font-size: 28rpx;
+  color:#fff;
+  width: 100rpx;
+  height: 54rpx;
+  text-align: center;
+  line-height: 54rpx;
+  border-radius: 6rpx;
+  background: #0CAE42;
+}
 .container .info, .container .gmxz {
   background: #fff;
   margin-top: 20rpx;

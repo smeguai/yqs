@@ -22,10 +22,10 @@
       <view class="name_textName" wx:for="{{historyKeys}}" data-keys='{{item}}' bindtap='historyItemClick' wx:for-index="index" wx:key="index">{{item}}</view>
     </view>
   </view>
-  <!-- 搜索内容 -->
+  <!-- 搜索内容 --> 
   <block wx:if='{{sellerList.length > 0 || goodsList.length > 0}}'>
     <view class="shop_title">相关商品</view>
-    <view class="shop_goods" wx:for="{{goodsList}}" wx:key="index">
+    <view class="shop_goods" wx:for="{{goodsList}}" wx:key="index" data-pid='{{item.productId}}' data-title='{{item.productName}}' bindtap='handleClickGoods'>
       <image src="{{item.coverUrl}}"></image>
       <view class="shop_goods_view">
         <view>
@@ -42,7 +42,7 @@
     <view class="shop_border"></view>
 
     <view class="shop_title">相关商店</view>
-    <view class="shop_shop" wx:for="{{sellerList}}" wx:key="index">
+    <view class="shop_shop" wx:for="{{sellerList}}" wx:key="index" data-title='{{item.merchantName}}' data-pid='{{item.merchantId}}' bindtap='handleSellerClick'>
       <image src="{{item.merchantImgUrl}}"></image>
       <view class="shop_shopText_title str">{{item.merchantName}}</view>
       <view class="shop_shopText_text">
@@ -54,6 +54,6 @@
   </block>
   <view class="shop_none" wx:else>
     <image src="../../../static/img/icon_search.png"></image>
-    <view>抱歉！未搜索到“西瓜”相关的商品~</view>
+    <view>抱歉！未搜索到“{{keys}}”相关的商品~</view>
   </view>
 </view>

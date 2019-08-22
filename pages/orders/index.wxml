@@ -37,7 +37,7 @@
         <view class='btns' wx:if='{{item.status == 0}}'>
           <text class='btnitem0 btn' catchtap='cancelOrder' data-orderid='{{item.orderId}}'>取消订单</text>
           <text class='btnitem0 btn'>查看详情</text>
-          <text class='btnitem1 btn' catchtap="wxPayment" data-orderid='{{item.orderId}}'>继续付款</text>
+          <text class='btnitem1 btn' catchtap="wxPayment" data-type='{{item.promoType}}' data-orderid='{{item.orderId}}'>继续付款</text>
         </view>
         <view class='btns' wx:if='{{item.status == 1}}'>
           <text class='btnitem0 btn'>查看详情</text>

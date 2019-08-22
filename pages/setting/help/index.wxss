@@ -21,9 +21,10 @@
 }
 .container .item.active .tags {
     display: block;
+    padding: 14rpx 0;
 }
+
 .container .item .tags .txt {
     font-size: 26rpx;
-    line-height: 36rpx;
-    padding: 14rpx 0;
+    line-height: 58rpx;
 }

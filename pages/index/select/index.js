@@ -27,7 +27,22 @@ Page({
     goodsList: null,
     inputFocus: true
   },
-
+  //  跳转
+  handleClickGoods(e) {
+    let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
+    let type = 'product'
+    wx.navigateTo({
+      url: `../../goodsdetail/index?pid=${pid}&title=${title}&name=${type}`
+    })
+  },
+  handleSellerClick(e) {
+    let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
+    wx.navigateTo({
+      url: `../../indexnavs/shop/index?pid=${pid}&title=${title}`
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

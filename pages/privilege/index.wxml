@@ -47,6 +47,7 @@
                 wx:key='{{item.couponId}}' 
                 data-pid='{{item.couponId}}'
                 bindtap='handleGetPreferential'
+                data-title='{{item.productName}}'
                >
                 <view class='title'>{{item.couponName}}</view>
                 <view class='price'>￥{{item.couponMoney}}</view>
@@ -82,6 +83,7 @@
       bindtap='handleGoodsDetail' 
       data-pid='{{item.productGroupBuyId}}'
       data-name='group'
+      data-title='{{item.productName}}'
       >
         <image class='lists-img' src='{{item.coverUrl}}'></image>
         <view class='opera'>
@@ -119,6 +121,7 @@
         bindtap='handleGoodsDetail' 
         data-pid='{{item.timeLimitBuyId}}'
         data-name='limit'
+        data-title='{{item.productName}}'
       >
         <image class='lists-img' src='{{item.coverUrl}}'></image>
         <view class='opera'>
@@ -154,7 +157,8 @@
         wx:key='{{index}}'
         data-name='cut'
         data-pid='{{item.productCutPriceId}}'
-        bindtap='handleGoodsDetail' 
+        bindtap='handleGoodsDetail'
+        data-title='{{item.productName}}'
       >
         <image class='lists-img' src='{{item.coverUrl}}'></image>
         <view class='opera'>

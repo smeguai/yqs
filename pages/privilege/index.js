@@ -130,8 +130,9 @@ Page({
   handleGoodsDetail(e) {
     let name = e.currentTarget.dataset.name
     let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../goodsdetail/index?name=${name}&pid=${pid}`
+      url: `../goodsdetail/index?name=${name}&pid=${pid}&title=${title}`
     })
   },
   //  砍价

@@ -1,14 +1,12 @@
-// pages/setting/help/index.js
+import { helpcenter } from '../../../utils/api.js'
+import { promiseRequest } from '../../../utils/util.js'
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        list: [
-            { txt: '如何找回支付密码？', tag: ['1)查看手机内存是否安装了短信拦截软件，建议打开屏蔽短信的软件查看屏蔽短信，或换一部手机安装手机卡再试。 ', '2)短信经过网关时，网络通讯异常可能会造成短信丢失，或延时收到短信，请耐心等待一下。', ' 3)手机状态不好，信号差，建议关机30分钟左右，或去除手机卡后换其他手机安装再试。', ' 4)手机停机，欠费状态下是不能收到短信的，若该手机还会使用，建议充值手机话费后再操作。']},
-            { txt: '如何找回支付密码？', tag: ['1)查看手机内存是否安装了短信拦截软件，建议打开屏蔽短信的软件查看屏蔽短信，或换一部手机安装手机卡再试。 ', '2)短信经过网关时，网络通讯异常可能会造成短信丢失，或延时收到短信，请耐心等待一下。', ' 3)手机状态不好，信号差，建议关机30分钟左右，或去除手机卡后换其他手机安装再试。', ' 4)手机停机，欠费状态下是不能收到短信的，若该手机还会使用，建议充值手机话费后再操作。'] }, { txt: '如何找回支付密码？', tag: ['1)查看手机内存是否安装了短信拦截软件，建议打开屏蔽短信的软件查看屏蔽短信，或换一部手机安装手机卡再试。 ', '2)短信经过网关时，网络通讯异常可能会造成短信丢失，或延时收到短信，请耐心等待一下。', ' 3)手机状态不好，信号差，建议关机30分钟左右，或去除手机卡后换其他手机安装再试。', ' 4)手机停机，欠费状态下是不能收到短信的，若该手机还会使用，建议充值手机话费后再操作。'] }
-        ],
+        list: null,
         currentIdx: -1
     },
 
@@ -16,60 +14,24 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+      this.gethelpcenter()
     },
+    //  获取帮助信息
+  gethelpcenter() {
+    promiseRequest(helpcenter, 'get').then(res => {
+      console.log(res.data)
+      if (res.data.code == 0) {
+        this.setData({
+          list: res.data.data
+        })
+      }
+    })
+  },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
     itemClick(e) {
         let idx = e.currentTarget.dataset.idx
         this.setData({
             currentIdx: idx
         })
     },
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
 })

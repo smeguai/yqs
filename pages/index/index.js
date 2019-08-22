@@ -48,8 +48,10 @@ Page({
   },
   //  推荐商家 被点击
   handleSellerClick(e) {
+    let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../indexnavs/shop/index?pid=${e.currentTarget.dataset.pid}`,
+      url: `../indexnavs/shop/index?pid=${pid}&title=${title}`,
     })
   },
   //  推荐商品
@@ -165,7 +167,7 @@ Page({
     let type = e.currentTarget.dataset.type
     let pid = e.currentTarget.dataset.pid
     wx.navigateTo({
-      url: `../goodsdetail/index?name=${type}&pid=${pid}`
+      url: `../goodsdetail/index?name=${type}&pid=${pid}&title=${e.currentTarget.dataset.title}`
     })
   },
   bannerChange(e) {
@@ -222,7 +224,7 @@ Page({
   },
   goodsItemClick(e) {
     wx.navigateTo({
-      url: `../goodsdetail/index?pid=${e.currentTarget.dataset.pid}&name=${e.currentTarget.dataset.name}`,
+      url: `../goodsdetail/index?pid=${e.currentTarget.dataset.pid}&name=${e.currentTarget.dataset.name}&title=${e.currentTarget.dataset.title}`,
     })
   },
   locationClick() {

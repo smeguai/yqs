@@ -69,10 +69,29 @@ Page({
       address: e.currentTarget.dataset.subname
     })
   },
+  //  跳转  到更多特惠
+  handleClickDiscount() {
+    wx.navigateTo({
+      url: `../../sale/index?pid='${this.data.merchantId}`
+    })
+  },
+  //  跳转  到更多评论
+  handleNavigateClick() {
+    wx.navigateTo({
+      url: `../../commentlist/index?pid=${this.data.merchantId}`
+    })
+  },
+  //  拨打电话
+  handleClickTel(e) {
+    console.log(e.currentTarget.dataset.tel)
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.tel
+    })
+  },
   //  商家付款
   handlepay() {
     wx.navigateTo({
-      url: `../../gathering/index`
+      url: `../../gathering/index?pid=${this.data.merchantId}`
     })
   },
   //  收藏店铺
@@ -80,7 +99,19 @@ Page({
     promiseRequest(addcollection, 'get' , {
       merchantId: this.data.merchantId
     }).then(res => {
-      // console.log(res)
+      if (res.data.code == 0) {
+        let data = this.data.data
+        data.isCollection = res.data.data == '取消收藏成功' ? false : true
+        this.setData({
+          data
+        })
+        console.log(data.isCollection)
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
     })
   },
   //  购买代金券
@@ -103,12 +134,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.setNavigationBarTitle({title: options.title})
     this.setData({
-      x: app.globalData.location[0],
-      y: app.globalData.location[1],
       merchantId: options.pid,
       onLine: wx.getStorageSync('userInfo') ? true : false,
-      stationId: wx.getStorageSync('station').stationId
+      stationId: wx.getStorageSync('station').stationId,
+      x: app.globalData.location[0],
+      y: app.globalData.location[1]
     })
     this.getShopDetail()
     this.getProductDes()
@@ -263,8 +295,9 @@ Page({
   handleToGoodesc(e) {
     let name = e.currentTarget.dataset.mode
     let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../../goodsdetail/index?name=${name}&pid=${pid}`
+      url: `../../goodsdetail/index?name=${name}&pid=${pid}&title=${title}`
     })
   }
 })
