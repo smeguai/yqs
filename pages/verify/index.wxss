@@ -56,7 +56,6 @@
 .container .main .codeimg {
   width: 238rpx;
   height: 238rpx;
-  padding: 10rpx;
   border-radius: 4rpx;
   border: 1rpx solid #EEEEEE;
 }

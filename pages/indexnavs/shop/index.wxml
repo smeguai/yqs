@@ -1,11 +1,12 @@
 <view class='container'>
+<loding show='{{loding}}' />
   <view class='header'>
     <image class='avatar' src='{{data.headImgUrl}}'></image>
     <view class='info'>
       <view class='top'>
         <view class='strong str'>{{data.merchantName}}</view>
         <view class='score_rt' bindtap="handleCollect">
-          <image class='collect' wx:if='{{data.isCollection}}' src='../../../static/img/collect.png'></image>
+          <image class='collect' wx:if='{{!data.isCollection}}' src='../../../static/img/collect.png'></image>
           <image class='collect' wx:else src='../../../static/img/collect_active.png'></image>
           <view>收藏店铺</view>
         </view>
@@ -149,7 +150,7 @@
     </view>
   </view>
   <view class='goodes' wx:if='{{cutList}}'>
-    <view class='item' wx:for='{{cutList}}' wx:key='index' data-mode='cut' data-pid='{{item.productId}}' bindtap="handleToGoodesc" data-title='{{item.productName}}'>
+    <view class='item' wx:for='{{cutList}}' wx:key='index' data-mode='cut' data-pid='{{item.productCutPriceId}}' bindtap="handleToGoodesc" data-title='{{item.productName}}'>
       <image src='{{item.coverUrl}}'></image>
       <view class='midd'>
         <view class='name strmore'>{{item.productName}}</view>

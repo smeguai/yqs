@@ -196,7 +196,13 @@
     font-size: 20rpx;
     color: #999;
 }
-
+.container .favorable .scroll .list .item .price {
+  display: flex;
+  align-items: flex-end;
+}
+.container .favorable .scroll .list .item .price .oldprice {
+  padding-left: 24rpx;
+}
 .container .favorable .scroll .list .item .newprice {
     font-size: 32rpx;
     color: #f60;

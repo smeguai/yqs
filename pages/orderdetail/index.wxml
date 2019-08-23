@@ -167,10 +167,11 @@
   <view class='vierify' wx:if="{{vierifyshow}}">
     <view class='check'>
       <view class='header'>核销电子凭证</view>
-      <image class='qacode'></image>
+      <image class='qacode' src='data:image/jpeg;base64,{{imgUrl}}'></image>
       <view class='num'>{{code}}</view>
       <view class='tip'>注：确定使用，请将该二维码出示给商家核销</view>
       <view class='btn' bindtap='handleBtnClick' data-code='{{code}}'>自助核销</view>
+      <image class='close' bindtap="handleCloseClick" src='../../static/img/close2.png'></image>
     </view>
   </view>
 </view>

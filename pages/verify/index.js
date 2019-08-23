@@ -33,7 +33,6 @@ Page({
     promiseRequest(qrcodeimg, 'get', {
       code: this.data.data.rootCode
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         this.setData({
           imgUrl: res.data.data

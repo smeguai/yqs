@@ -125,8 +125,17 @@ mycutlist = configUrl + '/api/shopping/cut/my',
   //  帮助中心
   helpcenter = configUrl + '/api/article/helpcenter',
   //  商家付款
-  userpay = configUrl + '/api/shop/userpay'
+  userpay = configUrl + '/api/shop/userpay',
+  //  充值
+  recharge = configUrl + '/api/wechat/cash/charge',
+  //  支付成功后推荐的商品
+  paydonerecomment = configUrl + '/api/shopping/groupbuy/fine',
+  //  评价
+  setcomment = configUrl + '/api/order/comment'
 module.exports = {
+  setcomment,
+  paydonerecomment,
+  recharge,
   userpay,
   helpcenter,
   privacypolicy,

@@ -42,7 +42,6 @@ Page({
   },
   //  当前位置
   getNowLoction() {
-    console.log('加载前'+app.globalData.location)
     if (this.data.address) return
     promiseRequest(nowloction, 'get', {
       x: app.globalData.location[0],
@@ -125,7 +124,6 @@ Page({
     let status = true
     let list = this.data.historyAddrsList,
       current = this.data.currentStation
-      console.log(list, current)
     if (list) {
       list.map(item => {
         if (item.stationId == current.stationId) {
@@ -153,7 +151,6 @@ Page({
         })
         let location = [res.latitude, res.longitude]
         app.globalData.location = location
-        console.log('加载后' + location)
         wx.setStorage({
           key: 'location',
           key: 'address',

@@ -64,7 +64,6 @@ Page({
     promiseRequest(cutfriendcut, 'get', {
       cutPriceId: this.data.pid
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         this.setData({
           //  帮忙砍价成功

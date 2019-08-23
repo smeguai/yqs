@@ -150,6 +150,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 0;
 }
 .container .goup .main .info .desc .title {
   font-size: 28rpx;

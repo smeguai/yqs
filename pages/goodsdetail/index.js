@@ -45,7 +45,8 @@ Page({
     popupId: null,
     onLine: false,
     grouppaystatus: false,
-    itemDesc: null
+    itemDesc: null,
+    groupBuyId: 0
   },
   //  进店逛逛
   handleToSeller(e) {
@@ -70,15 +71,35 @@ Page({
   },
   //  参与拼团
   handleGroupPay(e){
-    this.setData({
-      popupShow: true,
-      grouppaystatus: false,
-      popupId: this.data.productId
+    let myuid = wx.getStorageSync('userInfo').uid
+    if (myuid == e.currentTarget.dataset.uid) {
+      wx.showToast({
+        title: '不能参与自己的拼团',
+        icon: 'none'
+      })
+    }else {
+      this.setData({
+        popupShow: true,
+        grouppaystatus: false,
+        popupId: this.data.productId,
+        groupBuyId: e.currentTarget.dataset.groupbuyid,
+        price: e.currentTarget.dataset.price
+      })
+    }
+  },
+  //  查看位置
+  handleAddres(e) {
+    wx.openLocation({
+      latitude: parseFloat(e.currentTarget.dataset.x),
+      longitude: parseFloat(e.currentTarget.dataset.y),
+      name: e.currentTarget.dataset.merchantName,
+      address: e.currentTarget.dataset.addr
     })
   },
   //  弹出参团层
   handleChangeGroupPay(e) {
     this.setData({
+      groupPrice: this.data.detail.price,
       grouppaystatus: true,
       itemDesc: e.currentTarget.dataset.itemdesc
     })
@@ -91,8 +112,11 @@ Page({
           Id: this.data.productId
         }).then(res => {
           if (res.data.code == 0) {
+            let detail = res.data.data
+            detail.x = parseFloat(detail.x)
+            detail.y = parseFloat(detail.y)
             this.setData({
-              detail: res.data.data,
+              detail,
               loding: false
             })
           } else {
@@ -274,7 +298,6 @@ Page({
   },
   handleAslidBtnClick(e) {
     let i = e.currentTarget.dataset.index
-    console.log(i)
     switch (i) {
       case 0:
         wx.switchTab({

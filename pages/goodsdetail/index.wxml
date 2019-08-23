@@ -1,7 +1,6 @@
 <view class='container'>
   <loding show='{{loding}}' />
-  <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' goodsimg='{{detail.imgList[0].fileUrl}}' skulist='{{detail.skuList.skuShowList[0]}}' classs='{{status}}' price='{{price}}' tagprice='{{detail.tagPrice}}' orderid='{{popupId}}'
-  />
+  <popup wx:if='{{popupShow}}' bindmyPopupClose='popupStatus' goodsimg='{{detail.imgList[0].fileUrl}}' skulist='{{detail.skuList.skuShowList[0]}}' classs='{{status}}' price='{{price}}' groupbuyid='{{groupBuyId}}' tagprice='{{detail.tagPrice}}' orderid='{{popupId}}' />
   <view class='banner-wrapper'>
     <swiper class='swiper'>
       <swiper-item class='item' wx:for='{{detail.imgList}}' wx:key='{{index}}'>
@@ -137,7 +136,7 @@
         <view class='text'>基本信息</view>
         <view class='icon'>
           <image class='phone' src='../../static/img/phone.png' bindtap='handleTelClick' data-tel='{{detail.contactMobile}}'></image>
-          <image class='addrs' src='../../static/img/addrs.png' bindtap='handleAddres' ></image>
+          <image class='addrs' src='../../static/img/addrs.png' bindtap='handleAddres' data-x='{{detail.x}}' data-y='{{detail.y}}' data-name='{{detail.merchantName}}' data-addr='{{detail.addr}}'></image>
         </view>
       </view>
       <view class='item'>营业时间: {{detail.businessTime}}</view>
@@ -211,8 +210,8 @@
         </view>
         <text class='kong' wx:for='{{itemDesc.disparityNum}}'>?</text>
       </view>
-      <view class='btn' bindtap='handleGroupPay' data-pid='{{itemDesc.groupBuyId}}'>参与拼团</view>
-      <image src='' class='close'></image>
+      <view class='btn' bindtap='handleGroupPay' data-price='{{detail.price}}' data-uid='{{itemDesc.detailList[0].userId}}' data-groupbuyid='{{itemDesc.detailList[0].groupBuyId}}' data-pid='{{detail.productGroupBuyId}}'>参与拼团</view>
+      <image src='../../staitc/img/close2.png' class='close'></image>
     </view>
   </view>
 </view>

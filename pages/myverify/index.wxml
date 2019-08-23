@@ -15,9 +15,9 @@
     </view>
     <view class='tips'>请出示给店员输入密码进行核销</view>
     <view class='ipt' bindtap="handleIptClick">
-      <view class='item' wx:for='{{4}}'>{{inputVal[index]}}</view>
+      <view class='item' wx:for='{{6}}'>{{inputVal[index]}}</view>
     </view>
-    <input focus="{{iptMode}}" maxlength="4" value='{{inputVal}}' bindinput="iptchange" class='input'></input>
+    <input focus="{{iptMode}}" maxlength="6" value='{{inputVal}}' bindinput="iptchange" class='input'></input>
     <view class='btn {{btnMode?"active":""}}' bindtap='submit'>自助核销</view>
   </view>
 </view>

@@ -49,35 +49,39 @@
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
             <view class='price'>
-              <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
+              <text class='newprice'>
+                <text class='f'>￥</text> {{item.price}}
+              </text>
               <text class='oldprice'>￥{{item.tagPrice}}</text>
             </view>
-            <block wx:if='{{item.endTime}}'>
-              <countdown class='countdown' strTime='{{item.endTime}}' />
-            </block>
+            <countdown class='countdown' strTime='{{item.endTime}}' />
           </view>
         </block>
         <block wx:if='{{cutdata}}'>
-          <view class='item' wx:for='{{cutdata}}' bindtap='goodsItemClick' data-pid='{{item.productCutPriceId}}' data-name='cut' wx:key='{{index}}'>
+          <view class='item' wx:for='{{cutdata}}' bindtap='goodsItemClick' data-pid='{{item.productCutPriceId}}' data-name='cut' wx:key='{{index}}' data-title='{{item.productName}}'>
             <image class='icon' src='../../static/img/tag1.png'></image>
             <image src='{{item.coverUrl}}' class='img'></image>
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
             <view class='price'>
-              <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
+              <text class='newprice'>
+                <text class='f'>￥</text> {{item.price}}
+              </text>
               <text class='oldprice'>￥{{item.tagPrice}}</text>
             </view>
             <countdown class='countdown' strTime='{{item.endTime}}' />
           </view>
         </block>
         <block wx:if='{{limitdata}}'>
-          <view class='item' wx:for='{{limitdata}}' bindtap='goodsItemClick' data-pid='{{item.timeLimitBuyId}}' data-name='limit' wx:key='{{index}}'>
+          <view class='item' wx:for='{{limitdata}}' bindtap='goodsItemClick' data-pid='{{item.timeLimitBuyId}}' data-name='limit' wx:key='{{index}}' data-title='{{item.productName}}'>
             <image class='icon' src='../../static/img/tag2.png'></image>
             <image src='{{item.coverUrl}}' class='img'></image>
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
             <view class='price'>
-              <text class='newprice'><text class='f'>￥</text>{{item.price}}</text>
+              <view class='newprice'>
+                <text class='f'>￥</text> {{item.price}}
+              </view>
               <text class='oldprice'>￥{{item.tagPrice}}</text>
             </view>
             <countdown class='countdown' strTime='{{item.endTime}}' />
@@ -98,7 +102,7 @@
         </view>
         <view class='middel'>
           <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex>0}}' />
-          <text>{{item.typeName}}</text>|
+          <text>{{item.typeName}}</text> |
           <text>人气{{item.viewNum}}</text>
           <!-- <text class='dis' wx:if='{{item.distance != 0}}'>{{item.distance}}米</text> -->
           <dis num='{{item.distance}}' class='dis' />
@@ -120,7 +124,10 @@
           <view class='list'>
             <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}' data-title='{{item.productName}}'>
               <image src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
-              <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
+              <text class='price'>
+                ￥{{item.price}}
+                <text class='oldprice del'>￥{{item.tagPrice}}</text>
+              </text>
             </view>
           </view>
         </scroll-view>

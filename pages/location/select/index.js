@@ -42,7 +42,6 @@ Page({
     let id = e.currentTarget.dataset.id
     let near = this.data.record.length > 0 ? this.data.record : this.data.add
     let hasHistory = true
-      console.log(near)
     near.map(item => {
       if (item.stationId == id) {
         app.globalData.station = item
@@ -62,7 +61,6 @@ Page({
     this.setData({
       searchContent: ''
     })
-    console.log(1)
   },
   getSearch() {
     let data = {

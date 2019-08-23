@@ -146,7 +146,6 @@ Page({
           promiseRequest(canceorder, 'get', {
             orderId: e.currentTarget.dataset.orderid
           }).then(res => {
-            console.log(res)
             if (res.data.code == 1) {
               wx.showToast({
                 title: res.data.msg,

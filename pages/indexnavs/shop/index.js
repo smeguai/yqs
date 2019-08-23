@@ -58,13 +58,14 @@ Page({
       txt: '很差',
         n: 'startCount1',
         idx: 1
-    }]
+    }],
+    loding: true
   },
   //  查看位置
   handleClickAddres(e) {
     wx.openLocation({
-      latitude: parseInt(e.currentTarget.dataset.x),
-      longitude: parseInt(e.currentTarget.dataset.y),
+      latitude: parseFloat(e.currentTarget.dataset.x),
+      longitude: parseFloat(e.currentTarget.dataset.y),
       name: e.currentTarget.dataset.name,
       address: e.currentTarget.dataset.subname
     })
@@ -83,7 +84,6 @@ Page({
   },
   //  拨打电话
   handleClickTel(e) {
-    console.log(e.currentTarget.dataset.tel)
     wx.makePhoneCall({
       phoneNumber: e.currentTarget.dataset.tel
     })
@@ -105,7 +105,6 @@ Page({
         this.setData({
           data
         })
-        console.log(data.isCollection)
       } else {
         wx.showToast({
           title: res.data.msg,
@@ -289,6 +288,9 @@ Page({
           data
         })
       }
+      this.setData({
+        loding: false
+      })
     })
   },
   //  商品详情

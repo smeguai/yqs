@@ -10,7 +10,7 @@
             <view class='price'>￥{{mywallet.eleCardBalance}}</view>
         </view>
        <view class='btns'>
-         <view class='btn'>充值</view>
+         <view class='btn' bindtap="handleNavigate">充值</view>
        </view>
     </view>
     <view class='navs'>

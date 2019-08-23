@@ -7,7 +7,6 @@ Component({
       value: '',
       type: String,
       observer(value) {
-        console.log(value)
         this.countDown()
       }
     },
@@ -33,8 +32,10 @@ Component({
    */
   methods: {
     countDown() {
+      let endtime = this.data.strTime
+      endtime= endtime.replace(/-/g,'/')
       let now = new Date().getTime()
-      let end = new Date(this.data.strTime).getTime()
+      let end = new Date(endtime).getTime()
       let t = end - now
       if (t >= 0) {
         let d = Math.floor(t / 1000 / 60 / 60 / 24)

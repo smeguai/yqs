@@ -1,0 +1,54 @@
+.container {
+    background: #fff;
+}
+.header {
+  background: #F8F8F8;
+  height: 68rpx;
+  line-height: 68rpx;
+  padding-left: 24rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.main {
+  padding: 0 24rpx;
+}
+.main .info {
+  padding: 36rpx 0;
+}
+.main .info .strong {
+  font-size: 28rpx;
+}
+.main .info .subtxt {
+  font-size: 24rpx;
+  color: #999999;
+  padding-left: 75rpx;
+}
+.main .ipt {
+  font-size: 36rpx;
+  padding: 20rpx 0;
+  flex: 1;
+}
+.main .ipt-wrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #CCCCCC;
+
+}
+.main .ipt-wrapper text {
+  font-size: 36rpx;
+  color: #999999;
+}
+.main .ipt-wrapper image {
+  width: 24rpx;
+  height: 24rpx;
+  padding: 10rpx;
+}
+.main .btn {
+  font-size: 32rpx;
+  text-align: center;
+  margin-top: 250rpx;
+  height: 74rpx;
+  line-height: 74rpx;
+  background: #FFDE4E;
+  border-radius: 37rpx;
+}

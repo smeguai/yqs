@@ -55,6 +55,7 @@ Page({
     this.setData({
       num: options.count,
       productid: options.productid,
+      groupBuyId: options.groupbuyid,
       skuid: options.skuid,
       classs: options.classs
     })
@@ -288,7 +289,7 @@ Page({
       paySign: v.data.sign,
       success: (res) => {
         let cate = this.data.classs
-        let isgroup = this.data.classs == 'group' ? true : false
+        let isgroup = this.data.classs == 'group' ? 1 : 0
         switch (cate) {
           case 'group':
           case 'limit':
@@ -313,6 +314,7 @@ Page({
         radio2 = this.data.radio2,
         radio3 = this.data.radio3,
         total = this.data.total,
+        paytotal = this.data.paytotal,
         data = {
           skuid: info.detailList[0].productSkuid,
           quantity: this.data.num,
@@ -355,6 +357,7 @@ Page({
         case 'group':
           data.productGroupBuyId = this.data.productid
           data.groupBuyId = this.data.groupBuyId
+          console.log(this.data.groupBuyId+'-----------:pay groupbuyid')
           this.subOrder(subgrouporder, data)
           break;
         case 'limit':
@@ -375,24 +378,25 @@ Page({
   //  提交订单
   subOrder(url, data) {
     promiseRequest(url, 'post', data).then(res => {
-      console.log(res)
       let v = res.data.value
       if (v && v.code == 0) {
-        this.setData({
-          productid: v.order.productid
-        })
+        // this.setData({
+        //   productid: this
+        // })
         if (v.order.grandTotal > 0) {
           this.wxPayment(v)
         } else {
           let cate = this.data.classs
-          let isgroup = this.data.classs == 'group' ? true : false
+          let isgroup = this.data.classs == 'group' ? 1 : 0
+          let pid = this.data.productid
           switch (cate) {
             case 'group':
+              pid = v.order.groupbuyId
             case 'limit':
             case 'product':
             case 'cut':
               wx.redirectTo({
-                url: `../paydone/index?group=${isgroup}&pid=${this.data.productid}`
+                url: `../paydone/index?group=${isgroup}&pid=${pid}&price=${this.data.total}&orderid=${v.order.orderId}`
               })
               break;
             case 'cut':

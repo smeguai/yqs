@@ -82,7 +82,6 @@ Page({
   },
   // 
   historyItemClick(e) {
-    console.log(e.currentTarget.dataset.keys)
     this.setData({
       keys: e.currentTarget.dataset.keys,
       inputFocus: false

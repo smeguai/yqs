@@ -1,5 +1,5 @@
 <view class='container'>
-
+  <loding show='{{loding}}' />
   <view class='goup' wx:if='{{isgroup}}'>
     <view class='topbackground'></view>
     <view class='main'>
@@ -15,53 +15,57 @@
         </view>
       </view>
       <view class='center'>
-        <view class='tpo'>还差
-          <text class='num'>{{groupdesc.disparityNum}}个</text>人,赶快邀请好友来拼团</view>
-        <block wx:if='{{groupdesc.endTime}}'>
+      {{groupdesc.personNum}}{{ groupdesc.boughtQty}}
+        <block wx:if='{{groupdesc.personNum != groupdesc.boughtQty}}'>
+          <view class='tpo'>还差
+            <text class='num'>{{groupdesc.disparityNum}}个</text>人,赶快邀请好友来拼团</view>
           <countdown class='countdown' strTime='{{groupdesc.endTime}}' />
         </block>
+        <view class='tpo1' wx:else>拼团成功了!</view>
         <view class='list'>
           <view class='item' wx:for='{{groupdesc.detailList}}'>
-            <text class='tz'>团主</text>
+            <text class='tz' wx:if='{{item.hasRegComm}}'>团主</text>
             <image class='avatar' src='{{item.headImgUrl}}'></image>
           </view>
           <text class='kong' wx:for='{{groupdesc.disparityNum}}'>?</text>
         </view>
       </view>
-      <button class='btn' open-type="share" wx:if='{{groupdesc.userId == uid}}'>邀请好友拼团</button>
-      <view class='btn' wx:else bindtap='handleGroupPay'>参与 {{groupdesc.nickName}} 的拼团</view>
+      <block wx:if='{{groupdesc.personNum != groupdesc.boughtQty}}'>
+        <button class='btn' open-type="share" wx:if='{{groupdesc.userId == uid}}'>邀请好友拼团</button>
+        <view class='btn' wx:else bindtap='handleGroupPay'>参与 {{groupdesc.nickName}} 的拼团</view>
+      </block>
     </view>
   </view>
   <view class='done' wx:else>
     <image class='icon' src='../../static/img/success.png'></image>
-    <view class='txt'>￥18.00</view>
+    <view class='txt'>￥{{price}}</view>
     <view class='bloc'>
-      <view class='link'>查看订单详情</view>
+      <view class='link' bindtap='handleClickOrderDesc'>查看订单详情</view>
       <view class='link'>再继续逛逛</view>
     </view>
   </view>
-  <view class='recommend'>
+  <view class='recommend' wx:if='{{list}}'>
     <view class='header'>
       <view class='txt'>精选推荐</view>
       <view class='bgcolor'></view>
     </view>
     <view class='lists'>
-      <view class='item'>
-        <image class='lists-img' src='http://img3.imgtn.bdimg.com/it/u=1609196093,165570490&fm=26&gp=0.jpg'></image>
+      <view class='item' wx:for='{{list}}' bindtap='handleGroupDesc' data-pid='{{item.productGroupBuyId}}'>
+        <image class='lists-img' src='{{item.coverUrl}}'></image>
         <view class='opera'>
           <view class='lf'>
-            <view class='title str'>木瓜水奶茶+巧克力珍珠奶茶超值双人...</view>
-            <view class='subtitle str'>WOOBEE奶茶铺</view>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
           </view>
           <view class='btn'>立即拼团</view>
         </view>
         <view class='info'>
           <view class='tag'>拼团价</view>
           <view class='txt'>￥
-            <text class='price'>9.9</text>
-            <text class='del oldprice'>￥39</text>
+            <text class='price'>{{item.price}}</text>
+            <text class='del oldprice'>￥{{item.tagPrice}}</text>
           </view>
-          <view class='desc'>已售189份/剩余89份</view>
+          <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
         </view>
       </view>
     </view>

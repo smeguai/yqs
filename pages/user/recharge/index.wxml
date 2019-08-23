@@ -1,0 +1,19 @@
+<view class='container'>
+  <view class='header'>充值到现金余额，可在明细查看</view>
+  <view class='main'>
+
+    <view class='info'>
+      <text class='strong'>充值金额（元）</text>
+      <text class='subtxt'>充值金额最小为100元</text>
+    </view>
+    <view class='ipt-wrapper'>
+    <text>￥</text>
+    <input type="number" class='ipt' value='{{iptval}}' placeholder="请输入充值金额" bindinput="iptchange" />
+    <image class='icon' src='../../../static/img/close.png' wx:if='{{closeshow}}' bindtap='handleClearIptval'></image>
+    </view>
+    <view class='btn' bindtap="handlePaypassVerifypass">提交</view>
+
+  </view>
+
+
+</view>

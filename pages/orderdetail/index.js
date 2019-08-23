@@ -3,7 +3,8 @@ import {
   receiving,
   canceorder,
   deleteorder,
-  cancelrefund
+  cancelrefund,
+  qrcodeimg
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -20,6 +21,7 @@ Page({
     orderId: 0,
     info: null,
     loding: true,
+    imgUrl: null,
     modeList: {
       0: {
         strong: '等待买家付款',
@@ -92,6 +94,21 @@ Page({
       vierifyshow: true,
       code
     })
+    promiseRequest(qrcodeimg, 'get', {
+      code
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          imgUrl: res.data.data
+        })
+      }
+    })
+  },
+  // 取消核销
+  handleCloseClick() {
+    this.setData({
+      vierifyshow: false
+    })
   },
   //  一键核销
   handleVerifyClick() {
@@ -143,6 +160,7 @@ Page({
     wx.openLocation({
       latitude: parseFloat(this.data.info.x),
       longitude: parseFloat(this.data.info.y),
+      name: this.data.info.merchantName,
       address: this.data.info.addr
     })
   },

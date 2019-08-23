@@ -46,7 +46,9 @@
     "pages/cutdetail/index",
     "pages/mycutlist/index",
     "pages/setting/feedback/index",
-    "pages/commentlist/index"
+    "pages/commentlist/index",
+    "pages/user/recharge/index",
+    "pages/setting/subfeedback/index"
   ],
   "permission": {
     "scope.userLocation": {

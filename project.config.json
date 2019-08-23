@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 35,
+			"current": 37,
 			"list": [
 				{
 					"id": -1,
@@ -300,6 +300,20 @@
 					"name": "收款",
 					"pathName": "pages/gathering/index",
 					"query": "pid=10044",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "充值",
+					"pathName": "pages/user/recharge/index",
+					"query": "pid=10044",
+					"scene": null
+				},
+				{
+					"id": 37,
+					"name": "用户反馈1",
+					"pathName": "pages/setting/subfeedback/index",
+					"query": "",
 					"scene": null
 				}
 			]

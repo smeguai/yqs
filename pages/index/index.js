@@ -61,15 +61,10 @@ Page({
     }
     promiseRequest(indexdiscount, 'get', data).then(res => {
       if (res.data.code === 0) {
-      
-        res.data.groupdata = res.data.groupdata.map(v => (Object.assign(v, {endTime: v.endTime.replace(/-/g,'/')})))
-
         this.setData({
           groupdata: res.data.groupdata,
           cutdata: res.data.cutdata,
           limitdata: res.data.limitdata
-        },()=>{
-          console.log(this.data.groupdata)
         })
       }
     })

@@ -1,0 +1,27 @@
+<view class='container'>
+  <view class='section'>
+    <view class='title'>{{title}}</view>
+    <textarea class='textarea' placeholder='请描述你的问题以便我们改善提供更好的服务'></textarea>
+    <view class='tips'>请添加相关截图({{imglist.length}}/5张)</view>
+    <view class='img-wrapper'>
+      <view class='item'>
+        <image class='img' src=''></image>
+        <image class='icon' src='../../../static/img/close.png'></image>
+      </view>
+      <view class='add'><image class='icon' src='../../../static/img/imgAdd.png'></image></view>
+    </view>
+  </view>
+
+
+  <view class='section'>
+    <view class='info'>联系方式</view>
+    <view class='bloc'>
+      <text class='txt'>姓名</text>
+      <input type='text' placeholder="请输入姓名"></input>
+    </view>
+    <view class='bloc'>
+      <text class='txt'>邮箱/手机号</text>
+      <input type='text' placeholder="请输入邮箱/手机号"></input>
+    </view>
+  </view>
+</view>

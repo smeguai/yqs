@@ -1,2 +1,7 @@
-<!--pages/setting/feedback/index.wxml-->
-<text>pages/setting/feedback/index.wxml</text>
+<view class='container'>
+  <view class='header'>请选择反馈内容</view>
+  <view class='item' wx:for='{{list}}'>
+    <text>{{item}}</text>
+    <image class='icon' src='../../../static/img/right.png'></image>
+  </view>
+</view>

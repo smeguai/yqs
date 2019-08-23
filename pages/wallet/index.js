@@ -21,7 +21,12 @@ Page({
     mywallet: null,
     loding: true
   },
-
+  //  充值
+  handleNavigate() {
+    wx.navigateTo({
+      url: '../user/recharge/index'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

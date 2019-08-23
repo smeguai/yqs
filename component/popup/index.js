@@ -10,6 +10,10 @@ Component({
     tagprice: Number,
     avatarUrl: String,
     orderid: Number,
+    groupbuyid: {
+      value: 0,
+      type: Number
+    },
     goodsimg: String,
     classs: String
   },
@@ -58,11 +62,11 @@ Component({
       //  登录状态
       if (this.data.skulist.length > 0) {
         wx.navigateTo({
-          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&skuid=${this.data.detail.productSKUId}&classs=${this.data.classs}`,
+          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&skuid=${this.data.detail.productSKUId}&classs=${this.data.classs}&groupbuyid=${this.data.groupbuyid}`,
         })
       } else {
         wx.navigateTo({
-          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&classs=${this.data.classs}`,
+          url: `../../pages/pay/index?productid=${this.data.orderid}&count=${this.data.count}&classs=${this.data.classs}&groupbuyid=${this.data.groupbuyid}`,
         })
       }
     }

@@ -18,7 +18,7 @@ Page({
     radio2: false,
     radio3: false,
     pid: 0,
-    iptval: 0,
+    iptval: '',
     cashBalance: 0,
     eleCardBalance: 0,
     desc: null,
@@ -51,8 +51,8 @@ Page({
   getsellerdesc() {
     promiseRequest(shopdetail, 'get', {
       merchantId: this.data.pid,
-      x: 28.23529 || app.globalData.location[0],
-      y: 112.93134 || app.globalData.location[1]
+      x: app.globalData.location[0],
+      y: app.globalData.location[1]
     }).then(res => {
       if (res.data.code == 0) {
         this.setData({
@@ -86,6 +86,13 @@ Page({
   },
   //  确认支付
   submit() {
+    if (this.data.iptval == '') {
+      wx.showToast({
+        title: '请输入充值金额',
+        icon: 'none'
+      })
+      return
+    }
     let radio1 = this.data.radio1,
       radio2 = this.data.radio2,
       radio3 = this.data.radio3
@@ -96,9 +103,16 @@ Page({
       })
       return
     }
-    this.setData({
-      paypass: true
-    })
+    if (radio1 || radio2) {
+      this.setData({
+        paypass: true
+      })
+    } else {
+      let e = {
+        detail: true
+      }
+      this.verifypass(e)
+    }
   },
   //  付款金额
   handleIptvalChange(e) {
@@ -114,7 +128,6 @@ Page({
   },
   //  密码正确后
   verifypass(e) {
-    console.log(e.detail)
     if (e.detail) {
       let radio1 = this.data.radio1,
         radio2 = this.data.radio2,
@@ -152,10 +165,31 @@ Page({
         cash
       }).then(res => {
         if (res.data.code == 0) {
-          wx.redirectTo({
-            url: '../paydone/index?group=0'
+          let v = res.data.data
+          wx.requestPayment({
+            timeStamp: v.timestamp,
+            nonceStr: v.noncestr,
+            package: 'prepay_id=' + v.prepayid,
+            signType: 'MD5',
+            paySign: v.sign,
+            success: (res) => {
+              wx.showToast({
+                title: '付款成功',
+                icon: '',
+                success: () => {
+                  setTimeout(() => {
+                    wx.navigateBack({
+                      delta: -1
+                    })
+                  }, 1000)
+                }
+              })
+            },
+            complete: () => {
+              wx.hideLoading()
+            }
           })
-        }else if (res.data.code == 1) {
+        } else if (res.data.code == 1) {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -163,53 +197,5 @@ Page({
         }
       })
     }
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })

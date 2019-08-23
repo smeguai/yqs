@@ -14,8 +14,9 @@
     position: relative;
     background: #fff;
     margin: 136rpx 24rpx 0 24rpx;
-    padding: 0 22rpx;
+    padding: 20rpx 22rpx;
     border-radius: 10rpx;
+    text-align: center;
 }
 .container .main .avatar {
     width: 148rpx;

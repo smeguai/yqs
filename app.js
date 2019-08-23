@@ -46,7 +46,6 @@ App({
             key: 'location',
             data: [res.latitude, res.longitude],
           })
-          console.log('app.js, [x,y]', res.latitude, res.longitude)
         },
         complete: (r) => {
           if (!station) {
