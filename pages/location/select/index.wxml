@@ -23,7 +23,7 @@
     </view>
   </block>
   <block wx:else>
-    <view class="page_searchNone">没有搜索到该小区</view>
+    <view class="page_searchNone" wx:if='{{notrecord}}'>没有搜索到该小区</view>
     <view class="page_searchText">附近小区</view>
     <view class="xg_centerBot_text" wx:for="{{add}}" wx:for-index="index" wx:key="index">
       <view class="xg_centerBot_text_name">

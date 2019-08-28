@@ -43,7 +43,6 @@ Page({
     groupPrice: 0,
     groupAlonePrice: 0,
     popupId: null,
-    onLine: false,
     grouppaystatus: false,
     itemDesc: null,
     groupBuyId: 0,
@@ -123,8 +122,7 @@ Page({
     })
     this.setData({
       status: options.name,
-      productId: options.pid,
-      onLine: wx.getStorageSync('userInfo') ? true : false
+      productId: options.pid
     })
     this.getDetails()
     this.getsharegooddes()
@@ -276,7 +274,8 @@ Page({
 
   //  发起砍价
   handleStartCut() {
-    if (!this.data.onLine) {
+    let userinfo = wx.getStorageSync('userInfo')
+    if (!userinfo) {
       wx.navigateTo({
         url: '../accredit/index',
       })
@@ -293,9 +292,12 @@ Page({
           startcutmode: true,
           cutprice: res.data.data.hadCutPrice
         })
-        wx.redirectTo({
-          url: `../cutdetail/index?pid=${res.data.data.cutPriceId}`
-        })
+        wx.hideLoading()
+        setTimeout(() => {
+          wx.redirectTo({
+            url: `../cutdetail/index?pid=${res.data.data.cutPriceId}`
+          })
+        }, 1400)
       }
     })
   },

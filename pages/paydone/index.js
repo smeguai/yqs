@@ -33,6 +33,9 @@ Page({
     let location = wx.getStorageSync('location')
     let  station = wx.getStorageSync('station')
     let userinfo = wx.getStorageSync('userInfo')
+    this.setData({
+      uid: userinfo.uid
+    })
     if (!userinfo) {
       wx.navigateTo({
         url: '../accredit/index'
@@ -60,6 +63,7 @@ Page({
       x: location[0],
       y: location[1]
     }).then(res => {
+      console.log(res)
       if (res.data.code == 0) {
         this.setData({
           list: res.data.data
@@ -89,7 +93,6 @@ Page({
     this.setData({
       isgroup: options.group == 1 ? true : false,
       pid: options.pid,
-      uid: wx.getStorageSync('userInfo').uid,
       orderid: options.orderid,
       price: options.price
     })

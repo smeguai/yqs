@@ -1,5 +1,5 @@
 <view class='container'>
-  <!-- <loding show='{{loding}}' /> -->
+  <loding show='{{loding}}' />
   <view class='goup' wx:if='{{isgroup}}'>
     <view class='topbackground'></view>
     <view class='main'>
