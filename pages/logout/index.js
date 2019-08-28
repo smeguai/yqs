@@ -1,4 +1,4 @@
-// pages/logout/index.js
+const app = getApp()
 Page({
 
     /**
@@ -16,6 +16,24 @@ Page({
     backClick() {
         wx.navigateBack({delta: 1,})
     },
+    //  注销账号
+  handleLogoutClick() {
+    console.log(1111)
+    app.globalData.onLine = false
+    wx.removeStorageSync('userInfo')
+    wx.removeStorageSync('session_key')
+    wx.showToast({
+      title: '注销成功!',
+      icon: 'none',
+      success: () => {
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: -1
+          })
+        }, 1000)
+      }
+    })
+  },
     /**
      * 生命周期函数--监听页面加载
      */

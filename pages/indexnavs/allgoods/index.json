@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "loding": "../../../component/loding/index"
+  },
+  "enablePullDownRefresh": true
+}

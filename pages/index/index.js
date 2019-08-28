@@ -11,6 +11,7 @@ const app = getApp()
 
 Page({
   data: {
+    tipsShow: true,
     bannerCurrent: 0,
     pageIndex: 1,
     pageSize: 10,
@@ -45,6 +46,12 @@ Page({
     limitdata: null,
     recommendList: [],
     loding: true
+  },
+  //  跳转  到特惠 查看更多页
+  handleNavigate() {
+    wx.navigateTo({
+      url: '../indexnavs/allgoods/index'
+    })
   },
   //  推荐商家 被点击
   handleSellerClick(e) {
@@ -114,28 +121,29 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
+onLoad(){
+  //  隐藏提示添加小程序弹出
+  setTimeout(() => {
+    this.setData({
+      tipsShow: false
+    })
+  }, 8000)
+
+  this.getBanner()
+},
+  onShow() {
     let station = wx.getStorageSync('station')
+    let location = wx.getStorageSync('location')
+    this.setData({
+      station: station,
+      stationId: station.stationId,
+      location: location,
+      recommendList: []
+    })
     if (station) {
-      this.setData({
-        station,
-        stationId: station.stationId
-      })
-      if (this.data.recommendList.length == 0) {
-        this.getBanner()
-        this.getindexNav()
-        this.getDiscount()
-        this.getShop()
-      }
-    } else {
-      if (app.globalData.location) {
-        wx.navigateTo({
-          url: `../location/index`
-        })
-      }
+      this.getindexNav()
+      this.getDiscount()
+      this.getShop()
     }
   },
   /**

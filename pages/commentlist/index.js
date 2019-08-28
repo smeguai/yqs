@@ -10,7 +10,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    scoreCate: ['好评', '中评', '差评'],
     merchantId: 0,
     pageindex: 1,
     pagesize: 10,
@@ -43,6 +42,7 @@ Page({
         idx: 1
       }
     ],
+    data: null
   },
 
   /**
@@ -52,11 +52,23 @@ Page({
     this.setData({
       merchantId: options.pid
     })
+    this.getComment()
   },
   //  获取评论
   getComment() {
     promiseRequest(comment, 'get', {
-      // merchantId: 
+      merchantId: this.data.merchantId,
+      commentid: 0,
+      pageindex: this.data.pageindex,
+      pagesize: this.data.pagesize,
+      startIndex: this.data.startIndex
+    }).then(res => {
+      console.log(res)
+      if (res.data.code == 0) {
+        this.setData({
+          data: res.data
+        })
+      }
     })
   },
   /**

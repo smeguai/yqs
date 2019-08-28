@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "grade": "../../component/grade/grade"
+    "grade": "../../component/grade/grade",
+    "upload": "../../component/upload/index"
   }
 }

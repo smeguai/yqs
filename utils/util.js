@@ -13,7 +13,10 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-
+function tel(tel) {
+   let a =/^1[3456789]\d{9}$/
+  return a.test(tel)
+}
 //  时间格式化 yyyy-mmmm-dddd hh:mm:ss
 function formatTime(time, type = 0) {
   let date = new Date(time)
@@ -113,6 +116,7 @@ function formatNum (num) {
 }
 
 module.exports = {
+  tel,
   formatTime,
   formatNum,
   promiseRequest

@@ -2,5 +2,7 @@
     "usingComponents": {
         "popup": "../../component/popup/index",
         "countdown": "../../component/countdown/index"
-    }
+    },
+    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "rgba(255,255,255,0.6)"
 }

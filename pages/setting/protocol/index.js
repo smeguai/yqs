@@ -20,7 +20,7 @@ Page({
       promiseRequest(serviceagreement, 'get').then(res => {
         if (res.data.code == 0) {
           this.setData({
-            data: res.data.data.arcContent
+            data: res.data.data
           })
         }
       })

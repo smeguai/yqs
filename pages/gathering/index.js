@@ -1,7 +1,10 @@
 import {
   userpay,
   shopdetail,
-  mywallet
+  merchatbalance,
+  existpaypwd,
+  hasbindtel,
+  getformid
 } from '../../utils/api.js'
 import {
   promiseRequest,
@@ -23,7 +26,9 @@ Page({
     eleCardBalance: 0,
     desc: null,
     b: null,
-    paypass: false
+    paypass: false,
+    hasspass: false,
+    hassTel: false
   },
 
   /**
@@ -36,9 +41,35 @@ Page({
     this.getsellerdesc()
     this.getmywallet()
   },
+  onShow() {
+    this.getHasPass()
+    this.getHasTel()
+  },
+  //  是否有支付密码
+  getHasPass() {
+    promiseRequest(existpaypwd, 'get').then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          hasspass: res.data.isPaypwd
+        })
+      }
+    })
+  },
+  //  是否有手机号
+  getHasTel() {
+    promiseRequest(hasbindtel, 'get').then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          hassTel: res.data.mobile
+        })
+      }
+    })
+  },
   //  获取我的账户余额
   getmywallet() {
-    promiseRequest(mywallet, 'get').then(res => {
+    promiseRequest(merchatbalance, 'get', {
+      merchantId: this.data.pid
+    }).then(res => {
       if (res.data.code == 0) {
         this.setData({
           cashBalance: res.data.data.cashBalance,
@@ -86,6 +117,7 @@ Page({
   },
   //  确认支付
   submit() {
+    // 充值金额没填写
     if (this.data.iptval == '') {
       wx.showToast({
         title: '请输入充值金额',
@@ -104,6 +136,20 @@ Page({
       return
     }
     if (radio1 || radio2) {
+      //  手机号没绑定
+      if (!this.data.hassTel) {
+        wx.navigateTo({
+          url: '../login/index',
+        })
+        return
+      }
+      //  支付密码不存在
+      if (!this.data.hasspass) {
+        wx.navigateTo({
+          url: '../user/password/index',
+        })
+        return
+      }
       this.setData({
         paypass: true
       })
@@ -116,8 +162,32 @@ Page({
   },
   //  付款金额
   handleIptvalChange(e) {
+    let iptval = e.detail.value
+    let cash = this.data.cashBalance
+    let ele = this.data.eleCardBalance
     this.setData({
-      iptval: e.detail.value
+      iptval
+    })
+
+    let radio1 = false
+    let radio2 = false
+    let radio3 = false
+    if (ele >= iptval && this.data.desc.enabledEleCard) {
+      radio1 = true
+    } else if (cash >= iptval) {
+      radio2 = true
+    } else if (cash + ele >= iptval && this.data.desc.enabledEleCard) {
+      console.log('cash + ele >= iptval')
+      radio1 = radio2 = true
+    } else if (cash + ele < iptval) {
+      radio1 = radio2 = radio3 = true
+      console.log('cash + ele < iptval')
+    }
+    console.log(this.data.desc.enabledEleCard)
+    this.setData({
+      radio1,
+      radio2,
+      radio3
     })
   },
   //  关闭输入支付密码
@@ -165,30 +235,43 @@ Page({
         cash
       }).then(res => {
         if (res.data.code == 0) {
-          let v = res.data.data
-          wx.requestPayment({
-            timeStamp: v.timestamp,
-            nonceStr: v.noncestr,
-            package: 'prepay_id=' + v.prepayid,
-            signType: 'MD5',
-            paySign: v.sign,
-            success: (res) => {
-              wx.showToast({
-                title: '付款成功',
-                icon: '',
-                success: () => {
-                  setTimeout(() => {
-                    wx.navigateBack({
-                      delta: -1
-                    })
-                  }, 1000)
-                }
-              })
-            },
-            complete: () => {
-              wx.hideLoading()
-            }
-          })
+          if (res.data.data) {
+            let v = res.data.data
+            this.getformid(v.prepayid)
+            wx.requestPayment({
+              timeStamp: v.timestamp,
+              nonceStr: v.noncestr,
+              package: 'prepay_id=' + v.prepayid,
+              signType: 'MD5',
+              paySign: v.sign,
+              success: (res) => {
+                wx.showToast({
+                  title: '付款成功',
+                  icon: '',
+                  success: () => {
+                    setTimeout(() => {
+                      wx.navigateBack({
+                        delta: -1
+                      })
+                    }, 1000)
+                  }
+                })
+              },
+              complete: () => {
+                wx.hideLoading()
+              }
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              success: () => {
+                setTimeout(() => {
+                  wx.navigateBack()
+                }, 1000)
+              }
+            })
+          }
         } else if (res.data.code == 1) {
           wx.showToast({
             title: res.data.msg,
@@ -197,5 +280,11 @@ Page({
         }
       })
     }
+  },
+  //  收集formid
+  getformid(prepayid) {
+    promiseRequest(getformid, 'post', {
+      source: 0, formid: prepayid, isprepayid: 1
+    })
   }
 })

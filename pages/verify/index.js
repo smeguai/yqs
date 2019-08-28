@@ -72,7 +72,7 @@ Page({
       })
     })
     this.setData({
-      timer: setTimeout(this.getOrderDetail, 4000)
+      timer: setTimeout(this.getOrderDetail, 2600)
     })
   },
   //  跳转到自助核销

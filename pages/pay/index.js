@@ -8,16 +8,18 @@ import {
   subgrouporder,
   limitsubmit,
   usercoupon,
-  orderpay
+  orderpay,
+  cutsubmit,
+  cutOrder,
+  getformid
 } from '../../utils/api.js'
 import {
   promiseRequest,
-  formatNum
+  formatNum,
+  tel
 } from '../../utils/util.js'
 const app = getApp()
-
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -47,7 +49,12 @@ Page({
     couponLs: null,
     textareaStyle: 'height: 106rpx;'
   },
-
+  //  上传formid
+  formSubmit(e) {
+    promiseRequest(getformid, 'post', {
+      source: 0, formid: e, isprepayid: 0
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -59,7 +66,6 @@ Page({
       skuid: options.skuid,
       classs: options.classs
     })
-    this.getUsercoupon()
     switch (this.data.classs) {
       case 'group':
         this.getGroupOrder()
@@ -71,8 +77,8 @@ Page({
         this.getPlaceOrder()
         break;
       case 'cut':
-
-      break;
+        this.getCutOrder()
+        break;
     }
   },
   onShow() {
@@ -87,7 +93,7 @@ Page({
   //  获取商品可用优惠券
   getUsercoupon() {
     promiseRequest(usercoupon, 'get', {
-      productId: this.data.productid
+      productId: this.data.info.detailList[0].productId
     }).then(res => {
       console.log(res)
     })
@@ -154,6 +160,24 @@ Page({
       }
     })
   },
+  //  砍价商品
+  getCutOrder() {
+    promiseRequest(cutsubmit, 'get', {
+      cutPriceId: this.data.productid
+    }).then(res => {
+      if (res.data.code == 0) {
+        let total = 0
+        res.data.data.detailList.map(item => {
+          total += parseInt((item.quantity * item.unitPrice) * 100) / 100
+        })
+        this.setData({
+          info: res.data.data,
+          total
+        })
+        this.isCardPay()
+      }
+    })
+  },
   //  拼团订单
   getGroupOrder() {
     promiseRequest(grouporder, 'get', {
@@ -180,7 +204,7 @@ Page({
     promiseRequest(existpaypwd, 'get').then(res => {
       if (res.data.code == 0) {
         this.setData({
-          hasbindpass: res.data.isPaypwd
+          hasbindpass: res.data.isPaypwd != '' ? true: false
         })
       }
     })
@@ -190,9 +214,10 @@ Page({
   getBindTel() {
     promiseRequest(hasbindtel, 'get').then(res => {
       if (res.data.code == 0) {
-        if (res.data.mobile) {
+        if (res.data.mobile != "") {
           this.setData({
-            hasbindtel: res.data.mobile
+            hasbindtel: true,
+            telephone: res.data.mobile
           })
         }
       }
@@ -272,6 +297,7 @@ Page({
       radio2,
       radio3
     })
+    this.getUsercoupon()
   },
   passclose(e) {
     this.setData({
@@ -287,15 +313,17 @@ Page({
       package: 'prepay_id=' + v.data.prepayid,
       signType: 'MD5',
       paySign: v.data.sign,
-      success: (res) => {
+      complete: (res) => {
         let cate = this.data.classs
         let isgroup = this.data.classs == 'group' ? 1 : 0
+        let pid = this.data.productid
         switch (cate) {
           case 'group':
+            pid = v.order.groupbuyId
           case 'limit':
           case 'product':
             wx.redirectTo({
-              url: `../paydone/index?group=${isgroup}&pid=${this.data.productid}`
+              url: `../paydone/index?group=${isgroup}&pid=${pid}&price=${this.data.total}&orderid=${v.order.orderId}`
             })
             break;
           case 'cut':
@@ -357,7 +385,6 @@ Page({
         case 'group':
           data.productGroupBuyId = this.data.productid
           data.groupBuyId = this.data.groupBuyId
-          console.log(this.data.groupBuyId+'-----------:pay groupbuyid')
           this.subOrder(subgrouporder, data)
           break;
         case 'limit':
@@ -367,6 +394,10 @@ Page({
         case 'product':
           data.productId = this.data.productid
           this.subOrder(producOrder, data)
+          break;
+        case 'cut':
+          data.cutPriceId = this.data.productid
+          this.subOrder(cutOrder, data)
           break;
       }
       this.setData({
@@ -380,10 +411,8 @@ Page({
     promiseRequest(url, 'post', data).then(res => {
       let v = res.data.value
       if (v && v.code == 0) {
-        // this.setData({
-        //   productid: this
-        // })
         if (v.order.grandTotal > 0) {
+          this.formSubmit(v.data.prepayid)
           this.wxPayment(v)
         } else {
           let cate = this.data.classs
@@ -471,8 +500,8 @@ Page({
   handleSellerAddr(e) {
     let addr = e.currentTarget.dataset.addr
     wx.openLocation({
-      latitude: app.globalData.locaton[0],
-      longitude: app.globalData.locaton[1],
+      latitude: app.globalData.location[0],
+      longitude: app.globalData.location[1],
       address: addr
     })
   }

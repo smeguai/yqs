@@ -1,15 +1,9 @@
 <view class='container'>
   <view class='section'>
     <view class='title'>{{title}}</view>
-    <textarea class='textarea' placeholder='请描述你的问题以便我们改善提供更好的服务'></textarea>
-    <view class='tips'>请添加相关截图({{imglist.length}}/5张)</view>
-    <view class='img-wrapper'>
-      <view class='item'>
-        <image class='img' src=''></image>
-        <image class='icon' src='../../../static/img/close.png'></image>
-      </view>
-      <view class='add'><image class='icon' src='../../../static/img/imgAdd.png'></image></view>
-    </view>
+    <textarea class='textarea' value='{{content}}' bindinput="setContent" placeholder='请描述你的问题以便我们改善提供更好的服务'></textarea>
+    <view class='tips'>请添加相关截图({{imglist.length}}/6张)</view>
+    <upload bindaddphoto='gotImg' binddelImg='gotImg' />
   </view>
 
 
@@ -17,11 +11,19 @@
     <view class='info'>联系方式</view>
     <view class='bloc'>
       <text class='txt'>姓名</text>
-      <input type='text' placeholder="请输入姓名"></input>
+      <input class='ipt' type='text' value='{{name}}' placeholder="请输入姓名" bindinput='setname'></input>
     </view>
     <view class='bloc'>
       <text class='txt'>邮箱/手机号</text>
-      <input type='text' placeholder="请输入邮箱/手机号"></input>
+      <input class='ipt' type='text' value='{{tel}}' placeholder="请输入邮箱/手机号" bindinput='settel'></input>
     </view>
   </view>
+
+  <!-- <view class='radios' bindtap="handleRadioClick">
+    <image wx:if='{{radio}}' class='icon' src='../../../static/img/success.png'></image>
+    <view wx:else class='notradio'></view>
+    <view class='txt'>允许开发者在48小时内通过客服信息联系我</view>
+  </view> -->
+
+  <view class='btn-wrapper'><view class='btn' bindtap="handleSubmit">提交</view></view>
 </view>

@@ -3,11 +3,11 @@
 }
 .container .bg {
     position: fixed;
-    left: 0;
-    right: 0;
-    top: -412rpx;
-    height: 800rpx;
-    border-radius: 340rpx;
+    left: -100rpx;
+    right: -100rpx;
+    top: -100rpx;
+    height: 400rpx;
+    border-radius: 200rpx;
     background: #FFDE4E;
 }
 .container .main {

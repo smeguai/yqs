@@ -96,5 +96,16 @@ Page({
       })
       this.getcash() 
     }
+  },
+  //  下拉刷新
+  onPullDownRefresh() {
+    this.setData({
+      pageIndex: 1,
+      list: [],
+      mywallet: null,
+      loding: true
+    })
+    this.getWallet()
+    this.getcash()
   }
 })

@@ -41,9 +41,10 @@ Page({
   //  获取正在拼团的商品
   getMyGroupBuy() {
     if (!this.data.onLine) return
+    let location = wx.getStorageSync('location')
     promiseRequest(mygroupbuy, 'get', {
-      x: app.globalData.location[0],
-      y: app.globalData.location[1]
+      x: location[0],
+      y: location[1]
     }).then(res => {
       if (res.data.code == 0) {
         this.setData({

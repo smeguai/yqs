@@ -11,5 +11,10 @@ Page({
   
   onLoad: function (options) {
 
+  },
+  handleItemClick(e) {
+    wx.navigateTo({
+      url: `../subfeedback/index?txt=${e.currentTarget.dataset.txt}`
+    })
   }
 })

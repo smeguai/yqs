@@ -1,5 +1,6 @@
 import {
-  recharge
+  recharge,
+  getformid
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -28,8 +29,21 @@ Page({
   onReady: function() {
 
   },
+  //  上传formid
+  formSubmit(prepayid) {
+    promiseRequest(getformid, 'post', {
+      source: 0, formid: prepayid, isprepayid: 1
+    })
+  },
   //  支付
   handlePaypassVerifypass(e) {
+    if (!this.data.iptval) {
+      wx.showToast({
+        title: '请输入充值金额',
+        icon: 'none'
+      })
+      return
+    }
     if(e.detail) {
       wx.showLoading({
         title: '充值中...',
@@ -40,6 +54,7 @@ Page({
       }).then(res => {
         if (res.data.code == 0) {
           let v = res.data.data
+          this.formSubmit(v.prepayid)
           wx.requestPayment({
             timeStamp: v.timestamp,
             nonceStr: v.noncestr,
@@ -49,12 +64,24 @@ Page({
             success: (res) => {
               wx.showToast({
                 title: '充值成功',
-                icon: 'none'
+                icon: 'none',
+                success: () => {
+                  setTimeout(() => {
+                    wx.navigateBack({
+                      delta: -1
+                    })
+                  }, 1000)
+                }
               })
             },
             complete: () => {
               wx.hideLoading()
             }
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
           })
         }
       })

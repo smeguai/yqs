@@ -48,7 +48,9 @@
     "pages/setting/feedback/index",
     "pages/commentlist/index",
     "pages/user/recharge/index",
-    "pages/setting/subfeedback/index"
+    "pages/setting/subfeedback/index",
+    "pages/indexnavs/allgoods/index",
+    "component/upload/index"
   ],
   "permission": {
     "scope.userLocation": {

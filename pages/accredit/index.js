@@ -28,15 +28,10 @@ Page({
       }
       wx.setStorage({
         key: 'openORunion',
-        data,
-        success: (r) => {
-          wx.showLoading({
-            title: '登陆中...',
-          })
-          app.globalData.openORunion = data
-          this._login(res.data)
-        }
+        data
       })
+      app.globalData.openORunion = data
+      this._login(res.data)
     })
   },
   _login(d) {
@@ -62,6 +57,12 @@ Page({
             })
           }
         })
+      } else {
+        wx.showToast({
+          title: '登录失败',
+          icon: 'none'
+        })
+        wx.hideLoading()
       }
     })
   },

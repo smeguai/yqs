@@ -75,7 +75,7 @@ Page({
           codetxt: this.data.timer + '秒再次获取'
         })
         this.timerout()
-      }, 100)
+      }, 1000)
     } else {
       this.setData({
         codeMode: true,
@@ -128,15 +128,19 @@ Page({
       validCode: this.data.code,
       codeMode: false
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
-        success: () => {
-          wx.navigateBack({
-            delta: -1
-          })
-        }
-      }
-      else {
+        wx.showToast({
+          title: '绑定成功',
+          icon: 'none',
+          success: () => {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: -1
+              })
+            }, 1000)
+          }
+        })
+      } else {
         wx.showToast({
           title: res.data.msg,
           icon: 'none'

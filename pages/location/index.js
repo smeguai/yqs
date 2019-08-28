@@ -28,24 +28,13 @@ Page({
       url: 'select/index',
     })
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    this.setData({
-      historyAddrsList: wx.getStorageSync('historyAddrsList'),
-      currentStation: wx.getStorageSync('station'),
-      address: wx.getStorageSync('address')
-    })
-    this.getNowLoction()
-  },
   //  当前位置
   getNowLoction() {
     if (this.data.address) return
+    let location = wx.getStorageSync('location')
     promiseRequest(nowloction, 'get', {
-      x: app.globalData.location[0],
-      y: app.globalData.location[1]
+      x: location[0],
+      y: location[1]
     }).then(res => {
       if (res.data.code == 1) {
         this.setData({
@@ -107,8 +96,8 @@ Page({
           key: 'station',
           data: item,
           success: () => {
-            wx.switchTab({
-              url: '../index/index'
+            wx.navigateBack({
+              delta: -1
             })
           }
         })
@@ -164,8 +153,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let location = app.globalData.location
+    let location = wx.getStorageSync('location')
     if (location) {
+      this.setData({
+        historyAddrsList: wx.getStorageSync('historyAddrsList'),
+        currentStation: wx.getStorageSync('station'),
+        address: wx.getStorageSync('address')
+      })
+      this.getNowLoction()
       this.getservice()
     } else {
       wx.navigateTo({

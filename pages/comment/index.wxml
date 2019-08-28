@@ -1,20 +1,20 @@
-<view class='container'>
+<form report-submit='true' class='container' bindsubmit='formSubmit'>
   <view class='sell'>
     <view class='top'>
-      <image class='avatar'></image>
-      <text class='name'>张三疯欧式奶茶铺</text>
+      <image class='avatar' src='{{info.headImgUrl}}'></image>
+      <text class='name'>{{info.merchantName}}</text>
     </view>
-    <view class='info'>
-      <image class='img'></image>
+    <view class='info' wx:for='{{info.detailList}}'>
+      <image class='img' src='{{item.imgUrl}}'></image>
       <view class='desc'>
-        <view class='title'></view>
-        <view class='sub'></view>
-        <view class='butt'>
-          <view class='price'>￥18
-            <text class='tagprice del'>￥38</text>
+        <view class='title strmore'>{{item.productName}}</view>
+        <view class='sub strmore'>{{item.productSkuvalName}}</view>
+        <view class='but'>
+          <view class='price'>￥{{item.unitPrice}}
+            <text class='tagprice del'>￥{{item.tagPrice}}</text>
           </view>
 
-          <text class='count'>X1</text>
+          <text class='count'>X{{item.quantity}}</text>
         </view>
       </view>
     </view>
@@ -22,28 +22,28 @@
 
   <view class='grade-wrapper'>
     <view class='header'>您对商家满意吗？</view>
-    <view class='num'>
-      <text>“很差”</text>
-      <text>“一般”</text>
-      <text>“满意”</text>
-      <text>“非常满意”</text>
-      <text>“无可挑剔”</text>
+    <view class='num' wx:if='{{score == -1}}'>
+      <text wx:for='{{scoreTxt}}'>{{item}}</text>
+    </view>
+    <view class='num' wx:else>
+      <text>{{scoreTxt[score - 1]}}</text>
     </view>
     <view class='grade'>
-      <grade itemClass='itembig' bindscore='getscore' />
+      <grade itemClass='itembig' score='{{score}}' bindscore='getscore' />
     </view>
-    <textarea class='ipttextarea' placeholder="对商家服务等满意吗？"></textarea>
-    <view class='imglist'>
+    <textarea class='ipttextarea' placeholder="对商家服务等满意吗？" bindinput="handleTextIpt" value='{{content}}'></textarea>
+    <!-- <view class='imglist'>
       <image class='img'></image>
       <view class='paizhao'>
         <image class='icon' src='../../static/img/img.png'></image>
         <view class='txt'>增加照片</view>
       </view>
-    </view>
+    </view> -->
+    <upload bindaddphoto='handleGotImgurl' del='handleGotImgurl' />
     <text class='tips'>注：最多可添加6张图片</text>
   </view>
 
   <view class='butt'>
-    <view class='submit' bindtap='handleCommentClick'>提交评价</view>
+    <button class='submit' form-type='submit'>提交评价</button>
   </view>
-</view>
+</form>

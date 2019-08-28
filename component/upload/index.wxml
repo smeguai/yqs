@@ -1,0 +1,11 @@
+<!-- 添加照片 -->
+<view class="info_stepInputImgBox">
+  <view wx:if="{{img}}" class="info_stepInputImgBox_view" wx:for="{{img}}" wx:key="{{item}}">
+    <image mode='aspectFill' class="info_stepInputImgBox_viewImg" src="{{item}}"></image>
+    <image bindtap="del" data-index="{{index}}" mode='aspectFill' class="info_stepInputImgBox_viewIcon" src="../../static/img/close.png"></image>
+  </view>
+  <view class="info_stepInputImg" bindtap="addphoto" wx:if="{{img.length<6}}">
+    <image mode='aspectFill' src="../../static/img/imgAdd.png"></image>
+    <view>添加照片</view>
+  </view>
+</view>

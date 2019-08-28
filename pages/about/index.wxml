@@ -6,11 +6,11 @@
         <view class='info'>
             <view class='item'>
                 <text>当前版本</text>
-                <text class='txt'>1.1.1.1907</text>
+                <text class='txt'>{{ver}}</text>
             </view>
             <view class='item'>
                 <text>个人ID</text>
-                <text class='txt'>8741234</text>
+                <text class='txt'>{{uid}}</text>
             </view>
         </view>
     </view>

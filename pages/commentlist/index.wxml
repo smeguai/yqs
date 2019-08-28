@@ -2,38 +2,49 @@
 
   <view class='score-wrapper'>
     <view class='score'>
-      <view class='num'>4.2</view>
+      <view class='num'>{{data.dataScore.totalFraction}}</view>
       <view class='txt'>商家评分</view>
     </view>
     <view class='cate'>
-      <view class='item' wx:for='{{scoreCate}}' wx:key='{{index}}'>
-        <text class='txt'>{{item}}</text>
-        <progress percent='10' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
-        <text class='percent'>10%</text>
+      <view class='item'>
+        <text class='txt'>好评</text>
+        <progress percent='{{data.dataScore.praiseFraction / data.dataScore.totalCount}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
+        <text class='percent'>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
+      </view>
+      <view class='item'>
+        <text class='txt'>中评</text>
+        <progress percent='{{data.dataScore.middleFraction / data.dataScore.totalCount}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
+        <text class='percent'>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
+      </view>
+      <view class='item'>
+        <text class='txt'>差评</text>
+        <progress percent='{{data.dataScore.lowFraction / data.dataScore.totalCount}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
+        <text class='percent'>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
       </view>
     </view>
   </view>
 
   <view class='tags-wrapper'>
-    <view class='item {{commentTagIdx == item.idx ? "active":""}}' wx:for='{{commentTagLs}}' wx:key='{{item.idx}}' bindtap='handleCommentTagClick' data-idx='{{item.idx}}'>{{item.txt}}({{commentScore[item.n]}})</view>
+    <view class='item {{commentTagIdx == item.idx ? "active":""}}' wx:for='{{commentTagLs}}' wx:key='{{item.idx}}' bindtap='handleCommentTagClick' data-idx='{{item.idx}}'>{{item.txt}}({{data.dataScore[item.n]}})</view>
   </view>
 
 
-  <!-- <view class='list'>
-    <view class='item' wx:for='{{commentList}}' wx:key='{{index}}'>
+  <view class='list'>
+    <view class='item' wx:for='{{data.data}}' wx:key='{{index}}'>
       <image class='avatar' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg'></image>
       <view class='info'>
         <view class='name'>{{item.nickName}}</view>
         <view class='midd'>
-          <grade score='{{item.starIndex}}' />
+          <grade class='grade' score='{{item.starIndex}}' />
           <view class='time'>{{item.createTime}}</view>
         </view>
         <view class='content'>{{item.commentContent}}</view>
         <view class='imglist'>
           <image class='img' wx:for='{{item.lstImg}}' src='{{item.fileUrl}}' wx:key='{{index}}'></image>
         </view>
+        <view class='alid' wx:for='{{item.lstChildComment}}'>{{item.commentContent}}</view>
       </view>
     </view>
-  </view> -->
+  </view>
 
 </view>

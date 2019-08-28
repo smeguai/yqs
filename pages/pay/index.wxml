@@ -84,7 +84,7 @@
       </view>
       <view class='item'>
         <view class='txt'>联系电话</view>
-        <input class='ipt' placeholder='请输入正确的联系号码' value='{{telephone}}' bindinput='handleIptTel'></input>
+        <input class='ipt' type='number' placeholder='请输入正确的联系号码' value='{{telephone}}' bindinput='handleIptTel'></input>
       </view>
       <view class='item'>
         <textarea class='textarea' style='{{textareaStyle}}' placeholder='留言备注' value='{{remark}}' bindinput='handleIptRemark'></textarea>
@@ -123,7 +123,9 @@
     </view>
   </view>
   <view class='topay'>
-    <view class='btn' bindtap='submitpay'>立即付款</view>
+    <form report-submit='true' bindsubmit='formSubmit' class='form'>
+      <button form-type='submit' class='btn' bindtap='submitpay'>立即付款</button>
+    </form>
   </view>
   <paypass wx:if='{{hasPassMode}}' bindverifypass='verifypass' bindclose='passclose' />
   <!-- 优惠券弹出层 -->
@@ -138,13 +140,15 @@
               <text class='price'>{{item.couponMoney}}</text>
             </view>
             <view class='cent'>
-              <view class='guiz'>满{{info.spendMoney}}可用</view>
+              <view class='guiz'>{{info.couponName}}</view>
               <view class='time'>2019.08.18-2019.09.28</view>
             </view>
           </view>
-          <view class='t t1' wx:if='{{item.rcouponId == 0}}'><text>使用</text></view>
+          <view class='t t1' wx:if='{{item.rcouponId == 0}}'>
+            <text>使用</text>
+          </view>
           <view class='t t2' wx:if='{{item.rcouponId == 0}}'>领取</view>
-        <!-- <view class='t3'>不可用</view> -->
+          <!-- <view class='t3'>不可用</view> -->
         </view>
       </view>
       <view class='btn' bindtap='handleCloseticketup'>不使用优惠券</view>

@@ -22,8 +22,7 @@
     font-size: 28rpx;
     text-align: center;
     border-radius:50rpx;
-    border:1px solid #FFDE4E;
-    background: #fff;
+    background: #FFDE4E;
     margin-right: 32rpx;
 }
 .page_view_yzm {

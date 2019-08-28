@@ -3,7 +3,8 @@ import {
   canceorder,
   orderpay,
   receiving,
-  deleteorder
+  deleteorder,
+  prepayid
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -66,6 +67,13 @@ Page({
   checkOrderDesc(e) {
     wx.navigateTo({
       url: `../orderdetail/index?orderid=${e.currentTarget.dataset.orderid}`,
+    })
+  },
+  //  跳转评论
+  comment(e) {
+    let orderid = e.currentTarget.dataset.orderid
+    wx.navigateTo({
+      url: '../comment/index?pid='+orderid
     })
   },
   //  确认收货
@@ -199,6 +207,12 @@ Page({
     })
   },
 
+  //  收集formid
+  getformid(prepayid) {
+    promiseRequest(getformid, 'post', {
+      source: 0, formid: prepayid, isprepayid: 1
+    })
+  },
   //  微信支付
   wxPayment(e) {
     promiseRequest(orderpay, 'get', {
@@ -206,6 +220,7 @@ Page({
     }).then(res => {
       if (res.data.code == 0) {
         let v = res.data.data
+        this.getformid(v.prepayid)
         wx.requestPayment({
           timeStamp: v.timestamp,
           nonceStr: v.noncestr,

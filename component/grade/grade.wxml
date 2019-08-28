@@ -1,3 +1,3 @@
-<view class='grade' wx:if='{{score > 0}}'>
+<view class='grade' wx:if='{{score > 0 || itemClass=="itembig"}}'>
     <image src='../../static/img/grade{{index < score ? "0": "1"}}.png' class='{{itemClass}}' wx:for='{{itemNum}}' bindtap='handleItemClick' data-idx='{{index}}'></image>
 </view>

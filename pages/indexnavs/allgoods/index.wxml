@@ -1,0 +1,18 @@
+<view class='container'>
+  <loding show='{{loding}}' />
+  <view class='nav'>
+    <text class='item {{navIdx == index?"active": ""}}' data-idx='{{index}}' wx:for='{{navLs}}' bindtap="handleNavItemClick">{{item}}</text>
+  </view>
+
+  <view class='list'>
+    <view class='item' wx:for='{{list}}'>
+      <image class='img' src='{{item.coverUrl}}' lazy-load></image>
+      <view class='name strmore'>{{item.productName}}</view>
+      <text class='price'>￥{{item.price}}</text>
+      <text class='tag'>底价</text>
+      <text class='oldprider del'>￥{{item.tagPrice}}</text>
+    </view>
+  </view>
+
+    <view wx:if='{{notlist}}' class='notdata'>没有更多了</view>
+</view>

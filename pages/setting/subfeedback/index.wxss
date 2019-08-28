@@ -1,10 +1,11 @@
 .container {
-  padding: 30rpx 24rpx;
+  padding: 30rpx 24rpx 100rpx 24rpx;
 }
 .container .section {
   background: #fff;
   border-radius: 10rpx;
-  padding: 0 38rpx 
+  padding: 0 38rpx;
+  margin-bottom: 28rpx;
 }
 .container .section .title {
   font-size: 32rpx;
@@ -25,30 +26,57 @@
 .container .section .tips {
   font-size: 28rpx;
 }
-.container .section .img-wrapper {
+.container .section .info {
+  padding: 24rpx 0;
+  font-size: 28rpx;
+}
+.container .section .bloc {
   display: flex;
-  padding: 36rpx 0;
+  padding: 14rpx 0;
+  align-items: center;
 }
-.container .section .img-wrapper .item {
-  position: relative;
+.container .section .bloc .txt {
+  font-size: 24rpx;
+  width: 190rpx;
 }
-.container .section .img-wrapper .item .img {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 10rpx;
-  background: red;
+.container .section .bloc .ipt {
+  flex: 1;
+  font-size: 24rpx;
 }
-.container .section .img-wrapper .item .icon {
+.radios {
+  display: flex;
+  align-items: center;
+}
+.radios .txt {
+  font-size: 24rpx;
+  padding-left: 20rpx;
+}
+.radios .icon {
+width: 24rpx;
+height: 24rpx;
+}
+.radios .notradio {
   width: 24rpx;
   height: 24rpx;
-  padding: 10rpx;
-  position: absolute;
-  top: -14rpx;
-  right: -14rpx;
   border-radius: 100%;
-  background: rgba(0,0,0, .8);
+  border: 1rpx solid #666666;
+  box-sizing: border-box;
 }
-.container .section .img-wrapper .add {
-  width: 100rpx;
-  
+.btn-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1rpx solid #F0F0F0;
+  padding: 12rpx 24rpx;
+}
+.btn-wrapper .btn {
+  font-size: 32rpx;
+  font-weight: 500;
+  height: 74rpx;
+  line-height: 74rpx;
+  background: #FFDE4E;
+  border-radius: 37rpx;
+  text-align: center;
 }

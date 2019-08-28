@@ -46,8 +46,66 @@ Page({
     onLine: false,
     grouppaystatus: false,
     itemDesc: null,
-    groupBuyId: 0
+    groupBuyId: 0,
+    tencentshow: false,
+    videoShow: true, // 视频展示
+    bannerIndex: 0, // banner 滑块下标
   },
+  //  关闭去参团
+  handleCloseToGroup() {
+    this.setData({
+      grouppaystatus: false
+    })
+  },
+  //  关闭去加群
+  handleTencentClick() {
+    this.setData({
+      tencentshow: !this.data.tencentshow
+    })
+  },
+  // 返回上一页
+  backClick() {
+    wx.navigateBack({
+      delta: -1
+    })
+  },
+  // 跳转到首页
+  indexClick() {
+    wx.reLaunch({
+      url: '../index/index',
+    })
+  },
+
+  // 播放视频
+  videoPlayClick() {
+    this.setData({
+      videoShow: false,
+    })
+  },
+  // 播放停止
+  videoEndClick() {
+    this.setData({
+      videoShow: true,
+    })
+  },
+  // banner 切换下标
+  bannerClick(e) {
+    this.setData({
+      bannerIndex: e.detail.current,
+    })
+  },
+  // banner 视频图片按钮
+  bannerType(e) {
+    if (e.currentTarget.dataset.idx == 0) {
+      this.data.bannerIndex = 0;
+    } else {
+      this.data.bannerIndex = 1;
+    }
+    this.setData({
+      bannerIndex: this.data.bannerIndex,
+    })
+  },
+
   //  进店逛逛
   handleToSeller(e) {
     let pid = e.currentTarget.dataset.pid
@@ -60,7 +118,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.setNavigationBarTitle({title: options.title})
+    wx.setNavigationBarTitle({
+      title: options.title
+    })
     this.setData({
       status: options.name,
       productId: options.pid,
@@ -70,14 +130,14 @@ Page({
     this.getsharegooddes()
   },
   //  参与拼团
-  handleGroupPay(e){
+  handleGroupPay(e) {
     let myuid = wx.getStorageSync('userInfo').uid
     if (myuid == e.currentTarget.dataset.uid) {
       wx.showToast({
         title: '不能参与自己的拼团',
         icon: 'none'
       })
-    }else {
+    } else {
       this.setData({
         popupShow: true,
         grouppaystatus: false,
@@ -234,7 +294,7 @@ Page({
           cutprice: res.data.data.hadCutPrice
         })
         wx.redirectTo({
-          url: `../cutdetail/index?pid=${this.data.productId}`
+          url: `../cutdetail/index?pid=${res.data.data.cutPriceId}`
         })
       }
     })
@@ -308,10 +368,10 @@ Page({
         wx.makePhoneCall({
           phoneNumber: e.currentTarget.dataset.tel
         })
-      break;
+        break;
     }
   },
-  //  发起拼团
+  //  发起订单
   handlePayClick(e) {
     let popupId = null
     switch (this.data.status) {
@@ -331,7 +391,7 @@ Page({
       popupId
     })
   },
-  onShareAppMessage: function (ops) {
+  onShareAppMessage: function(ops) {
     if (ops.from === 'button') {
       return {
         title: this.data.detail.productName,

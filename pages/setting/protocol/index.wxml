@@ -1,5 +1,5 @@
 <view class='container'>
-    <view class='title'>翼起省服务协议</view>
+    <view class='title'>{{data.arcTitle}}</view>
 
-    <rich-text class='subtxt' nodes='{{data}}'></rich-text>
+    <rich-text class='subtxt' nodes='{{data.arcContent}}'></rich-text>
 </view>

@@ -38,7 +38,7 @@
       </view>
       <view wx:if='{{detail.userId==uid && userCutStatus == 0}}'>
         <button open-type='share' class='btn btn0'>邀请好友帮砍价</button>
-        <view class='btn btn1'>当前价
+        <view class='btn btn1' bindtap='handleNavigatePay'>当前价
           <text class='price'>￥{{detail.disparityPrice}}</text>直接买</view>
       </view>
       <view wx:if='{{detail.userId==uid && userCutStatus == 1}}'>

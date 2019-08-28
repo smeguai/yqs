@@ -1,5 +1,5 @@
 <view class='container'>
-  <loding show='{{loding}}' />
+  <!-- <loding show='{{loding}}' /> -->
   <view class='goup' wx:if='{{isgroup}}'>
     <view class='topbackground'></view>
     <view class='main'>
@@ -15,13 +15,15 @@
         </view>
       </view>
       <view class='center'>
-      {{groupdesc.personNum}}{{ groupdesc.boughtQty}}
         <block wx:if='{{groupdesc.personNum != groupdesc.boughtQty}}'>
           <view class='tpo'>还差
             <text class='num'>{{groupdesc.disparityNum}}个</text>人,赶快邀请好友来拼团</view>
           <countdown class='countdown' strTime='{{groupdesc.endTime}}' />
         </block>
-        <view class='tpo1' wx:else>拼团成功了!</view>
+        <block wx:else>
+          <view class='tpo1'>本团已经拼团完成!</view>
+          <view class='tpo2'>本商品拼团活动已结束</view>
+        </block>
         <view class='list'>
           <view class='item' wx:for='{{groupdesc.detailList}}'>
             <text class='tz' wx:if='{{item.hasRegComm}}'>团主</text>

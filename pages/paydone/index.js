@@ -1,6 +1,7 @@
 import {
   groupdetail,
-  paydonerecomment
+  paydonerecomment,
+  shareback
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -28,12 +29,36 @@ Page({
       url: `../goodsdetail/index?name=group&pid=${e.currentTarget.dataset.pid}`
     })
   },
+  onShow() {
+    let location = wx.getStorageSync('location')
+    let  station = wx.getStorageSync('station')
+    let userinfo = wx.getStorageSync('userInfo')
+    if (!userinfo) {
+      wx.navigateTo({
+        url: '../accredit/index'
+      })
+      return
+    }
+    if (location && station) {
+      this.getRecomment()
+      //  是团购查询团购详情
+      if (this.data.isgroup) {
+        this.getGroupDsc()
+      }
+    } else {
+      wx.navigateTo({
+        url: '../location/index'
+      })
+    }
+  },
   // 推荐商品
   getRecomment() {
+    let location = wx.getStorageSync('location')
+    let station = wx.getStorageSync('station')
     promiseRequest(paydonerecomment, 'get', {
-      stationId: app.globalData.station.stationId,
-      x: app.globalData.location[0],
-      y: app.globalData.location[1]
+      stationId: station.stationId,
+      x: location[0],
+      y: location[1]
     }).then(res => {
       if (res.data.code == 0) {
         this.setData({
@@ -62,37 +87,43 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      isgroup: options.group == 1 ? true:false,
+      isgroup: options.group == 1 ? true : false,
       pid: options.pid,
       uid: wx.getStorageSync('userInfo').uid,
       orderid: options.orderid,
       price: options.price
     })
-    if (options.group == 1) {
-      this.getGroupDsc()
-    }
-    this.getRecomment()
   },
 
-//  获取拼团信息
-getGroupDsc() {
-  promiseRequest(groupdetail, 'get', {
-    groupBuyId: this.data.pid
-  }).then(res => {
-    if (res.data.code == 1) {
-      this.setData({
-        groupdesc: res.data.data
-      })
-    }
-  })
-},
+  //  获取拼团信息
+  getGroupDsc() {
+    promiseRequest(groupdetail, 'get', {
+      groupBuyId: this.data.pid
+    }).then(res => {
+      if (res.data.code == 1) {
+        this.setData({
+          groupdesc: res.data.data
+        })
+      }
+    })
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    let location = wx.getStorageSync('location')
+    let station = wx.getStorageSync('station')
     return {
       title: '和我来拼团',
-    path: `/pages/paydone/index?pid=${this.data.pid}&uid=${this.data.uid}&group=1`
+      path: `/pages/paydone/index?pid=${this.data.pid}&group=1`,
+      success: () => {
+    // promiseRequest(shareback, 'get', {
+    //   sharetype: 0,
+    //   biztype: 1,
+    //   relationid: this.data.groupdesc.productGroupBuyId,
+    //   shareurl: ''
+    // })
+      }
     }
   }
 })

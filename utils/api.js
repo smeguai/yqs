@@ -44,8 +44,11 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   producOrder = configUrl + '/api/product/order/submitted',
   limitOrder = configUrl + '/api/limit/order/submitted',
   subgrouporder = configUrl + '/api/group/order/submitted',
+  cutOrder = configUrl +'/api/cut/order/submitted',
   //  秒杀商品下单页
   limitsubmit = configUrl + '/api/limit/order/get',
+  //  砍价下单页
+  cutsubmit = configUrl + '/api/cut/order/get',
   //  发起砍价
   usercut = configUrl + '/api/shopping/cut/submitted',
   //  普通商品下单页面
@@ -126,13 +129,30 @@ mycutlist = configUrl + '/api/shopping/cut/my',
   helpcenter = configUrl + '/api/article/helpcenter',
   //  商家付款
   userpay = configUrl + '/api/shop/userpay',
+  //  商家付款 可用金额
+  merchatbalance = configUrl + '/api/user/shopbalance',
   //  充值
   recharge = configUrl + '/api/wechat/cash/charge',
   //  支付成功后推荐的商品
   paydonerecomment = configUrl + '/api/shopping/groupbuy/fine',
   //  评价
-  setcomment = configUrl + '/api/order/comment'
+  setcomment = configUrl + '/api/order/comment',
+  // 上传图片
+  getsigna = configUrl + '/api/img/getsigna',
+  //  用户反馈
+  feedback = configUrl + '/api/user/user/feedback',
+  //  分享回调
+  shareback = configUrl + '/api/user/sharecallback',
+  //  收集小程序
+  getformid = configUrl + '/api/getformid'
 module.exports = {
+  getformid,
+  shareback,
+  feedback,
+  merchatbalance,
+  getsigna,
+  cutOrder,
+  cutsubmit,
   setcomment,
   paydonerecomment,
   recharge,

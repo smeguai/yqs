@@ -169,8 +169,11 @@
     text-align: center;
     border: 1rpx solid #ffe574;
     border-radius: 4rpx;
-    display: block;
+    display: flex;
     position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10rpx 0;
 }
 .container .section .list-wrapper .list .item .ticket .block .ticketitem::before {
     position: absolute;
@@ -201,7 +204,7 @@
 .container .section .list-wrapper .list .item .ticket .ticketitem .title {
     font-size: 24rpx;
     font-weight: bold;
-    padding: 20rpx 0 14rpx 0;
+    padding: 10rpx 0 14rpx 0;
     border-bottom: 2rpx dashed #eaac06;
     box-sizing: border-box;
 }
@@ -236,7 +239,7 @@
     padding: 24rpx 0; 
 }
 .container .section .lists .item .lists-img {
-    height: 310rpx;
+    height: 468rpx;
     width: 100%;
 }
 .container .section .lists .item .opera {

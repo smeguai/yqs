@@ -5,7 +5,7 @@ import {
   xcxloginfcode
 } from './utils/api.js'
 App({
-  onLaunch: function() {
+  onLaunch: function () {
     this.getWXLogin()
     this.getLocation()
     this.globalData.userInfo = wx.getStorageSync('userInfo')
@@ -35,26 +35,26 @@ App({
     //  获取当前地理位置
     return new Promise((res, rej) => {
       let station = wx.getStorageSync('station')
+      let location = wx.getStorageSync('location')
       if (station) {
         this.globalData.station = station
-      }
-      wx.getLocation({
-        success: (res) => {
-          this.globalData.location = [res.latitude, res.longitude]
-//拿this.globalData.location  Storage比较//
-          wx.setStorage({
-            key: 'location',
-            data: [res.latitude, res.longitude],
-          })
-        },
-        complete: (r) => {
-          if (!station) {
+        this.globalData.location = location
+      } else {
+        wx.getLocation({
+          success: (res) => {
+            this.globalData.location = [res.latitude, res.longitude]
+            wx.setStorage({
+              key: 'location',
+              data: [res.latitude, res.longitude],
+            })
+          },
+          complete: () => {
             wx.navigateTo({
-              url: '../location/index',
+              url: `../location/index`
             })
           }
-        }
-      })
+        })
+      }
     })
   },
   globalData: {
@@ -62,6 +62,7 @@ App({
     onLine: false,
     session_key: null,
     location: null,
-    station: null
+    station: null,
+    versions: '1.0.0.1'
   }
 })

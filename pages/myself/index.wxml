@@ -1,7 +1,7 @@
 <view class='container'>
   <view class='asild'>
     <text>关注翼省钱go公众号，快速查找订单</text>
-    <button>关注+</button>
+    <button bindtap="handleContactClick">关注+</button>
   </view>
   <view class='user'>
     <image src='{{userInfo.headimg || "../../static/img/notloding.png"}}' class='avatar'></image>
@@ -43,6 +43,17 @@
         <image src='{{item.icon}}' class='icon'></image>
         <view class='content'>{{item.txt}}</view>
       </view>
+    </view>
+  </view>
+  
+  <!-- 关注公众号 -->
+  <view class='tencent' wx:if='{{tencentshow}}'>
+    <view class='main'>
+      <image class='img' src='../../static/img/myself_img.png'></image>
+      <view class='txt'>点击“去回复”，<text class='txt1'>发送“0”</text></view>
+      <view class='txt'>关注翼起省公众号</view>
+      <button class='btn' open-type="contact">去回复</button>
+      <image class='icon' bindtap="handleTencentClick" src='../../static/img/close2.png'></image>
     </view>
   </view>
 </view>

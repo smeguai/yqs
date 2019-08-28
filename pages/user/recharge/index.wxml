@@ -1,4 +1,4 @@
-<view class='container'>
+<form report-submit="true" bindsubmit="formsubmit" class='container'>
   <view class='header'>充值到现金余额，可在明细查看</view>
   <view class='main'>
 
@@ -11,9 +11,9 @@
     <input type="number" class='ipt' value='{{iptval}}' placeholder="请输入充值金额" bindinput="iptchange" />
     <image class='icon' src='../../../static/img/close.png' wx:if='{{closeshow}}' bindtap='handleClearIptval'></image>
     </view>
-    <view class='btn' bindtap="handlePaypassVerifypass">提交</view>
+    <button  class='btn' bindtap="handlePaypassVerifypass">提交</button>
 
   </view>
 
 
-</view>
+</form>

@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "grade": "../../component/grade/grade"
+  },
   "navigationBarTitleText": "全部评价"
 }

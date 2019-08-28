@@ -155,8 +155,8 @@
 }
 
 .container .favorable .scroll .list .item {
-    width: 240rpx;
-    margin-left: 30rpx;
+    width: 300rpx;
+    margin-right: 20rpx;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -183,8 +183,8 @@
 }
 
 .container .favorable .scroll .list .item .img {
-    width: 240rpx;
-    height: 188rpx;
+    width: 300rpx;
+    height: 200rpx;
     border-radius: 8rpx;
 }
 
@@ -248,6 +248,8 @@
     padding-left: 30rpx;
     flex: 1;
     width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .container .recommend .item .info .middel {
@@ -297,12 +299,13 @@
 
 .container .recommend .item .info .tag {
     display: flex;
-    padding-top: 10rpx;
+    padding: 10rpx 0;
+    overflow: hidden;
 }
 
 .container .recommend .item .info .tag .tagitem {
-    font-size: 20rpx;
     margin-right: 16rpx;
+    font-size: 0;
 }
 .container .recommend .item .info .tag .tagitem .txt0 {
     color: #FF6633;
@@ -313,8 +316,9 @@
 .container .recommend .item .info .tag .tagitem .txt1 {
     color: #999999;
     border: 1rpx solid #999999;
-    padding: 6rpx 12rpx;
+    padding: 2rpx 12rpx;
     border-radius: 6rpx;
+    font-size: 20rpx;
 }
 .container .recommend .item .info .activity {
     display: flex;
@@ -353,13 +357,12 @@
   display: flex;
 }
 .container .recommend .item .info .goods .goodsitem {
-    width: 178rpx;
     margin: 0 10rpx;
 }
 
 .container .recommend .item .info .goods .goodsitem .imgurl {
-    width: 178rpx;
-    height: 150rpx;
+    width: 180rpx;
+    height: 120rpx;
     border-radius: 6rpx;
 }
 
@@ -403,4 +406,27 @@
 .container .aslid .txt {
     font-size: 20rpx;
     color: #fff;
+}
+.container .tips {
+  position: fixed;
+  top: 30rpx;
+  right: 90rpx;
+}
+.container .tips .txt {
+  background: #FFDE4E;
+  border-radius: 22rpx;
+  font-size: 20rpx;
+  width: 340rpx;
+  height: 43rpx;
+  line-height: 43rpx;
+  text-align: center;
+  position: relative;
+}
+.container .tips .txt::after {
+  content: '';
+  position: absolute;
+  top: -20rpx;
+  right: 40rpx;
+  border: 10rpx solid;
+  border-color: transparent transparent #FFDE4E transparent;
 }

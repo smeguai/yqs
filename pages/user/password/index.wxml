@@ -1,5 +1,5 @@
 <view>
-    <view class="password_title" wx:if='{{haspayowd}}'>您当前已经设置过电子卡支付码</view>
+    <view class="password_title" wx:if='{{haspayowd}}'>您当前已经设置过支付码</view>
 
     <view class="password_view">
         <view class="password_viewInput">

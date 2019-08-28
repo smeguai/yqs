@@ -29,6 +29,20 @@ Page({
       handleStartCutClose: false
     })
   },
+  //  跳转 当前价购买
+  handleNavigatePay() {
+    //  用户是否登录
+    let online = wx.getStorageSync('userInfo')
+    if (!online) {
+      wx.navigateTo({
+        url: '../accredit/index',
+      })
+      return
+    }
+    wx.navigateTo({
+      url: `../../pages/pay/index?productid=${this.data.pid}&classs=cut`,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -38,8 +52,8 @@ Page({
     })
     this.getCutDesc()
     //  画图
-    // this.getSystemInfoSync()
-    // this.downlogo('https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4259300811,497831842&fm=26&gp=0.jpg')
+    this.getSystemInfoSync()
+    this.downlogo('https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4259300811,497831842&fm=26&gp=0.jpg')
   },
   onShow() {
     let uid = wx.getStorageSync('userInfo').uid

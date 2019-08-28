@@ -38,7 +38,7 @@
   <view class='favorable' wx:if='{{groupdata || cutdata || limitdata}}'>
     <view class='top'>
       <text class='txt'>特惠</text>
-      <!-- <text class='more'>查看更多</text> -->
+      <text class='more' bindtap='handleNavigate'>查看更多</text>
     </view>
     <scroll-view class='scroll' scroll-x>
       <view class='list'>
@@ -109,7 +109,8 @@
         </view>
         <view class='tag'>
           <view class='tagitem' wx:for='{{item.tagList}}' wx:key='{{index}}'>
-            <text class='{{item == "长沙市连锁"?"txt0":"txt1"}}'>{{item}}</text>
+            <!-- <text class='{{item == "长沙连锁店"?"txt0":"txt1"}}'>{{item}}</text> -->
+            <text class='txt1'>{{item}}</text>
           </view>
         </view>
         <view class='activity' wx:if='{{item.couponDes}}'>
@@ -124,15 +125,18 @@
           <view class='list'>
             <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}' data-title='{{item.productName}}'>
               <image src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
-              <text class='price'>
+              <view class='price'>
                 ￥{{item.price}}
                 <text class='oldprice del'>￥{{item.tagPrice}}</text>
-              </text>
+              </view>
             </view>
           </view>
         </scroll-view>
       </view>
     </view>
+  </view>
+  <view class='tips' wx:if='{{tipsShow}}' bindtap="handleTogoole">
+    <view class='txt'>添加到【我的小程序】购物更方便</view>
   </view>
   <movable-area class='aslid'>
     <movable-view direction='vertical' class='item'>

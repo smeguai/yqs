@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "upload": "../../../component/upload/index"
+  },
   "navigationBarTitleText": "用户反馈"
 }

@@ -17,6 +17,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    timer: null,
     listTotal: 0,
     orderId: 0,
     info: null,
@@ -89,23 +90,32 @@ Page({
   },
   //  去核销 弹出层
   handleVierifyShow(e) {
-    let code = e.currentTarget.dataset.code
+    if(this.data.timer) {
+      clearInterval(this.data.timer)
+    }
+    let timer = setInterval(() => {
+      let code = e.currentTarget.dataset.code
+      this.setData({
+        vierifyshow: true,
+        code
+      })
+      promiseRequest(qrcodeimg, 'get', {
+        code
+      }).then(res => {
+        if (res.data.code == 0) {
+          this.setData({
+            imgUrl: res.data.data
+          })
+        }
+      })
+    }, 2600)
     this.setData({
-      vierifyshow: true,
-      code
-    })
-    promiseRequest(qrcodeimg, 'get', {
-      code
-    }).then(res => {
-      if (res.data.code == 0) {
-        this.setData({
-          imgUrl: res.data.data
-        })
-      }
+      timer
     })
   },
   // 取消核销
   handleCloseClick() {
+    clearInterval(this.data.timer)
     this.setData({
       vierifyshow: false
     })
@@ -272,7 +282,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    clearInterval(this.data.timer)
   },
 
   /**

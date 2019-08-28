@@ -10,6 +10,7 @@ Page({
   data: {
     onLine: false,
     userInfo: null,
+    tencentshow:false,
     OrderCate: [{
       icon: '../../static/img/me_obligation.png',
       txt: '待付款',
@@ -69,6 +70,18 @@ Page({
       }
     ],
     navCountNum: null
+  },
+  //  客服消息
+  handleContactClick(e) {
+    this.setData({
+      tencentshow: true
+    })
+  },
+  //  关闭客服消息弹出
+  handleTencentClick() {
+    this.setData({
+      tencentshow: false
+    })
   },
   handleClickOrder(e) {
     this.hasSign()

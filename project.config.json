@@ -48,7 +48,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 37,
+			"current": 39,
 			"list": [
 				{
 					"id": -1,
@@ -170,10 +170,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 17,
 					"name": "评论",
 					"pathName": "pages/comment/index",
-					"query": "productid=1388&skuid=3607&count=1",
+					"query": "pid=29",
 					"scene": null
 				},
 				{
@@ -313,7 +313,21 @@
 					"id": 37,
 					"name": "用户反馈1",
 					"pathName": "pages/setting/subfeedback/index",
+					"query": "txt=卡顿",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "查看全部特惠商品",
+					"pathName": "pages/indexnavs/allgoods/index",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "全部评论",
+					"pathName": "pages/commentlist/index",
+					"query": "pid=10002",
 					"scene": null
 				}
 			]

@@ -16,7 +16,6 @@
 .container .qrcode .img {
     width: 286rpx;
     height: 286rpx;
-    background: red;
 }
 .container .vx {
     font-size: 32rpx;

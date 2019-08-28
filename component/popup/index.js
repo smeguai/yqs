@@ -51,12 +51,12 @@ Component({
       this.triggerEvent('myPopupClose', false)
     },
     handleOrderSubmit() {
+      this.triggerEvent('myPopupClose', false)
       //  用户是否登录
       if (!this.data.onLine) {
         wx.navigateTo({
           url: '../accredit/index',
         })
-        this.triggerEvent('myPopupClose', false)
         return
       }
       //  登录状态

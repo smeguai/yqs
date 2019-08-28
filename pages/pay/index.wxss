@@ -22,6 +22,9 @@
   height: 158rpx;
   overflow: hidden;
 }
+.topay .form {
+  width: 100%;
+}
 .main .voucher .top .price {
   height: 100%;
   line-height: 158rpx;

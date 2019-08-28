@@ -1,67 +1,93 @@
-// pages/setting/subfeedback/index.js
+import {
+  feedback
+} from '../../../utils/api.js'
+import {
+  promiseRequest
+} from '../../../utils/util.js'
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     imglist: [],
-    title: '小程序闪退'
+    title: '',
+    radio: false,
+    content: '',
+    name: '',
+    tel: ''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    let userinfo = wx.getStorageSync('userInfo')
+    this.setData({
+      title: options.txt,
+      tel: userinfo.mobile,
+      name: userinfo.nickname
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  //  获取图片
+  gotImg(e) {
+    this.setData({
+      imglist: e.detail.img2
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  //  radio被点击
+  handleRadioClick() {
+    this.setData({
+      radio: !this.data.radio
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  //  提交表单
+  handleSubmit() {
+    if (!this.data.content) {
+      wx.showToast({
+        title: '请描述你遇到的问题',
+        icon: 'none'
+      })
+      return
+    }
+    if (!this.data.name || !this.data.tel) {
+      wx.showToast({
+        title: '请输入你的联系方式',
+        icon: 'none'
+      })
+      return
+    }
+    promiseRequest(feedback, 'post', {
+      title: this.data.title,
+      des: this.data.content,
+      fullName: this.data.name,
+      mobile: isNaN(Number(this.data.tel)) ? '' : this.data.tel,
+      email: isNaN(Number(this.data.tel)) ? this.data.tel : '',
+      imgs: this.data.imglist
+    }).then(res => {
+      if (res.data.code == 0) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          success: () => {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: -1
+              })
+            }, 1000)
+          }
+        })
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  //  修改提交内容
+  setContent(e) {
+    this.setData({
+      content: e.detail.value
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  //  姓名
+  setname(e) {
+    this.setData({
+      name: e.detail.value
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  //  email .tel
+  settel(e) {
+    this.setData({
+      tel: e.detail.value
+    })
   }
 })
