@@ -31,7 +31,7 @@
       <block wx:if='{{userCutStatus == 1}}'>
         <view class='cut'>活动还在继续，还可重新发起砍价</view>
       </block>
-      <progress percent='{{detail.hadCutPrice}}' border-radius='3rpx' stroke-width='6rpx' backgroundColor='#CCCCCC' activeColor='#FFDE4E'></progress>
+      <progress percent='{{(detail.hadCutPrice / (detail.alonePrice+1) * 100)}}' border-radius='3rpx' stroke-width='6rpx' backgroundColor='#CCCCCC' activeColor='#FFDE4E'></progress>
       <view class='progdesc'>
         <view>原价￥{{detail.alonePrice}}</view>
         <view>底价￥{{detail.lowestPrice}}</view>

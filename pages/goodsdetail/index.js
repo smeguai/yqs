@@ -122,7 +122,9 @@ Page({
     })
     this.setData({
       status: options.name,
-      productId: options.pid
+      productId: options.pid,
+      groupBuyId: options.groupBuyId
+
     })
     this.getDetails()
     this.getsharegooddes()

@@ -129,7 +129,7 @@
     </view>
     <block wx:if='{{status == "group"}}'>
         <!-- 拼团 -->
-        <view class='group-buying'>
+        <view class='group-buying' wx:if='{{detail.groupList}}'>
             <view class='group-header'>{{detail.groupList.boughtQty}}人正在拼单，可直接参与</view>
             <scroll-view class='scroll' scroll-y>
                 <view class='group-list' wx:for='{{detail.groupList}}' wx:key='{{index}}'>
@@ -153,6 +153,7 @@
                 </view>
             </scroll-view>
         </view>
+        <view class='group-not' wx:else>还没有人发起拼团，立马发起拼团！</view>
         <view class='group-rule'>
             <view class='header'>拼团规则</view>
             <view class='sub'>1、选择商品开/参团。2、邀请好友参团。3、24小时内人满成团，不满退款。</view>

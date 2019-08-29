@@ -114,8 +114,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    let location = wx.getStorageSync('location')
-    let station = wx.getStorageSync('station')
     return {
       title: '和我来拼团',
       path: `/pages/paydone/index?pid=${this.data.pid}&group=1`,

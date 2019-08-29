@@ -56,10 +56,10 @@ Page({
     this.downlogo('https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4259300811,497831842&fm=26&gp=0.jpg')
   },
   onShow() {
-    let uid = wx.getStorageSync('userInfo').uid
-    if (uid) {
+    let userinfo = wx.getStorageSync('userInfo')
+    if (userinfo) {
       this.setData({
-        uid
+        uid: userinfo.uid
       })
     } else {
       wx.navigateTo({
@@ -244,7 +244,7 @@ Page({
   onShareAppMessage: function() {
     return {
       title: '帮我来砍价',
-      path: '/pages/cutdetail/index?pid=' + this.data.pid
+      path: `/pages/cutdetail/index?pid=${this.data.pid}`
     }
   }
 })
