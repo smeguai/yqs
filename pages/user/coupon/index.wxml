@@ -15,9 +15,13 @@
       <view class="coupon_text">
         <view class="coupon_text_left">
           <view class="coupon_text_leftPrice">
-            <view class="coupon_text_leftPay">
+            <view class="coupon_text_leftPay" wx:if='{{item.couponType == 2}}'>
               <text class='contxt'>{{item.couponMoney / 10}}</text>
-              <text wx:if='{{item.couponType == 2}}'>折</text>
+              <text>折</text>
+            </view>
+            <view class="coupon_text_leftPay" wx:else>
+              <text>￥</text>
+              <text class='contxt'>{{item.couponMoney}}</text>
             </view>
             <view class='coupon_text_tiaojian'>满{{item.spendMoney}}可用</view>
           </view>
@@ -42,9 +46,13 @@
       <view class="coupon_text">
         <view class="coupon_text_left">
           <view class="coupon_text_leftPrice">
-            <view class="coupon_text_leftPay">
+            <view class="coupon_text_leftPay" wx:if='{{item.couponType == 2}}'>
               <text>{{item.couponMoney / 10}}</text>
-              <text wx:if='{{item.couponType == 2}}'>折</text>
+              <text>折</text>
+            </view>
+            <view class="coupon_text_leftPay" wx:else>
+              <text>￥</text>
+              <text>{{item.couponMoney}}</text>
             </view>
             <view>满{{item.spendMoney}}可用</view>
           </view>

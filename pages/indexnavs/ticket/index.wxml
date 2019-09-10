@@ -31,7 +31,7 @@
             <view class='title'>{{item.couponName}}</view>
             <view class='bott'>
               <block wx:if='{{item.couponType == 2}}'>
-                <view class='price'>{{item.couponMoney}}折</view>
+                <view class='price'>{{item.couponMoney / 10}}折</view>
                 <view class='txt' wx:if='{{item.couponDes}}'>{{item.couponDes}}</view>
                 <view class='btn2' wx:if='{{item.status}}'>已领取</view>
                 <view class='btn' wx:else bindtap="handleClickGet" data-id='{{item.couponId}}'>点击领取</view>

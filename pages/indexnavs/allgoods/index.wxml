@@ -14,7 +14,7 @@
         <view class='recomend' wx:if='{{item.recommend}}'>{{item.recommend}}</view>
       </view>
       <list class='list' wx:if='{{navIdx == 3}}'>
-        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.productCutPriceId}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-name='cut' data-id='{{item.productCutPriceId}}'>
           <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
           <view class='name strmore'>{{item.productName}}</view>
           <view class='bott'>
@@ -25,7 +25,7 @@
         </view>
       </list>
       <list class='list' wx:if='{{navIdx == 2}}'>
-        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.timeLimitBuyId}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-name='limit' data-id='{{item.timeLimitBuyId}}'>
           <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
           <view class='name strmore'>{{item.productName}}</view>
           <view class='bott'>
@@ -36,7 +36,7 @@
         </view>
       </list>
       <list class='list' wx:if='{{navIdx == 1}}'>
-        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.productGroupBuyId}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-name='group' data-id='{{item.productGroupBuyId}}'>
           <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
           <view class='name strmore'>{{item.productName}}</view>
           <view class='bott'>
@@ -47,7 +47,7 @@
         </view>
       </list>
       <list class='list' wx:if='{{navIdx == 0}}'>
-        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.productTypeId}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-name='product' data-id='{{item.productId}}'>
           <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
           <view class='name strmore'>{{item.productName}}</view>
           <view class='bott'>
