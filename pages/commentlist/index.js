@@ -14,6 +14,7 @@ Page({
     pageindex: 1,
     pagesize: 10,
     commentTagIdx: 0,
+    loding: true,
     commentTagLs: [{
         txt: '全部',
         n: 'totalCount',
@@ -42,7 +43,8 @@ Page({
         idx: 1
       }
     ],
-    data: null
+    data: null,
+    startIndex: 0
   },
 
   /**
@@ -63,34 +65,25 @@ Page({
       pagesize: this.data.pagesize,
       startIndex: this.data.startIndex
     }).then(res => {
-      console.log(res)
+      let commentList = res.data.data
+      commentList.map(item => {
+        item.createTime = item.createTime.split('.')[0]
+      })
+      let data = Object.assign({ dataScore: res.data.dataScore }, { data: commentList})
       if (res.data.code == 0) {
         this.setData({
-          data: res.data
+          data
         })
       }
+      this.setData({
+        loding: false
+      })
     })
   },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-
   //  用户评价切换
   handleCommentTagClick(e) {
     this.setData({
-      commentTagIdx: e.currentTarget.dataset.idx
+      startIndex: e.currentTarget.dataset.idx
     })
-    // this.getComment()
   }
 })

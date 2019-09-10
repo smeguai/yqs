@@ -11,45 +11,68 @@
         <view class='desc'>
           <view class='title str'>{{detail.productName}}</view>
           <view class='mid'>
-            <countdown strTime='{{detail.endTime}}' bindgetCountStatus='getCountStatus' />
+            <countdown strTime='{{detail.endTime}}' />
             <text>后砍价过期</text>
           </view>
           <view class='bott'>
-            <view class='price'>砍到{{detail.lowestPrice}}元拿
+            <view class='price'>
+              <text>砍到{{detail.lowestPrice}}元拿</text>
               <text class='tagprice del'>价值￥{{detail.alonePrice}}</text>
             </view>
             <view class='tab'>待发货</view>
           </view>
         </view>
       </view>
-
-      <block wx:if='{{userCutStatus == 0}}'>
-        <view class='cut'>已砍
-          <text class='price'>{{detail.hadCutPrice}}</text>，只差
-          <text class='price'>{{detail.disparityPrice}}</text>元</view>
+      <block>
+        <view class='cut' wx:if='{{detail.disparityPrice>0}}'>
+          <text>已砍</text>
+          <text class='price'>{{detail.hadCutPrice}}</text>
+          <text>，只差</text>
+          <text class='price'>{{detail.disparityPrice}}</text>
+          <text>元</text>
+        </view>
+        <view class='cut' wx:else>
+          <text>砍价已完成!</text>
+        </view>
       </block>
       <block wx:if='{{userCutStatus == 1}}'>
         <view class='cut'>活动还在继续，还可重新发起砍价</view>
       </block>
-      <progress percent='{{(detail.hadCutPrice / (detail.alonePrice+1) * 100)}}' border-radius='3rpx' stroke-width='6rpx' backgroundColor='#CCCCCC' activeColor='#FFDE4E'></progress>
+      <progress percent='{{detail.hadCutPrice / (detail.alonePrice - detail.lowestPrice) * 100}}' border-radius='3rpx' stroke-width='6rpx' backgroundColor='#CCCCCC' activeColor='#FFDE4E'></progress>
       <view class='progdesc'>
         <view>原价￥{{detail.alonePrice}}</view>
         <view>底价￥{{detail.lowestPrice}}</view>
       </view>
-      <view wx:if='{{detail.userId==uid && userCutStatus == 0}}'>
-        <button open-type='share' class='btn btn0'>邀请好友帮砍价</button>
-        <view class='btn btn1' bindtap='handleNavigatePay'>当前价
-          <text class='price'>￥{{detail.disparityPrice}}</text>直接买</view>
+      <!-- 分享人进入砍价详情 -->
+      <view wx:if='{{detail.userId==uid && detail.status == 0}}'>
+        <block wx:if='{{detail.disparityPrice > 0}}'>
+          <button open-type='share' class='btn btn0'>邀请好友帮砍价</button>
+          <view class='btn btn1' bindtap='handleNavigatePay'>
+            <text>当前价</text>
+            <text class='price'>￥{{detail.currentPrice}}</text>
+            <text>直接买</text>
+          </view>
+        </block>
+        <block wx:else>
+          <view class='btn btn0' bindtap='handleNavigatePay'>
+            <text>当前价</text>
+            <text class='price'>￥{{detail.currentPrice}}</text>
+            <text>直接买</text>
+          </view>
+        </block>
       </view>
-      <view wx:if='{{detail.userId==uid && userCutStatus == 1}}'>
+      <view wx:if='{{detail.userId==uid && detail.status == 1}}'>
+        <view class='btn btn0' bindtap='handleNavigatePay' >查看订单</view>
+      </view>
+      <view wx:if='{{detail.userId==uid && detail.status == 2}}'>
         <view class='btn btn0'>重新发起砍价</view>
       </view>
-      <view wx:if='{{detail.userId!=uid && userCutStatus == 0}}'>
-        <view class='btn btn0' bindtap='handleCutfriendcut'>帮他砍一刀</view>
-        <view class='btn btn1' bindtap='handleTogoodsdetail' data-pid='{{detail.productCutPriceId}}'>我也要发起砍价
-          <text class='price'>￥{{detail.lowestPrice}}</text>元领</view>
+      <!-- 邀请砍价的人进入详情 -->
+      <view wx:if='{{detail.userId!=uid && detail.status == 0}}'>
+        <view class='btn btn0' bindtap='handleCutfriendcut' wx:if='{{detail.disparityPrice > 0}}'>帮他砍一刀</view>
+        <view class='btn btn1' bindtap='handleTogoodsdetail' data-pid='{{detail.productCutPriceId}}'>我也要发起砍价</view>
       </view>
-      <view wx:if='{{detail.userId!=uid && userCutStatus == 1}}'>
+      <view wx:if='{{detail.userId!=uid && detail.status == 2}}'>
         <view class='btn btn0'>查看更多优惠</view>
       </view>
     </view>
@@ -89,8 +112,6 @@
     </view>
   </view>
 
-
-
   <view class='aside'>
     <button class='item' open-type="share">
       <image class='icon' src='../../static/img/share.png'></image>
@@ -102,23 +123,65 @@
     </view>
   </view>
 
-
-  <view class='canvas-wrapper' wx:if='{{false}}'>
-    <canvas canvas-id='sharecanvas' style='width:{{canvas_width}}rpx;height: {{canvas_height}}rpx;background: #fff;'></canvas>
-  </view>
-
   <!-- 发起砍价 -->
   <view class='startcut' wx:if='{{startcutmode}}'>
     <view class='main'>
       <image class='icon' src='../../static/img/zan.png'></image>
       <view class='txt'>太棒了</view>
-      <view class='content'>你一出手就帮好友砍了
-        <text class='price'>{{cutprice}}元</text>
+      <view class='content'>
+        <text>你一出手就帮好友砍了</text>
+        <text class='price'>{{cutprice}}</text>
+        <text>元</text>
       </view>
       <view bindtap='handleTogoodsdetail' class='btn' data-pid='{{detail.productCutPriceId}}'>我也要发起砍价</view>
+      <image class='close' src='../../static/img/close2.png' bindtap='handleStartCutClose'></image>
+    </view>
+  </view>
+  <!-- 砍价失败, 成功 -->
+  <view class='startcut' wx:if='{{detail.userId==uid && cutstatus}}'>
+    <view class='main'>
+      <block wx:if='{{detail.status == 1}}'>
+        <image class='icon-done' src='../../static/img/cutdone.png'></image>
+        <view class='txt-done'>砍价成功!</view>
+        <view bindtap='handleNavigatePay' class='btn'>查看订单</view>
         <image class='close' src='../../static/img/close2.png' bindtap='handleStartCutClose'></image>
+      </block>
+      <block wx:if='{{detail.status == 2}}'>
+        <image class='icon-fail' src='../../static/img/fail.png'></image>
+        <view class='txt'>砍价失败!</view>
+        <view class='content'>还差{{detail.disparityPrice}}元</view>
+        <view bindtap='handleTogoodsdetail' class='btn'>查看更多特惠</view>
+        <image class='close' src='../../static/img/close2.png' bindtap='handleStartCutClose'></image>
+      </block>
+    </view>
+  </view>
+  <!-- 推荐商品 -->
+  <view class='recommend' wx:if='{{list.length > 0}}'>
+    <view class='header'>
+      <view class='txt'>精选推荐</view>
+      <view class='bgcolor'></view>
+    </view>
+    <view class='lists'>
+      <view class='item' wx:for='{{list}}' bindtap='handleCutDesc' data-pid='{{item.productCutPriceId}}'>
+        <image class='lists-img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
+        <view class='opera'>
+          <view class='lf'>
+            <view class='title str'>{{item.productName}}</view>
+            <view class='subtitle str'>{{item.productShoreDesc}}</view>
+          </view>
+          <view class='btn'>发起砍价</view>
+        </view>
+        <view class='info'>
+          <view class='tag'>底价</view>
+          <view class='txt'>
+            <text>￥</text>
+            <text class='price'>{{item.price}}</text>
+            <text class='del oldprice'>市场价￥{{item.tagPrice}}</text>
+          </view>
+          <view class='desc'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>
+        </view>
       </view>
     </view>
-
-
   </view>
+
+</view>

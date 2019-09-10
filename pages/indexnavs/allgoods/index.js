@@ -2,7 +2,8 @@ import {
   getgoodslist,
   getgrouplist,
   limit,
-  cut
+  cut,
+  collnavbar
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -11,10 +12,27 @@ Page({
 
   /**
    * 页面的初始数据
+   * '砍价', '秒杀', '拼团', '普通'
    */
   data: {
-    navLs: ['砍价', '秒杀', '拼团', '普通'],
-    navIdx: 0,
+    navLs: [{
+        txt: '砍价',
+        idx: 3
+      },
+      {
+        txt: '秒杀',
+        idx: 2
+      },
+      {
+        txt: '拼团',
+        idx: 1
+      },
+      {
+        txt: '普通',
+        idx: 0
+      },
+    ],
+    navIdx: 3,
     list: [],
     notlist: false,
     loding: true,
@@ -24,20 +42,81 @@ Page({
     merchantId: 0,
     x: null,
     y: null,
-    location: null
+    location: null,
+    shoptypeLs: null,
+    shoptypeIdx: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let stationId = wx.getStorageSync('station').stationId
+    let station = wx.getStorageSync('station')
     let location = wx.getStorageSync('location')
     this.setData({
-      stationId,
+      stationId: station.stationId || 0,
       location
     })
-    this.getCutList()
+    this.getNavBar()
+  },
+  //  获取navbar
+  getNavBar() {
+    let station = wx.getStorageSync('station')
+    promiseRequest(collnavbar, 'get', {
+      stationId: this.data.stationId,
+      type: this.data.navIdx
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          shoptypeLs: res.data.data
+        })
+        let i = parseInt(this.data.navIdx)
+        switch (i) {
+          case 3:
+            this.getCutList()
+            break;
+          case 2:
+            this.getLimitList()
+            break;
+          case 1:
+            this.getGroupList()
+            break;
+          case 0:
+            this.getOrdinaryList()
+            break;
+        }
+      }
+    })
+  },
+  //  跳转商品
+  handleNavigate(e) {
+    this.data.list[id].map(item => {
+      if (item.list.productId == e.currentTarget.dataset.id) {
+        let pid = null
+        let name = null
+        switch (this.data.navIdx) {
+          case 3:
+            pid = item.list.productCutPriceId
+            name = 'cut'
+            break;
+          case 2:
+            pid = item.list.timeLimitBuyId
+            name = 'limit'
+            break;
+          case 1:
+            pid = item.list.productGroupBuyId
+            name = 'group'
+            break;
+          case 0:
+            pid = item.list.productId
+            name = 'product'
+            break;
+        }
+        wx.navigateTo({
+          url: `../../goodsdetail/index?pid=${pid}&name=${name}`
+        })
+      }
+    })
   },
   //  get ordinary goods
   getOrdinaryList() {
@@ -53,9 +132,19 @@ Page({
       orderby: 0
     }).then(res => {
       if (res.data.code == 0) {
-        this.setData({
-          list: [...this.data.list, ...res.data.data]
-        })
+        if (res.data.data.length < this.data.pageSize) {
+          let shopCurrent = this.data.shoptypeLs[this.data.shoptypeIdx]
+          console.log(shopCurrent)
+          this.setData({
+            shoptypeIdx: this.data.shoptypeIdx + 1,
+            list: [...this.data.list, {
+              title: shopCurrent && shopCurrent.productTypeName,
+              id: shopCurrent && shopCurrent.productTypeId,
+              recommend: shopCurrent && shopCurrent.recommend,
+              list: res.data.data
+            }]
+          })
+        }
       }
     })
   },
@@ -72,9 +161,18 @@ Page({
       y: this.data.location[1]
     }).then(res => {
       if (res.data.code == 0) {
-        this.setData({
-          list: [...this.data.list, ...res.data.data]
-        })
+        if (res.data.data.length < this.data.pageSize) {
+          let shopCurrent = this.data.shoptypeLs[this.data.shoptypeIdx]
+          this.setData({
+            shoptypeIdx: this.data.shoptypeIdx + 1,
+            list: [...this.data.list, {
+              title: shopCurrent.productTypeName,
+              id: shopCurrent.productTypeId,
+              recommend: shopCurrent.recommend,
+              list: res.data.data
+            }]
+          })
+        }
       }
     })
   },
@@ -92,33 +190,60 @@ Page({
       searchType: 0
     }).then(res => {
       if (res.data.code == 0) {
-        this.setData({
-          list: [...this.data.list, ...res.data.data]
-        })
+        if (res.data.data.length < this.data.pageSize) {
+          let shopCurrent = this.data.shoptypeLs[this.data.shoptypeIdx]
+          this.setData({
+            shoptypeIdx: this.data.shoptypeIdx + 1,
+            list: [...this.data.list, {
+              title: shopCurrent.productTypeName,
+              id: shopCurrent.productTypeId,
+              recommend: shopCurrent.recommend,
+              list: res.data.data
+            }]
+          })
+        }
       }
     })
   },
   //  get cut goods
   getCutList() {
-    promiseRequest(cut, 'get', {
-      pageIndex: this.data.pageIndex,
-      pageSize: this.data.pageSize,
-      stationId: this.data.stationId,
-      merchantId: this.data.merchantId,
-      keys: '',
-      orderby: 0,
-      x: this.data.location[0],
-      y: this.data.location[1]
-    }).then(res => {
-      if (res.data.code == 0) {
+    console.log(this.data.shoptypeIdx)
+    if (this.data.shoptypeLs) {
+      promiseRequest(cut, 'get', {
+        pageIndex: this.data.pageIndex,
+        pageSize: this.data.pageSize,
+        stationId: this.data.stationId,
+        merchantId: this.data.merchantId,
+        keys: '',
+        orderby: this.data.shoptypeLs[this.data.shoptypeIdx].productTypeId,
+        x: this.data.location[0],
+        y: this.data.location[1]
+      }).then(res => {
+        if (res.data.code == 0) {
+          if (res.data.data.length < this.data.pageSize) {
+            let shopCurrent = this.data.shoptypeLs[this.data.shoptypeIdx]
+            this.setData({
+              shoptypeIdx: this.data.shoptypeIdx + 1,
+              list: [...this.data.list, {
+                title: shopCurrent.productTypeName,
+                id: shopCurrent.productTypeId,
+                recommend: shopCurrent.recommend,
+                list: res.data.data
+              }]
+            })
+          } else {
+            let list = this.data.list[this.data.list.length - 1].list
+            this.setData({
+              [list]: list.push(res.data.data)
+            })
+          }
+          console.log(this.data.list)
+        }
         this.setData({
-          list: [...this.data.list, ...res.data.data]
+          loding: false
         })
-      }
-      this.setData({
-        loding: false
       })
-    })
+    }
   },
   //  nav click
   handleNavItemClick(e) {
@@ -128,23 +253,10 @@ Page({
       navIdx,
       list: [],
       pageIndex: 1,
-      notlist: false
+      notlist: false,
+      shoptypeIdx: 0
     })
-    let i = parseInt(navIdx)
-    switch (i) {
-      case 0:
-        this.getCutList()
-        break;
-      case 1:
-        this.getLimitList()
-        break;
-      case 2:
-        this.getGroupList()
-        break;
-      case 3:
-        this.getOrdinaryList()
-        break;
-    }
+    this.getNavBar()
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -153,33 +265,37 @@ Page({
     this.setData({
       list: [],
       pageIndex: 1,
-      notlist: false
+      notlist: false,
+      shoptypeIdx: 0
     })
     let i = parseInt(this.data.navIdx)
     switch (i) {
-      case 0:
+      case 3:
         this.getCutList()
         break;
-      case 1:
+      case 2:
         this.getLimitList()
         break;
-      case 2:
+      case 1:
         this.getGroupList()
         break;
-      case 3:
+      case 0:
         this.getOrdinaryList()
         break;
     }
+    setTimeout(() => {
+      console.log(this.data.list)
+    }, 2000)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    console.log(this.data.list.length, this.data.pageIndex * this.data.pageSize)
-    if (this.data.list.length < this.data.pageIndex * this.data.pageSize) {
+    if (this.data.list.length < this.data.pageIndex * this.data.pageSize && this.data.shoptypeLs.length > this.data.shoptypeIdx) {
       this.setData({
-        notlist: true
+        notlist: true,
+        shoptypeIdx: this.data.shoptypeIdx + 1
       })
     } else {
       this.setData({

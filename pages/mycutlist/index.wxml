@@ -14,16 +14,31 @@
       <image class='img' src='{{item.productImgUrl}}'></image>
       <view class='info'>
         <view class='name strmore'>{{item.productName}}</view>
-        <view class='count'>
-          <countdown strTime='{{item.endTime}}' />
-          <text class='txt'>后结束</text>
+        <!-- 砍价中 -->
+        <block wx:if='{{item.status == 0}}'>
+          <view class='count'>
+            <countdown strTime='{{item.endTime}}' />
+            <text class='txt'>后结束</text>
+          </view>
+          <view class='bott'>
+            <view class='price'>还差{{item.disparityPrice}}元</view>
+            <view class='btn'>继续砍价</view>
+          </view>
+        </block>
+        <!-- 砍价成功 -->
+        <view class='bott' wx:if='{{item.status == 1}}'>
+          <view class='price'>砍价成功</view>
+          <view class='btn'>查看详情</view>
         </view>
-        <view class='bott'>
-          <view class='price'>还差{{item.disparityPrice}}元</view>
-          <view class='btn'>继续砍价</view>
+        <!-- 砍价失败 -->
+        <view class='bott' wx:if='{{item.status == 2}}'>
+          <view class='price'>砍价失败</view>
+          <view class='btn1'>砍价结束</view>
+          <!-- <view class='btn1'>重砍一个</view> -->
         </view>
       </view>
-    </view>
-  </view>
 
+    </view>
+
+  </view>
 </view>

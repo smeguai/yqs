@@ -44,7 +44,7 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   producOrder = configUrl + '/api/product/order/submitted',
   limitOrder = configUrl + '/api/limit/order/submitted',
   subgrouporder = configUrl + '/api/group/order/submitted',
-  cutOrder = configUrl +'/api/cut/order/submitted',
+  cutOrder = configUrl + '/api/cut/order/submitted',
   //  秒杀商品下单页
   limitsubmit = configUrl + '/api/limit/order/get',
   //  砍价下单页
@@ -107,19 +107,19 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   mycoupon = configUrl + '/api/coupon/my/get',
   freecoupon = configUrl + '/api/freecoupon/get',
   businessrecord = configUrl + '/api/record/shop/get',
-  goodsrecord = configUrl +'/api/record/product/get',
+  goodsrecord = configUrl + '/api/record/product/get',
   //  返回核销图
-qrcodeimg = configUrl + '/api/wechat/qrcode/get',
-cancelrefund = configUrl +'/api/order/cancelrefund',
-//  帮忙砍价
-cutfriendcut = configUrl + '/api/shopping/cut/friendcut',
+  qrcodeimg = configUrl + '/api/wechat/qrcode/get',
+  cancelrefund = configUrl + '/api/order/cancelrefund',
+  //  帮忙砍价
+  cutfriendcut = configUrl + '/api/shopping/cut/friendcut',
   //  根据经纬度获取地区（高德地图)
-nowloction = configUrl + '/api/region/get',
-collection = configUrl +'/api/collection/shop/get',
-addcollection = configUrl + '/api/collection/shop/add',
-// 我的砍价
-mycutlist = configUrl + '/api/shopping/cut/my',
-//  商品中 可用的优惠券
+  nowloction = configUrl + '/api/region/get',
+  collection = configUrl + '/api/collection/shop/get',
+  addcollection = configUrl + '/api/collection/shop/add',
+  // 我的砍价
+  mycutlist = configUrl + '/api/shopping/cut/my',
+  //  商品中 可用的优惠券
   usercoupon = configUrl + '/api/producr/usercoupon',
   //  服务协议
   serviceagreement = configUrl + '/api/article/serviceagreement',
@@ -144,8 +144,29 @@ mycutlist = configUrl + '/api/shopping/cut/my',
   //  分享回调
   shareback = configUrl + '/api/user/sharecallback',
   //  收集小程序
-  getformid = configUrl + '/api/getformid'
+  getformid = configUrl + '/api/getformid',
+  //  核销码是否核销
+  hadverify = configUrl + '/api/order/hadverify',
+  //  大家都在搜
+  allsearchkey = configUrl + '/api/shopping/searchkey',
+  //  注销账户
+  canceluser = configUrl + '/api/user/user/cancellation',
+  //  已开通的城市
+  openedcity = configUrl + '/api/user/openedcity',
+  //  获取二维码
+  getcodeimg = configUrl + '/api/wechat/createcode',
+  //  获取小程序二维码图片地址
+  getcodeimgurl = configUrl + '/api/wechat/img/createcode',
+  //  获取特惠 更多里 navbar
+  collnavbar = configUrl + '/api/shoppingtype/get'
 module.exports = {
+  collnavbar,
+  getcodeimgurl,
+  getcodeimg,
+  openedcity,
+  canceluser,
+  allsearchkey,
+  hadverify,
   getformid,
   shareback,
   feedback,

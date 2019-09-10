@@ -3,7 +3,7 @@
   <view class="xg_top">
     <view class="xg_search">
       <view class="xg_search_city" bindtap="cityClick">
-        <text>长沙市</text>
+        <text>{{cityname}}</text>
         <view></view>
       </view>
       <view class="xg_search_url" bindtap="selectClick">

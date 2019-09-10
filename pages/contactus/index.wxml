@@ -1,12 +1,12 @@
 <view class='container'>
     <view class='txt'>在线咨询</view>
     <view class='qrcode'>
-        <image class='img' bindtap='previewImage' src='{{imgurl}}'></image>
+        <image class='img' src='{{imgurl}}'></image>
     </view>
     <view class='vx'>{{tel}}</view>
     <button class='btn' bindtap="copetxt">复制微信号</button>
     <view class='tips'>
-        <view>点击二维码或者复制微信号</view>
+        <view>复制微信号</view>
         <view> 添加客服微信</view>
         <view>我们会最快时间回复您</view>
     </view>

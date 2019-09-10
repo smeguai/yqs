@@ -1,4 +1,4 @@
-<form report-submit="true" bindsubmit="formsubmit" class='container'>
+<view class='container'>
   <view class='header'>充值到现金余额，可在明细查看</view>
   <view class='main'>
 
@@ -7,13 +7,11 @@
       <text class='subtxt'>充值金额最小为100元</text>
     </view>
     <view class='ipt-wrapper'>
-    <text>￥</text>
-    <input type="number" class='ipt' value='{{iptval}}' placeholder="请输入充值金额" bindinput="iptchange" />
-    <image class='icon' src='../../../static/img/close.png' wx:if='{{closeshow}}' bindtap='handleClearIptval'></image>
+      <text>￥</text>
+      <input type="number" class='ipt' value='{{iptval}}' placeholder="请输入充值金额" bindinput="iptchange" type='digit' />
+      <image class='icon' src='../../../static/img/close.png' wx:if='{{closeshow}}' bindtap='handleClearIptval'></image>
     </view>
-    <button  class='btn' bindtap="handlePaypassVerifypass">提交</button>
+    <button class='btn' bindtap="handlePaypassVerifypass">提交</button>
 
   </view>
-
-
-</form>
+</view>

@@ -1,5 +1,11 @@
 <view>
-    <view class="collect_title">已收藏店铺</view>
+    <view class="collect_title">我关注的商家</view>
     <loding show='{{loding}}' />
+    <block wx:if='{{content.length > 0}}'>
     <info text="{{content}}" />
+    </block>
+    <view class='notlist' wx:else>
+      <image class='icon' src='../../../static/img/notcollect.png'></image>
+      <view class='txt'>还没有收藏记录哦~</view>
+    </view>
 </view>

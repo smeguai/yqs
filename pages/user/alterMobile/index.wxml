@@ -6,7 +6,7 @@
   <view class="alterMobile_view">
     <input class="alterMobile_viewTop" placeholder="请输入新手机号" type="number" value="{{mobile}}" bindinput="newMobile"></input>
     <view>
-      <input placeholder="请输入验证码" type="number" value="{{code_num}}" bindinput="mobileCode"></input>
+      <input placeholder="请输入验证码" type="number" value="{{code_num}}" maxlength="4" bindinput="mobileCode"></input>
       <button wx:if="{{code}}" bindtap='handleGetCode'>{{codetxt}}</button>
       <button wx:else style="background: #CCCCCC">发送验证</button>
     </view>

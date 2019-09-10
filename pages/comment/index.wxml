@@ -1,4 +1,4 @@
-<form report-submit='true' class='container' bindsubmit='formSubmit'>
+<view class='container'>
   <view class='sell'>
     <view class='top'>
       <image class='avatar' src='{{info.headImgUrl}}'></image>
@@ -44,6 +44,6 @@
   </view>
 
   <view class='butt'>
-    <button class='submit' form-type='submit'>提交评价</button>
+    <button class='submit' bindtap='formSubmit'>提交评价</button>
   </view>
-</form>
+</view>

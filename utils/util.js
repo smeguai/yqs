@@ -8,7 +8,6 @@
 
 //   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 // }
-
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -54,6 +53,7 @@ function promiseRequest(url, method = 'post', data = {}) {
       },
       complete: () => {
         wx.stopPullDownRefresh()
+        wx.hideLoading()
       }
     })
   })
@@ -112,7 +112,7 @@ function upload(page, path, way, id) {
 
 //  处理小数精度
 function formatNum (num) {
-  return parseInt(num * 100) / 100
+  return Math.floor(num * 100) / 100
 }
 
 module.exports = {

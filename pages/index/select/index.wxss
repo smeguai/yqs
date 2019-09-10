@@ -36,7 +36,7 @@
 }
 
 
-.name_title {
+.name_title, .name_tips {
     color: #333333;
     font-size: 28rpx;
     background: #FFFFFF;
@@ -45,7 +45,6 @@
 .name_text {
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 1rpx solid #F5F5F5;
     background: #FFFFFF;
     padding: 20rpx 24rpx;
 }
@@ -64,6 +63,7 @@
     justify-content: space-between;
     background: #FFFFFF;
     padding: 20rpx 24rpx 30rpx 24rpx;
+    border-top: 1rpx solid #F5F5F5;
 }
 .name_history>view {
     color: #333333;

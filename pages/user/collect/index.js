@@ -19,7 +19,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onShow: function(options) {
+    this.setData({
+      pageIndex: 1,
+      content: []
+    })
     this.getCollection()
   },
   //  获取收藏

@@ -6,10 +6,10 @@
       <view class='password-input-box'>
         <view class='input' bindtap='getFocus'>
           <view wx:for="{{Length}}" wx:key="item" class='input-content'>
-            <input value="{{iptValue1.length>=index+1? iptValue1[index] :''}}" disabled password='{{ispassword}}' catchtap='Tap'></input>
+            <input value="{{iptValue1.length>=index+1? iptValue1[index] :''}}" disabled password='{{ispassword}}' catchtap='Tap' type="number"></input>
           </view>
         </view>
-        <input name="password" password="{{true}}" class='password-input' maxlength="{{Length}}" focus='{{isFocus}}' bindconfirm="password_done" bindinput="password_input"></input>
+        <input name="password" password="{{true}}" class='password-input' maxlength="{{Length}}" focus='{{isFocus}}' bindconfirm="password_done" bindinput="password_input" type="number"></input>
       </view>
 
       <view class="password_btn" wx:if='{{iptValue.length == 6}}'>

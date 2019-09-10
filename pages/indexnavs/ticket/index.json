@@ -1,6 +1,7 @@
 {
     "usingComponents": {
-      "grade": "../../../component/grade/grade"
+      "grade": "../../../component/grade/grade",
+      "dis": "../../../component/dis/index"
     },
     "navigationBarTitleText": "附近好券",
     "enablePullDownRefresh": true

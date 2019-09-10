@@ -10,7 +10,7 @@
       <view class='{{index == bannerCurrent ? "num-item active":"num-item"}}' wx:for='{{bannerList}}' wx:key='{{index}}'></view>
     </view>
   </view>
-  <view class='section'>
+  <view class='section' wx:if='{{priviLs && priviLs.length > 0}}'>
     <view class='top'>
       <view class='heartxt'>附近好券</view>
       <view class='tabnav'>
@@ -19,9 +19,9 @@
     </view>
     <view class='list-wrapper'>
       <view class='list'>
-        <view class='item' wx:for='{{priviLs}}' wx:key='{{index}}'>
+        <view class='item' wx:for='{{priviLs}}' wx:key='{{index}}' bindtap='handleSellerClick' data-title='{{item.merchantName}}' data-pid='{{item.merchantId}}'>
           <view class='main'>
-            <image src='{{item.merchantImgUrl}}' class='avatar'></image>
+            <image src='{{item.merchantImgUrl}}' class='avatar' lazy-load mode='aspectFill'></image>
             <view class='info'>
               <view class='top'>
                 <view class='name'>{{item.merchantName}}</view>
@@ -31,7 +31,7 @@
               <view class='middel'>
                 <grade score='{{item.StarIndex}}' />
                 <text>{{item.typeName}}</text>|
-                <text>{{item.viewNum}}</text>
+                <text>人气 {{item.viewNum}}</text>
                 <dis class='dis' num='{{item.distance}}' />
               </view>
               <view class='tag'>
@@ -41,21 +41,15 @@
           </view>
           <scroll-view scroll-x class='ticket'>
             <view class='block'>
-              <view
-                class='ticketitem' 
-                wx:for='{{item.couponList}}' 
-                wx:key='{{item.couponId}}' 
-                data-pid='{{item.couponId}}'
-                bindtap='handleGetPreferential'
-                data-title='{{item.productName}}'
-               >
+              <view class='ticketitem' wx:for='{{item.couponList}}' wx:key='{{item.couponId}}' data-pid='{{item.couponId}}' bindtap='handleGetPreferential' data-title='{{item.productName}}'>
                 <view class='title'>{{item.couponName}}</view>
-                <view class='price'>￥{{item.couponMoney}}</view>
-                <view class='txt'>{{item.couponDes}}</view>
+                <view class='price' wx:if='{{item.couponType == 2}}'>{{item.couponMoney / 10}}<text class='txt'>折</text></view>
+                <view class='price' wx:else>￥{{item.couponMoney}}</view>
+                <view class='txt'>{{item.couponDes || ""}}</view>
                 <view class='btn btn2' wx:if='{{item.status}}'>已领取</view>
-                <view class='btn btn1' wx:else  bindtap="handleClickGet" data-id='{{item.couponId}}'>点击领取</view>
+                <view class='btn btn1' wx:else catchtap="handleClickGet" data-id='{{item.couponId}}'>点击领取</view>
               </view>
-              <view class='ticketitem' wx:for='{{item.voucherList}}' wx:key='{{index}}' data-pid='{{item.productId}}' bindtap='handleClickPay'>
+              <view class='ticketitem' wx:for='{{item.voucherList}}' wx:key='{{index}}' data-pid='{{item.productId}}' catchtap='handleClickPay'>
                 <view class='title'>{{item.productName}}</view>
                 <view class='price'>￥{{item.price}}</view>
                 <view class='txt'>{{item.useIntro}}</view>
@@ -76,16 +70,8 @@
       </view>
     </view>
     <view class='lists'>
-      <view 
-      class='item' 
-      wx:for='{{groupdata}}' 
-      wx:key='{{index}}' 
-      bindtap='handleGoodsDetail' 
-      data-pid='{{item.productGroupBuyId}}'
-      data-name='group'
-      data-title='{{item.productName}}'
-      >
-        <image class='lists-img' src='{{item.coverUrl}}'></image>
+      <view class='item' wx:for='{{groupdata}}' wx:key='{{index}}' bindtap='handleGoodsDetail' data-pid='{{item.productGroupBuyId}}' data-name='group' data-title='{{item.productName}}'>
+        <image class='lists-img' lazy-load mode='aspectFill' src='{{item.coverUrl}}'></image>
         <view class='opera'>
           <view class='lf'>
             <view class='title str'>{{item.productName}}</view>
@@ -94,7 +80,7 @@
           <view class='btn'>立即拼团</view>
         </view>
         <view class='info'>
-          <view class='tag'>拼团价</view>
+          <view class='tag'>{{item.personNum}}人团</view>
           <view class='txt'>￥
             <text class='price'>{{item.price}}</text>
             <text class='del oldprice'>￥{{item.tagPrice}}</text>
@@ -114,16 +100,8 @@
       </view>
     </view>
     <view class='lists'>
-      <view 
-        class='item' 
-        wx:for='{{limitdata}}' 
-        wx:key='{{index}}'
-        bindtap='handleGoodsDetail' 
-        data-pid='{{item.timeLimitBuyId}}'
-        data-name='limit'
-        data-title='{{item.productName}}'
-      >
-        <image class='lists-img' src='{{item.coverUrl}}'></image>
+      <view class='item' wx:for='{{limitdata}}' wx:key='{{index}}' bindtap='handleGoodsDetail' data-pid='{{item.timeLimitBuyId}}' data-name='limit' data-title='{{item.productName}}'>
+        <image class='lists-img' src='{{item.coverUrl}}' lazy-load mode='aspectFill'></image>
         <view class='opera'>
           <view class='lf'>
             <view class='title str'>{{item.productName}}</view>
@@ -151,26 +129,19 @@
       </view>
     </view>
     <view class='lists'>
-      <view 
-        class='item' 
-        wx:for='{{cutdata}}' 
-        wx:key='{{index}}'
-        data-name='cut'
-        data-pid='{{item.productCutPriceId}}'
-        bindtap='handleGoodsDetail'
-        data-title='{{item.productName}}'
-      >
-        <image class='lists-img' src='{{item.coverUrl}}'></image>
+      <view class='item' wx:for='{{cutdata}}' wx:key='{{index}}' data-name='cut' data-pid='{{item.productCutPriceId}}' bindtap='handleGoodsDetail' data-title='{{item.productName}}'>
+        <image class='lists-img' src='{{item.coverUrl}}' lazy-load mode='aspectFill'></image>
         <view class='opera'>
           <view class='lf'>
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
           </view>
-          <view class='btn'>立即拼团</view>
+          <view class='btn'>发起砍价</view>
         </view>
         <view class='info'>
-          <view class='tag'>拼团价</view>
-          <view class='txt'>￥
+          <view class='tag'>底价</view>
+          <view class='txt'>
+            <text>￥</text>
             <text class='price'>{{item.price}}</text>
             <text class='del oldprice'>￥{{item.tagPrice}}</text>
           </view>

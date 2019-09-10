@@ -4,9 +4,9 @@
     <image src='../../../static/img/search.png' class='icon'></image>
     <input class='ipt' placeholder='搜索附近商家' bindinput="handleSetkeys" bindconfirm='handleKeysDone'></input>
   </view>
-  <view class='list'>
+  <view class='list' wx:if='{{list.length > 0}}'>
     <view class='item' wx:for='{{list}}' bindtap="handleSellerClick" data-title='{{item.merchantName}}' data-pid='{{item.merchantId}}'>
-      <image src='{{item.merchantImgUrl}}' class='avatar'></image>
+      <image src='{{item.merchantImgUrl}}' mode='aspectFill' lazy-load class='avatar'></image>
       <view class='info'>
         <view class='top'>
           <view class='name'>{{item.merchantName}}</view>
@@ -33,12 +33,18 @@
         <scroll-view scroll-x class='goods'>
           <view class='goods-list'>
             <view class='goodsitem' wx:for='{{item.proList}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}} ' data-title='{{item.productName}}'>
-              <image src='{{item.productImgUrl}}' class='imgurl'></image>
+              <image src='{{item.productImgUrl}}'  class='imgurl' lazy-load mode='aspectFill'></image>
               <text class='price'>￥{{item.price}}<text class='oldprice del'>￥{{item.tagPrice}}</text></text>
             </view>
           </view>
         </scroll-view>
       </view>
     </view>
+  </view>
+
+  <!-- 没有商家列表 -->
+  <view class='notseller' wx:else>
+  <image class='icon' src='../../../static/img/notseller.png'></image>
+  <view class='txt'>还没有相关商家记录哦~</view>
   </view>
 </view>

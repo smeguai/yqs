@@ -4,7 +4,8 @@ import {
   orderpay,
   receiving,
   deleteorder,
-  prepayid
+  prepayid,
+  getformid
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -181,8 +182,8 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      navIdx: options.pid,
-      status: options.pid
+      navIdx: options.idx,
+      status: options.idx
     })
   },
   getOrders() {
@@ -239,9 +240,13 @@ Page({
             })
           }
         })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
       }
     })
-
   },
   /**
    * 生命周期函数--监听页面显示

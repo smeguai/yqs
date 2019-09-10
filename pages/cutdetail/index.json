@@ -2,5 +2,6 @@
   "usingComponents": {
     "countdown": "../../component/countdown/index"
   },
-  "navigationBarBackgroundColor": "#FFDE4E"
+  "navigationBarBackgroundColor": "#FFDE4E",
+  "enablePullDownRefresh": true
 }

@@ -24,7 +24,7 @@
         <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
       </view>
       <view class='info'>
-        <image class='avart' src='{{item.productImgUrl}}'></image>
+        <image class='avart' src='{{item.productImgUrl}}' lazy-load mode='aspectFill'></image>
         <view class='desc'>
           <view class='goodsname str'>{{item.productName}}</view>
           <view class='date'>已砍{{item.hadCutPrice}}元,还差{{item.disparityPrice}}元</view>
@@ -33,7 +33,7 @@
             <view class='txt'>后结束</view>
           </view>
           <view class='bot'>
-            <view class='price'>￥
+            <view class='price'>底价￥
               <text class='conis'>{{item.price}}</text>
               <text class='oldprice del'>￥{{item.tagPrice}}</text>
             </view>
@@ -55,12 +55,12 @@
         <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
       </view>
       <view class='info'>
-        <image class='avart' src='{{item.coverUrl}}'></image>
+        <image class='avart' src='{{item.coverUrl}}' lazy-load mode='aspectFill'></image>
         <view class='desc'>
           <view class='goodsname str'>{{item.productName}}</view>
           <view class='date'>{{item.productShoreDesc}}</view>
           <view class='bot'>
-            <view class='price'>￥
+            <view class='price'>底价￥
               <text class='conis'>{{item.price}}</text>
               <text class='oldprice del'>￥{{item.tagPrice}}</text>
             </view>

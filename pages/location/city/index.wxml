@@ -1,6 +1,9 @@
 <view>
-    <view class="city_title">当前定位城市</view>
-    <view class="city_name">长沙市</view>
-    <view class="city_title">已开通城市</view>
-    <view class="city_nameItem" wx:for="{{city}}" wx:for-index="index" wx:key="index">{{item.name}}</view>
+  <view class="city_title">当前定位城市</view>
+  <view class="city_name">{{cityname}}</view>
+  <view class="city_title">已开通城市</view>
+  <block wx:if='{{city}}'>
+    <view class="city_nameItem" wx:for="{{city}}" wx:key="index" data-name='{{item.cityName}}' data-id='{{item.cityId}}' bindtap="handleCityItemClick">{{item.cityName}}</view>
+  </block>
+  <view wx:else class='notcitys'>暂无开通城市</view>
 </view>

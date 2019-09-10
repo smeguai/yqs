@@ -25,23 +25,49 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 30rpx;
-  box-sizing: border-box;
   justify-content: space-between;
+}
+.list-wrapper {
   background: #fff;
+  padding: 0 30rpx;
+}
+.list-wrapper .title .top {
+  padding: 10rpx 0;
+  display: flex;
+  align-items: flex-end;
+}
+.list-wrapper .title .txt {
+  font-size: 40rpx;
+  font-weight: 500;
+}
+.list-wrapper .recomend {
+  font-size: 24rpx;
+  color: #999;
+}
+.list-wrapper .title .icon {
+  border-width: 10rpx;
+  border-style: solid;
+  border-color: transparent #FDDD52 #FDDD52 transparent;
+  margin-left: 12rpx;
+  display: inline-block;
 }
 .list .item {
   width: 330rpx;
   padding: 30rpx 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 .list .item .img {
   width: 100%;
   height: 220rpx;
+  border-radius: 6rpx;
 }
 .list .item .name {
   font-size: 28rpx;
-  margin-bottom: 30rpx;
-  margin-top: 24rpx;
+  margin-bottom: 12rpx;
+  margin-top: 12rpx;
 }
 .list .item .price {
   font-size: 36rpx;
@@ -55,8 +81,7 @@
   color: #FF6600;
   border-radius: 4rpx;
   line-height: 24rpx;
-  height: 28rpx;
-  width: 58rpx;
+  padding: 4rpx 6rpx;
   display: inline-block;
   text-align: center;
   vertical-align: middle;

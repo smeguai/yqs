@@ -24,7 +24,7 @@
           <view class='tag-item' wx:for='{{item.tagList}}' wx:key='{{index}}'>{{item}}</view>
         </view>
         <view class='info'>
-          <image class='avart' src='{{item.productImgUrl}}'></image>
+          <image class='avart' src='{{item.productImgUrl}}' lazy-load mode='aspectFill'></image>
           <view class='desc'>
             <view class='goodsname str'>{{item.productName}}</view>
             <view class='date'>{{item.startTime}} 至 {{item.endTime}}</view>
@@ -35,9 +35,10 @@
               <view class='txt'>还差{{item.disparityNum}}人</view>
             </view>
             <view class='bot'>
-              <view class='price'>￥
+              <view class='price'>
+                <text>￥</text>
                 <text class='conis'>{{item.price}}</text>
-                <text class='oldprice del'>￥{{item.tagPrice}}</text>
+                <text class='tag'>{{item.personNum}}人团</text>
               </view>
               <view class='btn'>继续分享</view>
             </view>
@@ -57,22 +58,18 @@
         <view class='tag-item' wx:for='{{item.tagList}}' wx:key='{{index}}'>{{item}}</view>
       </view>
       <view class='info'>
-        <image class='avart' src='{{item.coverUrl ? item.coverUrl : "../../static/img/imgloading.png"}}' lazy-load></image>
+        <image class='avart' lazy-load mode='aspectFill' src='{{item.coverUrl ? item.coverUrl : "../../static/img/imgloading.png"}}'></image>
         <view class='desc'>
           <view class='goodsname str'>{{item.productName}}</view>
           <view class='date'>{{item.startTime}}</view>
-          <view class='counttime'>
-            <countdown strTime='{{item.endTime}}'></countdown>
-            <view class='txt'>还差{{item.personNum}}人</view>
-          </view>
+          <text class='tag'>{{item.personNum}}人团</text>
           <view class='bot'>
-            <view class='price'>￥
+            <view class='price'>
+              <text>￥</text>
               <text class='conis'>{{item.price}}</text>
               <text class='oldprice del'>￥{{item.tagPrice}}</text>
             </view>
-            <!-- <view class='btn'>继续分享</view> -->
-            <view class='btn'>立即抢购</view>
-            <!-- <view class='btn'>立即拼团</view> -->
+            <view class='btn'>立即拼团</view>
           </view>
         </view>
       </view>

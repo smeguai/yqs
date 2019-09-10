@@ -1,15 +1,21 @@
 import {
+  xcxloginfcode,
+  getformid
+} from './utils/api.js'
+import {
   promiseRequest
 } from './utils/util.js'
-import {
-  xcxloginfcode
-} from './utils/api.js'
+
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     this.getWXLogin()
     this.getLocation()
     this.globalData.userInfo = wx.getStorageSync('userInfo')
     this.globalData.station = wx.getStorageSync('station')
+
+    if (this.globalData.userInfo) {
+      this.globalData.onLine = true
+    }
   },
   getWXLogin() {
     // 登录
@@ -50,12 +56,21 @@ App({
           },
           complete: () => {
             wx.navigateTo({
-              url: `../location/index`
+              url: '../location/index',
             })
           }
         })
       }
     })
+  },
+  _saveFormId(formid) {
+    console.log(formid, this.globalData.onLine)
+    if (formid && this.globalData.onLine && formid != 'the formId is a mock one')
+      promiseRequest(getformid, 'post', {
+        source: 0,
+        formid,
+        isprepayid: 0
+      })
   },
   globalData: {
     userInfo: null,

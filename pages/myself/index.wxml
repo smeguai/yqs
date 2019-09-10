@@ -7,7 +7,10 @@
     <image src='{{userInfo.headimg || "../../static/img/notloding.png"}}' class='avatar'></image>
     <view class='info' wx:if='{{onLine}}'>
       <view class='nickName'>{{userInfo.nickname}}</view>
-      <view class='txt'>{{userInfo.uid}}</view>
+      <view class='uid'>
+        <view class='txt'>{{userInfo.uid}}</view>
+        <view class='cope' bindtap='handleCopeuserid'>复制</view>
+      </view>
     </view>
     <view class='info' wx:else bindtap='handleSign'>
       <text class='nickName'>未登录</text>
@@ -16,13 +19,13 @@
   <view class='orders'>
     <view class='title'>
       <text class='txt'>我的订单</text>
-      <view class='all' bindtap='handleClickOrder' data-pid='0'>
+      <view class='all' bindtap='handleClickOrder' data-idx='0'>
         <text class='txt'>全部订单</text>
         <image class='right' src='../../static/img/right.png'></image>
       </view>
     </view>
     <view class='list'>
-      <view class='item' wx:for='{{OrderCate}}' data-pid='{{item.pid}}' wx:key='{{index}}' data-cate='{{index}}' bindtap='handleClickOrder'>
+      <view class='item' wx:for='{{OrderCate}}' data-idx='{{item.pid}}' wx:key='{{index}}' bindtap='handleClickOrder'>
         <image src='{{item.icon}}' class='icon'></image>
         <view class='txt'>{{item.txt}}</view>
         <view class='num' wx:if='{{navCountNum["count"+index] > 0}}'>{{navCountNum['count'+index]}}</view>
@@ -36,22 +39,26 @@
       <image class='icon' src='../../static/img/right.png'></image>
     </view>
   </view>
-  <view class='more'>
-    <view class='txt'>更多服务</view>
-    <view class='list'>
-      <view class='item' wx:for='{{more}}' bindtap='handleClickMore' data-id='{{item.id}}'>
-        <image src='{{item.icon}}' class='icon'></image>
-        <view class='content'>{{item.txt}}</view>
+  <form report-submit bindsubmit="formsubmit">
+    <view class='more'>
+      <view class='txt'>更多服务</view>
+      <view class='list'>
+        <button form-type="submit" class='item' wx:for='{{more}}' data-id='{{item.id}}'>
+          <image src='{{item.icon}}' class='icon'></image>
+          <view class='content'>{{item.txt}}</view>
+        </button>
       </view>
     </view>
-  </view>
-  
+  </form>
+
   <!-- 关注公众号 -->
   <view class='tencent' wx:if='{{tencentshow}}'>
     <view class='main'>
       <image class='img' src='../../static/img/myself_img.png'></image>
-      <view class='txt'>点击“去回复”，<text class='txt1'>发送“0”</text></view>
-      <view class='txt'>关注翼起省公众号</view>
+      <view class='txt'>点击“去回复”，
+        <text class='txt1'>发送“0”</text>
+      </view>
+      <view class='txt'>关注"翼省钱go"公众号</view>
       <button class='btn' open-type="contact">去回复</button>
       <image class='icon' bindtap="handleTencentClick" src='../../static/img/close2.png'></image>
     </view>

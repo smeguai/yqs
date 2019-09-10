@@ -23,14 +23,20 @@ Page({
     index: 0,
     activeIndex: 0,
 
+    free_coupon_list: [],
     coupon_my: null,
     pageIndex: 1,
     pageSize: 10,
     stationId: null,
     x: null,
-    y: null,
-
-    free_coupon_list: []
+    y: null
+  },
+  //  推荐商家 被点击
+  handleSellerClick(e) {
+    let pid = e.currentTarget.dataset.pid
+    wx.navigateTo({
+      url: `../../indexnavs/shop/index?pid=${pid}`,
+    })
   },
   //  领取券
   handleGetCoupon(e) {
@@ -51,7 +57,8 @@ Page({
   navClick(event) {
     this.setData({
       activeIndex: event.currentTarget.dataset.index,
-      loding: true
+      loding: true,
+      free_coupon_list: []
     })
     this._getlist()
   },

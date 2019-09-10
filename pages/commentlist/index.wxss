@@ -9,7 +9,6 @@
   width: 218rpx;
   text-align: center;
 }
-
 .score-wrapper .score .num {
   font-size: 68rpx;
   font-weight: 500;
@@ -114,4 +113,18 @@
   font-size: 24rpx;
   color: #999999;
   margin-top: 18rpx;
+}
+.notlist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.notlist .icon {
+  width: 350rpx;
+  height: 350rpx;
+}
+.notlist .txt {
+  font-size: 24rpx;
+  padding-top: 60rpx;
 }

@@ -32,11 +32,12 @@
 }
 
 .container .top .ipts .rmb {
-    font-size: 24rpx;
+    font-size: 28rpx;
+    font-weight: 400;
 }
 
 .container .top .ipts .ipt {
-    font-size: 36rpx;
+    font-size: 48rpx;
     margin: 14rpx 0;
     padding: 0 14rpx;
 }

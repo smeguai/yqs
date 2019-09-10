@@ -1,4 +1,3 @@
-const app = getApp()
 import {
   decrypt,
   wxlogin
@@ -6,16 +5,29 @@ import {
 import {
   promiseRequest
 } from '../../utils/util.js'
+const app = getApp()
 
 Page({
   data: {
     tel: null,
+    formid: '',
+    station: null,
+    location: null
+  },
+  //  获取formid
+  formSubmit(e) {
+    this.setData({
+      formid: e.detail.formId
+    })
+  },
+  //  拒绝授权
+  handleCancel() {
+    wx.navigateBack({
+      delta: -1
+    })
   },
   //  用户登录
   onGotUserInfo(e) {
-    wx.showLoading({
-      title: '登陆中...',
-    })
     let data = {
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv,
@@ -34,7 +46,18 @@ Page({
       this._login(res.data)
     })
   },
+  onLoad() {
+    let station = wx.getStorageSync('station')
+    let location =wx.getStorageSync('location')
+    this.setData({
+      station,
+      location
+    })
+  },
   _login(d) {
+    wx.showLoading({
+      title: '登陆中...',
+    })
     let data = {
       unionid: d.unionId,
       openid: d.openId,
@@ -43,7 +66,10 @@ Page({
       sex: d.gender,
       province: d.province,
       city: d.city,
-      source: "0"
+      source: "0",
+      stationId: this.data.station.stationId,
+      x: this.data.location[0],
+      y: this.data.location[1]
     }
     promiseRequest(wxlogin, 'post', data).then(res => {
       if (res.data.code == 0) {
@@ -52,6 +78,8 @@ Page({
           data: res.data.data,
           success: () => {
             app.globalData.onLine = true
+            console.log(this.route, app.globalData.onLine)
+            app._saveFormId(this.data.formid)
             wx.navigateBack({
               delta: -1
             })
@@ -59,10 +87,9 @@ Page({
         })
       } else {
         wx.showToast({
-          title: '登录失败',
+          title: res.data.msg,
           icon: 'none'
         })
-        wx.hideLoading()
       }
     })
   },

@@ -8,30 +8,35 @@
   <view class='list' wx:if='{{list.length>0}}'>
     <view class='item' wx:for='{{list}}' wx:key='{{item.merchantId}}' data-orderid='{{item.orderId}}' bindtap='checkOrderDesc'>
       <view class='top'>
-        <image class='avatar' src='{{item.headImgUrl}}'></image>
+        <image class='avatar' src='{{item.headImgUrl}}' lazy-load></image>
         <text class='name str'>{{item.merchantName}}</text>
         <text class='cate'>{{cateMode[item.status]}}</text>
       </view>
       <block wx:for='{{item.detailList}}' wx:key='{{index}}' wx:for-item='i'>
         <view class='desc'>
-          <image class='img' src='{{i.imgUrl}}'></image>
+          <image class='img' src='{{i.imgUrl}}' lazy-load></image>
           <view class='info'>
             <view class='title strmore'>{{i.productName}}</view>
             <view class='midd'>
-            <view class='subtitle str'>{{i.productSkuvalName}}</view>
+              <view class='subtitle str'>{{i.productSkuvalName}}</view>
               <text class='count'>×{{i.quantity}}</text>
             </view>
             <view class='bot'>
               <view class='price'>￥{{i.unitPrice}}
                 <text class='oldprice del'>￥{{i.tagPrice}}</text>
               </view>
-                <text class='time'>{{item.createTime}}</text>
+              <text class='time'>{{item.createTime}}</text>
             </view>
           </view>
         </view>
       </block>
       <view class='handle'>
-        <view class='txt'>实付：
+        <view class='txt' wx:if='{{item.status == 0}}'>
+          <text>需付：</text>
+          <text class='price'>￥{{item.grandTotal}}</text>
+        </view>
+        <view class='txt' wx:else>
+          <text>实付：</text>
           <text class='price'>￥{{item.payTotal}}</text>
         </view>
         <view class='btns' wx:if='{{item.status == 0}}'>
@@ -47,7 +52,10 @@
           <text class='btnitem0 btn'>查看详情</text>
           <text class='btnitem1 btn' catchtap="consignee" data-orderid='{{item.orderId}}'>确认收货</text>
         </view>
-        <view class='btns' wx:if='{{item.status == 3 || item.status == 4 || item.status == 88}}'>
+        <view class='btns' wx:if='{{item.status == 3}}'>
+          <text class='btnitem0 btn'>查看详情</text>
+        </view>
+        <view class='btns' wx:if='{{item.status == 4 || item.status == 88}}'>
           <text class='btnitem0 btn' catchtap='deleteOrder' data-orderid='{{item.orderId}}'>删除订单</text>
           <text class='btnitem0 btn'>查看详情</text>
         </view>
@@ -62,8 +70,8 @@
       </view>
     </view>
   </view>
-    <view class='null' wx:else>
-      <image class='icon' src='../../static/img/cat_null.png'></image>
-      <view class='txt'>您还没有相关记录，赶快去逛逛吧~</view>
-    </view>
+  <view class='null' wx:else>
+    <image class='icon' src='../../static/img/cat_null.png'></image>
+    <view class='txt'>您还没有相关记录，赶快去逛逛吧~</view>
+  </view>
 </view>

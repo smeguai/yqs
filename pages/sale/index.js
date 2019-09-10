@@ -11,18 +11,19 @@ Page({
     navcurrent: 0,
     merchantId: 0,
     pageIndex: 1,
-    pageSize: 10
+    pageSize: 10,
+    list: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     this.setData({
       stationId: wx.getStorageSync('station').stationId,
       merchantId: options.pid
     })
+    this.getgoodslist()
   },
   //  获取特惠商品
   getgoodslist(){
@@ -32,13 +33,16 @@ Page({
       merchantId: this.data.merchantId,
       keys: '',
       typeId: 0,
+      orderby: this.data.navcurrent + 2,
       stationId: this.data.stationId,
       pageIndex: this.data.pageIndex,
       pageSize: this.data.pageSize
     }).then(res => {
       console.log(res)
       if (res.data.code == 0) {
-        
+        this.setData({
+          list: [...this.data.list, ...res.data.data]
+        })
       }
     })
   },
@@ -46,33 +50,35 @@ Page({
   handleNavItemClick(e) {
     let idx = e.currentTarget.dataset.idx
     this.setData({
-      navcurrent: idx
+      navcurrent: idx,
+      list: []
     })
+    this.getgoodslist()
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  //  商品跳转
+  handleNavigate(e) {
+    wx.navigateTo({
+      url: `../goodsdetail/index?name=product&pid=${e.currentTarget.dataset.id}&groupBuyId=0`
+    })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      list: [],
+      pageIndex: 1
+    })
+    this.getgoodslist()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({
+      pageIndex: this.data.pageIndex + 1
+    })
+    this.getgoodslist()
   }
 })

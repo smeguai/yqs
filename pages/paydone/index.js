@@ -21,7 +21,8 @@ Page({
     orderid: null,
     price: null,
     list: null,
-    loding: true
+    loding: true,
+    type: 0
   },
   //  跳转  团购
   handleGroupDesc(e) {
@@ -58,12 +59,27 @@ Page({
   getRecomment() {
     let location = wx.getStorageSync('location')
     let station = wx.getStorageSync('station')
+    let types = 0
+    switch(this.data.type) {
+      case 'product':
+      types = 0
+      break;
+      case 'group':
+        types = 1
+        break;
+      case 'cut':
+        types = 2
+        break;
+      case 'limit':
+        types = 3
+        break;
+    }
     promiseRequest(paydonerecomment, 'get', {
       stationId: station.stationId,
       x: location[0],
-      y: location[1]
+      y: location[1],
+      types
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         this.setData({
           list: res.data.data
@@ -94,7 +110,8 @@ Page({
       isgroup: options.group == 1 ? true : false,
       pid: options.pid,
       orderid: options.orderid,
-      price: options.price
+      price: options.price,
+      type: options.name
     })
   },
 

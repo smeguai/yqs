@@ -50,7 +50,6 @@
 .sell .info {
   padding-top: 30rpx;
   display: flex;
-  align-items: center;
 }
 
 .sell .info .img {

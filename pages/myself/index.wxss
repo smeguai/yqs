@@ -55,9 +55,18 @@
   font-size: 32rpx;
   font-weight: 500;
 }
-
+.container .user .info .cope {
+  display: inline-block;
+  font-size: 20rpx;
+  padding: 4rpx 14rpx;
+  border: 1rpx solid #333;
+  border-radius: 24rpx;
+  margin-left: 40rpx;
+  cursor: pointer;
+}
 .container .user .info .txt {
   font-size: 20rpx;
+  display: inline-block;
 }
 
 .container .orders {
@@ -185,13 +194,15 @@
   padding: 20rpx 0;
 }
 
+.container .more .list button {
+  background: transparent;
+}
 .container .more .list .item {
   width: 25%;
   text-align: center;
   font-size: 0;
   padding: 18rpx 0;
 }
-
 .container .more .list .item .icon {
   width: 44rpx;
   height: 44rpx;

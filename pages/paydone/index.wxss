@@ -19,16 +19,16 @@
     padding: 68rpx 0 52rpx 0;
 }
 .container .done .bloc .link {
-    font-size: 24rpx;
+    font-size: 28rpx;
     color: #999999;
 }
 .container .recommend {
     background: #fff;
     margin-top: 20rpx;
-    padding-top: 34rpx;
 }
 .container .recommend .header {
     position: relative;
+    padding: 24rpx 0;
 }
 .container .recommend .header .txt {
     font-size: 32rpx;
@@ -39,7 +39,7 @@
 }
 .container .recommend .header .bgcolor {
     position: absolute;
-    bottom: 0;
+    bottom: 24rpx;
     left: 50%;
     transform: translateX(-50%);
     width: 178rpx;
@@ -54,8 +54,9 @@
     padding: 24rpx 0; 
 }
 .container .recommend .lists .item .lists-img {
-    height: 310rpx;
+    height: 468rpx;
     width: 100%;
+    border-radius: 10rpx;
 }
 .container .recommend .lists .item .opera {
     display: flex;

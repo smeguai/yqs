@@ -92,10 +92,9 @@
     padding-top: 24rpx;
 }
 .container .list .item .info .avart {
-    width: 188rpx;
-    height: 188rpx;
+    width: 270rpx;
+    height: 180rpx;
     border-radius: 6rpx;
-    flex: 0 0 188rpx;
 }
 .container .list .item .info .desc {
     flex: 1;
@@ -124,7 +123,7 @@
     flex: 1;
 }
 .container .list .item .info .desc .bot .price .conis {
-    font-size: 48rpx;
+    font-size: 38rpx;
     font-weight: bold;
 }
 .container .list .item .info .desc .bot .price .oldprice {

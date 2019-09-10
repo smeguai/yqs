@@ -1,18 +1,63 @@
 <view class='container'>
   <loding show='{{loding}}' />
   <view class='nav'>
-    <text class='item {{navIdx == index?"active": ""}}' data-idx='{{index}}' wx:for='{{navLs}}' bindtap="handleNavItemClick">{{item}}</text>
+    <text class='item {{item.idx == navIdx?"active": ""}}' data-idx='{{item.idx}}' wx:for='{{navLs}}' bindtap="handleNavItemClick">{{item.txt}}</text>
   </view>
 
-  <view class='list'>
-    <view class='item' wx:for='{{list}}'>
-      <image class='img' src='{{item.coverUrl}}' lazy-load></image>
-      <view class='name strmore'>{{item.productName}}</view>
-      <text class='price'>￥{{item.price}}</text>
-      <text class='tag'>底价</text>
-      <text class='oldprider del'>￥{{item.tagPrice}}</text>
-    </view>
+  <view class='list-wrapper'>
+    <block wx:for='{{list}}'>
+      <view class='title'>
+        <view class='top'>
+          <text class='txt'>{{item.title}}</text>
+          <text class='icon'></text>
+        </view>
+        <view class='recomend' wx:if='{{item.recommend}}'>{{item.recommend}}</view>
+      </view>
+      <list class='list' wx:if='{{navIdx == 3}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.productCutPriceId}}'>
+          <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
+          <view class='name strmore'>{{item.productName}}</view>
+          <view class='bott'>
+            <text class='price'>￥{{item.price}}</text>
+            <text class='tag'>底价</text>
+            <text class='oldprider del'>￥{{item.tagPrice}}</text>
+          </view>
+        </view>
+      </list>
+      <list class='list' wx:if='{{navIdx == 2}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.timeLimitBuyId}}'>
+          <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
+          <view class='name strmore'>{{item.productName}}</view>
+          <view class='bott'>
+            <text class='price'>￥{{item.price}}</text>
+            <text class='tag'>抢购</text>
+            <text class='oldprider del'>￥{{item.tagPrice}}</text>
+          </view>
+        </view>
+      </list>
+      <list class='list' wx:if='{{navIdx == 1}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.productGroupBuyId}}'>
+          <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
+          <view class='name strmore'>{{item.productName}}</view>
+          <view class='bott'>
+            <text class='price'>￥{{item.price}}</text>
+            <text class='tag'>{{item.personNum}}人团</text>
+            <text class='oldprider del'>￥{{item.tagPrice}}</text>
+          </view>
+        </view>
+      </list>
+      <list class='list' wx:if='{{navIdx == 0}}'>
+        <view class='item' wx:for='{{item.list}}' bindtap="handleNavigate" data-id='{{item.productTypeId}}'>
+          <image class='img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
+          <view class='name strmore'>{{item.productName}}</view>
+          <view class='bott'>
+            <text class='price'>￥{{item.price}}</text>
+            <text class='oldprider del'>￥{{item.tagPrice}}</text>
+          </view>
+        </view>
+      </list>
+    </block>
   </view>
 
-    <view wx:if='{{notlist}}' class='notdata'>没有更多了</view>
+  <view wx:if='{{notlist}}' class='notdata'>没有更多了</view>
 </view>

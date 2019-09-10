@@ -8,7 +8,7 @@
   <block wx:if="{{navIndex===0}}">
     <view class="collect_box">
       <view class="collect_view" wx:for="{{sellerLs}}" wx:key="{{index}}" data-id='{{item.merchantId}}' bindtap='handleSellerItemClick'>
-        <image class="collect_viewImg" src="{{item.headImgUrl}}"></image>
+        <image class="collect_viewImg" mode='aspectFill' src="{{item.headImgUrl}}"></image>
         <view class="collect_viewText">
           <view class="collect_viewText_name">
             <text class="collect_viewText_nameText">{{item.merchantName}}</text>
@@ -26,7 +26,7 @@
   <block wx:else>
     <view class="record_goods">
       <view class="record_goodsView" wx:for="{{goodsLs}}" wx:key="index" data-pid='{{item.productId}}' bindtap="handleGoodsClick">
-        <image class="" src="{{item.productImgUrl}}"></image>
+        <image mode='aspectFill' src="{{item.productImgUrl}}"></image>
         <view class="record_goodsText">
           <view>
             <view class="record_goodsText_name">{{item.productName}}</view>

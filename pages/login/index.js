@@ -84,35 +84,40 @@ Page({
     }
   },
   getPhoneNumber(e) {
-    promiseRequest(decrypt, 'post', {
-      encryptedData: e.detail.encryptedData,
-      iv: e.detail.iv,
-      sessionKey: app.globalData.session_key,
-      source: 0
-    }).then(res => {
-      let openORunion = wx.getStorageSync('openORunion')
-      //  一键绑定
-      // let 
-
-      promiseRequest(changebindtel, 'post', {
-        mobile: res.data.purePhoneNumber,
-        unionId: openORunion.unionId,
-        openId: openORunion.openId,
+    if (e.detail.errMsg == 'getPhoneNumber:ok') {
+      promiseRequest(decrypt, 'post', {
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+        sessionKey: app.globalData.session_key,
+        source: 0
       }).then(res => {
-        console.log(res)
-      })
-      wx.showToast({
-        title: '绑定成功',
-        icon: 'none',
-        success: () => {
-          setTimeout(() => {
-            wx.navigateBack({
-              delta: -1
+        let openORunion = wx.getStorageSync('openORunion')
+        promiseRequest(changebindtel, 'post', {
+          mobile: res.data.purePhoneNumber,
+          unionId: openORunion.unionId,
+          openId: openORunion.openId,
+        }).then(res => {
+          if(res.data.code == 0) {
+            wx.showToast({
+              title: '绑定成功',
+              icon: 'none',
+              success: () => {
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: -1
+                  })
+                }, 2000)
+              }
             })
-          }, 2000)
-        }
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
+        })
       })
-    })
+    }
   },
 
   /**

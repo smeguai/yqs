@@ -53,7 +53,7 @@
     </view>
     <view class='lists'>
       <view class='item' wx:for='{{list}}' bindtap='handleGroupDesc' data-pid='{{item.productGroupBuyId}}'>
-        <image class='lists-img' src='{{item.coverUrl}}'></image>
+        <image class='lists-img' src='{{item.coverUrl}}' mode='aspectFill' lazy-load></image>
         <view class='opera'>
           <view class='lf'>
             <view class='title str'>{{item.productName}}</view>
@@ -62,8 +62,10 @@
           <view class='btn'>立即拼团</view>
         </view>
         <view class='info'>
-          <view class='tag'>拼团价</view>
-          <view class='txt'>￥
+          <view class='tag' wx:if='{{types == "group"}}'>{{item.personNum}}人团</view>
+          <view class='tag' wx:if='{{types == "limit"}}'>秒杀价</view>
+          <view class='txt'>
+            <text>￥</text>
             <text class='price'>{{item.price}}</text>
             <text class='del oldprice'>￥{{item.tagPrice}}</text>
           </view>

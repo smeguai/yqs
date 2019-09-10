@@ -28,7 +28,6 @@
     "pages/user/alterMobile/index",
     "pages/user/password/index",
     "pages/pay/index",
-    "pages/payPassword/index",
     "pages/privilege/index",
     "pages/wallet/index",
     "pages/coupon/index",
@@ -50,7 +49,8 @@
     "pages/user/recharge/index",
     "pages/setting/subfeedback/index",
     "pages/indexnavs/allgoods/index",
-    "component/upload/index"
+    "component/upload/index",
+    "pages/indexnavs/webview/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -61,7 +61,7 @@
     "loding": "../component/loding/index"
   },
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "翼省钱go",
     "navigationBarTextStyle": "black"

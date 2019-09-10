@@ -152,6 +152,10 @@
     color: #333333;
     font-size: 28rpx;
 }
+.xg_centerBot_text_name {
+  flex: 1;
+  width: 0;
+}
 .xg_centerBot_text_name_num {
     color: #666666;
     font-size: 24rpx;

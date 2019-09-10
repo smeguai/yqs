@@ -6,16 +6,18 @@
     </view>
   </view>
 
+<block wx:if='{{coupon_my.length > 0 && activeIndex == 0 || free_coupon_list.length > 0 && activeIndex == 1}}'>
   <!-- 我的优惠券 -->
   <view class="coupon" wx:if="{{activeIndex==0}}">
-    <view class="coupon_box" wx:for="{{coupon_my}}" wx:key="{{index}}">
+    <view class="coupon_box" wx:for="{{coupon_my}}" wx:key="{{index}}" data-pid='{{item.merchantId}}' bindtap="handleSellerClick">
       <view class="coupon_boxCircle_left"></view>
       <view class="coupon_boxCircle_right"></view>
       <view class="coupon_text">
         <view class="coupon_text_left">
           <view class="coupon_text_leftPrice">
-            <view class="coupon_text_leftPay">￥
-              <text>{{item.couponMoney}}</text>
+            <view class="coupon_text_leftPay">
+              <text class='contxt'>{{item.couponMoney / 10}}</text>
+              <text wx:if='{{item.couponType == 2}}'>折</text>
             </view>
             <view class='coupon_text_tiaojian'>满{{item.spendMoney}}可用</view>
           </view>
@@ -27,7 +29,7 @@
         </view>
         <view class="coupon_text_btn">立即使用</view>
       </view>
-      <view class="coupon_texts">{{item.couponDes}}</view>
+      <view class="coupon_texts" wx:if='{{item.couponDes}}'>{{item.couponDes}}</view>
     </view>
   </view>
 
@@ -40,8 +42,9 @@
       <view class="coupon_text">
         <view class="coupon_text_left">
           <view class="coupon_text_leftPrice">
-            <view class="coupon_text_leftPay">￥
-              <text>{{item.couponMoney}}</text>
+            <view class="coupon_text_leftPay">
+              <text>{{item.couponMoney / 10}}</text>
+              <text wx:if='{{item.couponType == 2}}'>折</text>
             </view>
             <view>满{{item.spendMoney}}可用</view>
           </view>
@@ -56,5 +59,11 @@
       </view>
       <view class="coupon_texts">{{item.CouponDes}}</view>
     </view>
+  </view>
+</block>
+  <!-- 缺省 -->
+  <view class='notlist' wx:else>
+    <image class='icon' src='../../../static/img/notcoupon.png'></image>
+    <view class='txt'>还没有优惠券，赶快去领取吧~</view>
   </view>
 </view>

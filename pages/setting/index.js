@@ -1,4 +1,10 @@
-// pages/setting/index.js
+import {
+  hasbindtel
+} from '../../utils/api.js'
+import {
+  promiseRequest
+} from '../../utils/util.js'
+const app = getApp()
 Page({
 
   /**
@@ -39,10 +45,14 @@ Page({
         {
           idx: 7,
           txt: '注销账号'
+        },
+        {
+          idx: 8,
+          txt: '退出当前账号'
         }
       ]
     ],
-
+    hasTel: false
   },
 
   nav(e) {
@@ -51,14 +61,20 @@ Page({
       case 0:
         // 设置支付密码
         wx.navigateTo({
-          url: '../payPassword/index'
+          url: '../user/password/index'
         })
         break;
       case 1:
         // 更改手机号
-        wx.navigateTo({
-          url: '../user/alterMobile/index'
-        })
+        if (this.data.hasTel) {
+          wx.navigateTo({
+            url: '../user/alterMobile/index'
+          })
+        } else {
+          wx.navigateTo({
+            url: '../login/index'
+          })
+        }
         break;
       case 2:
         // 服务协议
@@ -110,7 +126,36 @@ Page({
       case 7:
         // 注销账号
         wx.navigateTo({
-          url: '../logout/index'
+          url: `../logout/index`
+        })
+        break;
+      case 8:
+        // 退出账号
+        wx.showModal({
+          title: '是否退出登录？',
+          content: '退出账号后，下次将不会自动登录',
+          cancelColor: '#999999',
+          confirmColor: '#FF6600',
+          success: res => {
+            if (res.confirm) {
+              wx.removeStorageSync('userInfo')
+              wx.removeStorageSync('openORunion')
+              app.globalData.userInfo = null
+              app.globalData.onLine = false
+              app.globalData.openORunion = null
+              wx.showToast({
+                title: '退出成功!',
+                icon: 'none',
+                success: () => {
+                  setTimeout(() => {
+                    wx.navigateBack({
+                      delta: -1
+                    })
+                  }, 1000)
+                }
+              })
+            }
+          }
         })
         break;
     }
@@ -119,54 +164,17 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {},
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function() {
-
+    this.getBindTel()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  //  是否绑定手机号
+  getBindTel() {
+    promiseRequest(hasbindtel, 'get').then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          hasTel: res.data.mobile ? true : false
+        })
+      }
+    })
   }
 })

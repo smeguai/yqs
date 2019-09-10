@@ -55,7 +55,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 30rpx 0;
-    border-bottom: 1rpx dashed #ECECEC;
 }
 .coupon_text_left {
     display: flex;
@@ -73,8 +72,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.coupon_text_leftPay>text {
-    font-size: 64rpx;
+.coupon_text_leftPay .contxt {
+    font-size: 60rpx;
 }
 .coupon_text_leftTitle {
     width: 380rpx;
@@ -120,6 +119,7 @@
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
+    border-top: 1rpx dashed #ECECEC;
 }
 .coupon_text_btn2 {
     width: 128rpx;
@@ -130,4 +130,20 @@
     font-size: 24rpx;
     border: 1rpx solid #FFDE4E;
     border-radius: 24rpx;
+}
+.notlist {
+  padding: 60rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.notlist .icon {
+  width: 340rpx;
+  height: 270rpx;
+}
+.notlist .txt {
+  padding-top: 60rpx;
+  font-size: 24rpx;
+  color: #999999;
 }

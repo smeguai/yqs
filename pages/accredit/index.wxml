@@ -1,10 +1,14 @@
-<view class='container'>
-    <view class='img'><image src='../../static/img/logo.png'></image></view>
+<form report-submit="true" bindsubmit='formSubmit'>
+  <view class='container'>
+    <view class='img'>
+      <image src='../../static/img/logo.png'></image>
+    </view>
     <view class='name'>翼省钱</view>
     <view class='txt'>该程序申请获得以下权限：</view>
     <view class='subtxt'>获得你的公开信息（昵称、头像、地区及性别等）</view>
     <view class='btns'>
-        <view class='btn b0' bindtap='handleClickToIndex'>回到首页</view>
-        <button class='btn b1' open-type='getUserInfo' bindgetuserinfo='onGotUserInfo'>确认授权</button>
+      <view class='btn b0' bindtap='handleCancel'>拒绝</view>
+      <button class='btn b1' open-type='getUserInfo' form-type="submit" bindgetuserinfo='onGotUserInfo'>确认授权</button>
     </view>
-</view>
+  </view>
+</form>

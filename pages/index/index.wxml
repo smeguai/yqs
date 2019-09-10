@@ -3,7 +3,7 @@
   <view class='addrs'>
     <view class='lf' bindtap="locationClick">
       <image class='addricon' src='../../static/img/addrsicon.png'></image>
-      <text class='txt'>{{station.stationName||"请选择小区"}}</text>
+      <text class='txt str'>{{station.stationName||"请选择小区"}}</text>
       <image class='righticon' src='../../static/img/righticon.png'></image>
     </view>
     <navigator url='./select/index' class='search-wrapper'>
@@ -14,7 +14,7 @@
   <view class='banner' wx:if='{{swiperList.length > 0}}'>
     <swiper class='list' autoplay bindchange='bannerChange'>
       <swiper-item class='item' wx:for='{{swiperList}}' wx:key='{{item.id}}'>
-        <image src='{{item.imgUrl}}' class='banner-img'></image>
+        <image src='{{item.imgUrl}}' class='banner-img' lazy-load mode='aspectFill' data-type='{{item.linkUrlType}}' data-url='{{item.linkUrl}}' data-title='{{item.imgTitle}}' bindtap="handleNavItemClick"></image>
       </swiper-item>
     </swiper>
     <view class='nums'>
@@ -24,43 +24,48 @@
   <view class='nav'>
     <view class='list'>
       <view class='item' wx:for='{{navDefList}}' bindtap='navNavigate' data-id='{{item.id}}' wx:key='{{index}}'>
-        <image src='{{item.imgUrl}}' class='icon'></image>
+        <image src='{{item.imgUrl}}' class='icon' lazy-load mode='aspectFill'></image>
         <view class='txt'>{{item.txt}}</view>
       </view>
     </view>
     <view class='list'>
-      <view class='item' wx:for='{{navList}}' bindtap='navNavigate' data-title='{{item.typeName}}' data-id='{{item.jumpType}}' data-pid='{{item.typeId}}' wx:key='{{index}}'>
-        <image src='{{item.imgUrl}}' class='img'></image>
+      <view class='item' wx:for='{{navList}}' bindtap='navNavigate' data-id='{{item.jumpType}}' data-pid='{{item.typeId}}' wx:key='{{index}}'>
+        <image src='{{item.imgUrl}}' class='img' lazy-load mode='aspectFill'></image>
         <view class='txt'>{{item.typeName}}</view>
       </view>
     </view>
   </view>
-  <view class='favorable' wx:if='{{groupdata || cutdata || limitdata}}'>
+  <!-- 特惠 -->
+  <view class='favorable' wx:if='{{ groupdata.length > 0 || cutdata.length > 0 || limitdata.length > 0 }}'>
     <view class='top'>
-      <text class='txt'>特惠</text>
+      <view>
+        <text class='txt'>今日热卖</text>
+        <text class='sanjiao'></text>
+      </view>
       <text class='more' bindtap='handleNavigate'>查看更多</text>
     </view>
     <scroll-view class='scroll' scroll-x>
       <view class='list'>
         <block wx:if='{{groupdata}}'>
-          <view class='item' wx:for='{{groupdata}}' bindtap='goodsItemClick' data-pid='{{item.productGroupBuyId}}' data-name='group' wx:key='{{index}}' data-title='{{item.productName}}'>
+          <view class='item' wx:for='{{groupdata}}' bindtap='goodsItemClick' data-pid='{{item.productGroupBuyId}}' data-name='group' wx:key='{{index}}'>
             <image class='icon' src='../../static/img/tag0.png'></image>
-            <image src='{{item.coverUrl}}' class='img'></image>
+            <image src='{{item.coverUrl}}' class='img' lazy-load mode='aspectFill'></image>
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
             <view class='price'>
-              <text class='newprice'>
-                <text class='f'>￥</text> {{item.price}}
-              </text>
+              <view class='newprice'>
+                <text class='f'>￥</text> 
+                <text>{{item.price}}</text>
+              </view>
               <text class='oldprice'>￥{{item.tagPrice}}</text>
             </view>
             <countdown class='countdown' strTime='{{item.endTime}}' />
           </view>
         </block>
         <block wx:if='{{cutdata}}'>
-          <view class='item' wx:for='{{cutdata}}' bindtap='goodsItemClick' data-pid='{{item.productCutPriceId}}' data-name='cut' wx:key='{{index}}' data-title='{{item.productName}}'>
+          <view class='item' wx:for='{{cutdata}}' bindtap='goodsItemClick' data-pid='{{item.productCutPriceId}}' data-name='cut' wx:key='{{index}}'>
             <image class='icon' src='../../static/img/tag1.png'></image>
-            <image src='{{item.coverUrl}}' class='img'></image>
+            <image src='{{item.coverUrl}}' class='img' lazy-load mode='aspectFill'></image>
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
             <view class='price'>
@@ -73,9 +78,9 @@
           </view>
         </block>
         <block wx:if='{{limitdata}}'>
-          <view class='item' wx:for='{{limitdata}}' bindtap='goodsItemClick' data-pid='{{item.timeLimitBuyId}}' data-name='limit' wx:key='{{index}}' data-title='{{item.productName}}'>
+          <view class='item' wx:for='{{limitdata}}' bindtap='goodsItemClick' data-pid='{{item.timeLimitBuyId}}' data-name='limit' wx:key='{{index}}'>
             <image class='icon' src='../../static/img/tag2.png'></image>
-            <image src='{{item.coverUrl}}' class='img'></image>
+            <image src='{{item.coverUrl}}' class='img' lazy-load mode='aspectFill'></image>
             <view class='title str'>{{item.productName}}</view>
             <view class='subtitle str'>{{item.productShoreDesc}}</view>
             <view class='price'>
@@ -90,9 +95,35 @@
       </view>
     </scroll-view>
   </view>
+  <!-- 我的关注 -->
+  <view class='focus' wx:if='{{collection.length > 0}}'>
+    <view class='top'>
+    <view>
+      <text class='txt'>我的关注</text>
+      <text class='sanjiao'></text>
+    </view>
+      <text class='more' bindtap='handleConllection'>查看更多</text>
+    </view>
+    <scroll-view class='scroll' scroll-x>
+      <view class='scroll-list'>
+        <view class='item' wx:for='{{collection}}' wx:key='{{index}}' data-pid='{{item.merchantId}}' bindtap='handleSellerClick'>
+          <image class='avatar' src='{{item.headImgUrl}}'></image>
+          <view class='info'>
+            <view class='title str'>{{item.merchantName}}</view>
+            <view class='tagtxt str'>{{item.tagName}}</view>
+            <view class='views'>{{item.viewNum}}人逛过</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 推荐商家 -->
   <view class='recommend' wx:if='{{recommendList.length> 0}}'>
-    <view class='title'>推荐商家</view>
-    <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}' data-title='{{item.merchantName}}'>
+    <view class='title'>
+    <text>推荐商家</text>
+    <text class='sanjiao'></text>
+    </view>
+    <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}'>
       <image src='{{item.merchantImgUrl && item.merchantImgUrl !="" ?item.merchantImgUrl:"../../static/img/imgloading.png"}}' class='avatar'></image>
       <view class='info'>
         <view class='top'>
@@ -101,15 +132,13 @@
           <view class='pp ckbox' wx:if='{{item.hasBrand}}'>品牌</view>
         </view>
         <view class='middel'>
-          <grade score='{{item.StarIndex}}' wx:if='{{item.StarIndex>0}}' />
+          <grade score='{{item.starIndex}}' />
           <text>{{item.typeName}}</text> |
-          <text>人气{{item.viewNum}}</text>
-          <!-- <text class='dis' wx:if='{{item.distance != 0}}'>{{item.distance}}米</text> -->
+          <text>人气 {{item.viewNum}}</text>
           <dis num='{{item.distance}}' class='dis' />
         </view>
         <view class='tag'>
           <view class='tagitem' wx:for='{{item.tagList}}' wx:key='{{index}}'>
-            <!-- <text class='{{item == "长沙连锁店"?"txt0":"txt1"}}'>{{item}}</text> -->
             <text class='txt1'>{{item}}</text>
           </view>
         </view>
@@ -123,8 +152,8 @@
         </view>
         <scroll-view class='goods' scroll-x='{{item.proList?true: false}}'>
           <view class='list'>
-            <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}' data-title='{{item.productName}}'>
-              <image src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
+            <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}'>
+              <image mode='aspectFill' src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
               <view class='price'>
                 ￥{{item.price}}
                 <text class='oldprice del'>￥{{item.tagPrice}}</text>
@@ -138,10 +167,30 @@
   <view class='tips' wx:if='{{tipsShow}}' bindtap="handleTogoole">
     <view class='txt'>添加到【我的小程序】购物更方便</view>
   </view>
+  <!-- 用户登录 -->
+  <!-- <view class='sign' wx:if='{{signShow}}'>
+    <view class='sign-main'>
+      <image class='sign-main-icon' src='../../static/img/logo.png'></image>
+      <view class='sign-main-title'>翼省钱go</view>
+      <view class='sign-main-tips'>该程序获得以下授权：</view>
+      <view class='sign-main-txt'>获取您的公开信息（昵称和头像等），以便于查看优惠信息哦</view>
+      <form report-submit bindsubmit='formsubmit'>
+        <view class='sign-main-btn'>
+          <button form-type="submit" bindtap="handleHideSign" class='cancel'>拒绝</button>
+          <button form-type="submit" open-type="getUserInfo" bindgetuserinfo='onGotUserInfo'>确定授权</button>
+        </view>
+      </form>
+      <image class='sign-main-close' src='../../static/img/close2.png' bindtap="handleHideSign"></image>
+    </view>
+  </view> -->
   <movable-area class='aslid'>
     <movable-view direction='vertical' class='item'>
-      <image src='../../static/img/share.png' class='icon'></image>
-      <view class='txt'>分享</view>
+      <form report-submit bindsubmit="formsubmit">
+        <button open-type="share" form-type="submit">
+          <image src='../../static/img/share.png' class='icon'></image>
+          <view class='txt'>分享</view>
+        </button>
+      </form>
     </movable-view>
   </movable-area>
 </view>

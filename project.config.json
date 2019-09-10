@@ -6,6 +6,7 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": false,
 		"postcss": true,
 		"minified": false,
 		"newFeature": true,
@@ -21,7 +22,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.0",
+	"libVersion": "2.8.2",
 	"appid": "wx00490ec45f3058a7",
 	"projectname": "yqs",
 	"debugOptions": {
@@ -48,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 39,
+			"current": 40,
 			"list": [
 				{
 					"id": -1,
@@ -328,6 +329,13 @@
 					"name": "全部评论",
 					"pathName": "pages/commentlist/index",
 					"query": "pid=10002",
+					"scene": null
+				},
+				{
+					"id": 40,
+					"name": "pages/goodsdetail/index",
+					"pathName": "pages/goodsdetail/index",
+					"query": "scene=limit,50,0",
 					"scene": null
 				}
 			]

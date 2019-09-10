@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "特惠区"
+  "navigationBarTitleText": "更多精选",
+  "enablePullDownRefresh": true
 }

@@ -16,7 +16,6 @@ Page({
     content: '',
     orderId: null,
     imgs: [],
-    formid: '',
     scoreTxt: ['“很差”', '“一般”', '“满意”', '“非常满意”', '“无可挑剔”'],
     info: null
   },
@@ -27,16 +26,11 @@ Page({
     this.getOrderDesc()
   },
   formSubmit(e) {
-    this.setData({
-      formid: e.detail.formid
-    })
-
     promiseRequest(setcomment, 'post', {
       content: this.data.content,
       starIndex: this.data.score,
       orderId: this.data.orderId,
-      imgs: this.data.imgs,
-      formid: this.data.formid
+      imgs: this.data.imgs
     }).then(res => {
       if (res.data.code == 0) {
         wx.showToast({

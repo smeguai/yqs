@@ -24,19 +24,19 @@
   padding-left: 75rpx;
 }
 .main .ipt {
-  font-size: 36rpx;
-  padding: 20rpx 0;
-  flex: 1;
+    font-size: 48rpx;
+    padding: 0 14rpx;
+    flex: 1;
 }
 .main .ipt-wrapper {
   display: flex;
   align-items: center;
   border-bottom: 1rpx solid #CCCCCC;
-
+  padding: 10rpx 0;
 }
 .main .ipt-wrapper text {
-  font-size: 36rpx;
-  color: #999999;
+    font-size: 28rpx;
+    font-weight: 400;
 }
 .main .ipt-wrapper image {
   width: 24rpx;

@@ -4,7 +4,10 @@ import {
   canceorder,
   deleteorder,
   cancelrefund,
-  qrcodeimg
+  qrcodeimg,
+  hadverify,
+  orderpay,
+  getformid
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -59,15 +62,85 @@ Page({
     },
     vierifyshow: false,
     code: null,
-    total: null
+    total: null,
+    timer: null
   },
-
+  //  跳转评论
+  comment() {
+    wx.navigateTo({
+      url: '../comment/index?pid=' + this.data.orderId
+    })
+  },
+  //  收集formid
+  formsubmit(e) {
+    if (e.detail.formId) {
+      promiseRequest(getformid, 'post', {
+        source: 0, formid: e.detail.formId, isprepayid: 1
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setData({
       orderId: options.orderid
+    })
+  },
+
+  //  再次购买
+  handleAgeinPay() {
+    let type = this.data.info.promoType
+    let name = ''
+    switch (type) {
+      case 0:
+        name = 'product'
+      break;
+      case 1:
+        name = 'group'
+        break;
+      case 2:
+        name = 'limit'
+        break;
+      case 3:
+        name = 'cut'
+        break;
+    }
+    wx.navigateTo({
+      url: `../goodsdetail/index?name=product&pid=${this.data.info.detailList[0].productId}&groupBuyId=0`
+    })
+  },
+  //  微信支付
+  wxPayment(e) {
+    promiseRequest(orderpay, 'get', {
+      orderId: this.data.orderId
+    }).then(res => {
+      if (res.data.code == 0) {
+        let v = res.data.data
+        wx.requestPayment({
+          timeStamp: v.timestamp,
+          nonceStr: v.noncestr,
+          package: 'prepay_id=' + v.prepayid,
+          signType: 'MD5',
+          paySign: v.sign,
+          success: (res) => {
+            let list = this.data.list
+            list.map(item => {
+              if (item.orderId == e.currentTarget.dataset.orderid) {
+                item.status = 1
+              }
+            })
+            this.setData({
+              list
+            })
+          }
+        })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
     })
   },
   //  复制单号
@@ -90,25 +163,49 @@ Page({
   },
   //  去核销 弹出层
   handleVierifyShow(e) {
-    if(this.data.timer) {
-      clearInterval(this.data.timer)
+    wx.showLoading({
+      title: '加载中',
+    })
+    let code = e.currentTarget.dataset.code
+    this.setData({
+      vierifyshow: true,
+      code
+    })
+    promiseRequest(qrcodeimg, 'get', {
+      code
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          imgUrl: res.data.data
+        })
+        this.gethadverify()
+      }
+    })
+  },
+  //  核销码是否核销
+  gethadverify() {
+    if (this.data.timer) {
+      clearTimeout(this.data.timer)
     }
-    let timer = setInterval(() => {
-      let code = e.currentTarget.dataset.code
-      this.setData({
-        vierifyshow: true,
-        code
-      })
-      promiseRequest(qrcodeimg, 'get', {
-        code
+    let timer = setTimeout(() => {
+      promiseRequest(hadverify, 'get', {
+        codetype: 1,
+        code: this.data.code
       }).then(res => {
         if (res.data.code == 0) {
-          this.setData({
-            imgUrl: res.data.data
+          wx.showToast({
+            title: '核销成功',
+            icon: 'none'
           })
+          this.setData({
+            vierifyshow: false
+          })
+          clearTimeout(timer)
+        } else {
+          this.gethadverify()
         }
       })
-    }, 2600)
+    }, 1400)
     this.setData({
       timer
     })
@@ -220,7 +317,6 @@ Page({
     promiseRequest(cancelrefund, 'get', {
       orderId: this.data.orderId
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         wx.showToast({
           title: '操作成功',

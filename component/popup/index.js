@@ -15,11 +15,14 @@ Component({
       type: Number
     },
     goodsimg: String,
-    classs: String
+    classs: String,
+    sellout: {
+      value: false,
+      type: Boolean
+    }
   },
   data: {
     animationData: null,
-    sellout: false,
     tagCurr: 0,
     detail: null,
     count: 1,

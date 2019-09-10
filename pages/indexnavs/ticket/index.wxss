@@ -1,144 +1,157 @@
 .container {
-    background: #fff;
+  background: #fff;
 }
+
 .container .search {
-    margin: 0 24rpx;
+  margin: 0 24rpx;
 }
 
 .container .list {
-    padding: 20rpx 0 10rpx 24rpx;
+  padding: 20rpx 0 10rpx 24rpx;
 }
+
 .container .list .item {
-    padding: 30rpx 0;
-    border-bottom: 1rpx solid #F6F6F6;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f6f6f6;
 }
+
 .container .list .item:last-child {
-    border: 0;
+  border: 0;
 }
+
 .container .list .item .avatar {
-    width: 110rpx;
-    height: 110rpx;
-    border-radius: 6rpx;
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 6rpx;
 }
+
 .container .list .item .main {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
+
 .container .list .item .main .info {
-    padding-left: 28rpx;
-    flex: 1;
+  padding: 0 24rpx 0 24rpx;
+  flex: 1;
+  box-sizing: border-box;
 }
 
 .container .list .item .main .info .top {
-    display: flex;
-    align-items: center;
-    padding: 0;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .container .list .item .main .info .top .name {
-    font-size: 28rpx;
-    font-weight: bold;
+  font-size: 28rpx;
+  font-weight: bold;
 }
 
 .container .list .item .main .info .top .ckbox {
-    padding: 4rpx 8rpx;
-    border-radius: 4rpx;
-    font-size: 20rpx;
-    margin-left: 14rpx;
-    font-weight: bold;
+  padding: 4rpx 8rpx;
+  border-radius: 4rpx;
+  font-size: 20rpx;
+  margin-left: 14rpx;
+  font-weight: bold;
 }
 
 .container .list .item .main .info .top .ckbox.lm {
-    background: #ffcd06;
-    color: #442113;
+  background: #ffcd06;
+  color: #442113;
 }
 
 .container .list .item .main .info .top .ckbox.pp {
-    background: #1d72b4;
-    color: #fff;
+  background: #1d72b4;
+  color: #fff;
 }
 
 .container .list .item .main .info .tag {
-    display: flex;
-    padding-top: 10rpx;
+  display: flex;
+  padding-top: 10rpx;
 }
 
 .container .list .item .main .info .tag .tagitem {
-    font-size: 20rpx;
-    padding: 6rpx 12rpx;
-    border-radius: 6rpx;
-    border: 1rpx solid red;
-    margin-right: 16rpx;
+  font-size: 20rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid #999;
+  margin-right: 16rpx;
 }
 
 .container .list .item .main .info .middel {
-    display: flex;
-    align-items: center;
-    font-size: 20rpx;
-    color: #666;
-    padding: 4rpx 0;
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+  color: #666;
+  padding: 4rpx 0;
 }
 
 .container .list .item .main .info .middel text {
-    padding: 0 16rpx;
+  padding: 0 16rpx;
 }
 
 .container .list .item .main .info .middel .dis {
-    text-align: right;
-    flex: 1;
+  text-align: right;
+  flex: 1;
 }
 
 .container .list .item .ticket {
-    padding-top: 20rpx;
-    padding-left: 140rpx;
-    box-sizing: border-box;
+  padding-top: 20rpx;
+  padding-left: 140rpx;
+  box-sizing: border-box;
 }
+
 .container .list .item .ticket .block {
-    display: flex;
+  display: flex;
 }
+
 .container .list .item .ticket .block .ticketitem {
-    flex: 0 0 240rpx;
-    height: 234rpx;
-    box-sizing: border-box;
-    margin-right: 24rpx;
-    text-align: center;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;    
+  flex: 0 0 240rpx;
+  height: 234rpx;
+  box-sizing: border-box;
+  margin-right: 24rpx;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
+
 .container .list .item .ticket .ticketitem .title {
-    font-size: 24rpx;
-    font-weight: bold;
-    padding: 20rpx 0 14rpx 0;
-    border: 1rpx solid #FFE574;
-    border-bottom: 2rpx dashed #eaac06;
-    box-sizing: border-box;
-    position: relative;
+  font-size: 24rpx;
+  font-weight: bold;
+  padding: 20rpx 0 14rpx 0;
+  border: 1rpx solid #ffe574;
+  border-bottom: 2rpx dashed #eaac06;
+  box-sizing: border-box;
+  position: relative;
 }
+
 .container .list .item .ticket .ticketitem .title::after {
-    position: absolute;
-    right: -20rpx;
-    bottom: -20rpx;
-    content: '';
-    width: 40rpx;
-    height: 40rpx;
-    border: 1rpx solid #FFE574;
-    border-radius: 50%;
-    background: #fff;
+  position: absolute;
+  right: -20rpx;
+  bottom: -20rpx;
+  content: '';
+  width: 40rpx;
+  height: 40rpx;
+  border: 1rpx solid #ffe574;
+  border-radius: 50%;
+  background: #fff;
 }
+
 .container .list .item .ticket .ticketitem .title::before {
-    position: absolute;
-    left: -20rpx;
-    bottom: -20rpx;
-    content: '';
-    width: 40rpx;
-    height: 40rpx;
-    border: 1rpx solid #FFE574;
-    border-radius: 50%;
-    background: #fff;
+  position: absolute;
+  left: -20rpx;
+  bottom: -20rpx;
+  content: '';
+  width: 40rpx;
+  height: 40rpx;
+  border: 1rpx solid #ffe574;
+  border-radius: 50%;
+  background: #fff;
 }
+
 .container .list .item .ticket .ticketitem .bott {
-  border: 1rpx solid #FFE574;
+  border: 1rpx solid #ffe574;
   border-top: 0;
   flex: 1;
   display: flex;
@@ -147,32 +160,36 @@
   padding: 10rpx 0;
   box-sizing: border-box;
 }
+
 .container .list .item .ticket .ticketitem .price {
-    color: #FF6600;
-    font-size: 44rpx;
-    font-weight: bold;
+  color: #f60;
+  font-size: 44rpx;
+  font-weight: bold;
 }
+
 .container .list .item .ticket .ticketitem .txt {
-    color: #666666;
-    font-size: 20rpx;
+  color: #666;
+  font-size: 20rpx;
 }
+
 .container .list .item .ticket .ticketitem .btn {
-    background: #FFDE4E;
-    border-radius: 20rpx;
-    width: 120rpx;
-    height: 38rpx;
-    line-height: 38rpx;
-    text-align: center;
-    font-size: 20rpx;
-    margin: 16rpx auto 0 auto;
+  background: #ffde4e;
+  border-radius: 20rpx;
+  width: 120rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  text-align: center;
+  font-size: 20rpx;
+  margin: 16rpx auto 0 auto;
 }
+
 .container .list .item .ticket .ticketitem .btn2 {
-    border-radius: 20rpx;
-    width: 120rpx;
-    height: 38rpx;
-    line-height: 38rpx;
-    text-align: center;
-    font-size: 20rpx;
-    margin: 16rpx auto 0 auto;
-    background: #eee;
+  border-radius: 20rpx;
+  width: 120rpx;
+  height: 38rpx;
+  line-height: 38rpx;
+  text-align: center;
+  font-size: 20rpx;
+  margin: 16rpx auto 0 auto;
+  background: #eee;
 }

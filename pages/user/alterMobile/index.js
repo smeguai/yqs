@@ -4,7 +4,8 @@ import {
   getcode
 } from '../../../utils/api.js'
 import {
-  promiseRequest
+  promiseRequest,
+  tel
 } from '../../../utils/util.js'
 Page({
 
@@ -18,7 +19,7 @@ Page({
     confirm: false,
     hasbindtel: false,
 
-
+    timeout: null,
     timer: 60,
     codetxt: '发送验证'
   },
@@ -37,34 +38,39 @@ Page({
 
   //  倒计时
   getTimeout() {
+    clearTimeout(this.data.timeout)
     if (this.data.timer > 0) {
-      setTimeout(() => {
+      let t = setTimeout(() => {
         this.setData({
           timer: this.data.timer - 1,
-          codetxt: (this.data.timer - 1) + '秒再次获取'
+          codetxt: (this.data.timer - 1) + '秒再次获取',
+          timeout: t
         })
         this.getTimeout()
-      }, 100)
+      }, 1000)
     } else {
       this.setData({
         timer: 60,
         codetxt: '发送验证'
       })
+      clearTimeout(this.data.timeout)
     }
   },
   //  发送验证码
   handleGetCode() {
-    if (this.data.codetxt == '发送验证' && this.data.timer == 60) {
+    let hastel = tel(this.data.mobile)
+    if (this.data.code && hastel && this.data.codetxt == '发送验证' && this.data.timer == 60) {
       this.getcode()
     }
   },
   mobileCode(e) {
-    if (this.data.mobile == '') {
+    let hastel = tel(this.data.mobile)
+    if (!hastel) {
       this.setData({
         code_num: ''
       })
       wx.showToast({
-        title: '新号码不能为空',
+        title: '请输入正确手机号',
         icon: 'none',
       })
       return;
@@ -84,7 +90,7 @@ Page({
         title: res.data.msg,
         icon: 'none'
       })
-      if (this.data.code == 0) {
+      if (res.data.code == 0) {
         this.getTimeout()
       }
     })
@@ -107,7 +113,7 @@ Page({
   handleBindTel() {
     promiseRequest(bindtel, 'post', {
       mobile: this.data.mobile,
-      validCode: 1230
+      validCode: this.data.code_num
     }).then(res => {
       console.log(res)
       wx.showToast({

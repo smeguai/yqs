@@ -137,6 +137,10 @@
     font-size: 28rpx;
     font-weight: 500;
     padding-top: 30rpx;
+    display: flex;
+}
+.container .main .sell .blo .infor .nate text {
+  flex: 1;
 }
 .container .main .sell .blo .infor .rt {
     display: flex;
@@ -477,20 +481,22 @@
 .container .ticketup .section .border .item .info .left {
   color: #FF6600;
   font-size: 37rpx;
+  width: 120rpx;
 }
 .container .ticketup .section .border .item .info .left .price {
-  font-size: 68rpx;
+  font-size: 56rpx;
 }
 .container .ticketup .section .border .item .info .cent {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-left: 24rpx;
+  padding-left: 14rpx;
+  flex: 1;
 }
 .container .ticketup .section .border .item .info .cent .guiz {
-  font-size: 32rpx;
+  font-size: 30rpx;
 }
 .container .ticketup .section .border .item .info .cent .time {
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #666666;
 }

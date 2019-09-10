@@ -60,10 +60,11 @@ Component({
   ready() {
     this.countDown()
   },
-  destroy(){
-    if (this.timer) {
-      clearTimeout(this.timer)
-      this.timer = null
+  pageLifetimes: {
+    hide() {
+      if (this.data.timer) {
+        clearTimeout(this.data.timer)
+      }
     }
   }
 })

@@ -7,22 +7,36 @@
     </view>
     <view class="page_search_btn" bindtap="handlesearch">搜索</view>
   </view>
-  <!-- 搜索快 -->
+  <!-- 大家都在搜 -->
   <view class='search_qa' wx:if="{{inputFocus}}">
-    <view class="name_title">大家都在搜</view>
-    <view class="name_text">
-      <!-- <view class="name_textName" wx:for="{{historyKeys}}" wx:for-index="index" wx:key="index">{{item}}</view> -->
-    </view>
-
-    <view class="name_history">
-      <view>历史搜索</view>
-      <image src="../../../static/img/ico-del.png" bindtap="hisoryclear"></image>
-    </view>
-    <view class="name_text" style="border-bottom:0rpx;">
-      <view class="name_textName" wx:for="{{historyKeys}}" data-keys='{{item}}' bindtap='historyItemClick' wx:for-index="index" wx:key="index">{{item}}</view>
-    </view>
+    <block wx:if='{{allsearchlist}}'>
+      <view class="name_title">大家都在搜</view>
+      <view class="name_text">
+        <view 
+          class="name_textName" 
+          wx:for="{{allsearchlist}}" 
+          data-keys='{{item}}' 
+          wx:key="index"
+          bindtap="handleAllSeachItemClick"
+        >{{item}}</view>
+      </view>
+    </block>
+    <block wx:if='{{historyKeys}}'>
+      <view class='name_tips'>历史搜索</view>
+      <view class="name_history">
+        <view class="name_text" style="border-bottom:0rpx;">
+          <view 
+            class="name_textName" 
+            wx:for="{{historyKeys}}" 
+            data-keys='{{item}}' 
+            bindtap='historyItemClick' 
+            wx:key="index"
+          >{{item}}</view>
+        </view>
+      </view>
+    </block>
   </view>
-  <!-- 搜索内容 --> 
+  <!-- 搜索内容 -->
   <block wx:if='{{sellerList.length > 0 || goodsList.length > 0}}'>
     <view class="shop_title">相关商品</view>
     <view class="shop_goods" wx:for="{{goodsList}}" wx:key="index" data-pid='{{item.productId}}' data-title='{{item.productName}}' bindtap='handleClickGoods'>

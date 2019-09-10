@@ -19,7 +19,7 @@
                 <view class='tag-item' wx:for='{{item.tagList}}'>{{item}}</view>
             </view>
             <view class='info'>
-                <image class='avart' src='{{item.coverUrl}}'></image>
+                <image class='avart' src='{{item.coverUrl}}' lazy-load mode='aspectFill'></image>
                 <view class='desc'>
                     <view class='goodsname str'>{{item.productName}}</view>
                     <view class='date strmore'>{{item.productShortDesc}}</view>

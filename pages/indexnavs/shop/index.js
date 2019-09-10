@@ -6,7 +6,8 @@ import {
   cut,
   comment,
   getreceive,
-  addcollection
+  addcollection,
+  getformid
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -26,7 +27,7 @@ Page({
     pageIndex: 1,
     pageSize: 5,
     onLine: false,
-
+    types: 0,
     productList: null,
     gourpList: null,
     limitList: null,
@@ -40,26 +41,31 @@ Page({
       idx: 0
     }, {
       txt: '无可挑剔',
-        n: 'startCount5',
-        idx: 5
+      n: 'startCount5',
+      idx: 5
     }, {
       txt: '非常满意',
-        n: 'startCount4',
-        idx: 4
+      n: 'startCount4',
+      idx: 4
     }, {
       txt: '满意',
-        n: 'startCount3',
-        idx: 3
+      n: 'startCount3',
+      idx: 3
     }, {
       txt: '一般',
-        n: 'startCount2',
-        idx: 2
+      n: 'startCount2',
+      idx: 2
     }, {
       txt: '很差',
-        n: 'startCount1',
-        idx: 1
+      n: 'startCount1',
+      idx: 1
     }],
     loding: true
+  },
+  onShow() {
+    this.setData({
+      onLine: wx.getStorageSync('userInfo') ? true : false
+    })
   },
   //  查看位置
   handleClickAddres(e) {
@@ -88,30 +94,33 @@ Page({
       phoneNumber: e.currentTarget.dataset.tel
     })
   },
-  //  商家付款
-  handlepay() {
-    wx.navigateTo({
-      url: `../../gathering/index?pid=${this.data.merchantId}`
-    })
-  },
   //  收藏店铺
   handleCollect() {
-    promiseRequest(addcollection, 'get' , {
-      merchantId: this.data.merchantId
-    }).then(res => {
-      if (res.data.code == 0) {
-        let data = this.data.data
-        data.isCollection = res.data.data == '取消收藏成功' ? false : true
-        this.setData({
-          data
-        })
-      } else {
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'none'
-        })
-      }
-    })
+    if (this.data.onLine) {
+      wx.showLoading({
+        title: '关注中...',
+      })
+      promiseRequest(addcollection, 'get', {
+        merchantId: this.data.merchantId
+      }).then(res => {
+        if (res.data.code == 0) {
+          let data = this.data.data
+          data.isCollection = res.data.data == '取消收藏成功' ? false : true
+          this.setData({
+            data
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../../accredit/index'
+      })
+    }
   },
   //  购买代金券
   handleClickPay(e) {
@@ -120,12 +129,16 @@ Page({
       wx.navigateTo({
         url: `../../pay/index?classs=product&productid=${pid}&count=1&skuid=0`,
       })
+    } else {
+      wx.navigateTo({
+        url: '../../accredit/index'
+      })
     }
   },
   //  用户评价切换
   handleCommentTagClick(e) {
     this.setData({
-        commentTagIdx: e.currentTarget.dataset.idx
+      commentTagIdx: e.currentTarget.dataset.idx
     })
     this.getComment()
   },
@@ -133,13 +146,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.setNavigationBarTitle({title: options.title})
     this.setData({
       merchantId: options.pid,
-      onLine: wx.getStorageSync('userInfo') ? true : false,
-      stationId: wx.getStorageSync('station').stationId,
+      stationId: options.stationId || wx.getStorageSync('station') ? wx.getStorageSync('station').stationId : 0,
       x: app.globalData.location[0],
-      y: app.globalData.location[1]
+      y: app.globalData.location[1],
+      types: options.types || 0
     })
     this.getShopDetail()
     this.getProductDes()
@@ -147,6 +159,23 @@ Page({
     this.getLimitDes()
     this.getCutDes()
     this.getComment()
+  },
+  //  商家付款
+  formsubmit(e) {
+    promiseRequest(getformid, 'post', {
+      source: 0,
+      formid: e,
+      isprepayid: 1
+    })
+    if (this.data.onLine) {
+      wx.navigateTo({
+        url: `../../gathering/index?pid=${this.data.merchantId}`
+      })
+    } else {
+      wx.navigateTo({
+        url: '../../accredit/index'
+      })
+    }
   },
   // 获取评论
   getComment() {
@@ -163,8 +192,12 @@ Page({
             commentScore: res.data.dataScore
           })
         }
+        let commentList = res.data.data
+        commentList.map(item => {
+          item.createTime = item.createTime.split('.')[0]
+        })
         this.setData({
-          commentList: res.data.data
+          commentList
         })
       }
     })
@@ -182,9 +215,8 @@ Page({
         if (res.data.code == 0) {}
       })
     } else {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
+      wx.navigateTo({
+        url: '../../accredit/index'
       })
     }
   },
@@ -271,7 +303,8 @@ Page({
     let data = {
       merchantId: this.data.merchantId,
       x: app.globalData.location[0],
-      y: app.globalData.location[1]
+      y: app.globalData.location[1],
+      types: this.data.types
     }
     promiseRequest(shopdetail, 'get', data).then(res => {
       if (res.data.code == 0) {
@@ -287,6 +320,9 @@ Page({
         this.setData({
           data
         })
+        wx.setNavigationBarTitle({
+          title: data.merchantName
+        })
       }
       this.setData({
         loding: false
@@ -299,7 +335,7 @@ Page({
     let pid = e.currentTarget.dataset.pid
     let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../../goodsdetail/index?name=${name}&pid=${pid}&title=${title}`
+      url: `../../goodsdetail/index?name=${name}&pid=${pid}`
     })
   }
 })

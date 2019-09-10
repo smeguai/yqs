@@ -13,9 +13,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let userinfo = wx.getStorageSync('userInfo') || ''
     this.setData({
       ver: app.globalData.versions,
-      uid: app.globalData.userInfo.uid
+      uid: userinfo.uid
     })
   }
 })

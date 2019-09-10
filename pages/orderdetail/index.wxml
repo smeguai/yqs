@@ -138,30 +138,32 @@
     </view>
   </view>
   <!-- 底部按钮 0待付款，1待使用，2待收货，3退款中，4已退款，8待评价，9已完成，88已取消 -->
+  <form report-submit bindsubmit="formsubmit">
   <view class='btns' wx:if='{{info.status == 0}}'>
-    <view class='btn0 btn' bindtap="handleCanceOrder">取消订单</view>
-    <view class='btn1 btn'>继续付款</view>
+    <button class='btn0 btn' bindtap="handleCanceOrder" form-type='submit'>取消订单</button>
+    <button class='btn1 btn' bindtap="wxPayment" form-type='submit'>继续付款</button>
   </view>
   <view class='btns' wx:if='{{info.status == 1}}'>
-    <view class='btn2 btn' bindtap="handleVerifyClick" data-orderid='{{info.orderId}}' data-type='0'>一键核销</view>
+    <button class='btn2 btn' bindtap="handleVerifyClick" data-orderid='{{info.orderId}}' data-type='0' form-type='submit'>一键核销</button>
   </view>
   <view class='btns' wx:if='{{info.status == 2}}'>
-    <view class='btn2 btn' bindtap="consignee" data-orderid='{{info.orderId}}'>确认收货</view>
+    <button class='btn2 btn' bindtap="consignee" data-orderid='{{info.orderId}}' form-type='submit'>确认收货</button>
   </view>
   <view class='btns' wx:if='{{info.status == 3}}'>
-    <view class='btn2 btn' bindtap='handleCancelRefund'>取消退款</view>
+    <button class='btn2 btn' bindtap='handleCancelRefund' form-type='submit'>取消退款</button>
   </view>
   <view class='btns' wx:if='{{info.status == 4 || info.status == 9}}'>
-    <view class='btn0 btn' bindtap='handleDeleteOrder'>删除订单</view>
-    <view class='btn1 btn'>再次购买</view>
+    <button class='btn0 btn' bindtap='handleDeleteOrder' form-type='submit'>删除订单</button>
+    <button class='btn1 btn' bindtap='handleAgeinPay' form-type='submit'>再次购买</button>
   </view>
   <view class='btns' wx:if='{{info.status == 8}}'>
-    <view class='btn2 btn'>去评价</view>
+    <button class='btn2 btn' bindtap="comment" form-type='submit'>去评价</button>
   </view>
   <view class='btns' wx:if='{{info.status == 88}}'>
-    <view class='btn0 btn' bindtap='handleDeleteOrder'>删除订单</view>
-    <view class='btn1 btn'>重新购买</view>
+    <button class='btn0 btn' bindtap='handleDeleteOrder' form-type='submit'>删除订单</button>
+    <button class='btn1 btn' bindtap='handleAgeinPay' form-type='submit'>重新购买</button>
   </view>
+  </form>
 
   <!-- 核销弹出层 -->
   <view class='vierify' wx:if="{{vierifyshow}}">

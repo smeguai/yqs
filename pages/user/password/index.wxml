@@ -1,45 +1,29 @@
 <view>
-    <view class="password_title" wx:if='{{haspayowd}}'>您当前已经设置过支付码</view>
+  <view class="password_title" wx:if='{{haspayowd}}'>您当前已经设置过支付码</view>
 
-    <view class="password_view">
-        <view class="password_viewInput">
-            <text>新密码</text>
-            <input 
-                placeholder="请输入密码" 
-                type="number"
-                maxlength="6"
-                password
-                bindinput="password" 
-                bindblur="ipt1_blur"
-                value="{{pass}}"></input>
-        </view>
-
-        <view class="password_viewInput">
-            <text>确认新密码</text>
-            <input 
-                placeholder="请再次确认密码" 
-                type="number
-                maxlength="6"
-                password
-                bindinput="newpassword" 
-                value="{{pass_2}}" ></input>
-        </view>
-
-        <view class="password_viewCode">
-            <input 
-                placeholder="填写验证码" 
-                type="number"
-                value='{{code_num}}'
-                maxlength="4"
-                bindinput="code"></input>
-
-            <view wx:if="{{code}}" bindtap="handleQAcode">{{codetxt}}</view>
-            <view wx:else style="background:#CCCCCC;">获取验证码</view>
-        </view>
-
-        <text class="password_viewText">{{alert}}</text>
-
-        <view wx:if="{{confirm}}" class="password_viewConfirm" bindtap="setPass">确定修改</view>
-        <view wx:else class="password_viewConfirm" style="background:#CCCCCC;" >确定修改</view>
+  <view class="password_view">
+    <view class="password_viewInput">
+      <text>新密码</text>
+      <input placeholder="请输入密码" type="number" maxlength="6" password bindinput="password" bindblur="ipt1_blur" value="{{pass}}"></input>
     </view>
+
+    <view class="password_viewInput">
+      <text>确认新密码</text>
+      <input placeholder="请再次确认密码" type="number" maxlength="6" password bindinput="newpassword" value="{{pass_2}}"></input>
+    </view>
+    <view wx:if='{{tel}}' class='tel'>当前绑定的手机号：{{tel}}</view>
+  
+
+    <view class="password_viewCode">
+      <input placeholder="填写验证码" type="number" value='{{code_num}}' maxlength="4" bindinput="code"></input>
+
+      <view wx:if="{{code}}" bindtap="handleQAcode">{{codetxt}}</view>
+      <view wx:else style="background:#CCCCCC;">获取验证码</view>
+    </view>
+
+    <text class="password_viewText" wx:if='{{alert}}'>{{alert}}</text>
+
+    <view wx:if="{{confirm}}" class="password_viewConfirm" bindtap="setPass">确定修改</view>
+    <view wx:else class="password_viewConfirm" style="background:#CCCCCC;">确定修改</view>
+  </view>
 </view>

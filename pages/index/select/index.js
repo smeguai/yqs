@@ -1,6 +1,7 @@
 import {
   getsell,
-  getgoodslist
+  getgoodslist,
+  allsearchkey
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -25,7 +26,8 @@ Page({
     orderby: 0,
     sellerList: null,
     goodsList: null,
-    inputFocus: true
+    inputFocus: true,
+    allsearchlist: null
   },
   //  跳转
   handleClickGoods(e) {
@@ -43,6 +45,25 @@ Page({
       url: `../../indexnavs/shop/index?pid=${pid}&title=${title}`
     })
   },
+  //  大家都在搜 项被点击
+  handleAllSeachItemClick(e){
+    this.setData({
+      keys: e.currentTarget.dataset.keys,
+      inputFocus: false
+    })
+    this.getSeller()
+    this.getGoods()
+  },
+  //  大家都在搜
+  getallsearch() {
+    promiseRequest(allsearchkey, 'get').then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          allsearchlist: res.data.data
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -53,6 +74,7 @@ Page({
       y: app.globalData.location[1],
       historyKeys: wx.getStorageSync('historyKeys')
     })
+    this.getallsearch()
   },
   //  输入框获取焦点
   handleInputFocus() {
@@ -77,10 +99,11 @@ Page({
   //  清除输入框内容
   handleSearchInputClear() {
     this.setData({
-      keys: ''
+      keys: '',
+      inputFocus: true
     })
   },
-  // 
+  //  历史搜索被点击
   historyItemClick(e) {
     this.setData({
       keys: e.currentTarget.dataset.keys,
@@ -91,7 +114,7 @@ Page({
   },
   //  保存搜索记录
   setHistoryKeys() {
-    if (this.data.key == '') return
+    if (!this.data.keys) return
     let list = this.data.historyKeys || []
     let hasItem = false
     list.map(item => {
@@ -154,52 +177,10 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {},
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function() {
     wx.setStorage({
       key: 'historyKeys',
       data: this.data.historyKeys
     })
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })

@@ -1,5 +1,6 @@
 import {
-  ordercount
+  ordercount,
+  getformid
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -10,7 +11,7 @@ Page({
   data: {
     onLine: false,
     userInfo: null,
-    tencentshow:false,
+    tencentshow: false,
     OrderCate: [{
       icon: '../../static/img/me_obligation.png',
       txt: '待付款',
@@ -44,7 +45,7 @@ Page({
         id: 2
       },
       {
-        txt: '我的收藏',
+        txt: '我的关注',
         icon: '../../static/img/wdsc.png',
         id: 3
       },
@@ -71,34 +72,43 @@ Page({
     ],
     navCountNum: null
   },
-  //  客服消息
-  handleContactClick(e) {
-    this.setData({
-      tencentshow: true
+  //  复制用户id
+  handleCopeuserid() {
+    wx.setClipboardData({
+      data: this.data.userInfo.uid.toString(),
+      success: () => {
+        wx.showToast({
+          title: '复制成功!',
+          icon: 'none'
+        })
+      }
     })
   },
-  //  关闭客服消息弹出
-  handleTencentClick() {
-    this.setData({
-      tencentshow: false
-    })
-  },
-  handleClickOrder(e) {
-    this.hasSign()
-    wx.navigateTo({
-      url: `../orders/index?pid=${e.currentTarget.dataset.pid}`
-    })
-  },
-  handleClickMore(e) {
-    this.hasSign()
-    let id = e.currentTarget.dataset.id
+  //  获取formid
+  formsubmit(e) {
+    if (e.detail.formId) {
+      promiseRequest(getformid, 'post', {
+        source: 0,
+        formid: e.detail.formId,
+        isprepayid: 1
+      })
+    }
+    let id = e.detail.target.dataset.id
     switch (id) {
       case 0:
+        if (!this.data.onLine) {
+          this.hasSign()
+          return
+        }
         wx.navigateTo({
           url: '../user/coupon/index',
         })
         break;
       case 1:
+        if (!this.data.onLine) {
+          this.hasSign()
+          return
+        }
         wx.navigateTo({
           url: '../mycutlist/index',
         })
@@ -109,6 +119,10 @@ Page({
         })
         break;
       case 3:
+        if (!this.data.onLine) {
+          this.hasSign()
+          return
+        }
         wx.navigateTo({
           url: '../user/collect/index',
         })
@@ -124,23 +138,48 @@ Page({
         })
         break;
       case 6:
+        if (!this.data.onLine) {
+          this.hasSign()
+          return
+        }
         wx.navigateTo({
           url: '../setting/index',
         })
         break;
       case 7:
+        if (!this.data.onLine) {
+          this.hasSign()
+          return
+        }
         wx.navigateTo({
           url: '../user/record/index',
         })
         break;
     }
   },
+  //  客服消息
+  handleContactClick(e) {
+    this.setData({
+      tencentshow: true
+    })
+  },
+  //  关闭客服消息弹出
+  handleTencentClick() {
+    this.setData({
+      tencentshow: false
+    })
+  },
+  handleClickOrder(e) {
+    this.hasSign()
+    wx.navigateTo({
+      url: `../orders/index?idx=${e.currentTarget.dataset.idx}`
+    })
+  },
   handleSign() {
     wx.navigateTo({
       url: '../accredit/index',
     })
   },
-  onLoad: function(options) {},
   //  获取订单类目有多少数据
   getOrderCount() {
     promiseRequest(ordercount, 'get').then(res => {
@@ -151,7 +190,7 @@ Page({
       }
     })
   },
-  onShow: function () { 
+  onShow: function() {
     this.getUserInfo()
   },
   //  获取用户信息
@@ -172,7 +211,10 @@ Page({
     }
   },
   handleToWallet() {
-    this.hasSign()
+    if (!this.data.onLine) {
+      this.hasSign()
+      return
+    }
     wx.navigateTo({
       url: '../wallet/index',
     })
@@ -183,7 +225,6 @@ Page({
       wx.navigateTo({
         url: '../accredit/index',
       })
-      return
     }
   }
 })

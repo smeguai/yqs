@@ -1,5 +1,5 @@
 <view>
-
+  <loding show='{{loding}}' />
   <view class='score-wrapper'>
     <view class='score'>
       <view class='num'>{{data.dataScore.totalFraction}}</view>
@@ -8,30 +8,30 @@
     <view class='cate'>
       <view class='item'>
         <text class='txt'>好评</text>
-        <progress percent='{{data.dataScore.praiseFraction / data.dataScore.totalCount}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
-        <text class='percent'>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
+        <progress percent='{{data.dataScore.praiseFraction / data.dataScore.totalCount * 100}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
+        <text class='percent' wx:if='{{data.dataScore.totalCount == 0}}'>0%</text>
+        <text class='percent' wx:else>{{data.dataScore.praiseFraction / data.dataScore.totalCount}}%</text>
       </view>
       <view class='item'>
         <text class='txt'>中评</text>
-        <progress percent='{{data.dataScore.middleFraction / data.dataScore.totalCount}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
-        <text class='percent'>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
+        <progress percent='{{data.dataScore.middleFraction / data.dataScore.totalCount * 100}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
+        <text class='percent' wx:if='{{data.dataScore.totalCount == 0}}'>0%</text>
+        <text class='percent' wx:else>{{data.dataScore.middleFraction / data.dataScore.totalCount}}%</text>
       </view>
       <view class='item'>
         <text class='txt'>差评</text>
-        <progress percent='{{data.dataScore.lowFraction / data.dataScore.totalCount}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
-        <text class='percent'>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
+        <progress percent='{{data.dataScore.lowFraction / data.dataScore.totalCount * 100}}' class='progress' backgroundColor='#EEEEEE' activeColor='#FFDE4E'></progress>
+        <text class='percent' wx:if='{{data.dataScore.totalCount == 0}}'>0%</text>
+        <text class='percent' wx:else>{{data.dataScore.lowFraction / data.dataScore.totalCount}}%</text>
       </view>
     </view>
   </view>
-
   <view class='tags-wrapper'>
-    <view class='item {{commentTagIdx == item.idx ? "active":""}}' wx:for='{{commentTagLs}}' wx:key='{{item.idx}}' bindtap='handleCommentTagClick' data-idx='{{item.idx}}'>{{item.txt}}({{data.dataScore[item.n]}})</view>
+    <view class='item {{startIndex == index ? "active":""}}' wx:for='{{commentTagLs}}' data-idx='{{index}}' bindtap='handleCommentTagClick'>{{item.txt}}{{(data.dataScore[item.n])}}</view>
   </view>
-
-
-  <view class='list'>
+  <view class='list' wx:if='{{data.data.length > 0}}'>
     <view class='item' wx:for='{{data.data}}' wx:key='{{index}}'>
-      <image class='avatar' src='https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1700741544,1951185347&fm=27&gp=0.jpg'></image>
+      <image class='avatar' src='{{item.headImgUrl}}' lazy-load mode='aspectFill'></image>
       <view class='info'>
         <view class='name'>{{item.nickName}}</view>
         <view class='midd'>
@@ -40,11 +40,14 @@
         </view>
         <view class='content'>{{item.commentContent}}</view>
         <view class='imglist'>
-          <image class='img' wx:for='{{item.lstImg}}' src='{{item.fileUrl}}' wx:key='{{index}}'></image>
+          <image class='img' wx:for='{{item.lstImg}}' src='{{item.fileUrl}}' wx:key='{{index}}' lazy-load mode='aspectFill'></image>
         </view>
         <view class='alid' wx:for='{{item.lstChildComment}}'>{{item.commentContent}}</view>
       </view>
     </view>
   </view>
-
+  <view class='notlist' wx:else>
+    <image class="icon" src='../../static/img/notcomment.png'></image>
+    <view class='txt'>还没有评论记录哦~</view>
+  </view>
 </view>

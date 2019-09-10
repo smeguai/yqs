@@ -4,15 +4,17 @@ import {
   cutdetail,
   limitdetail,
   sharegooddes,
-  usercut
+  usercut,
+  getcodeimg
 } from '../../utils/api.js'
 import {
   promiseRequest
 } from '../../utils/util.js'
+import {
+  base64src
+} from '../../utils/base64img.js'
 const app = getApp()
-
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -49,6 +51,13 @@ Page({
     tencentshow: false,
     videoShow: true, // 视频展示
     bannerIndex: 0, // banner 滑块下标
+    edition: true,
+    canvasShow: false,
+    canvas_width: 0,
+    canvas_height: 0,
+    qaCodeImg: '',
+    shareImg: null,
+    writePhotosAlbum: true
   },
   //  关闭去参团
   handleCloseToGroup() {
@@ -60,6 +69,12 @@ Page({
   handleTencentClick() {
     this.setData({
       tencentshow: !this.data.tencentshow
+    })
+  },
+  //  隐藏canvas
+  handleCanvasToggle() {
+    this.setData({
+      canvasShow: false
     })
   },
   // 返回上一页
@@ -117,17 +132,54 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.setNavigationBarTitle({
-      title: options.title
+    let that = this;
+    wx.getSystemInfo({
+      success(res) {
+        if (res.SDKVersion.split('.').join("") < '260') {
+          that.data.edition = false;
+        }
+      }
     })
-    this.setData({
-      status: options.name,
-      productId: options.pid,
-      groupBuyId: options.groupBuyId
+    let scene = null
+    if (options.scene) {
+      scene = decodeURIComponent(options.scene).split(',')
+    }
+    that.setData({
+      edition: that.data.edition,
+      status: scene && scene[0] || options.name,
+      productId: scene && scene[1] || options.pid,
+      groupBuyId: scene && scene[2] || options.groupBuyId
+    })
+    that.getDetails()
+    that.getsharegooddes()
+    //  获取二维码
+    this.getCodeImg()
+    //  画图
+    this.getSystemInfoSync()
+  },
 
+  //  获取商品图片
+  getImgUrl(url) {
+    return new Promise((resolve, reject) => {
+      wx.downloadFile({
+        url,
+        success: res => {
+          if (res.statusCode == 200) {
+            resolve(res.tempFilePath)
+          }
+        }
+      })
     })
-    this.getDetails()
-    this.getsharegooddes()
+  },
+  //  获取系统信息
+  getSystemInfoSync() {
+    let info = wx.getSystemInfoSync()
+    let width = info.screenWidth * 2 - 180
+    let height = info.screenHeight * 2 - 360
+    this.setData({
+      canvas_width: width,
+      canvas_height: height
+    })
   },
   //  参与拼团
   handleGroupPay(e) {
@@ -166,18 +218,22 @@ Page({
   },
   //  查看订单
   getDetails() {
+    let detail = null
     switch (this.data.status) {
       case 'group':
         promiseRequest(groupbuydetail, 'get', {
           Id: this.data.productId
         }).then(res => {
           if (res.data.code == 0) {
-            let detail = res.data.data
+            detail = res.data.data
             detail.x = parseFloat(detail.x)
             detail.y = parseFloat(detail.y)
             this.setData({
               detail,
               loding: false
+            })
+            wx.setNavigationBarTitle({
+              title: detail.productName
             })
           } else {
             wx.showToast({
@@ -199,9 +255,13 @@ Page({
           Id: this.data.productId
         }).then(res => {
           if (res.data.code == 0) {
+            detail = res.data.data
             this.setData({
-              detail: res.data.data,
+              detail,
               loding: false
+            })
+            wx.setNavigationBarTitle({
+              title: detail.productName
             })
           } else {
             wx.showToast({
@@ -223,9 +283,12 @@ Page({
           Id: this.data.productId
         }).then(res => {
           if (res.data.code == 0) {
-            let detail = res.data.data
+            detail = res.data.data
             detail.cutList.map(item => {
               item.receiveTime = item.receiveTime.substr(0, 10)
+            })
+            wx.setNavigationBarTitle({
+              title: detail.productName
             })
             this.setData({
               detail,
@@ -251,10 +314,14 @@ Page({
           productId: this.data.productId
         }).then(res => {
           if (res.data.code == 0) {
+            detail = res.data.data
             this.setData({
-              detail: res.data.data,
+              detail,
               isproduct: false,
               loding: false
+            })
+            wx.setNavigationBarTitle({
+              title: detail.productName
             })
           } else {
             wx.showToast({
@@ -289,17 +356,26 @@ Page({
     promiseRequest(usercut, 'get', {
       productCutPriceId: this.data.productId
     }).then(res => {
-      if (res.data.code == 1) {
+      if (res.data.code == 0) {
         this.setData({
           startcutmode: true,
           cutprice: res.data.data.hadCutPrice
         })
-        wx.hideLoading()
         setTimeout(() => {
           wx.redirectTo({
             url: `../cutdetail/index?pid=${res.data.data.cutPriceId}`
           })
         }, 1400)
+      } else if (this.data.code == 401) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
       }
     })
   },
@@ -368,6 +444,12 @@ Page({
           url: '../index/index'
         })
         break;
+      case 1:
+        this.setData({
+          canvasShow: true
+        })
+        this.createCanvas()
+        break;
       case 2:
         wx.makePhoneCall({
           phoneNumber: e.currentTarget.dataset.tel
@@ -400,7 +482,7 @@ Page({
       return {
         title: this.data.detail.productName,
         imageUrl: this.data.detail.imgList[0].fileUrl,
-        path: '/pages/index/index?jump=123'
+        path: `/pages/goodsdetail/index?name=${this.data.status}&pid=${this.data.productId}&groupBuyId=${this.data.groupBuyId || 0}`
       }
     }
   },
@@ -408,6 +490,253 @@ Page({
   handleTelClick(e) {
     wx.makePhoneCall({
       phoneNumber: e.currentTarget.dataset.tel
+    })
+  },
+  //  获取分享二维码
+  getCodeImg() {
+    console.log(this.data.status + ',' + this.data.productId + ',' + (this.data.groupBuyId || 0))
+    // 'name=' + this.data.status + '&pid=' + this.data.productId + '&groupById=' + (this.data.groupBuyId || 0),
+    promiseRequest(getcodeimg, 'get', {
+      source: 0,
+      scene: this.data.status + ',' + this.data.productId + ',' + (this.data.groupBuyId || 0),
+      page: 'pages/goodsdetail/index',
+      width: 280
+    }).then(res => {
+      if (res.data.code == 0) {
+        base64src('data:image/jpeg;base64,' + res.data.data, res => {
+          this.setData({
+            qaCodeImg: res
+          })
+        })
+      }
+    })
+  },
+  //  创建画布
+  createCanvas() {
+    wx.showLoading({
+      title: '生成图片中...'
+    })
+    //  全部图片
+    let detail = this.data.detail
+    let goodsImgUrl = this.getImgUrl(detail.imgList[0].fileUrl)
+    let headImgUrl = this.getImgUrl(detail.headImgUrl)
+    let myavatar = wx.getStorageSync('userInfo') ? wx.getStorageSync('userInfo').headimg : detail.headImgUrl
+    let myavatarUrl = this.getImgUrl(myavatar)
+    let imgLs = null
+    Promise.all([goodsImgUrl, headImgUrl, myavatarUrl]).then(res => {
+      imgLs = res
+      let h = 180
+      const ctx = wx.createCanvasContext('sharecanvas')
+      //  背景色
+      ctx.rect(0, 0, this.data.canvas_width / 2, this.data.canvas_height / 2 - 86)
+      ctx.setFillStyle('#FFDE4E')
+      ctx.fill()
+      ctx.drawImage(imgLs[0], 10, 40, (this.data.canvas_width / 2) - 20, h)
+      //  商品名
+      ctx.setFontSize(16)
+      ctx.setFillStyle('#fff')
+      ctx.fillRect(10, h, (this.data.canvas_width / 2) - 20, 210)
+      h += 10
+      ctx.setFillStyle('#333333')
+      let goodsname = detail.productName.substr(0, 30)
+      let name = ''
+      for (let i = 0; i < goodsname.length; i++) {
+        if (name.length < 15) {
+          name += goodsname[i]
+        } else {
+          h += 20
+          ctx.fillText(name, 18, h)
+          name = ''
+        }
+      }
+      if (name.length > 0) {
+        h += 20
+        ctx.fillText(name, 18, h)
+        name = ''
+      }
+
+      //  价格等 
+      h += 20
+      ctx.setFillStyle('#FF6600')
+      ctx.setFontSize(30)
+      h += 20
+      let price = detail.price + ''
+      ctx.fillText('￥' + price, 18, h)
+      let tableft = price.length * 10
+      ctx.setFillStyle('#FFDE4E')
+      ctx.fillRect(80 + tableft, h - 17, 38, 18)
+      ctx.setFillStyle('#333333')
+      ctx.setFontSize(10)
+      ctx.fillText('抢购价', 84 + tableft, h - 4)
+      h += 20
+      ctx.setFillStyle('#999999')
+      ctx.setFontSize(12)
+      ctx.fillText('原价￥' + detail.tagPrice, 20, h)
+      ctx.setFillStyle('#333')
+      ctx.fillText(detail.virtualSoldNum + '人已购买', (this.data.canvas_width / 2) - 98, h)
+      //  画虚线
+      h += 30
+      ctx.setLineDash([10, 10], 5)
+      ctx.beginPath()
+      ctx.moveTo(20, h)
+      ctx.strokeStyle = '#FFDE4E'
+      ctx.lineTo((this.data.canvas_width / 2) - 20, h)
+      ctx.stroke()
+      //  画分割线
+      ctx.beginPath()
+      ctx.arc(10, h, 10, 0, 2 * Math.PI)
+      ctx.setFillStyle('#FFDE4E')
+      ctx.fill()
+      ctx.beginPath()
+      ctx.arc((this.data.canvas_width / 2) - 10, h, 10, 0, 2 * Math.PI)
+      ctx.setFillStyle('#FFDE4E')
+      ctx.fill()
+      //  绘制商家头像
+      h = name < 15 ? h + 42 : h + 32
+      ctx.save()
+      ctx.beginPath()
+      ctx.arc(52, h, 22, 0, 2 * Math.PI)
+      ctx.clip()
+      ctx.drawImage(imgLs[1], 30, h - 22, 44, 44)
+      ctx.restore()
+      // 绘制商家名
+      let sellername = detail.merchantName.substr(0, 10)
+      ctx.setFontSize(14)
+      ctx.setFillStyle('#333333')
+      ctx.fillText(sellername, 102, h - 5)
+      //  绘制商家地址
+      let selleraddrs = detail.addr.substr(0, 12)
+      h += 20
+      ctx.setFontSize(12)
+      ctx.setFillStyle('#333333')
+      ctx.fillText(selleraddrs, 102, h)
+      //  底部背景色
+      ctx.save()
+      ctx.beginPath()
+      ctx.rect(0, (this.data.canvas_height / 2) - 86, this.data.canvas_width / 2, this.data.canvas_height / 2)
+      ctx.setFillStyle('#fff')
+      ctx.fill()
+      ctx.restore()
+      //  绘制用户头像
+      h = this.data.canvas_height / 2 - 50
+      ctx.save()
+      ctx.beginPath()
+      ctx.arc(35, h, 30, 0, 2 * Math.PI)
+      ctx.clip()
+      ctx.drawImage(imgLs[2], 5, h - 30, 60, 60)
+      ctx.restore()
+      //  绘制二维码
+      ctx.drawImage(this.data.qaCodeImg, 201, h - 33, 81, 80)
+      //  昵称
+      h -= 16
+      let userinfo = wx.getStorageSync('userInfo')
+      let nickname = userinfo && userinfo.nickname.substr(0, 9) || detail.merchantName
+      ctx.setFontSize(14)
+      ctx.setFillStyle('#FF6600')
+      ctx.fillText(nickname, 72, h)
+      h += 20
+      let tipstxt1 = '我发现这东西不错呢！'
+      ctx.setFontSize(12)
+      ctx.setFillStyle('#333333')
+      ctx.fillText(tipstxt1, 72, h)
+      h += 12
+      let tipstxt2 = ' 向您推荐~'
+      ctx.setFontSize(12)
+      ctx.setFillStyle('#333333')
+      ctx.fillText(tipstxt2, 72, h)
+      ctx.save()
+      ctx.beginPath()
+      ctx.rect(72, h + 8, 120, 20)
+      ctx.setFillStyle('#FFDE4E')
+      ctx.fill()
+      ctx.restore()
+      h += 24
+      let tipstxt3 = ' 长按立即购买>>'
+      ctx.setFontSize(14)
+      ctx.setFillStyle('#333333')
+      ctx.fillText(tipstxt3, 72, h)
+      ctx.drawImage('../../static/img/logo1.png', (this.data.canvas_width / 4) - 32, 10, 64, 22)
+      ctx.draw()
+
+      //canvas画图需要时间而且还是异步的，所以加了个定时器
+      setTimeout(() => {
+        // 将生成的canvas图片，转为真实图片
+        wx.canvasToTempFilePath({
+          x: 0,
+          y: 0,
+          canvasId: 'sharecanvas',
+          width: 375,
+          height: 667,
+          destWidth: 750,
+          destHeight: 1334,
+          success: (res) => {
+            let shareImg = res.tempFilePath;
+            this.setData({
+              shareImg: shareImg,
+              showModal: true,
+              showShareModal: false
+            })
+            wx.hideLoading()
+          }
+        })
+      }, 1000)
+    })
+  },
+  //  保存海报
+  handleSaveCanvas() {
+    //  canvas没生成完，  return 出去
+    if (!this.data.shareImg) return
+
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success: (res) => {
+              this._saveCanvas()
+            },
+            fail: () => {
+              wx.showModal({
+                content: '保存海报需要使用到相册权限，是否打开此授权？',
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        if (res.authSetting['scope.writePhotosAlbum']) {
+                          this._saveCanvas()
+                        }
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          this._saveCanvas()
+        }
+      }
+    })
+  },
+  _saveCanvas() {
+    wx.saveImageToPhotosAlbum({
+      filePath: this.data.shareImg,
+      success: () => {
+        wx.showToast({
+          title: '保存成功'
+        })
+      },
+      fail: (err) => {
+        wx.showToast({
+          title: '保存失败',
+          icon: 'none'
+        })
+      },
+      complete: () => {
+        this.setData({
+          canvasShow: false
+        })
+      }
     })
   }
 })

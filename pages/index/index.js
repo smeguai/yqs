@@ -2,7 +2,10 @@ import {
   shopget,
   indexNav,
   indexdiscount,
-  banner
+  banner,
+  collection,
+  decrypt,
+  wxlogin
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -15,11 +18,13 @@ Page({
     bannerCurrent: 0,
     pageIndex: 1,
     pageSize: 10,
+    location: null,
     stationId: null,
     station: null,
     typeId: 0,
     navList: null,
     swiperList: null,
+    collection: null,
     navDefList: [{
       imgUrl: '../../static/img/index_sys.png',
       txt: '扫一扫',
@@ -46,6 +51,94 @@ Page({
     limitdata: null,
     recommendList: [],
     loding: true
+    
+    // ,signShow: false
+  },
+  //  用户登录
+  onGotUserInfo(e) {
+    let data = {
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv,
+      sessionKey: app.globalData.session_key
+    }
+    promiseRequest(decrypt, 'post', data).then(res => {
+      let data = {
+        openId: res.data.openId,
+        unionId: res.data.unionId
+      }
+      wx.setStorage({
+        key: 'openORunion',
+        data
+      })
+      app.globalData.openORunion = data
+      this._login(res.data)
+    })
+  },
+  _login(d) {
+    wx.showLoading({
+      title: '登陆中...',
+    })
+    let data = {
+      unionid: d.unionId,
+      openid: d.openId,
+      headimgurl: d.avatarUrl,
+      nickname: d.nickName,
+      sex: d.gender,
+      province: d.province,
+      city: d.city,
+      source: "0",
+      stationId: this.data.station.stationId,
+      x: this.data.location[0],
+      y: this.data.location[1]
+    }
+    promiseRequest(wxlogin, 'post', data).then(res => {
+      if (res.data.code == 0) {
+        wx.setStorage({
+          key: 'userInfo',
+          data: res.data.data,
+          success: () => {
+            app.globalData.onLine = true
+            wx.navigateBack({
+              delta: -1
+            })
+          }
+        })
+        this.getCollction()
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
+    })
+  },
+  //  获取formid  用户登录
+  // formsubmit(e) {
+  //   this.setData({
+  //     signShow: false
+  //   })
+  //   app._saveFormId(e.detail.formId)
+  // },
+  //  banner 点击
+  handleNavItemClick(e) {
+    let t = e.currentTarget.dataset.type
+    let url = e.currentTarget.dataset.url
+    let title = e.currentTarget.dataset.title
+    switch (t) {
+      case 0:
+        wx.navigateTo({
+          url: url + `?title=${title}`
+        })
+        break;
+      case 1:
+        wx.navigateTo({
+          url: `../indexnavs/webview/index?url=${url}&title=${title}`
+        })
+        break;
+      case 2:
+      //  不做任何处理
+        break;
+    }
   },
   //  跳转  到特惠 查看更多页
   handleNavigate() {
@@ -56,9 +149,14 @@ Page({
   //  推荐商家 被点击
   handleSellerClick(e) {
     let pid = e.currentTarget.dataset.pid
-    let title = e.currentTarget.dataset.title
     wx.navigateTo({
-      url: `../indexnavs/shop/index?pid=${pid}&title=${title}`,
+      url: `../indexnavs/shop/index?pid=${pid}`,
+    })
+  },
+  // 我的关注  跳转
+  handleConllection() {
+    wx.navigateTo({
+      url: '../user/collect/index',
     })
   },
   //  推荐商品
@@ -105,6 +203,7 @@ Page({
           loding: false,
           recommendList: [...this.data.recommendList, ...res.data.data]
         })
+        console.log(res.data.data)
       }
     })
   },
@@ -121,19 +220,78 @@ Page({
       }
     })
   },
-onLoad(){
-  //  隐藏提示添加小程序弹出
-  setTimeout(() => {
+  //  隐藏 添加到小程序碳层
+  handleTogoole() {
     this.setData({
       tipsShow: false
     })
-  }, 8000)
-
-  this.getBanner()
-},
+  },
+  onLoad() {
+    //  隐藏提示添加小程序弹出
+    setTimeout(() => {
+      this.setData({
+        tipsShow: false
+      })
+    }, 8000)
+    this.getBanner()
+    let userinfo = wx.getStorageSync('userInfo')
+    // if (!userinfo) {
+    //   this.setData({
+    //     signShow: true
+    //   })
+    // }
+  },
+  //  关闭 用户登录
+  // handleHideSign() {
+  //   this.setData({
+  //     signShow: false
+  //   })
+  // },
+  //  分享给好友
+  onShareAppMessage() {
+    return {
+      title: '翼省钱go',
+      path: `/pages/index/index`,
+      imageUrl: 'https://img.bnbn99.com/yqs/channel/e5508ce21ee16c65.png'
+    }
+  },
+  //  我的关注
+  getCollction() {
+    promiseRequest(collection, 'get', {
+      pageIndex: 1,
+      pageSize: 10
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          collection: res.data.data
+        })
+      }
+    })
+  },
   onShow() {
     let station = wx.getStorageSync('station')
     let location = wx.getStorageSync('location')
+    let userinfo = wx.getStorageSync('userInfo')
+    console.log(!!userinfo, !this.data.collection)
+    if (userinfo && !this.data.collection) {
+      this.getCollction()
+    } else if (!userinfo) {
+      this.setData({
+        collection: null
+      })
+    }
+    if (location && !station) {
+      wx.navigateTo({
+        url: '../location/index',
+      })
+      wx.getSetting({
+        success: res => {
+          console.log(res)
+        }
+      })
+      return
+    }
+    if (station.stationId == this.data.stationId) return
     this.setData({
       station: station,
       stationId: station.stationId,
@@ -159,6 +317,19 @@ onLoad(){
     this.getindexNav()
     this.getDiscount()
     this.getShop()
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        if (res.errMsg == "getStorage:ok") {
+          this.getCollction()
+        }
+      },
+      fail: err => {
+        this.setData({
+          collection: null
+        })
+      }
+    })
   },
 
   // 页面上拉触底事件的处理函数
@@ -175,7 +346,7 @@ onLoad(){
     let type = e.currentTarget.dataset.type
     let pid = e.currentTarget.dataset.pid
     wx.navigateTo({
-      url: `../goodsdetail/index?name=${type}&pid=${pid}&title=${e.currentTarget.dataset.title}`
+      url: `../goodsdetail/index?name=${type}&pid=${pid}`
     })
   },
   bannerChange(e) {
@@ -220,19 +391,19 @@ onLoad(){
         break;
       case 'telecom':
         wx.navigateTo({
-          url: `../indexnavs/shop/index?title=${e.currentTarget.dataset.title}&pid=${e.currentTarget.dataset.pid}`
+          url: `../indexnavs/shop/index?&pid=${e.currentTarget.dataset.pid}`
         })
         break;
       case 'type':
         wx.navigateTo({
-          url: `../indexnavs/fooddrink/index?title=${e.currentTarget.dataset.title}&typeid=${e.currentTarget.dataset.pid}`
+          url: `../indexnavs/fooddrink/index?&typeid=${e.currentTarget.dataset.pid}`
         })
         break;
     }
   },
   goodsItemClick(e) {
     wx.navigateTo({
-      url: `../goodsdetail/index?pid=${e.currentTarget.dataset.pid}&name=${e.currentTarget.dataset.name}&title=${e.currentTarget.dataset.title}`,
+      url: `../goodsdetail/index?pid=${e.currentTarget.dataset.pid}&name=${e.currentTarget.dataset.name}`,
     })
   },
   locationClick() {

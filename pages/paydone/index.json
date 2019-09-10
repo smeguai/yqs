@@ -1,5 +1,6 @@
 {
     "usingComponents": {
       "countdown": "../../component/countdown/index"
-    }
+    },
+    "navigationBarTitleText": "支付成功"
 }

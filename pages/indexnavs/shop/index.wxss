@@ -94,14 +94,14 @@
 
 .container .header .info .tags {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .container .header .info .tags .item {
   padding: 6rpx 12rpx;
-  border: 1rpx solid #c8c8c8;
+  border: 1rpx solid #999;
   border-radius: 4rpx;
-  color: #c8c8c8;
-  margin-right: 16rpx;
+  margin: 0 16rpx 12rpx 0;
   font-size: 20rpx;
 }
 
@@ -114,11 +114,8 @@
 .container .welfare .btn {
   margin-top: 20rpx;
   background: #ffde4e;
-  border-radius: 34rpx;
   font-size: 32rpx;
   font-weight: bold;
-  text-align: center;
-  padding: 16rpx 0;
 }
 
 .container .welfare .item-wrapper {
@@ -460,7 +457,7 @@
   font-weight: bold;
 }
 .container .goodes .bott .price .num {
-  font-size: 46rpx;
+  font-size: 38rpx;
   font-weight: bold;
 }
 .container .goodes .bott .tagprice {

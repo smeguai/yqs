@@ -10,6 +10,11 @@
     flex-direction: column;
     justify-content: center;
 }
+.tel {
+  font-size: 24rpx;
+  color: #999999;
+  padding-top:  44rpx;
+}
 .password_viewInput {
     height: 78rpx;
     display: flex;
@@ -33,7 +38,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 44rpx;
+    margin-top: 14rpx;
 }
 .password_viewCode>input {
     width: 284rpx;

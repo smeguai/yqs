@@ -71,3 +71,9 @@
   border-radius: 24rpx;
   background: #FFDE4E;
 }
+.list-wrapper .item .info .bott .btn1 {
+  font-size: 24rpx;
+  padding: 12rpx 16rpx;
+  border-radius: 24rpx;
+  background: #CCCCCC;
+}

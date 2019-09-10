@@ -162,13 +162,13 @@ Page({
   },
   //  付款金额
   handleIptvalChange(e) {
-    let iptval = e.detail.value
+    let iptval = /^(\d?)+(\.\d{0,2})?$/.test(e.detail.value) ? e.detail.value : parseFloat(e.detail.value.substring(0, e.detail.value.length - 1))
     let cash = this.data.cashBalance
     let ele = this.data.eleCardBalance
     this.setData({
       iptval
     })
-
+    console.log(iptval)
     let radio1 = false
     let radio2 = false
     let radio3 = false
@@ -177,13 +177,13 @@ Page({
     } else if (cash >= iptval) {
       radio2 = true
     } else if (cash + ele >= iptval && this.data.desc.enabledEleCard) {
-      console.log('cash + ele >= iptval')
-      radio1 = radio2 = true
-    } else if (cash + ele < iptval) {
-      radio1 = radio2 = radio3 = true
-      console.log('cash + ele < iptval')
+      radio1 = ele > 0 ? true : false
+      radio2 = cash > 0 ? true : false
+    } else if (cash + ele < iptval && this.data.desc.enabledEleCard) {
+      radio3 = true
+      radio1 = ele > 0 ? true : false
+      radio2 = cash > 0 ? true : false
     }
-    console.log(this.data.desc.enabledEleCard)
     this.setData({
       radio1,
       radio2,
@@ -227,6 +227,9 @@ Page({
         })
         return
       }
+      wx.showLoading({
+        title: '发起支付中...',
+      })
       //  支付
       promiseRequest(userpay, 'get', {
         merchantId: this.data.pid,

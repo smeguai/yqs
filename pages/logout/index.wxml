@@ -1,13 +1,13 @@
 <view class="container page">
     <icon class="logout_icon" type="warn" size="60" color="#FF6600"></icon>
-    <view class="logout_name">将韩丽丽的账号注销</view>
-    <view class="logout_hint">注意,注销账号后一下信息将被清空且无法找回</view>
+    <view class="logout_name">将{{name}}的账号注销</view>
+    <view class="logout_hint">注意,注销账号后以下信息将被清空且无法找回</view>
 
     <view class="logout_view">
         <view class="logout_viewTop">
             <view class="logout_viewTop_text">
                 <view class="logout_viewTopDot"></view>
-                <text>翼起省的产品/服务将无法使用此账号</text>
+                <text>翼省钱go的产品/服务将无法使用此账号</text>
             </view>
             <view class="logout_viewTop_text" style="margin-top:25rpx;">
                 <view class="logout_viewTopDot"></view>

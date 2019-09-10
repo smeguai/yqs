@@ -16,7 +16,8 @@ Page({
     currentData: null,
     currentStation: null,
     historyAddrsList: null,
-    address: ''
+    address: '',
+    cityname: '长沙市'
   },
   cityClick() {
     wx.navigateTo({
@@ -36,9 +37,11 @@ Page({
       x: location[0],
       y: location[1]
     }).then(res => {
-      if (res.data.code == 1) {
+      if (res.data.code == 0) {
+        wx.setStorageSync('cityname', res.data.data.cityName)
         this.setData({
-          address: res.data.data.address
+          address: res.data.data.address,
+          cityname: res.data.data.cityName
         })
       }
     })
@@ -55,8 +58,7 @@ Page({
           item.distance = item.distance >= 1000 ? parseInt(item.distance / 100) / 10 + '公里' : parseInt(item.distance) + '米'
         })
         this.setData({
-          nearbyData: d,
-          address: d.stationName
+          nearbyData: d
         })
       }else {
         this.setData({
@@ -140,12 +142,8 @@ Page({
         })
         let location = [res.latitude, res.longitude]
         app.globalData.location = location
-        wx.setStorage({
-          key: 'location',
-          key: 'address',
-          data: location,
-          data: res.name
-        })
+        wx.setStorageSync('location', location)
+        wx.setStorageSync('address', res.name)
       }
     })
   },
@@ -158,7 +156,8 @@ Page({
       this.setData({
         historyAddrsList: wx.getStorageSync('historyAddrsList'),
         currentStation: wx.getStorageSync('station'),
-        address: wx.getStorageSync('address')
+        address: wx.getStorageSync('address'),
+        cityname: wx.getStorageSync('cityname')
       })
       this.getNowLoction()
       this.getservice()

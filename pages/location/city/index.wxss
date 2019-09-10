@@ -16,3 +16,9 @@
     color: #333333;
     font-size: 28rpx;
 }
+.notcitys {
+  font-size: 24rpx;
+  text-align: center;
+  padding-top: 40rpx;
+  color: #ccc;
+}

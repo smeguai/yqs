@@ -19,7 +19,7 @@
         <view class='name'>{{item.productName}}</view>
         <view class='name'>{{item.productSkuvalName}}</view>
         <view class='butt'>
-          <view class='price'>￥{{item.productSkuvalName}}
+          <view class='price'>￥{{item.unitPrice}}
             <text class='tagprice del'>￥{{item.tagPrice}}</text>
           </view>
           <view class='count'>X{{item.quantity}}</view>

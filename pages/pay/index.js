@@ -11,7 +11,8 @@ import {
   orderpay,
   cutsubmit,
   cutOrder,
-  getformid
+  getformid,
+  getreceive
 } from '../../utils/api.js'
 import {
   promiseRequest,
@@ -26,13 +27,13 @@ Page({
   data: {
     num: null,
     // orderid: null,
+    textareaStyle: 'height: 106rpx;',
     skuid: null,
     info: null,
     total: 0,
     remark: '',
     telephone: '',
     fullname: '',
-    rcouponId: 0,
     cash: 0,
     eleAmount: 0,
     radio1: false,
@@ -46,13 +47,47 @@ Page({
     time: null,
     groupBuyId: 0,
     ticketupMode: false,
+
     couponLs: null,
-    textareaStyle: 'height: 106rpx;'
+    rcouponId: 0,
+    couponMoney: 0,
+    couponSpend: 0,
+    couponType: 0,
+    couponIdx: -1
   },
   //  上传formid
   formSubmit(e) {
     promiseRequest(getformid, 'post', {
-      source: 0, formid: e, isprepayid: 0
+      source: 0, formid: e, isprepayid: 1
+    })
+  },
+  //  使用优惠券
+  handleCoupontItemClick(e) {
+    this.setData({
+      rcouponId: e.currentTarget.dataset.pid,
+      couponMoney: e.currentTarget.dataset.price,
+      couponSpend: e.currentTarget.dataset.spend,
+      couponType: e.currentTarget.dataset.type,
+      ticketupMode: false,
+      couponIdx: e.currentTarget.dataset.idx
+    })
+  },
+  //  领取优惠券
+  getCoupontItemClick(e) {
+    wx.showLoading({
+      title: '领取中...',
+    })
+    promiseRequest(getreceive, 'get', {
+      couponId: e.currentTarget.dataset.pid
+    }).then(res => {
+      if(res.data.code == 0) {
+        this.getUsercoupon()
+      } else if (res.data.code == 1) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+      }
     })
   },
   /**
@@ -66,6 +101,7 @@ Page({
       skuid: options.skuid,
       classs: options.classs
     })
+    console.log(options.classs)
     switch (this.data.classs) {
       case 'group':
         this.getGroupOrder()
@@ -95,7 +131,14 @@ Page({
     promiseRequest(usercoupon, 'get', {
       productId: this.data.info.detailList[0].productId
     }).then(res => {
-      console.log(res)
+      let coupon = res.data.data
+      coupon.map(item => {
+        item.validEndTime = item.validEndTime.replace(/-/g, '/').substr(0, 10)
+        item.validStartTime = item.validEndTime.replace(/-/g, '/').substr(0, 10)
+      })
+      this.setData({
+        couponLs: coupon
+      })
     })
   },
   //  关闭优惠券弹出层
@@ -130,6 +173,7 @@ Page({
           total
         })
         this.isCardPay()
+        this.getUsercoupon()
       }
     })
   },
@@ -157,6 +201,7 @@ Page({
           time
         })
         this.isCardPay()
+        this.getUsercoupon()
       }
     })
   },
@@ -175,6 +220,19 @@ Page({
           total
         })
         this.isCardPay()
+        this.getUsercoupon()
+      } else if (res.data.code == 1) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          success: () => {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: -1
+              })
+            }, 1400)
+          }
+        })
       }
     })
   },
@@ -196,6 +254,7 @@ Page({
           total
         })
         this.isCardPay()
+        this.getUsercoupon()
       }
     })
   },
@@ -264,9 +323,10 @@ Page({
     let idx = e.currentTarget.dataset.index
     this.data.info.detailList.map((item, index) => {
       if (index == idx) {
-        let total = parseInt((this.data.num * item.unitPrice) * 100) / 100
+        let total = Math.floor((this.data.num * item.unitPrice) * 100) / 100
         this.setData({
-          total
+          total,
+          couponMoney: this.data.rcouponId ? this.data.couponMoney : 0
         })
         this.isCardPay()
       }
@@ -297,7 +357,6 @@ Page({
       radio2,
       radio3
     })
-    this.getUsercoupon()
   },
   passclose(e) {
     this.setData({
@@ -313,7 +372,7 @@ Page({
       package: 'prepay_id=' + v.data.prepayid,
       signType: 'MD5',
       paySign: v.data.sign,
-      complete: (res) => {
+      success: (res) => {
         let cate = this.data.classs
         let isgroup = this.data.classs == 'group' ? 1 : 0
         let pid = this.data.productid
@@ -322,8 +381,14 @@ Page({
             pid = v.order.groupbuyId
           case 'limit':
           case 'product':
+          let total = this.data.total
+            if (this.data.couponType == 2) {
+              total = Math.floor((total * this.data.couponMoney) * 100) / 100
+            } else {
+              total = total - this.data.couponMoney
+            }
             wx.redirectTo({
-              url: `../paydone/index?group=${isgroup}&pid=${pid}&price=${this.data.total}&orderid=${v.order.orderId}`
+              url: `../paydone/index?group=${isgroup}&pid=${pid}&price=${total}&orderid=${v.order.orderId}&name=${this.data.classs}`
             })
             break;
           case 'cut':
@@ -341,7 +406,7 @@ Page({
         radio1 = this.data.radio1,
         radio2 = this.data.radio2,
         radio3 = this.data.radio3,
-        total = this.data.total,
+        total = this.data.total - this.data.couponMoney,
         paytotal = this.data.paytotal,
         data = {
           skuid: info.detailList[0].productSkuid,
@@ -412,8 +477,8 @@ Page({
       let v = res.data.value
       if (v && v.code == 0) {
         if (v.order.grandTotal > 0) {
-          this.formSubmit(v.data.prepayid)
           this.wxPayment(v)
+          this.formSubmit(v.data.prepayid)
         } else {
           let cate = this.data.classs
           let isgroup = this.data.classs == 'group' ? 1 : 0
@@ -425,7 +490,7 @@ Page({
             case 'product':
             case 'cut':
               wx.redirectTo({
-                url: `../paydone/index?group=${isgroup}&pid=${pid}&price=${this.data.total}&orderid=${v.order.orderId}`
+                url: `../paydone/index?group=${isgroup}&pid=${pid}&price=${this.data.total}&orderid=${v.order.orderId}&name=${this.data.classs}`
               })
               break;
             case 'cut':
@@ -438,17 +503,19 @@ Page({
       } else if (res.data.value && res.data.value.code == 1) {
         wx.showToast({
           title: res.data.value.msg,
+          duration: 3000,
           icon: 'none'
         })
       } else if (res.data.code == 1) {
         wx.showToast({
           title: res.data.msg,
+          duration: 3000,
           icon: 'none'
         })
       }
     })
   },
-
+  //  输入用户信息 , 备注信息
   handleIptName(e) {
     this.setData({
       fullname: e.detail.value
@@ -464,6 +531,7 @@ Page({
       remark: e.detail.value
     })
   },
+  //  支付方式
   handleCardItemClick(e) {
     let i = e.currentTarget.dataset.idx,
       info = this.data.info,

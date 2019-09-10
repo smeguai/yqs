@@ -6,7 +6,7 @@
         <view class='header'>商家信息</view>
         <view class='infor'>
           <view>
-            <view class='nate'>{{info.contactName}} {{info.contactMobile}}</view>
+            <view class='nate'><text class='str'>{{info.merchantName}}</text> <text>{{info.contactMobile}}</text></view>
             <view class='addrs'>{{info.addr}}</view>
           </view>
           <view class='rt'>
@@ -35,7 +35,7 @@
       </view>
       <!-- 是商品 -->
       <view class='bloc' wx:if='{{!info.isVouchers}}' wx:for='{{info.detailList}}' wx:key='{{index}}'>
-        <image class='img' src='{{item.imgUrl}}'></image>
+        <image class='img' src='{{item.imgUrl}}' lazy-load mode='aspectFill'></image>
         <view class='info'>
           <view class='name'>{{item.productName}}</view>
           <view class='subtxt'>{{item.productSkuvalName}}</view>
@@ -63,7 +63,7 @@
         <view class='txt'>店铺优惠券</view>
         <view class='rt'>
           <view class='txt' wx:if='{{info.couponList.length==0}}'>无优惠券</view>
-          <view class='txt' wx:else>{{info.couponList[0].couponName}}</view>
+          <view class='txt' wx:else>{{couponLs[couponIdx].couponName}}</view>
           <image src='../../static/img/right.png' class='icon'></image>
         </view>
       </view>
@@ -92,7 +92,7 @@
     </view>
     <view class='pay_count section'>
       <text class='txt'>实际应付</text>
-      <text class='price'>￥{{total}}</text>
+      <text class='price'>￥{{total - couponMoney}}</text>
     </view>
     <view class='paymode section' wx:if='{{info.cashBalance || info.eleCardBalance && info.enabledEleCard}}'>
       <view class='header'>账户余额</view>
@@ -123,9 +123,7 @@
     </view>
   </view>
   <view class='topay'>
-    <form report-submit='true' bindsubmit='formSubmit' class='form'>
-      <button form-type='submit' class='btn' bindtap='submitpay'>立即付款</button>
-    </form>
+    <button class='btn' bindtap='submitpay'>立即付款</button>
   </view>
   <paypass wx:if='{{hasPassMode}}' bindverifypass='verifypass' bindclose='passclose' />
   <!-- 优惠券弹出层 -->
@@ -133,21 +131,41 @@
     <view class='section'>
       <image class='bgimg' src='../../static/img/youhuiquanbg.png'></image>
       <image class='contimg' src='../../static/img/youhuiquan.png'></image>
-      <view class='border' wx:for='{{info.couponList}}'>
+      <view class='border' wx:for='{{couponLs}}'>
         <view class='item'>
           <view class='info'>
             <view class='left'>￥
               <text class='price'>{{item.couponMoney}}</text>
             </view>
             <view class='cent'>
-              <view class='guiz'>{{info.couponName}}</view>
-              <view class='time'>2019.08.18-2019.09.28</view>
+              <view class='guiz'>{{item.couponName}}</view>
+              <view class='time'>{{item.validStartTime}}-{{item.validEndTime}}</view>
             </view>
           </view>
-          <view class='t t1' wx:if='{{item.rcouponId == 0}}'>
+          <view
+           class='t t1' 
+           wx:if='{{total >= item.spendMoney && item.hadReceive}}' 
+           bindtap='handleCoupontItemClick' 
+           data-spend='{{item.spendMoney}}' 
+           data-price='{{item.couponMoney}}' 
+           data-pid='{{item.rcouponId}}'
+           data-type='{{item.couponType}}'
+           data-idx='{{index}}'
+          >
             <text>使用</text>
           </view>
-          <view class='t t2' wx:if='{{item.rcouponId == 0}}'>领取</view>
+          <view class='t t2' wx:if='{{total < item.spendMoney && item.hadReceive}}'>
+            <text>不可用</text>
+          </view>
+          <view 
+            class='t t3' 
+            wx:if='{{ !item.hadReceive }}' 
+            bindtap='getCoupontItemClick' 
+            data-pid='{{item.couponId}}'
+          >
+            <text>领取</text>
+          </view>
+          <!-- <view class='t t2' wx:if='{{item.rcouponId == 0}}'>领取</view> -->
           <!-- <view class='t3'>不可用</view> -->
         </view>
       </view>

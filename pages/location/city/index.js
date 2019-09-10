@@ -1,68 +1,44 @@
-// pages/location/city/index.js
+import {
+  openedcity
+} from '../../../utils/api.js'
+import {
+  promiseRequest
+} from '../../../utils/util.js'
 Page({
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-        city: [
-            { name: '益阳市' }, { name: '岳阳市' }, { name: '株洲市' }, { name: '衡阳市' }, { name: '益阳市' }, { name: '岳阳市' }, { name: '株洲市' }, { name: '衡阳市' },
-        ]
-    },
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    city: null,
+    cityname: ''
+  },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    let cityname = wx.getStorageSync('cityname')
+    this.setData({
+      cityname
+    })
+    this.getOpenedcity()
+  },
+  //  开通城市
+  getOpenedcity() {
+    promiseRequest(openedcity, 'get').then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          city: res.data.data
+        })
+      }
+    })
+  },
+  //  已开通城市 被点击
+  handleCityItemClick(e) {
+    this.setData({
+      cityname: e.currentTarget.dataset.name
+    })
+    wx.setStorageSync('cityname', e.currentTarget.dataset.name)
+  }
 })

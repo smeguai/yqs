@@ -1,7 +1,8 @@
 import {
   existpaypwd,
   getcode,
-  setpaypass
+  setpaypass,
+  hasbindtel
 } from '../../../utils/api.js'
 import {
   promiseRequest
@@ -17,8 +18,6 @@ Page({
     code: false,
     code_num: '',
     confirm: false,
-    haspaypwd: false,
-    hasbindtel: false,
     tel: '',
     timer: 60,
     codetxt: '获取验证码',
@@ -30,7 +29,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getBindTel()
     this.getExistpaypwd()
+  },
+  //  获取绑定的手机号
+  getBindTel() {
+    promiseRequest(hasbindtel, 'get').then(res => {
+      console.log(res)
+      if (res.data.code == 0){
+        this.setData({
+          tel: res.data.mobile
+        })
+      }
+    })
   },
   //  发送验证码
   handleQAcode() {
@@ -40,7 +51,6 @@ Page({
       mobile: userInfo.mobile,
       action: 'paypwd'
     }).then(res => {
-      console.log(res)
       if (res.data.code == 0) {
         wx.showToast({
           title: res.data.msg,
@@ -161,11 +171,15 @@ Page({
     }
     this.setData({
       confirm,
-      code_num: v
+      code_num: v,
+      alert: ''
     })
   },
   //  设置密码
   setPass() {
+    wx.showLoading({
+      title: '设置密码...'
+    })
     promiseRequest(setpaypass, 'get', {
       pwd: this.data.pass,
       validcode: this.data.code_num
@@ -175,9 +189,8 @@ Page({
           delat: -1
         })
       } else if (res.data.code == 1) {
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'none'
+        this.setData({
+          alert: res.data.msg
         })
       }
     })

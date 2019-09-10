@@ -3,7 +3,8 @@ import {
   limit,
   cut,
   coupon,
-  banner
+  banner,
+  getreceive
 } from '../../utils/api.js'
 import {
   promiseRequest
@@ -21,6 +22,7 @@ Page({
     limitCurrent: 0,
     cutCurrent: 0,
     bannerCurrent: 0,
+    onLine: false,
     pageSize: 5,
     pageIndex: 1,
     merchantId: 0,
@@ -34,36 +36,68 @@ Page({
     loding: true,
     location: null
   },
+  onShow() {
+    this.setData({
+      stationId: wx.getStorageSync('station').stationId,
+      location: wx.getStorageSync('location'),
+      onLine: wx.getStorageSync('userInfo') ? true : false
+    })
+    Promise.all([this.getBanner(), this.getCoupon(), this.getGroupdata(), this.getCutdata(), this.getLimitdata()]).then(() => {
+      this.setData({
+        loding: false
+      })
+    })
+  },
+  //  跳转 商家页
+  handleSellerClick(e) {
+    let pid = e.currentTarget.dataset.pid
+    let title = e.currentTarget.dataset.title
+    wx.navigateTo({
+      url: `../indexnavs/shop/index?pid=${pid}&title=${title}`,
+    })
+  },
   //  购买代金券
   handleClickPay(e) {
-    let pid = e.currentTarget.dataset.pid
-    wx.navigateTo({
-      url: `../pay/index?classs=product&productid=${pid}&count=1&skuid=0`,
-    })
+    if (this.data.onLine) {
+      let pid = e.currentTarget.dataset.pid
+      wx.navigateTo({
+        url: `../pay/index?classs=product&productid=${pid}&count=1&skuid=0`,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../accredit/index'
+      })
+    }
   },
 
   //  领取优惠券
   handleClickGet(e) {
-    wx.showLoading({
-      title: '领取中...',
-      mask: true
-    })
-    promiseRequest(getreceive, 'get', {
-      couponId: e.currentTarget.dataset.id
-    }).then(res => {
-      if (res.data.code == 0) {
-        wx.showToast({
-          title: '领取成功!',
-          icon: 'none'
-        })
-      } else {
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'none'
-        })
-      }
-      wx.hideLoading()
-    })
+    if (this.data.onLine) {
+      wx.showLoading({
+        title: '领取中...',
+        mask: true
+      })
+      promiseRequest(getreceive, 'get', {
+        couponId: e.currentTarget.dataset.id
+      }).then(res => {
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '领取成功!',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+        wx.hideLoading()
+      })
+    } else {
+      wx.navigateTo({
+        url: '../accredit/index'
+      })
+    }
   },
   //  获取banner图
   getBanner() {
@@ -171,20 +205,6 @@ Page({
           groupdata: res.data.data
         })
       }
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    this.setData({
-      stationId: wx.getStorageSync('station').stationId,
-      location: wx.getStorageSync('location')
-    })
-    Promise.all([this.getBanner(), this.getCoupon(), this.getGroupdata(), this.getCutdata(), this.getLimitdata()]).then(() => {
-      this.setData({
-        loding: false
-      })
     })
   },
   handleTabItemClick(e) {
