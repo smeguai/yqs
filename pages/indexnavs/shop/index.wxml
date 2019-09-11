@@ -171,7 +171,8 @@
       <view class='bott'>
         <view class='price'>
           <text>砍价至￥</text>
-          <text class='num'>{{item.price}}领</text>
+          <text class='num'>{{item.price}}</text>
+          <text>领</text>
         </view>
         <view class='tagprice del'>￥{{item.tagPrice}}</view>
         <view class='rt'>已售{{item.virtualSoldNum}}份/剩余{{item.quantity}}份</view>

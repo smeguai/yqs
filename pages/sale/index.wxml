@@ -1,5 +1,4 @@
 <view class='container'>
-
   <view class='nav'>
     <view class='item {{navcurrent == index ? "active": ""}}' wx:for='{{navlist}}' data-idx='{{index}}' bindtap="handleNavItemClick">
       <text>{{item}}</text>
@@ -7,9 +6,9 @@
     </view>
   </view>
 
-  <view class='list-wrapper'>
+  <view class='list-wrapper' wx:if='{{list.length > 0}}'>
     <view class='item' wx:for='{{list}}' bindtap='handleNavigate' data-id='{{item.productId}}'>
-      <image class='img' src='{{item.coverUrl}}'></image>
+      <image class='img' src='{{item.coverUrl}}' mode='aspectFill'></image>
       <view class='midd'>
         <view class='price'>￥{{item.price}}<text class='tagprice del'>￥{{item.tagPrice}}</text></view>
         <view class='paynum'>已售{{item.virtualSoldNum}}</view>
@@ -17,6 +16,7 @@
       <view class='name strmore'>{{item.productName}}</view>
     </view>
   </view>
-
-
+  <view wx:else>
+    
+  </view>
 </view>

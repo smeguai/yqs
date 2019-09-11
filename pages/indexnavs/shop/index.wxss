@@ -453,8 +453,8 @@
 }
 .container .goodes .bott .price {
   padding-left: 16rpx;
-  color: #FF6600;font-size: 24rpx;
-  font-weight: bold;
+  color: #FF6600;
+  font-size: 24rpx;
 }
 .container .goodes .bott .price .num {
   font-size: 38rpx;

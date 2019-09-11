@@ -42,25 +42,25 @@ App({
     return new Promise((res, rej) => {
       let station = wx.getStorageSync('station')
       let location = wx.getStorageSync('location')
-      if (station) {
-        this.globalData.station = station
-        this.globalData.location = location
-      } else {
-        wx.getLocation({
-          success: (res) => {
-            this.globalData.location = [res.latitude, res.longitude]
-            wx.setStorage({
-              key: 'location',
-              data: [res.latitude, res.longitude],
-            })
-          },
-          complete: () => {
-            wx.navigateTo({
-              url: '../location/index',
-            })
-          }
-        })
-      }
+        if (station) {
+          this.globalData.station = station
+          this.globalData.location = location
+        } else {
+          wx.getLocation({
+            success: (res) => {
+              this.globalData.location = [res.latitude, res.longitude]
+              wx.setStorage({
+                key: 'location',
+                data: [res.latitude, res.longitude],
+              })
+            },
+            complete: () => {
+              wx.navigateTo({
+                url: '../location/index',
+              })
+            }
+          })
+        }
     })
   },
   _saveFormId(formid) {

@@ -44,6 +44,11 @@ Page({
             }, 1000)
           }
         })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
       }
     })
   },

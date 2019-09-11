@@ -72,6 +72,8 @@
   <!-- 缺省 -->
   <view class='notlist' wx:else>
     <image class='icon' src='../../../static/img/notcoupon.png'></image>
-    <view class='txt'>还没有优惠券，赶快去领取吧~</view>
+    <view class='txt' wx:if='{{activeIndex == 0}}'>还没有优惠券 赶快去领取吧~</view>
+    <view class='txt' wx:else>还没有优惠券~</view>
+
   </view>
 </view>

@@ -1,0 +1,245 @@
+.container .main .shoping .bloc {
+  padding: 18rpx 14rpx 30rpx 24rpx;
+  display: flex;
+}
+.container {
+  position: relative;
+}
+.container .main .shoping .bloc .img {
+  width: 240rpx;
+  height: 160rpx;
+  border-radius: 10rpx;
+}
+.container .aside {
+  background: rgba(0, 0, 0, .4);
+  border-radius: 40rpx;
+  position: fixed;
+  right: 30rpx;
+  top: 40%;
+  transform: translateY(-50%);
+  padding: 10rpx 0;
+  z-index: 999;
+}
+
+.container .aside .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10rpx;
+  background: transparent;
+}
+.container .aside .item::after  {
+  border: none;
+}
+.container .aside .item .icon {
+  width: 34rpx;
+  height: 34rpx;
+}
+.container .aside .item .txt {
+  font-size: 20rpx;
+  color: #fff;
+}
+.container .main .shoping .bloc .info {
+  padding-left: 20rpx;
+  flex: 1;
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #999999;
+}
+
+.container .main .shoping .bloc .info .name {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.container .main .shoping .bloc .info .subtxt {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.container .main .shoping .bloc .info .bott {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .main .shoping .bloc .info .bott .lf .price {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.container .main .shoping .bloc .info .bott .lf .oldprice {
+  padding-left: 24rpx;
+  font-size: 20rpx;
+  color: #999;
+}
+
+.container .main .shoping .ad {
+  border-top: 1rpx solid #f5f5f5;
+  display: flex;
+  padding: 30rpx 28rpx;
+}
+
+.container .main .shoping .ad .txt {
+  font-size: 24rpx;
+  flex: 1;
+}
+
+.container .main .shoping .ad .price {
+  font-size: 28rpx;
+  color: #f60;
+  font-weight: bold;
+}
+
+.container .main .ipts .item {
+  display: flex;
+  font-size: 28rpx;
+  padding: 24rpx 18rpx 26rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.container .main .ipts .item .txt {
+  width: 120rpx;
+}
+
+.container .main .ipts .item .ipt {
+  flex: 1;
+  text-align: right;
+}
+
+.container .main .ipts .item .textarea {
+  background: #f9f9f9;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  padding: 20rpx;
+  height: 140rpx;
+}
+
+.container .main .sell .blo {
+  padding: 38rpx 24rpx 34rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.container .main .sell .blo .header {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.container .main .sell .blo .infor .lf {
+  width: 0;
+  flex: 1;
+}
+.container .main .sell .blo .infor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .main .sell .blo .infor .nate {
+  font-size: 28rpx;
+  font-weight: 500;
+  padding-top: 30rpx;
+  display: flex;
+}
+
+.container .main .sell .blo .infor .nate text {
+  flex: 1;
+  padding-left: 10rpx;
+  box-sizing: border-box;
+}
+
+.container .main .sell .blo .infor .rt {
+  display: flex;
+  align-items: center;
+}
+
+.container .main .sell .blo .infor .rt .shu {
+  color: #f0f0f0;
+  padding: 0 10rpx;
+}
+
+.container .main .sell .blo .infor .addrs {
+  font-size: 24rpx;
+  padding-top: 14rpx;
+}
+
+.container .main .sell .blo .infor .icon {
+  width: 34rpx;
+  height: 34rpx;
+  padding: 10rpx;
+}
+
+.container .main .sell .btns {
+  display: flex;
+  height: 66rpx;
+  align-items: center;
+}
+
+.container .main .sell .btns .btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .main .sell .btns .btn:last-child {
+  border-left: 1rpx solid #f5f5f5;
+}
+
+.container .main .sell .btns .btn .icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.container .main .sell .btns .btn .txt {
+  font-size: 24rpx;
+  color: #666;
+}
+.container {
+  padding-bottom: 98rpx;
+}
+.main {
+  position: relative;
+  z-index: 99;
+  padding: 64rpx 24rpx 0 24rpx;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.main .section {
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 18rpx 24rpx;
+  margin-top: 20rpx;
+}
+
+.pay_count {
+  background: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  box-sizing: border-box;
+  z-index: 99;
+}
+
+.pay_count .btn {
+  width: 100%;
+  background: #ffde4e;
+  border-radius: 38rpx;
+  font-size: 32rpx;
+}
+
+.container .bgcolor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 190rpx;
+  background: #ffde4e;
+}

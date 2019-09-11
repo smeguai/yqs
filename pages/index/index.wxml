@@ -107,7 +107,7 @@
     <scroll-view class='scroll' scroll-x>
       <view class='scroll-list'>
         <view class='item' wx:for='{{collection}}' wx:key='{{index}}' data-pid='{{item.merchantId}}' bindtap='handleSellerClick'>
-          <image class='avatar' src='{{item.headImgUrl}}'></image>
+          <image class='avatar' src='{{item.headImgUrl}}' lazy-load  mode='aspectFill'></image>
           <view class='info'>
             <view class='title str'>{{item.merchantName}}</view>
             <view class='tagtxt str'>{{item.tagName}}</view>
@@ -124,7 +124,7 @@
     <text class='sanjiao'></text>
     </view>
     <view class='item' wx:for='{{recommendList}}' wx:key='{{index}}' bindtap="handleSellerClick" data-pid='{{item.merchantId}}'>
-      <image src='{{item.merchantImgUrl && item.merchantImgUrl !="" ?item.merchantImgUrl:"../../static/img/imgloading.png"}}' class='avatar'></image>
+      <image src='{{item.merchantImgUrl && item.merchantImgUrl !="" ?item.merchantImgUrl:"../../static/img/imgloading.png"}}' class='avatar' lazy-load mode='aspectFill'></image>
       <view class='info'>
         <view class='top'>
           <view class='name'>{{item.merchantName}}</view>
@@ -153,7 +153,8 @@
         <scroll-view class='goods' scroll-x='{{item.proList?true: false}}'>
           <view class='list'>
             <view class='goodsitem' wx:for='{{item.proList}}' wx:key='{{index}}' catchtap='handleTogoodsDetail' data-type='{{item.type}}' data-pid='{{item.productId}}'>
-              <image mode='aspectFill' src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl'></image>
+              <image mode='aspectFill' src='{{item.productImgUrl && item.productImgUrl != "" ? item.productImgUrl : "../../static/img/imgloading.png"}}' class='imgurl' lazy-load  mode='aspectFill'></image>
+              <view class='title str'>{{item.productName}}{{item.productName}}</view>
               <view class='price'>
                 ￥{{item.price}}
                 <text class='oldprice del'>￥{{item.tagPrice}}</text>

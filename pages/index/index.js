@@ -24,10 +24,11 @@ Page({
     typeId: 0,
     navList: null,
     swiperList: null,
+    shareImg: '',
     collection: null,
     navDefList: [{
       imgUrl: '../../static/img/index_sys.png',
-      txt: '扫一扫',
+      txt: '精选',
       id: 0
     }, {
       imgUrl: '../../static/img/index_yhtg.png',
@@ -51,7 +52,7 @@ Page({
     limitdata: null,
     recommendList: [],
     loding: true
-    
+
     // ,signShow: false
   },
   //  用户登录
@@ -136,7 +137,7 @@ Page({
         })
         break;
       case 2:
-      //  不做任何处理
+        //  不做任何处理
         break;
     }
   },
@@ -180,6 +181,7 @@ Page({
       id: 0
     }).then(res => {
       if (res.data.code == 0) {
+        console.log(res)
         this.setData({
           swiperList: res.data.data
         })
@@ -203,7 +205,6 @@ Page({
           loding: false,
           recommendList: [...this.data.recommendList, ...res.data.data]
         })
-        console.log(res.data.data)
       }
     })
   },
@@ -224,6 +225,20 @@ Page({
   handleTogoole() {
     this.setData({
       tipsShow: false
+    })
+  },
+  //  获取分享海报
+  getShareImg() {
+    if (this.data.shareImg) return
+    promiseRequest(banner, 'get', {
+      id: 5,
+      stationId: this.data.stationId
+    }).then(res => {
+      if (res.data.code == 0) {
+        this.setData({
+          shareImg: res.data.data[0].imgUrl
+        })
+      }
     })
   },
   onLoad() {
@@ -252,7 +267,7 @@ Page({
     return {
       title: '翼省钱go',
       path: `/pages/index/index`,
-      imageUrl: 'https://img.bnbn99.com/yqs/channel/e5508ce21ee16c65.png'
+      imageUrl: this.data.shareImg
     }
   },
   //  我的关注
@@ -272,7 +287,6 @@ Page({
     let station = wx.getStorageSync('station')
     let location = wx.getStorageSync('location')
     let userinfo = wx.getStorageSync('userInfo')
-    console.log(!!userinfo, !this.data.collection)
     if (userinfo && !this.data.collection) {
       this.getCollction()
     } else if (!userinfo) {
@@ -302,6 +316,7 @@ Page({
       this.getindexNav()
       this.getDiscount()
       this.getShop()
+      this.getShareImg()
     }
   },
   /**
@@ -358,15 +373,8 @@ Page({
     let i = e.currentTarget.dataset.id
     switch (i) {
       case 0:
-        wx.scanCode({
-          onlyFromCamera: true,
-          scanType: 'qrCode',
-          success: () => {
-            console.log('done')
-          },
-          fail: () => {
-            console.log('err')
-          }
+        wx.navigateTo({
+          url: '../sale/index',
         })
         break;
       case 1:

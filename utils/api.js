@@ -158,8 +158,14 @@ const xcxloginfcode = configUrl + '/api/wechat/xcxloginfcode',
   //  获取小程序二维码图片地址
   getcodeimgurl = configUrl + '/api/wechat/img/createcode',
   //  获取特惠 更多里 navbar
-  collnavbar = configUrl + '/api/shoppingtype/get'
+  collnavbar = configUrl + '/api/shoppingtype/get',
+  //  业务办理申请信息
+  telecombusiness = configUrl + '/api/shopping/telecombusiness',
+  //  扫码申请业务提交订单
+  telecombusorder = configUrl + '/api/systemorder/submitted'
 module.exports = {
+  telecombusorder,
+  telecombusiness,
   collnavbar,
   getcodeimgurl,
   getcodeimg,

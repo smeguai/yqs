@@ -65,7 +65,6 @@
 }
 .container .list .item .desc {
     display: flex;
-    align-items: center;
     padding: 28rpx 0;
     box-sizing: border-box;
     border-bottom: 1rpx solid #F6F6F6;
@@ -127,6 +126,11 @@
 .container .list .item .handle .txt {
     font-size: 28rpx;
     flex: 1;
+}
+.container .list .item .handle .txttime {
+  font-size: 24rpx;
+  color: #999999;
+  flex: 1;
 }
 .container .list .item .handle .txt .price {
     color: #FF6600;

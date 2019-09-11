@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 40,
+			"current": 41,
 			"list": [
 				{
 					"id": -1,
@@ -336,6 +336,13 @@
 					"name": "pages/goodsdetail/index",
 					"pathName": "pages/goodsdetail/index",
 					"query": "scene=limit,50,0",
+					"scene": null
+				},
+				{
+					"id": 41,
+					"name": "电信业务申请",
+					"pathName": "pages/teleservice/index",
+					"query": "stationId=1&telecomId=10011&shareUid=101",
 					"scene": null
 				}
 			]

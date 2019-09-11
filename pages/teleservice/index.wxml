@@ -1,0 +1,61 @@
+<view class='container'>
+  <view class='aside'>
+    <button class='item' open-type="share">
+      <image class='icon' src='../../static/img/share.png'></image>
+      <text class='txt'>分享</text>
+    </button>
+    <view class='item' bindtap='handleNavigateToIndex'>
+      <image class='icon' src='../../static/img/toindex.png'></image>
+      <text class='txt'>首页</text>
+    </view>
+  </view>
+  <view class='bgcolor'></view>
+  <view class='main'>
+    <view class='sell section'>
+      <view class='blo'>
+        <view class='header'>营业厅信息</view>
+        <view class='infor'>
+          <view class='lf'>
+            <view class='nate'>
+              <text class='str'>{{info.merchantName}}</text>
+              <text>{{info.contactMobile}}</text>
+            </view>
+            <view class='addrs'>{{info.addr}}</view>
+          </view>
+          <view class='rt'>
+            <image class='icon' src='../../static/img/phone.png' data-tel='{{info.contactMobile}}' bindtap="handlePhoneClick"></image>
+            <text class='shu'>|</text>
+            <image class='icon' src='../../static/img/addrs.png' data-addr='{{info.addr}}' bindtap="handleSellerAddr"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='shoping section'>
+
+      <!-- 是商品 -->
+      <view class='bloc'>
+        <image class='img' src='{{info.productImg}}' lazy-load mode='aspectFill'></image>
+        <view class='info'>
+          <view class='name'>{{info.productName}}</view>
+          <view class='subtxt'>数量: {{info.quantity}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='ipts section'>
+      <view class='item'>
+        <view class='txt'>姓名</view>
+        <input class='ipt' placeholder='请输入姓名' value='{{name}}' bindinput='handleIptName'></input>
+      </view>
+      <view class='item'>
+        <view class='txt'>联系电话</view>
+        <input class='ipt' type='number' maxlength="11" placeholder='请输入手机号' value='{{tel}}' bindinput='handleIptTel'></input>
+      </view>
+      <view class='item'>
+        <textarea class='textarea' placeholder='留言备注' value='{{remark}}' bindinput='handleIptRemark'></textarea>
+      </view>
+    </view>
+  </view>
+    <view class='pay_count'>
+      <button class='btn' bindtap='submitpay'>立即申请</button>
+    </view>
+</view>

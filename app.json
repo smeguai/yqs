@@ -50,7 +50,8 @@
     "pages/setting/subfeedback/index",
     "pages/indexnavs/allgoods/index",
     "component/upload/index",
-    "pages/indexnavs/webview/index"
+    "pages/indexnavs/webview/index",
+    "pages/teleservice/index"
   ],
   "permission": {
     "scope.userLocation": {
