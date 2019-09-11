@@ -6,6 +6,7 @@ import {
 import {
   promiseRequest
 } from '../../utils/util.js'
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -92,12 +93,20 @@ Page({
   },
   // 重新发起砍价
   handleTogoodsdetail(e) {
-    wx.navigateTo({
-      url: `../indexnavs/askedprice/index?pid=${e.currentTarget.dataset.pid}&name=cut`
-    })
+    if (app.globalData.onLine) {
+      wx.navigateTo({
+        url: `../indexnavs/askedprice/index?pid=${e.currentTarget.dataset.pid}&name=cut`
+      }) 
+    } else {
+      wx.navigateTo({
+        url: '../accredit/index',
+      })
+    }
   },
   //  帮忙砍价
   handleCutfriendcut() {
+    console.log(app.globalData.onLine)
+    if(app.globalData.onLine) {
     promiseRequest(cutfriendcut, 'get', {
       cutPriceId: this.data.pid
     }).then(res => {
@@ -113,6 +122,11 @@ Page({
         })
       }
     })
+    } else {
+      wx.navigateTo({
+        url: '../accredit/index'
+      })
+    }
   },
   //  砍价详情
   getCutDesc() {

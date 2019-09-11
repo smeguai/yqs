@@ -101,10 +101,10 @@ Page({
       fullname: this.data.name,
       telephone: this.data.tel,
       telecomId: this.data.telecomId,
-      merchantId: this.data.info.telecomId
+      merchantId: this.data.shareUid
     }).then(res => {
       if (res.data.value && res.data.value.code == 0) {
-        let orderid = res.data.order.orderId
+        let orderid = res.data.value.order.orderId
         wx.showModal({
           title: '申请成功',
           confirmColor: '#FF6600',

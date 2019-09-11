@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 41,
+			"current": 42,
 			"list": [
 				{
 					"id": -1,
@@ -213,7 +213,7 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 23,
 					"name": "砍价",
 					"pathName": "pages/indexnavs/askedprice/index",
 					"query": "",
@@ -343,6 +343,13 @@
 					"name": "电信业务申请",
 					"pathName": "pages/teleservice/index",
 					"query": "stationId=1&telecomId=10011&shareUid=101",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的砍价详情",
+					"pathName": "pages/cutdetail/index",
+					"query": "pid=171",
 					"scene": null
 				}
 			]
